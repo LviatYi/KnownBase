@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="61px" preserveAspectRatio="none" style="width:228px;height:61px;" version="1.1" viewBox="0 0 228 61" width="228px" zoomAndPan="magnify"><defs><filter height="300%" id="fnqaoowgmphgn" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FEFECE" filter="url(#fnqaoowgmphgn)" height="40" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="50" x="86" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="94" y="33.4844">state</text><ellipse cx="16" cy="27" fill="#000000" filter="url(#fnqaoowgmphgn)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="206" cy="27" fill="none" filter="url(#fnqaoowgmphgn)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="206.5" cy="27.5" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><!--MD5=[00ad59dafe6a236f25e260c5ab684aea]
+link *start to state--><path d="M26.26,27 C38.86,27 61.98,27 80.74,27 " fill="none" id="*start-to-state" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="85.91,27,76.91,23,80.91,27,76.91,31,85.91,27" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[554e84488fcd7e4bd96c10588a900607]
+link state to *end--><path d="M136.43,27 C153.54,27 175.83,27 190.27,27 " fill="none" id="state-to-*end" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="195.58,27,186.58,23,190.58,27,186.58,31,195.58,27" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[1c7673f90ece9db83a31c0ad68277d31]
+@startuml State
+
+left to right direction
+hide empty description
+state state
+
+[*]- ->state
+state- ->[*]
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 18:25:05 CST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK Client VM
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg>

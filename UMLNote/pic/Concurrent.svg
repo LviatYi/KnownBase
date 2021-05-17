@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="178px" preserveAspectRatio="none" style="width:392px;height:178px;" version="1.1" viewBox="0 0 392 178" width="392px" zoomAndPan="magnify"><defs><filter height="300%" id="fjmj7lnz8ku89" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="16" cy="86.5" fill="#000000" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="370" cy="86.5" fill="none" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="370.5" cy="87" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><rect fill="#FEFECE" filter="url(#fjmj7lnz8ku89)" height="159.125" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="214" x="86" y="7"/><rect fill="#FFFFFF" height="124" rx="12.5" ry="12.5" style="stroke:#FFFFFF;stroke-width:1.0;" width="208" x="89" y="39.125"/><line style="stroke:#A80036;stroke-width:1.5;" x1="86" x2="300" y1="36.125" y2="36.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="176" y="28.0469">state</text><rect fill="#FEFECE" filter="url(#fjmj7lnz8ku89)" height="40" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="77" x="153" y="48.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="158" y="74.6094">subState1</text><ellipse cx="107" cy="68.125" fill="#000000" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="276" cy="68.125" fill="none" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="276.5" cy="68.625" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><!--MD5=[5f1f972a117ed09283f6b4b0b0b5cd58]
+link *start*state to subState1--><path d="M117.14,68.125 C124.71,68.125 136.05,68.125 147.57,68.125 " fill="none" id="*start*state-to-subState1" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="152.86,68.125,143.86,64.125,147.86,68.125,143.86,72.125,152.86,68.125" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[344366b28d040d035310ed178dff5ccf]
+link subState1 to *end*state--><path d="M230.37,68.125 C241.11,68.125 252.15,68.125 260.57,68.125 " fill="none" id="subState1-to-*end*state" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="265.94,68.125,256.94,64.125,260.94,68.125,256.94,72.125,265.94,68.125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.5;stroke-dasharray:8.0,10.0;" x1="91" x2="293" y1="101.125" y2="101.125"/><rect fill="#FEFECE" filter="url(#fjmj7lnz8ku89)" height="40" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="77" x="153" y="108.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="158" y="134.6094">subState2</text><ellipse cx="107" cy="128.125" fill="#000000" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="276" cy="128.125" fill="none" filter="url(#fjmj7lnz8ku89)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="276.5" cy="128.625" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><!--MD5=[93de28dac7d783f5db30f7c76cc91b10]
+link *start*CONC10 to subState2--><path d="M117.14,128.125 C124.71,128.125 136.05,128.125 147.57,128.125 " fill="none" id="*start*CONC10-to-subState2" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="152.86,128.125,143.86,124.125,147.86,128.125,143.86,132.125,152.86,128.125" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[84665dcf021411a791ac9e81a2bccf6a]
+link subState2 to *end*CONC10--><path d="M230.37,128.125 C241.11,128.125 252.15,128.125 260.57,128.125 " fill="none" id="subState2-to-*end*CONC10" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="265.94,128.125,256.94,124.125,260.94,128.125,256.94,132.125,265.94,128.125" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[00ad59dafe6a236f25e260c5ab684aea]
+link *start to state--><path d="M26.41,86.5 C37.7,86.5 57.94,86.5 80.49,86.5 " fill="none" id="*start-to-state" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="85.64,86.5,76.64,82.5,80.64,86.5,76.64,90.5,85.64,86.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[554e84488fcd7e4bd96c10588a900607]
+link state to *end--><path d="M300.09,86.5 C321.69,86.5 341.71,86.5 354.54,86.5 " fill="none" id="state-to-*end" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="359.59,86.5,350.59,82.5,354.59,86.5,350.59,90.5,359.59,86.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a958da9d0f1e0340073a349f302d5a25]
+@startuml Concurrent
+
+left to right direction
+hide empty description
+
+state state{
+    state subState1
+
+    [*]- ->subState1
+    subState1- ->[*]
+    - -
+    
+    state subState2
+
+    [*]- ->subState2
+    subState2- ->[*]
+
+}
+
+[*]- ->state
+state- ->[*]
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 18:25:05 CST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK Client VM
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg>

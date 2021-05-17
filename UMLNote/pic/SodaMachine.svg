@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="410px" preserveAspectRatio="none" style="width:697px;height:410px;" version="1.1" viewBox="0 0 697 410" width="697px" zoomAndPan="magnify"><defs><filter height="300%" id="f1oxsjbmt11ut3" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[7553e6f492958f539df49440fdc60eb5]
+cluster SodaMachine--><rect fill="#FFFFFF" filter="url(#f1oxsjbmt11ut3)" height="346" style="stroke:#000000;stroke-width:1.5;" width="480" x="205.5" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="99" x="396" y="27.2031">Soda Machine</text><ellipse cx="277.0381" cy="320.0783" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="55.5381" ry="16.5783" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62" x="243.0381" y="325.3517">Buy Soda</text><ellipse cx="277.2037" cy="125.0334" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="49.7037" ry="16.5334" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="54" x="248.9324" y="129.8862">Restock</text><ellipse cx="276.8051" cy="244.0234" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="43.3051" ry="16.5234" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="254.3051" y="248.5078">Collect</text><ellipse cx="559.7553" cy="282.7511" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="79.2553" ry="18.2511" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="503.7553" y="288.0245">Expose Machine</text><ellipse cx="560.2463" cy="190.0493" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="85.7463" ry="19.5493" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123" x="497.4977" y="194.8862">Unexpose Machine</text><ellipse cx="559.8534" cy="71.7707" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="109.3534" ry="24.2707" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="470.8534" y="76.255">Restock according to sales</text><!--MD5=[ae78ca0dd1f49bdd788e5556d70823ac]
+entity Customer--><ellipse cx="126.5" cy="330.5" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M126.5,338.5 L126.5,365.5 M113.5,346.5 L139.5,346.5 M126.5,365.5 L113.5,380.5 M126.5,365.5 L139.5,380.5 " fill="none" filter="url(#f1oxsjbmt11ut3)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="64" x="94.5" y="402.0469">Customer</text><!--MD5=[ac422f38a94de2927eb8b5af36b02a3c]
+entity Supplier--><ellipse cx="126.5" cy="92.5" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M126.5,100.5 L126.5,127.5 M113.5,108.5 L139.5,108.5 M126.5,127.5 L113.5,142.5 M126.5,127.5 L139.5,142.5 " fill="none" filter="url(#f1oxsjbmt11ut3)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="100.5" y="164.0469">Supplier</text><!--MD5=[faf10c77907478292aab895924406d78]
+entity Collector--><ellipse cx="126.5" cy="211.5" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M126.5,219.5 L126.5,246.5 M113.5,227.5 L139.5,227.5 M126.5,246.5 L113.5,261.5 M126.5,246.5 L139.5,261.5 " fill="none" filter="url(#f1oxsjbmt11ut3)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="97" y="283.0469">Collector</text><!--MD5=[285ae256fc220bdf9a4f8a9269c49434]
+entity Boy--><ellipse cx="19" cy="330.5" fill="#FEFECE" filter="url(#f1oxsjbmt11ut3)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M19,338.5 L19,365.5 M6,346.5 L32,346.5 M19,365.5 L6,380.5 M19,365.5 L32,380.5 " fill="none" filter="url(#f1oxsjbmt11ut3)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="6.5" y="402.0469">Boy</text><!--MD5=[459005fc94fdf425af2e08617c6e553a]
+link Restock to Expose--><path d="M297.56,140.2 C314.32,152.91 339.35,171.12 362.5,185 C414.03,215.89 476.58,245.89 517.06,264.38 " fill="none" id="Restock-to-Expose" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="521.88,266.58,515.3506,259.2066,517.3306,264.5056,512.0316,266.4856,521.88,266.58" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="363.5" y="181.8906">«include»</text><!--MD5=[2eabdda0736dfe790e7844810868a49d]
+link Restock to Unexpose--><path d="M318.26,134.31 C364.2,144.94 439.98,162.47 494.25,175.02 " fill="none" id="Restock-to-Unexpose" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="499.43,176.22,491.565,170.292,494.559,175.0915,489.7594,178.0855,499.43,176.22" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="363.5" y="143.8906">«include»</text><!--MD5=[f4910c1cf5c8e059ebd32cfdc3fa1515]
+link Collect to Expose--><path d="M297.33,258.92 C319.91,276.2 355.14,302.62 362.5,305 C410.99,320.68 469.33,310.77 509.78,299.68 " fill="none" id="Collect-to-Expose" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="514.62,298.33,504.8762,296.8952,509.8038,299.6734,507.0256,304.601,514.62,298.33" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="363.5" y="301.8906">«include»</text><!--MD5=[a9deed2be40fe10d76c801f8f1181e39]
+link Collect to Unexpose--><path d="M320.55,245.2 C333.97,245.53 348.85,245.84 362.5,246 C388.28,246.3 395.2,250.92 420.5,246 C455.88,239.12 493.66,223.21 520.81,210.1 " fill="none" id="Collect-to-Unexpose" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="525.41,207.85,515.5668,208.1841,520.9125,210.0345,519.062,215.3802,525.41,207.85" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="363.5" y="242.8906">«include»</text><!--MD5=[6e2a94ff90490dbcf1c7d49a9077118d]
+link Restock to Restock_sales--><path d="M317.01,115.2 C331.27,111.77 347.58,108.02 362.5,105 C395.49,98.33 431.79,91.97 464.11,86.64 " fill="none" id="Restock-to-Restock_sales" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="469.26,85.79,459.7365,83.2793,464.3242,86.5889,461.0147,91.1766,469.26,85.79" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="365" y="91.8906">«extend»</text><!--MD5=[6fe37936f38cd4af3d446e23a797e01c]
+link Boy to Customer--><path d="M33.79,363 C44.25,363 59.33,363 74.25,363 " fill="none" id="Boy-to-Customer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="74.39,356,94.39,363,74.39,370,74.39,356" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[9dc7bb3d586d5bf72bd749c5f1936ce7]
+link Customer to BuySoda--><path d="M158.63,353.99 C181.34,347.41 212.28,338.45 236.69,331.38 " fill="none" id="Customer-BuySoda" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b3650224463332f3c3c13b93338825e8]
+link Supplier to Restock--><path d="M152.69,125 C173.05,125 202.31,125 227.22,125 " fill="none" id="Supplier-Restock" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f3424e75e86b7b5dd0e84a171bbd31c7]
+link Collector to Collect--><path d="M156.13,244 C178.05,244 208.61,244 233.4,244 " fill="none" id="Collector-Collect" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[2e0c9f12212c2081912683a447d0872c]
+@startuml SodaMachine
+
+left to right direction
+actor Customer
+actor Supplier
+actor Collector
+actor Boy
+
+rectangle "Soda Machine" as SodaMachine{
+    usecase "Buy Soda" as BuySoda
+    usecase "Restock" as Restock
+    usecase "Collect" as Collect
+    usecase "Expose Machine" as Expose
+    usecase "Unexpose Machine" as Unexpose
+    usecase "Restock according to sales" as Restock_sales
+    Restock ..>Expose :<<include>>
+    Restock ..>Unexpose:<<include>>
+    Collect ..>Expose:<<include>>
+    Collect ..>Unexpose:<<include>>
+    Restock ..>Restock_sales:<<extend>>
+}
+
+Boy- -|>Customer
+Customer - - BuySoda
+Supplier - - Restock
+Collector - - Collect
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 18:25:05 CST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK Client VM
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg>

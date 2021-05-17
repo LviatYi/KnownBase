@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="118px" preserveAspectRatio="none" style="width:384px;height:118px;" version="1.1" viewBox="0 0 384 118" width="384px" zoomAndPan="magnify"><defs><filter height="300%" id="f1t7tj4sy998ws" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><ellipse cx="16" cy="56.5" fill="#000000" filter="url(#f1t7tj4sy998ws)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="362" cy="56.5" fill="none" filter="url(#f1t7tj4sy998ws)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="362.5" cy="57" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><rect fill="#FEFECE" filter="url(#f1t7tj4sy998ws)" height="99.125" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="206" x="86" y="7"/><rect fill="#FFFFFF" height="64" rx="12.5" ry="12.5" style="stroke:#FFFFFF;stroke-width:1.0;" width="200" x="89" y="39.125"/><line style="stroke:#A80036;stroke-width:1.5;" x1="86" x2="292" y1="36.125" y2="36.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="172" y="28.0469">state</text><rect fill="#FEFECE" filter="url(#f1t7tj4sy998ws)" height="40" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="69" x="153" y="48.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="158" y="74.6094">subState</text><ellipse cx="107" cy="68.125" fill="#000000" filter="url(#f1t7tj4sy998ws)" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="268" cy="68.125" fill="none" filter="url(#f1t7tj4sy998ws)" rx="10" ry="10" style="stroke:#000000;stroke-width:1.0;"/><ellipse cx="268.5" cy="68.625" fill="#000000" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><!--MD5=[baadd9aa86f6f59b75c9cb44952c6013]
+link *start*state to subState--><path d="M117,68.125 C124.62,68.125 136.08,68.125 147.52,68.125 " fill="none" id="*start*state-to-subState" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="152.76,68.125,143.76,64.125,147.76,68.125,143.76,72.125,152.76,68.125" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[247ee786d906f5094b107804ddb6c140]
+link subState to *end*state--><path d="M222.25,68.125 C232.78,68.125 243.85,68.125 252.35,68.125 " fill="none" id="subState-to-*end*state" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="257.78,68.125,248.78,64.125,252.78,68.125,248.78,72.125,257.78,68.125" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[00ad59dafe6a236f25e260c5ab684aea]
+link *start to state--><path d="M26.19,56.5 C37.48,56.5 57.93,56.5 80.58,56.5 " fill="none" id="*start-to-state" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="85.76,56.5,76.76,52.5,80.76,56.5,76.76,60.5,85.76,56.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[554e84488fcd7e4bd96c10588a900607]
+link state to *end--><path d="M292.43,56.5 C313.84,56.5 333.78,56.5 346.57,56.5 " fill="none" id="state-to-*end" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="351.6,56.5,342.6,52.5,346.6,56.5,342.6,60.5,351.6,56.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f1d4ef3b5074fe32bd0458cab365bb13]
+@startuml SubState
+
+left to right direction
+hide empty description
+state state{
+    state subState
+
+    [*]- ->subState
+    subState- ->[*]
+}
+
+[*]- ->state
+state- ->[*]
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 18:25:05 CST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK Client VM
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg>

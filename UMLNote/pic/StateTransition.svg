@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="71px" preserveAspectRatio="none" style="width:426px;height:71px;" version="1.1" viewBox="0 0 426 71" width="426px" zoomAndPan="magnify"><defs><filter height="300%" id="f1oxacv172lz0w" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><g id="SourceState"><rect fill="#FEFECE" filter="url(#f1oxacv172lz0w)" height="50" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="105" x="7" y="7"/><line style="stroke:#A80036;stroke-width:1.5;" x1="7" x2="112" y1="36.125" y2="36.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="17" y="28.0469">Source State</text></g><g id="TargetState"><rect fill="#FEFECE" filter="url(#f1oxacv172lz0w)" height="50" rx="12.5" ry="12.5" style="stroke:#A80036;stroke-width:1.5;" width="103" x="309" y="7"/><line style="stroke:#A80036;stroke-width:1.5;" x1="309" x2="412" y1="36.125" y2="36.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="319" y="28.0469">Target State</text></g><!--MD5=[c7deea2c2cfa5c9d10074936b4be33f7]
+link SourceState to TargetState--><path d="M112.24,32 C165.67,32 248.78,32 303.67,32 " fill="none" id="SourceState-to-TargetState" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="308.89,32,299.89,28,303.89,32,299.89,36,308.89,32" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="135" x="143" y="28.8906">Trigger [Guard] / Effect</text><!--MD5=[80c2042739914910617130da022adb56]
+@startuml StateTransition
+
+left to right direction
+
+state "Source State" as SourceState
+state "Target State" as TargetState
+
+SourceState - -> TargetState :Trigger [Guard] / Effect
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 18:25:05 CST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK Client VM
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg>

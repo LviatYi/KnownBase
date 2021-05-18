@@ -12,3 +12,7 @@
 7. [用例图](index/usecase.md)
 8. [状态图](index/state.md)
 9. [时序图](index/sequence.md)
+10. [协作图](index/communication.md)
+11. [活动图](index/activity.md)
+12. [构件图](index/component.md)
+13. [部署图](index/deployment.md)

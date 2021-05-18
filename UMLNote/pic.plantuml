@@ -1,19 +1,5 @@
-@startuml Choice
+@startuml Disployment
 
-left to right direction
-hide empty description
-
-state state
-state c <<choice>>
-state state1
-state state2
-
-
-[*]-->state
-state--> c
-c-->state1 :[is1]
-c-->state2 :[is2]
-state1-->[*]
-state2-->[*]
+Node node
 
 @enduml

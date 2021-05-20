@@ -1,0 +1,11 @@
+@startuml SimpleFactory_ClassDiagram
+actor Main
+participant ":ConcreteFactory" as ConcreteFactoryObj
+participant ":ConcreteProduct" as ConcreteProductObj
+Main -> ConcreteFactoryObj ++: "FactoryMethod():Product"
+activate Main 
+create ConcreteProductObj
+ConcreteFactoryObj->ConcreteProductObj--: <<create>>
+Main -> ConcreteProductObj++: Use()
+
+@enduml

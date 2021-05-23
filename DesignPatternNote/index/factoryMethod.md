@@ -2,9 +2,13 @@
 
 ## 3.1 模式动机
 
+将工厂类抽象，为产品创建一个具体的工厂子类。  
+
+> 不再将所有的产品都交付给同一个工厂创建，而是交给专门的工厂子类。  
+
 ## 3.2 模式定义
 
-> **工厂方法模式** (Factory Method Pattern) 又称为工厂模式，也叫虚拟构造器 (Virtual Constructor) 模式或者多态工厂 (Polymorphic) 模式，它属于类创建型模式。  
+> **工厂方法模式** (Factory Method Pattern) 又称为 **工厂模式** ，也叫 **虚拟构造器** (Virtual Constructor) **模式** 或者 **多态工厂** (Polymorphic) **模式**，它属于类创建型模式。  
 >  
 > * 与简单工厂模式相比，工厂模式将工厂再次抽象。  
 > * 由工厂父类负责定义创建产品对象的公共接口。  
@@ -20,7 +24,7 @@
 * Concrete Factory 具体工厂
 
 ```PlantUML
-@startuml SimpleFactory_ClassDiagram
+@startuml Factory_ClassDiagram
 hide empty members
 abstract Product{
     + use():void
@@ -49,15 +53,15 @@ end note
 ## 3.4 时序图
 
 ```PlantUML
-@startuml SimpleFactory_ClassDiagram
+@startuml Factory_SequenceDiagram
 actor Main
 participant ":ConcreteFactory" as ConcreteFactoryObj
 participant ":ConcreteProduct" as ConcreteProductObj
-Main -> ConcreteFactoryObj ++: "FactoryMethod():Product"
+Main -> ConcreteFactoryObj ++: FactoryMethod( ):Product
 activate Main 
 create ConcreteProductObj
 ConcreteFactoryObj->ConcreteProductObj--: <<create>>
-Main -> ConcreteProductObj++: Use()
+Main -> ConcreteProductObj++: Use( )
 @enduml
 ```
 

@@ -64,7 +64,7 @@ participant ":Director" as Director
 participant ":ConcreteBuilder" as ConcreteBuilder
 
 create ConcreteBuilder
-iMain->ConcreteBuilder: <<create>>
+iMain-->ConcreteBuilder: <<create>>
 iMain->Director++: setBuilder(Builder*)
 Director--
 iMain->Director++: Constuct( ):Product*

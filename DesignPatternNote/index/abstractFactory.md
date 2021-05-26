@@ -93,20 +93,20 @@ participant ":ProductB2" as ProductB2
 
 Main -> ConcreteFactory1++: CreateProduceA( )
 create ProductA1
-ConcreteFactory1 -> ProductA1--:<<create>>
+ConcreteFactory1 --> ProductA1--:<<create>>
 Main -> ConcreteFactory1++: CreateProduceB( )
 create ProductB1
-ConcreteFactory1 -> ProductB1--:<<create>>
+ConcreteFactory1 --> ProductB1--:<<create>>
 
 Main -> ProductA1++:Eat( )
 Main -> ProductB1++:Drink( )
 
 Main -> ConcreteFactory2++: CreateProduceA( )
 create ProductA2
-ConcreteFactory2 -> ProductA2--:<<create>>
+ConcreteFactory2 --> ProductA2--:<<create>>
 Main -> ConcreteFactory2++: CreateProduceB( )
 create ProductB2
-ConcreteFactory2 -> ProductB2--:<<create>>
+ConcreteFactory2 --> ProductB2--:<<create>>
 
 Main -> ProductA2++:Eat( )
 Main -> ProductB2++:Drink( )

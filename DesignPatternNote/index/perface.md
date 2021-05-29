@@ -31,6 +31,9 @@
 
 ### 0.1.2 软件设计原则
 
+* **单一职责原则** (Single Responsibility Principle)
+  * 一个类只负责一个功能领域中的相应职责。  
+  * 或者可以定义为：就一个类而言，应该只有一个引起它变化的原因。  
 * **开闭原则** (Open Closed Principle)
   * 软件中的对象应该对于扩展是开放的，但是对于修改是封闭的。  
   * 即允许一个实体允许在不改变其源代码的前提下变更它的行为。  
@@ -76,6 +79,8 @@
 [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html)  —— @ colin Github  
 
 [永不磨灭的设计模式](https://blog.csdn.net/ShuSheng0007/article/details/115980889)  —— @ ShuSheng007 CSDN  
+
+[史上最全设计模式](https://blog.csdn.net/LoveLion/article/details/17517213?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162198894416780274118367%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=162198894416780274118367&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-17517213.first_rank_v2_pc_rank_v29&utm_term=%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)  —— @ LoveLion CSDN  
 
 ### 0.3.2 开发环境  
 

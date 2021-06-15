@@ -402,7 +402,7 @@ ___文本___
 先介绍两种添加方式：  
 
 > [仇人生病了怎么办？](https://www.baidu.com)  
-> 
+>  
 > 今天你打卡了吗？没有的话请去 <https://www.github.com>  
 
 ``` Markdown
@@ -415,7 +415,7 @@ ___文本___
 另外还有变量式添加方式  
 这样可以先声明变量，在之后添加链接：  
 > [点我进入Trump的办公室][TWITTER]  
-> 
+>  
 > [TWITTER]:https://www.twitter.com  
 
 ```Markdown
@@ -433,7 +433,7 @@ ___文本___
 大放厥词：**好的教程一定有大量的图片**  
 
 > 这是Github的Logo  
-> 
+>  
 > ![Github Logo](https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbpic.588ku.com%2Felement_origin_min_pic%2F00%2F85%2F53%2F1156e916d95db0c.jpg&refer=http%3A%2F%2Fbpic.588ku.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614142767&t=2bd7d77d1b8e0028a5a12587fc76d34c "GITHUB")  
 
 ```Markdown
@@ -484,16 +484,16 @@ Markdown 的表格制作非常形象。你可以用 ``` | ```直接画出表格
 ## 10. 公式
 
 在 Markdown 里，你还可以插入公式  
-(从这一天起 作者抛弃了Word的线性输入公式……  
+（从这一天起 作者抛弃了 Word 的线性输入公式……  
 
- Markdown 支持TeX或LaTeX的语法  
+Markdown 支持 TeX 或 LaTeX 的语法  
 
 下面展示一段花里胡哨的公式  
 花里胡哨.tex  
 
-LaTeX语法很复杂，在此文档中展示将占用极大的版面  
+LaTeX 语法很复杂，在此文档中展示将占用极大的版面  
 
-为了让文档更简洁直白，作者将LaTeX语法放在了以下链接中：  
+为了让文档更简洁直白，作者将 LaTeX 语法放在了以下链接中：  
 
 可供读者用到时随手查阅  
 
@@ -501,7 +501,7 @@ LaTeX语法很复杂，在此文档中展示将占用极大的版面
 
 在 Markdown 中，你甚至可以画流程图、顺序图、甘特图之类的图表  
 
- Markdown 依靠Flow、Mermaid等渲染图表  
+ Markdown 依靠 Flow、Mermaid 等渲染图表  
 
 访问如下页面，来看看如何用线性思维描述逻辑清晰的图表  
 

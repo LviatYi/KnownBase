@@ -12,4 +12,5 @@
 7. [原型模式](index/prototype.md)
 8. [适配器模式](index/adapter.md)
 9. [桥接模式](index/bridge.md)
-10. [装饰模式](index/decorator.md)
+10. [组合模式](index/composite.md)
+11. [装饰模式](index/decorator.md)

@@ -1,9 +1,53 @@
-@startuml Singleton_SequenceDiagram
-actor iMain
-participant ":Singleton" as Singleton
-iMain -> Singleton ++: getInstance( )
-Singleton -> Singleton ++ : <<create>>
-Singleton --
-Singleton --
-iMain -> Singleton: SingletonOperation( )
-@enduml
+@startuml Composite_Example
+hide empty members
+abstract AbstractFile{
+    + add(AbstractFile file):void
+    + remove(AbstractFile file):void
+    + getChild(int i):AbstractFile
+    + killVirus():void
+}
+
+class ImageFile{
+    - name : String
+    + add(AbstractFile file):void
+    + remove(AbstractFile file):void
+    + getChild(int i):AbstractFile
+    + killVirus():void
+}
+class VideoFile{
+    - name : String
+    + add(AbstractFile file):void
+    + remove(AbstractFile file):void
+    + getChild(int i):AbstractFile
+    + killVirus():void
+}
+class TextFile{
+    - name : String
+    + add(AbstractFile file):void
+    + remove(AbstractFile file):void
+    + getChild(int i):AbstractFile
+    + killVirus():void
+}
+class Folder{
+    - name : String
+    - fileList : ArrayList
+    + Folder(String name)
+    + add(AbstractFile file):void
+    + remove(AbstractFile file):void
+    + getChild(int i):AbstractFile
+    + killVirus():void
+}
+AbstractFile <|-- ImageFile
+AbstractFile <|-- VideoFile
+AbstractFile <|-- TextFile
+AbstractFile <|-- Folder
+AbstractFile <--o Folder : fileList
+
+note bottom of Folder
+killVirus(){
+    for(child:fileList){
+        child.killVirus();
+    }
+}
+end note
+@endumld

@@ -8,3 +8,5 @@
 3. [黑盒测试](index/blackBox.md)
 4. [白盒测试](index/whiteBox.md)
 5. [单元测试](index/unit.md)
+6. [集成测试](index/integration.md)
+7. [系统测试](index/system.md)

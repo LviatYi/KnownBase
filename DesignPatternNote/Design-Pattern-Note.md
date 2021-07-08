@@ -4,7 +4,7 @@
 
 0. [序言](index/perface.md)  
 1. [从 UML 开始](index/begin.md)
-2. [简单工厂模式](SimpleFactory.md)
+2. [简单工厂模式][SimpleFactory]
 3. [工厂方法模式][Factory]
 4. [抽象工厂模式][AbstractFactory]
 5. [建造者模式][Builder]

@@ -9,26 +9,26 @@
 设计模式如下所示：  
 
 * 创建型模式
-  * [简单工厂模式](SimpleFactory)
-  * [工厂方法模式](Factory)
-  * [抽象工厂模式](AbstractFactory)
-  * [建造者模式](Builder)
-  * [原型模式](Prototype)
-  * [单例模式](Singleton)
+  * 简单工厂模式
+  * 工厂方法模式
+  * 抽象工厂模式
+  * 建造者模式
+  * 原型模式
+  * 单例模式
 * 结构型模式
-  * [适配器模式](Adapter)
-  * [桥接模式](Bridge)
-  * [装饰模式](Decorator)
-  * [组合模式](Composite)
-  * [外观模式]()
-  * [享元模式]()
-  * [代理模式]()
+  * 适配器模式
+  * 桥接模式
+  * 装饰模式
+  * 组合模式
+  * 外观模式
+  * 享元模式
+  * 代理模式
 * 行为型模式
-  * [命令模式]()
-  * [中介者模式]()
-  * [观察者模式]()
-  * [状态模式]()
-  * [策略模式]()
+  * 命令模式
+  * 中介者模式
+  * 观察者模式
+  * 状态模式
+  * 策略模式
 
 ### 0.1.2 软件设计原则
 
@@ -86,14 +86,3 @@
 ### 0.3.2 开发环境  
 
 VS Code
-
-[SimpleFactory]:index/simpleFactory.md
-[Factory]:index/factoryMethod.md
-[AbstractFactory]:index/abstractFactory.md
-[Builder]:index/builder.md
-[Singleton]:index/singleton.md
-[Prototype]:index/prototype.md
-[Adapter]:index/adapter.md
-[Bridge]:index/bridge.md
-[Composite]:index/composite.md
-[Decorator]:index/decorator.md

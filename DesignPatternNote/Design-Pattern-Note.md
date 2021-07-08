@@ -22,6 +22,6 @@
 [Singleton]:index/singleton.md
 [Prototype]:index/prototype.md
 [Adapter]:index/adapter.md
-[Bridge]:index/bridge.md
+[Bridge]:./index/bridge.md
 [Composite]:index/composite.md
 [Decorator]:index/decorator.md

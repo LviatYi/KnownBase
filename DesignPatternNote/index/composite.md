@@ -138,7 +138,7 @@ abstract AbstractFile{
     + add(AbstractFile file):void
     + remove(AbstractFile file):void
     + getChild(int i):AbstractFile
-    + killVirus():void
+    + killVirus( ):void
 }
 
 class ImageFile{
@@ -146,21 +146,21 @@ class ImageFile{
     + add(AbstractFile file):void
     + remove(AbstractFile file):void
     + getChild(int i):AbstractFile
-    + killVirus():void
+    + killVirus( ):void
 }
 class VideoFile{
     - name : String
     + add(AbstractFile file):void
     + remove(AbstractFile file):void
     + getChild(int i):AbstractFile
-    + killVirus():void
+    + killVirus( ):void
 }
 class TextFile{
     - name : String
     + add(AbstractFile file):void
     + remove(AbstractFile file):void
     + getChild(int i):AbstractFile
-    + killVirus():void
+    + killVirus( ):void
 }
 class Folder{
     - name : String
@@ -169,7 +169,7 @@ class Folder{
     + add(AbstractFile file):void
     + remove(AbstractFile file):void
     + getChild(int i):AbstractFile
-    + killVirus():void
+    + killVirus( ):void
 }
 AbstractFile <|-- ImageFile
 AbstractFile <|-- VideoFile

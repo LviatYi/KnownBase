@@ -9,11 +9,12 @@
 4. [抽象工厂模式][AbstractFactory]
 5. [建造者模式][Builder]
 6. [单例模式][Singleton]
-7. [原型模式][ProtoType]
+7. [原型模式][Prototype]
 8. [适配器模式][Adapter]
 9. [桥接模式][Bridge]
 10. [组合模式][Composite]
 11. [装饰模式][Decorator]
+12. [外观模式][Facade]
 
 [SimpleFactory]:index/simpleFactory.md
 [Factory]:index/factoryMethod.md
@@ -22,6 +23,8 @@
 [Singleton]:index/singleton.md
 [Prototype]:index/prototype.md
 [Adapter]:index/adapter.md
-[Bridge]:./index/bridge.md
+[Bridge]:index/bridge.md
 [Composite]:index/composite.md
 [Decorator]:index/decorator.md
+[Decorator]:index/decorator.md
+[Facade]:index/facade.md

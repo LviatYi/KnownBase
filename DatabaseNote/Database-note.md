@@ -5,7 +5,7 @@
 1. [概述](index/overview.md)
 2. [数据库理论](index/theory.md)
 3. [数据库设计](index/design.md)
-4. [数据库应用](index/usage.md)
+4. [数据库应用](index/usage.md)  
 [SQL 语法手册](index/sqlSyntax.md)
 
 ## 基本介绍

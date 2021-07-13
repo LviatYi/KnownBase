@@ -1,53 +1,71 @@
-@startuml Composite_Example
+@startuml Facade_ClassDiagram
 hide empty members
-abstract AbstractFile{
-    + add(AbstractFile file):void
-    + remove(AbstractFile file):void
-    + getChild(int i):AbstractFile
-    + killVirus():void
+
+class Client
+class Facade
+class SubSystemA
+class SubSystemB
+class SubSystemC
+
+Client ..> Facade
+Facade --> SubSystemA
+Facade --> SubSystemB
+Facade --> SubSystemC
+
+@enduml
+
+@startuml Facade_SequenceDiagram
+participant ":Client" as Client
+participant ":Facade" as Facade
+participant ":SystemA" as SystemA
+participant ":SystemB" as SystemB
+
+Client -> Facade ++:<<create>>
+create SystemA
+Facade-->SystemA:<<create>>
+create SystemB
+Facade-->SystemB:<<create>>
+deactivate Facade
+Client -> Facade ++: wrapOpration( )
+Facade -> SystemA ++:operationA( )
+Facade -> SystemB ++:operationB( )
+@enduml
+
+@startuml Decorator_Example
+hide empty members
+abstract Component{
+    + display() : void
+}
+class Window{
+    + display() : void
+}
+class Textbox {
+    + display() : void
+}
+class ListBox{
+    + display() : void
+}
+class ComponentDecorator{
+    - component : Component
+    + ComponentDecorator(Component component)
+    + display() : void
+}
+class ScrollBarDecorator{
+    + ScrollBarDecorator(Component component)
+    + display() : void
+    + setScrollBar() : void
+}
+class BlackBorderDecorator{
+    + BlackBorderDecorator(Component component)
+    + display() : void
+    + setBlackBorder() : void
 }
 
-class ImageFile{
-    - name : String
-    + add(AbstractFile file):void
-    + remove(AbstractFile file):void
-    + getChild(int i):AbstractFile
-    + killVirus():void
-}
-class VideoFile{
-    - name : String
-    + add(AbstractFile file):void
-    + remove(AbstractFile file):void
-    + getChild(int i):AbstractFile
-    + killVirus():void
-}
-class TextFile{
-    - name : String
-    + add(AbstractFile file):void
-    + remove(AbstractFile file):void
-    + getChild(int i):AbstractFile
-    + killVirus():void
-}
-class Folder{
-    - name : String
-    - fileList : ArrayList
-    + Folder(String name)
-    + add(AbstractFile file):void
-    + remove(AbstractFile file):void
-    + getChild(int i):AbstractFile
-    + killVirus():void
-}
-AbstractFile <|-- ImageFile
-AbstractFile <|-- VideoFile
-AbstractFile <|-- TextFile
-AbstractFile <|-- Folder
-AbstractFile <--o Folder : fileList
-
-note bottom of Folder
-killVirus(){
-    for(child:fileList){
-        child.killVirus();
-    }
-}
-end note
-@endumld
+Component <|-- Window
+Component <|-- Textbox
+Component <|-- ListBox
+Component <|-- ComponentDecorator
+Component <-right-o ComponentDecorator
+ComponentDecorator <|-- ScrollBarDecorator
+ComponentDecorator <|-- BlackBorderDecorator
+@enduml

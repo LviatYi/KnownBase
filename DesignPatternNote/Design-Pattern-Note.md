@@ -15,6 +15,7 @@
 10. [组合模式][Composite]
 11. [装饰模式][Decorator]
 12. [外观模式][Facade]
+13. [享元模式][Flyweight]
 
 [SimpleFactory]:index/simpleFactory.md
 [Factory]:index/factoryMethod.md
@@ -26,5 +27,5 @@
 [Bridge]:index/bridge.md
 [Composite]:index/composite.md
 [Decorator]:index/decorator.md
-[Decorator]:index/decorator.md
 [Facade]:index/facade.md
+[Flyweight]:index/flyweight.md

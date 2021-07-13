@@ -10,6 +10,10 @@
 
 [菜鸟教程 | SQL](https://www.runoob.com/sql/sql-tutorial.html)
 
+同时本 Note 的相关语法：
+
+[LearningNote | SQL Syntax](sqlSyntax.md)
+
 #### 4.1.1.1 SQL 的特点
 
 - **综合统一** 数据定义、数据操纵、数据控制于一体
@@ -175,6 +179,8 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 选择关系表的列相当于关系代数的 **投影运算** 。
 
+[选择指定列](./sqlSyntax.md#Select)
+
 ##### 选择行
 
 选择表中的部分或全部元组形成结果表。
@@ -197,6 +203,8 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 | 逻辑运算 | `AND` `OR` `NOT`                           |
 
 可以将多个判定运算的结果通过逻辑运算符再组成更为复杂的查询条件。
+
+[选择指定行](./sqlSyntax.md#Where)
 
 ##### 排序
 

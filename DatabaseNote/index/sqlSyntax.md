@@ -10,8 +10,6 @@
 
 ## 数据定义
 
----
-
 ### <a id="CreateDatabase">定义数据库</a>
 
 ```SQL
@@ -198,6 +196,8 @@ DROP VIEW <视图名>;
 
 ---
 
+## 数据查询
+
 ### <a id="Select">`SELECT` 选择列</a>
 
 ```SQL
@@ -232,7 +232,7 @@ FROM SPB
 
 ---
 
-### <a id="WHERE">`WHERE` 选择行</a>
+### <a id="Where">`WHERE` 选择行</a>
 
 ```SQL
 WHERE <条件表达式>
@@ -259,3 +259,4 @@ WHERE <条件表达式>
 ```SQL
 
 ```
+

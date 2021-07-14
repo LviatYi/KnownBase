@@ -6,13 +6,13 @@
 
 更多教程请参考：
 
-[W3Schools | SQL](https://www.w3schools.com/sql/)
+[W3Schools | SQL][w3schools-sql]
 
-[菜鸟教程 | SQL](https://www.runoob.com/sql/sql-tutorial.html)
+[菜鸟教程 | SQL][runoob-sql]
 
 同时本 Note 的相关语法：
 
-[LearningNote | SQL Syntax](sqlSyntax.md)
+[LearningNote | SQL Syntax][sqlsyntax]
 
 #### 4.1.1.1 SQL 的特点
 
@@ -74,7 +74,7 @@ SQL 支持数据库的三级模式结构。
 SQL 语言在定义表中各属性时，要求指明其 **数据类型** 和 **长度** 。  
 SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Database Management System) 所支持的数据类型不完全相同，使用时请阅读具体 RDBMS 的相关文档。
 
-[SQL 数据类型 | W3Schools](https://www.w3schools.com/sql/sql_datatypes.asp)
+[SQL 数据类型 | W3Schools][w3schools-sql-datatype]
 
 ### 4.1.3 SQL 数据定义
 
@@ -88,10 +88,10 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 包括如下操作：
 
-- [定义数据库](./sqlSyntax.md#CreateDatabase)
-- [使用数据库](./sqlSyntax.md#UseDatabase)
-- [修改数据库](./sqlSyntax.md#AlterDatabase)
-- [删除数据库](./sqlSyntax.md#DropDatabase)
+- [定义数据库][sqlsyntax-createdatabase]
+- [使用数据库][sqlsyntax-usedatabase]
+- [修改数据库][sqlsyntax-alterdatabase]
+- [删除数据库][sqlsyntax-dropdatabase]
 
 #### 4.1.3.2 基本表定义
 
@@ -99,9 +99,9 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 包括如下操作：
 
-- [定义基本表](./sqlSyntax.md#CreateTable)
-- [修改基本表](./sqlSyntax.md#AlterTable)
-- [删除基本表](./sqlSyntax.md#DropTable)
+- [定义基本表][sqlsyntax-createtable]
+- [修改基本表][sqlsyntax-altertable]
+- [删除基本表][sqlsyntax-droptable]
 
 #### 4.1.3.3 索引定义
 
@@ -131,8 +131,8 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 包括如下操作：
 
-- [定义索引](./sqlSyntax.md#CreateIndex)
-- [删除索引](./sqlSyntax.md#DropIndex)
+- [定义索引][sqlsyntax-createindex]
+- [删除索引][sqlsyntax-dropindex]
 
 #### 4.1.3.4 视图定义
 
@@ -161,25 +161,23 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 包括如下操作：
 
-- [定义视图](./sqlSyntax.md#CreateView)
-- [修改视图](./sqlSyntax.md#AlterView)
-- [删除视图](./sqlSyntax.md#DropView)
+- [定义视图][sqlsyntax-createview]
+- [修改视图][sqlsyntax-alterview]
+- [删除视图][sqlsyntax-dropview]
 
 ### 4.1.4 SQL 数据查询
 
 #### 4.1.4.1 SELETE 语句结构
 
-数据查询常使用 [`SELECT`](./sqlSyntax.md#Select) 语句。
+数据查询常使用 [`SELECT`][sqlsyntax-select] 语句。
 
 #### 4.1.4.2 单表查询
 
 ##### 选择列
 
-选择表中的部分或全部列形成结果表。
+选择表中的部分或全部属性形成结果表。
 
 选择关系表的列相当于关系代数的 **投影运算** 。
-
-[选择指定列](./sqlSyntax.md#Select)
 
 ##### 选择行
 
@@ -187,7 +185,7 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 选择关系表的列相当于关系代数的 **选择运算** 。
 
-一般通过 `WHERE` 语句实现。
+一般通过 `WHERE` 子句实现。
 
 构成 `WHERE` 子句的条件表达式的运算符也称 **谓词** 。
 
@@ -204,22 +202,197 @@ SQL 语言提供了一些基本数据类型，而不同 RDBMS (Relational Databa
 
 可以将多个判定运算的结果通过逻辑运算符再组成更为复杂的查询条件。
 
-[选择指定行](./sqlSyntax.md#Where)
-
 ##### 排序
+
+将选择结果集按照指定列或多列进行排序。
+
+通过 `ORDER BY` 子句实现。
 
 ##### 聚合函数
 
+`SELECT` 子句表达式可以包含 **聚合函数** (Aggregate Function) ，也称统计、组、集合或列函数，用来增强查询功能。
+
+聚合函数是指对集合操作但只返回单个值的函数，其会对所有行或使用 `GROUP BY` 子句指定的多行进行聚合。
+
+使用聚合函数须遵循以下规则：
+
+- 带有一个聚合函数的 `SELECT` 语句仅产生一行作为结果。
+- 不允许嵌套使用聚合函数。几种表达式形式可用作聚合函数的参数，但不能作为聚合函数本身。
+- 如果 `SELECT` 子句包含一个或多个聚合函数，则 `SELECT` 子句中的列规范仅发生在聚合函数内。
+
+一下为一些常用聚合函数：
+
+| 函数名    | 说明   |
+| --------- | ------ |
+| `AVG()`   | 平均值 |
+| `COUNT()` | 项数   |
+| `MAX()`   | 最大值 |
+| `MIN()`   | 最小值 |
+| `SUM()`   | 总和   |
+
 ##### 对查询结果分组
+
+将查询结果表按某一列或多列值进行分组，值相等的为一组。
+
+通过 `GROUP BY` 子句实现。
+
+使用 `GROUP BY` 子句后，`SELECT` 子句列表中只能包含 `GROUP BY` 中指出的列或在聚合函数中指定的列
 
 ##### 使用 `HAVING` 子句进行筛选
 
+当查询结果集在使用 `GROUP BY` 子句分组后，若需要按条件进一步对这些组进行筛选，最终只输出满足指定条件的组，使用 `HAVING` 子句来指定筛选条件。
+
 #### 4.1.4.3 连接查询
+
+连接查询指同时涉及两个或两个以上表的查询。
+
+连接查询相当于关系代数的 **连接运算** 。其允许对两个或多个表进行查询，结果通常由参加运算的关系表的指定列所构成的新表。
+
+连接查询有两种形式：
+
+- 连接谓词。
+- 以 `JOIN` 关键字指定的连接。
+
+##### 连接谓词
+
+连接谓词又称连接条件，其一般格式如下：
+
+```SQL
+[<表名 1 >.]<列名 1 > <比较运算符> [<表名 2 >.]<列名 2 >
+```
+
+或
+
+```SQL
+[<表名 1 >.]<列名 1 > BETWEEN
+[<表名 2 >.]<列名 2 > AND
+[<表名 2 >.]<列名 3 >
+```
+
+其中，谓词主要有`<` `<=` `=` `>` `>=` `!=` `<>` `!<` 和 `!>` 。  
+当谓词为 `=` 时，就是等值连接。  
+若在目标列中去除相同的字段名，则为自然连接。  
+允许使用逻辑运算符 `AND` 和 `OR` 来连接多个连接谓词，实现复杂条件的连接查询。
+
+##### 以 `JOIN` 关键字指定的连接
+
+在 `FROM` 子句的扩展定义中：
+
+- `INNER JOIN` 表示内连接
+- `OUTER JOIN` 表示外连接
+
+###### 内连接
+
+按照指定的连接条件合并两个表，返回满足条件的行，并抛弃不满足条件的所有行。
+
+###### 外连接
+
+按照指定的连接条件合并两个表，返回满足条件的行，并保留不满足条件的行。
 
 #### 4.1.4.4 嵌套查询
 
+在 SQL 语言中，一个 `SELECT-FROM-WHERE` 语句为一个查询块。
+
+在 `WHERE` 子句或 `HAVING` 子句所表示的条件中，可以使用子查询的结果作为条件的一部分。  
+这种将一个查询块嵌套在另一个查询块的 `WHERE` 子句或 `HAVING` 子句的条件查询称为 **嵌套查询** 。
+
+##### 带 `IN` 谓词的子查询
+
+[`IN`][sqlsyntax-in] 判断给定值是否在子查询结果集中。
+
+```SQL
+SELECT
+FROM
+WHERE IN
+    SELECT
+    FROM
+    WHERE
+```
+
+子查询也可依赖父查询，这种情况称为 **相关子查询** 。
+
+若确切地知道子查询返回的是单个值，则可使用比较运算符代替 `IN` 关键字，即 **比较子查询** 。
+
+##### 带 `ALL` 或 `ANY` ( `SOME` ) 谓词的子查询
+
+若子查询返回的不是单个值（即不能使用比较子查询），若需要对子查询的每个结果进行表达式运算，则需要使用 [`ALL`][sqlsyntax-all] 或 `ANY` ( `SOME` ) 关键字。
+
+##### 带 `EXISTS` 谓词的子查询
+
+[`EXISTS`][sqlsyntax-exist] 谓词用于测试子查询的结果是否为空表。
+
 #### 4.1.4.5 集合查询
+
+`SELECT` 语句执行的结果是元组的集合，因此多个 `SELECT` 语句的结果集可以进行集合操作。
+
+集合操作主要包括：
+
+- `UNION` 并
+- `INTERSECT` 交
+- `EXCEPT` 差
+
+集合操作要求各 `SELECT` 的查询结果集列数必须相同，并且对应列的数据类型必须相同。
 
 #### 4.1.4.6 视图查询
 
+允许将视图视作关系表进行查询。
+
+对视图查询时，首先进行有效性检查，检查查询的表、视图是否存在。如果存在，那么从系统表中取出视图的定义，把定义中的子查询和用户的查询结合起来，转换成等价的对基本表的查询，然后再执行转换以后的查询。
+
 ### 4.1.5 SQL 数据更新
+
+#### 4.1.5.1 数据插入
+
+数据插入即向指定表插入元组或元组集合。
+
+- [插入行][sqlsyntax-insert]
+- [插入子查询结果][sqlsyntax-insert]
+
+#### 4.1.5.2 数据修改
+
+数据修改即对表中指定的现有元组的属性进行值修改。
+
+- [修改行][sqlsyntax-update]
+
+#### 4.1.5.3 数据删除
+
+数据删除即删除表中指定的现有元组。
+
+- [删除行][sqlsyntax-delete]
+
+#### 4.1.5.4 视图更新
+
+- 更新视图是指通过视图插入、删除和修改数据
+- 由于视图是不实际存储数据的虚表，因此对视图的更新最终要转换为对基本表的操作。
+- 为了防止用户通过视图对数据进行增加、删除或修改时，对不属于视图范围内的基本表数据进行操作，可在定义视图时加上 `WITH CHECK OPTION` 子句。这样在视图上进行增、删、改操作时，系统就会检查视图定义中的条件，若不满足条件，则拒绝执行。
+
+具体操作，可将视图视为基本表进行处理。
+
+#### 4.1.5.5 更新操作与数据完整性
+
+对某个基本表进行增、删、改操作有可能会破坏参照完整性。  
+参照完整性是关系模型必须满足的完整性约束，应由 RDBMS 自动支持。
+
+[w3schools-sql]: https://www.w3schools.com/sql/
+[runoob-sql]: https://www.runoob.com/sql/sql-tutorial.html
+[sqlsyntax]: sqlSyntax.md
+[w3schools-sql-datatype]: https://www.w3schools.com/sql/sql_datatypes.asp
+[sqlsyntax-createdatabase]: ./sqlSyntax.md#CreateDatabase
+[sqlsyntax-usedatabase]: ./sqlSyntax.md#UseDatabase
+[sqlsyntax-alterdatabase]: ./sqlSyntax.md#AlterDatabase
+[sqlsyntax-dropdatabase]: ./sqlSyntax.md#DropDatabase
+[sqlsyntax-createtable]: ./sqlSyntax.md#CreateTable
+[sqlsyntax-altertable]: ./sqlSyntax.md#AlterTable
+[sqlsyntax-droptable]: ./sqlSyntax.md#DropTable
+[sqlsyntax-createindex]: ./sqlSyntax.md#CreateIndex
+[sqlsyntax-dropindex]: ./sqlSyntax.md#DropIndex
+[sqlsyntax-createview]: ./sqlSyntax.md#CreateView
+[sqlsyntax-alterview]: ./sqlSyntax.md#AlterView
+[sqlsyntax-dropview]: ./sqlSyntax.md#DropView
+[sqlsyntax-select]: ./sqlSyntax.md#Select
+[sqlsyntax-in]: ./sqlSyntax.md#In
+[sqlsyntax-all]: ./sqlSyntax.md#All
+[sqlsyntax-exist]: ./sqlSyntax.md#Exist
+[sqlsyntax-insert]: ./sqlSyntax.md#Insert
+[sqlsyntax-update]: ./sqlSyntax.md#Update
+[sqlsyntax-delete]: ./sqlSyntax.md#Delete

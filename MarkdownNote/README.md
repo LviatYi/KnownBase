@@ -20,4 +20,4 @@ Markdown 使用笔记
 
 文档文件应采用以下风格命名：
 
- ```MarkdownNote-[知识分类]```
+`MarkdownNote-[知识分类]`

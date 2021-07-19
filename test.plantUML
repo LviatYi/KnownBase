@@ -69,3 +69,33 @@ Component <-right-o ComponentDecorator
 ComponentDecorator <|-- ScrollBarDecorator
 ComponentDecorator <|-- BlackBorderDecorator
 @enduml
+
+@startuml DatabaseExample
+hide empty members
+entity student as "学生"{
+    **stuId**
+    stuName
+}
+
+entity postgraduate as "研究生"{
+    group
+    teacher
+}
+
+entity master as "硕士生"{
+    type
+}
+
+entity phd as "博士生"{
+    assistant
+}
+
+entity undergraduate as "本科生"{
+    major
+}
+
+student -- postgraduate : ISA
+student -- undergraduate : ISA
+postgraduate -- phd : ISA
+postgraduate -- master : ISA
+@enduml

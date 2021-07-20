@@ -1,53 +1,29 @@
 <mxfile host="65bd71144e">
     <diagram id="wGf1ILY90YyGVLBexA6e" name="第 1 页">
-        <mxGraphModel dx="591" dy="830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="438" dy="829" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="379" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="374" target="375">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="387" value="&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;Spring AOP&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Source-level&lt;/div&gt;&lt;div&gt;metadata&lt;/div&gt;&lt;div&gt;AOP infrastructure&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="270" width="140" height="230" as="geometry"/>
                 </mxCell>
-                <mxCell id="374" value="概念结构&lt;br&gt;基本 E-R 图" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="50" y="290" width="120" height="60" as="geometry"/>
+                <mxCell id="388" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring ORM&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Hibernate support&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;iBats support&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;JDO support&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="270" width="160" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="380" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="375" target="376">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="389" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring DAO&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Transaction infrastructure&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;JOBC support&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;DAO support&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="380" width="160" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="375" value="一般数据模型&lt;br&gt;关系、网状、层次" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="220" y="290" width="120" height="60" as="geometry"/>
+                <mxCell id="390" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring Web&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Web Application Context&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Mutipart resolver&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;web utlities&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="270" width="160" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="381" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="376" target="377">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="391" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring Contex&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Application context&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;UI support&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Validation&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;JNDL EJB support and&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;remodeling&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Mail&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="380" width="160" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="376" value="特定 DBMS 支持下的&lt;br&gt;数据模型" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="390" y="290" width="120" height="60" as="geometry"/>
+                <mxCell id="392" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring Web&amp;nbsp;&lt;/b&gt;&lt;/span&gt;&lt;span&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;MVC&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Web MVC&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Framework&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Web views&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;JSP / Velocity&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;PDF / Export&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="630" y="270" width="140" height="230" as="geometry"/>
                 </mxCell>
-                <mxCell id="377" value="优化的数据模型" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="560" y="290" width="120" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="385" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="382">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="190" y="320" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="382" value="转换规则" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="150" y="380" width="80" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="386" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="383">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="360" y="320" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="383" value="DBMS 的&lt;br&gt;特点和限制" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="320" y="380" width="80" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="387" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="384">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="530" y="320" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="384" value="优化方法" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="490" y="380" width="80" height="40" as="geometry"/>
+                <mxCell id="393" value="&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;Spring Core&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Supporting utlities&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Bean&amp;nbsp;&lt;/font&gt;container&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="510" width="630" height="100" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

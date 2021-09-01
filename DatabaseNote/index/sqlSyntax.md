@@ -125,7 +125,7 @@ DROP TABLE <基本表名>;
 ### <a id="CreateIndex">建立索引</a>
 
 ```SQL
-CREATE  [ UNIQUE ] [ CLUSTERED |  NONCLUSTERED ] INDEX <索引名>;
+CREATE  [ UNIQUE ] [ CLUSTERED |  NONCLUSTERED ] INDEX <索引名>
 ON <基本表名>(
     <列名> [ ASC | DESC ]
     [ { ,<列名> [ ASC | DESC ] } ]
@@ -136,7 +136,8 @@ ON <基本表名>(
 
 `UNIQUE` 表示创建的是唯一索引。
 
-`CLUSTERED` 用于指定创建聚簇索引， `NONCLUSTERED` 用于指定创建非聚簇索引。默认创建的是非聚簇索引。
+*注：仅 SQL Server*  
+`CLUSTERED` 用于指定创建聚簇索引， `NONCLUSTERED` 用于指定创建非聚簇索引。默认创建的是非聚簇索引。  
 
 复合索引各列之间要用逗号 `,` 分隔，每个列后面还可以用 `ASC` 或 `DESC` 表示按索引值按升序或降序排列。默认排序方式为 `ASC` 。
 
@@ -379,3 +380,4 @@ DELETE [FROM] <表名>
 - 若省略 `WHERE` 子句，表示删除表中的所有行。
 - `DELETE` 删除的是表中的数据，而不是表的结构。
   - 若需要删除表结构，则使用 `DROP` 语句。  
+  

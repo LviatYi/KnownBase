@@ -1,101 +1,17 @@
-@startuml Facade_ClassDiagram
-hide empty members
+@startuml Compilation
+hide empty
+rectangle 源程序 #White;line:White
+rectangle 经过预处理的源程序 #White;line:White
+rectangle 汇编语言程序 #White;line:White
+rectangle 可重定位的机器代码 #White;line:White
+rectangle 目标机器代码 #White;line:White
+rectangle 预处理器
+rectangle 编译器 #ec7575
+rectangle 汇编器
+rectangle "连接器 / 加载器" as linker
 
-class Client
-class Facade
-class SubSystemA
-class SubSystemB
-class SubSystemC
+top to bottom direction
+源程序 --> 预处理器
+预处理器 --> 编译器
 
-Client ..> Facade
-Facade --> SubSystemA
-Facade --> SubSystemB
-Facade --> SubSystemC
-
-@enduml
-
-@startuml Facade_SequenceDiagram
-participant ":Client" as Client
-participant ":Facade" as Facade
-participant ":SystemA" as SystemA
-participant ":SystemB" as SystemB
-
-Client -> Facade ++:<<create>>
-create SystemA
-Facade-->SystemA:<<create>>
-create SystemB
-Facade-->SystemB:<<create>>
-deactivate Facade
-Client -> Facade ++: wrapOpration( )
-Facade -> SystemA ++:operationA( )
-Facade -> SystemB ++:operationB( )
-@enduml
-
-@startuml Decorator_Example
-hide empty members
-abstract Component{
-    + display() : void
-}
-class Window{
-    + display() : void
-}
-class Textbox {
-    + display() : void
-}
-class ListBox{
-    + display() : void
-}
-class ComponentDecorator{
-    - component : Component
-    + ComponentDecorator(Component component)
-    + display() : void
-}
-class ScrollBarDecorator{
-    + ScrollBarDecorator(Component component)
-    + display() : void
-    + setScrollBar() : void
-}
-class BlackBorderDecorator{
-    + BlackBorderDecorator(Component component)
-    + display() : void
-    + setBlackBorder() : void
-}
-
-Component <|-- Window
-Component <|-- Textbox
-Component <|-- ListBox
-Component <|-- ComponentDecorator
-Component <-right-o ComponentDecorator
-ComponentDecorator <|-- ScrollBarDecorator
-ComponentDecorator <|-- BlackBorderDecorator
-@enduml
-
-@startuml DatabaseExample
-hide empty members
-entity student as "学生"{
-    **stuId**
-    stuName
-}
-
-entity postgraduate as "研究生"{
-    group
-    teacher
-}
-
-entity master as "硕士生"{
-    type
-}
-
-entity phd as "博士生"{
-    assistant
-}
-
-entity undergraduate as "本科生"{
-    major
-}
-
-student -- postgraduate : ISA
-student -- undergraduate : ISA
-postgraduate -- phd : ISA
-postgraduate -- master : ISA
 @enduml

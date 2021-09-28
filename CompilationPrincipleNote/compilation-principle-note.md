@@ -4,6 +4,7 @@
 
 1. [概述](index/overview.md)
 1. [语言及其语法](index/language&grammer.md)
+1. [词法分析](index/lexicalAnalysis.md)
 
 ## 基本介绍
 

@@ -186,6 +186,43 @@ FA 可以使用 **转换图** (Transition Graph) 表示。
   对于 **输入 a** ，若存在一个从状态 p 到状态 q 的转换，则在 pq 之间作有向边，并标记上 **a**。
 
 给定输入串 $x$ ，如果存在一个对应于串 $x$ 的从 **初始状态** 到某个 **终止状态** 的转换序列，则称 **串** $x$ 被该 FA **接收**。  
-由一个有穷自动机 $M$ 接收的所有串构成的集合称为是该 FA **定义** （接收）的语言，记为 $L(M)$。  
+由一个有穷自动机 $M$ 接收的所有串构成的集合称为是该 FA **定义** （接收）的语言，记为 $L(M)$。
+
+#### 3.2.4.3 匹配原则
+
+**最长子串匹配原则** (Longest String Matching Principle)  
+当输入串的多个前缀与一个或多个模式匹配时，总是选择 **最长的前缀** 进行匹配。
+
+> ![最长子串匹配原则](../pic/longStringMatching.svg "最长子串匹配原则")
+>
+> INPUT : `<=`  
+> 前缀 : `<` `<=`  
+> 两个前缀都匹配，默认选择最长前缀匹配。
+
+在到达某个终态后，只要输入带上还有符号，FA 就继续前进，以寻找尽可能长的匹配。
+
+#### 3.2.4.4 有穷自动机的分类
+
+- 确定的 FA (Deterministic finite automata ,DFA)
+  - $M=(S,\Sigma,\delta,s_{0},F)$
+    - $S$ : **有穷状态集**
+    - $\Sigma$ : **输入字母表**，即 **输入符号集合**。设 $\varepsilon$ 不是 $\Sigma$ 中的元素。
+    - $\delta$ : 将 $S\times \Sigma$ 映射到 $S$ 的 **转换函数**。 $\forall s \in S ,a\in \Sigma ,\delta(s,a)$ 表示从状态 $s$ 出发，沿着标记为 $a$ 的边所能到达的状态。
+    - $s_{0}$ : **开始状态** ，$s_0 \in S$
+    - $F$ : **接收（终止）状态集合** ， $F \subseteq S$  
+      ![一个 DFA](../pic/DFA.svg "一个 DFA")  
+      可无损转换为转换表：  
+      ![DFA 转换表](../pic/DFAtable.svg "DFA 转换表")
+- 非确定的 FA (Nondeterministic finite automata ,NFA)
+
+  - $M=(S,\Sigma,\delta,s_{0},F)$
+    - $S$ : **有穷状态集**
+    - $\Sigma$ : **输入字母表**，即 **输入符号集合**。设 $\varepsilon$ 不是 $\Sigma$ 中的元素。
+    - $\delta$ : 将 $S\times \Sigma$ 映射到 $2^S$ 的 **转换函数**。 $\forall s \in S ,a\in \Sigma ,\delta(s,a)$ 表示从状态 $s$ 出发，沿着标记为 $a$ 的边所能到达的状态 **集合**。
+    - $s_{0}$ : **开始状态** ，$s_0 \in S$
+    - $F$ : **接收（终止）状态集合** ， $F \subseteq S$  
+      ![一个 DFA](../pic/DFA-2.svg "一个 DFA")  
+       可无损转换为转换表：  
+      ![DFA 转换表](../pic/DFA-2table.png "DFA 转换表")
 
 

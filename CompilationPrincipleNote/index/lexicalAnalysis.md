@@ -157,9 +157,9 @@ $$
   - 允许将字符集合 $a_1 | a_2 | \dots a_n$ 缩写为 $[a_1 a_2 \dots a_n]$ 。
   - 允许将符合逻辑的字符序列缩写为 $[a_1 \dots a_n]$
 
-### 3.2.3 有穷自动机
+## 3.3 有穷自动机
 
-#### 3.2.3.1 有穷自动机定义
+### 3.3.1 有穷自动机定义
 
 **有穷自动机** (Finite Automata ,FA) 是对 **一类处理系统** 建立的 **数学模型** 。
 
@@ -175,7 +175,7 @@ $$
 >
 > 电梯控制装置 并不需要记住先前全部的服务要求，只需要知道电梯 **当前所处的状态** 以及 **还没有满足的所有服务请求**
 
-#### 3.2.3.2 有穷自动机模型
+### 3.3.2 有穷自动机模型
 
 ![FA 模型](../pic/FA%20model.svg "FA 模型")
 
@@ -198,7 +198,7 @@ FA 可以使用 **转换图** (Transition Graph) 表示。
 给定输入串 $x$ ，如果存在一个对应于串 $x$ 的从 **初始状态** 到某个 **终止状态** 的转换序列，则称 **串** $x$ 被该 FA **接收**。  
 由一个有穷自动机 $M$ 接收的所有串构成的集合称为是该 FA **定义** （接收）的语言，记为 $L(M)$。
 
-#### 3.2.3.3 匹配原则
+### 3.3.3 匹配原则
 
 **最长子串匹配原则** (Longest String Matching Principle)  
 当输入串的多个前缀与一个或多个模式匹配时，总是选择 **最长的前缀** 进行匹配。
@@ -211,18 +211,8 @@ FA 可以使用 **转换图** (Transition Graph) 表示。
 
 在到达某个终态后，只要输入带上还有符号，FA 就继续前进，以寻找尽可能长的匹配。
 
-#### 3.2.3.4 有穷自动机的分类
+### 3.3.4 有穷自动机的分类
 
-- 确定的 FA (Deterministic finite automata ,DFA)
-  - $M=(S,\Sigma,\delta,s_{0},F)$
-    - $S$ : **有穷状态集**
-    - $\Sigma$ : **输入字母表**，即 **输入符号集合**。设 $\varepsilon$ 不是 $\Sigma$ 中的元素。
-    - $\delta$ : 将 $S\times \Sigma$ 映射到 $S$ 的 **转换函数**。 $\forall s \in S ,a\in \Sigma ,\delta(s,a)$ 表示从状态 $s$ 出发，沿着标记为 $a$ 的边所能到达的状态。
-    - $s_{0}$ : **开始状态** ，$s_0 \in S$
-    - $F$ : **接收（终止）状态集合** ， $F \subseteq S$  
-      ![一个 DFA](../pic/DFA.svg "一个 DFA")  
-      可无损转换为转换表：  
-      ![DFA 转换表](../pic/DFAtable.svg "DFA 转换表")
 - 非确定的 FA (Nondeterministic finite automata ,NFA)
   - $M=(S,\Sigma,\delta,s_{0},F)$
     - $S$ : **有穷状态集**
@@ -233,6 +223,19 @@ FA 可以使用 **转换图** (Transition Graph) 表示。
       ![一个 DFA](../pic/DFA-2.svg "一个 DFA")  
        可无损转换为转换表：  
       ![DFA 转换表](../pic/DFA-2table.png "DFA 转换表")
+- 确定的 FA (Deterministic finite automata ,DFA)
+  - $M=(S,\Sigma,\delta,s_{0},F)$
+    - $S$ : **有穷状态集**
+    - $\Sigma$ : **输入字母表**，即 **输入符号集合**。设 $\varepsilon$ 不是 $\Sigma$ 中的元素。
+    - $\delta$ : 将 $S\times \Sigma$ 映射到 $S$ 的 **转换函数**。 $\forall s \in S ,a\in \Sigma ,\delta(s,a)$ 表示从状态 $s$ 出发，沿着标记为 $a$ 的边所能到达的状态。
+    - $s_{0}$ : **开始状态** ，$s_0 \in S$
+    - $F$ : **接收（终止）状态集合** ， $F \subseteq S$  
+      ![一个 DFA](../pic/DFA.svg "一个 DFA")  
+      可无损转换为转换表：  
+      ![DFA 转换表](../pic/DFAtable.svg "DFA 转换表")  
+      DFA 是 NFA 的一种 **特例**。
+      - 没有输入 $\varepsilon$ 之上的转换动作。
+      - 对于每个状态 $s$ 和每个输入符号 $a$ ，有且只有一条标号为 $a$ 的边离开 $s$ 。
 
 DFA 与 NFA 具有等价性。
 
@@ -243,8 +246,6 @@ DFA 与 NFA 具有等价性。
 
 - 都识别以 `abb` 结尾的串。
 - `r=(a|b)*abb`
-
-正则文法 $\Leftrightarrow$ 正则表达式 $\Leftrightarrow$ FA
 
 - 带有 $\varepsilon$ 边的 NFA
   - $M=(S,\Sigma,\delta,s_{0},F)$
@@ -264,6 +265,56 @@ DFA 与 NFA 具有等价性。
 
 即 $0^*1^*2^*$
 
-### 3.2.4 从正则表达式到有穷自动机
+### 3.3.5 从正则表达式到自动机
 
-一般地，我们先将 RE 转换为 NFA，最终转换为 DFA。
+#### 3.3.5.1 从 NFA 转换到 DFA
+
+使用 **子集构造法** (Subset construction) 将 NFA 转换到 DFA 。
+
+其基本思想是让构造得到的 DFA 的每个状态对应到 NFA 的一个状态集合。  
+DFA 在读入输入 $a_1 a_2 \dots a_3$ 之后到达的状态对应于相应 NFA 从开始状态触发，沿着 $a_1 a_2 \dots a_3$ 为标号的路径能够到达的状态的集合。
+
+输入：一个 NFA $N$ 。  
+输出：一个接受同样语言的 DFA $D$ 。  
+方法：为 $D$ 构造一个转换表 $Dtran$ 。 $D$ 的每个状态。
+
+设定如下函数：
+
+- $\varepsilon-closure(s)$  
+  能够从 NFA 的状态 $s$ 开始只通过 $\varepsilon$ 转换到达的 NFA 状态集合。  
+  $s$ 为 $N$ 的单个状态。
+- $\varepsilon-closure(T)$  
+  能够从 $T$ 中某个 NFA 的状态 $s$ 开始只通过 $\varepsilon$ 转换到达的 NFA 状态集合。  
+  即 $\cup_{s \in T} \varepsilon-closure(s)$ $T$ 为 $N$ 的一个状态集。
+- $move(T, a)$  
+  能够从 $T$ 中某个状态 $s$ 出发通过标号为 $a$ 的转换到达的 NFA 状态的集合。
+
+将 NFA 中输入 $\varepsilon$ 即可转换到的状态视为 DFA 的同种状态。  
+将 NFA 中的输入集合视为 DFA 的输入集合。
+
+因此从开始状态 $s_0$ 开始，不断进行如下计算：
+
+1. $\varepsilon-closure(s)$  
+   获得一个 DFA 的状态。
+1. $move(\varepsilon-closure(s),a
+)$  
+    获得 DFA 中某状态经过状态 a 所达的 NFA 下一状态集合。
+1. $\varepsilon-closure(move(\varepsilon-closure(s),a
+))$  
+    获得 DFA 的下一状态。
+
+并构造状态表 $Dtran$。
+
+NFA：
+
+![NFA2DFA-NFA](../pic/NFA2DFA-NFA.png "NFA2DFA-NFA.png")
+
+$Dtran$ ：
+
+|       NFA 状态       | DFA 状态 |  a  |  b  |
+| :------------------: | :------: | :-: | :-: |
+|   $\{0,1,2,4,7\}$    |    A     |  B  |  C  |
+| $\{1,2,3,4,6,7,8\}$  |    B     |  B  |  D  |
+|  $\{1,2,4,5,6,7\}$   |    C     |  B  |  C  |
+| $\{1,2,4,5,6,7,9\}$  |    D     |  B  |  E  |
+| $\{1,2,4,5,6,7,10\}$ |    E     |  B  |  C  |

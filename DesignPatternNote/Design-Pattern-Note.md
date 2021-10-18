@@ -2,7 +2,7 @@
 
 ## 目录
 
-0. [序言](index/perface.md)  
+0. [序言](index/perface.md)
 1. [从 UML 开始](index/begin.md)
 2. [简单工厂模式](index/simpleFactory.md)
 3. [工厂方法模式](index/factoryMethod.md)
@@ -16,6 +16,7 @@
 11. [装饰模式](index/decorator.md)
 12. [外观模式](index/facade.md)
 13. [享元模式](index/flyweight.md)
+14. [代理模式](index/proxy.md)
 
 ## 设计模式简介
 

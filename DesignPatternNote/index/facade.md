@@ -63,6 +63,49 @@ Facade -> SystemB ++:operationB( )
 
 ## 12.5 代码分析
 
+```Java
+class subSystem1{
+  File read(){
+
+  }
+}
+```
+
+```Java
+class subSystem2{
+  File operate(){
+
+  }
+}
+```
+
+```Java
+class subSystem3{
+  File save(){
+
+  }
+}
+```
+
+```Java
+class facadeSystem{
+  private subSystem1;
+  private subSystem2;
+  private subSystem3;
+
+  public facadeSystem(){
+
+  }
+
+  File function(){
+    subSystem1.read();
+    subSystem1.operate();
+    subSystem1.save();
+  }
+}
+```
+
+
 ## 12.6 模式分析
 
 外观模式对所有子系统加了一层抽象，这样可以便于客户端的调用。  

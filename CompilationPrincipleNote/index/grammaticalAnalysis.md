@@ -155,13 +155,16 @@ $FIRST(\alpha)$ ：
 - 分析方法：
   - 如果 $X$ 是一个终结符号，则 $FIRST(\alpha) = X$ 。
   - 如果 $X$ 是一个非终结符号，且 $X \rightarrow Y_1 Y_2 \dots Y_k$ 是一个产生式，若对于某个 $i \leqslant k$ ，$a$ 在 $FIRST(Y_i)$ 中且 $\varepsilon$ 在所有的 $FIRST(Y_1)、FIRST(Y_2)、\dots、FIRST(Y_{i-1})$ 中，则 $a$ 添加至 $FIRST(\alpha)$ 中。
-  - je
+    - 从头开始，若某个非终结符可 $\Rightarrow ^+ \varepsilon$ ，则可将下一个非终结符的 $FIRST(X)$ 加入到集合中。直到遇到不符上述条件的非终结符为止。  
+  - 如果 $X\rightarrow \varepsilon$ 是一个产生式，那么将 $\varepsilon$ 加入到 $FIRST(X)$ 中。  
 
 $FOLLOW(A)$ ：  
-可能在某些句型中紧跟在 $A$ 右边的终结符号的集合。
+可能在某些句型中 **紧跟在 $A$ 右边** 的终结符号的集合。
 
 - 若 $A$ 是某些句型的最右符号，则 `$` 将添加至 $FOLLOW(A)$ 中。
 - 分析方法：
+  - 若存在一个产生式 $A \rightarrow \alpha  B \beta$ ，那么将 $FIRST(\beta)$ 中除了 $\varepsilon$ 之外的所有符号加入 $FOLLOW(B)$ 中。  
+  - 若存在一个产生式 $A \rightarrow \alpha  B$ ，或存在产生式 $A \rightarrow \alpha  B \beta$ 且 $FIRST(B)$ 包含 $\varepsilon$ ，那么将 $FOLLOW(A)$ 中所有符号加入 $FOLLOW(B)$ 中。  
 
 #### 4.2.3.1 预测分析
 

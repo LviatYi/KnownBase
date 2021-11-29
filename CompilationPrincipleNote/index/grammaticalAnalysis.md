@@ -161,13 +161,27 @@ $FIRST(\alpha)$ ：
 $FOLLOW(A)$ ：  
 可能在某些句型中 **紧跟在 $A$ 右边** 的终结符号的集合。
 
-- 若 $A$ 是某些句型的最右符号，则 `$` 将添加至 $FOLLOW(A)$ 中。
+- 若 $A$ 为开始符号，则 `$` （或 `#`） 将添加至 $FOLLOW(A)$ 中。
 - 分析方法：
   - 若存在一个产生式 $A \rightarrow \alpha  B \beta$ ，那么将 $FIRST(\beta)$ 中除了 $\varepsilon$ 之外的所有符号加入 $FOLLOW(B)$ 中。  
-  - 若存在一个产生式 $A \rightarrow \alpha  B$ ，或存在产生式 $A \rightarrow \alpha  B \beta$ 且 $FIRST(B)$ 包含 $\varepsilon$ ，那么将 $FOLLOW(A)$ 中所有符号加入 $FOLLOW(B)$ 中。  
+  - 若存在一个产生式 $A \rightarrow \alpha  B$ ，或存在产生式 $A \rightarrow \alpha  B \beta$ 且 $FIRST( \beta )$ 包含 $\varepsilon$ ，那么将 $FOLLOW(A)$ 中所有符号加入 $FOLLOW(B)$ 中。  
 
 #### 4.2.3.1 预测分析
 
-预测分析 (Predictive Parsing) 是 **递归下降分析** 技术的一个特例。
+预测分析 (Predictive Parsing) 是 **递归下降分析** 技术的一个特例，其不需要回溯。
 
 通过在输入中向前看 **固定个数** （通常为 1 ）的符号来选择正确的产生式。
+
+可以对某些文法构造出向前看 k 个输入符号的预测分析器，该文法通常称为 **$LL(k)$ 文法类** 。
+
+- 第一个 $L$ 表示从左向右扫描输入。  
+- 第二个 $L$ 表示产生最左推导。  
+
+一个文法 $G$ 是 $LL(1)$ 的，当且仅当 $G$ 的任意两个不同的产生式 $A\rightarrow \alpha | \beta$ 满足一下条件：  
+
+- 不存在终结符号 $a$ 使得 $\alpha$ 和 $\beta$ 都能推导出以 $a$ 为开头的串。  
+- $\alpha$ 和 $\beta$ 中最多只有一个可以推导出空串。  
+- 如果 $\beta \Rightarrow ^* \varepsilon$ 那么 $\alpha$ 不能推导出任何以 $FOLLOW(A)$ 中某个终结符号开头的串。  
+
+前两个条件意味着 $FIRST(\alpha)$ 与 $FIRST(\beta)$ 是不相交的集合。  
+第三个条件意味着如果 $\varepsilon$ 在 $FIRST(\beta)$ 中，那么 $FIRST(\alpha)$ 和 $FOLLOW(A)$ 是不相交的集合。  

@@ -3,4 +3,4 @@
 ## 目录
 
 0. [概述](index/overlook.md)
-1. [游戏与传播](index/game&communication.md)
+1. [策划](index/plan.md)

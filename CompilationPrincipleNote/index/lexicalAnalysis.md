@@ -269,7 +269,18 @@ DFA 与 NFA 具有等价性。
 
 ### 3.3.5 从正则表达式到自动机
 
-#### 3.3.5.1 从 NFA 转换到 DFA
+#### 3.3.5.1 从正则表达式转换到 NFA
+
+- 并  
+  ![并到NFA](../pic/union2NFA.svg "union2NFA")
+
+- 连接  
+  ![连接到NFA](../pic/connect2NFA.svg "connect2NFA")
+
+- 闭包  
+  ![闭包到NFA](../pic/closure2NFA.svg "closure2NFA")
+
+#### 3.3.5.2 从 NFA 转换到 DFA
 
 使用 **子集构造法** (Subset construction) 将 NFA 转换到 DFA 。
 
@@ -322,17 +333,6 @@ DFA 在读入输入 $a_1 a_2 \dots a_3$ 之后到达的状态对应于相应 NFA
 > | $\{1,2,4,5,6,7,10\}$ |    E     |  B  |  C  |
 >
 > 从而得到 DFA。
-
-#### 3.3.5.2 从正则表达式转换到 NFA
-
-- 并  
-  ![并到NFA](../pic/union2NFA.svg "union2NFA")
-
-- 连接  
-  ![连接到NFA](../pic/connect2NFA.svg "connect2NFA")
-
-- 闭包  
-  ![闭包到NFA](../pic/closure2NFA.svg "closure2NFA")
 
 #### 3.3.5.3 DFA 的优化
 

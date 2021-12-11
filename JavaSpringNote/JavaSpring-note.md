@@ -43,6 +43,14 @@ Spring 是目前主流的 Java Web 开发框架，是 Java 世界最为成功的
 - **Spring Web MVC 框架**  
   MVC 框架是一个全功能的构建 Web 应用程序的 MVC 实现。通过策略接口，MVC 框架变成为高度可配置的。Spring 的 MVC 框架提供清晰的角色划分：控制器、验证器、命令对象、表单对象和模型对象、分发器、处理器映射和视图解析器。Spring 支持多种视图技术。
 
+### Spring 扩展
+
+- Spring Boot
+  - 一个快速开发的脚手架。
+  - 基于 SpringBoot 可以快速开发单个微服务。
+- Spring Cloud
+  - SpringCloud 是基于 SpringBoot 实现的。
+
 ## Note 简介
 
 本份 Note 旨在记录学习进度，提供部分参考，部分内容可能不甚严谨。

@@ -43,7 +43,7 @@ class ConcreteComponent{
     + operation()
 }
 
-class Decorator{
+abstract Decorator{
     - component : Component
     + operation()
 }

@@ -17,6 +17,8 @@
 12. [外观模式](index/facade.md)
 13. [享元模式](index/flyweight.md)
 14. [代理模式](index/proxy.md)
+15. [职责链模式](index/chainOfResponsibility.md)
+16. [命令模式](index/command.md)
 
 ## 设计模式简介
 

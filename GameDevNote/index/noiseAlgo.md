@@ -19,7 +19,7 @@
 - 随机性
 - 平滑性
 
-由于计算机的特殊性，随机值的生成是可以复刻的。程序员可以通过手动设定 **种子** 来获得完全相同的两组「随机数」。
+由于计算机的特殊性，随机值的生成是可以复刻的。程序员可以通过手动设定 **种子** 来获得完全相同的两组「随机数」。或者，我们直接使用 **哈希函数** 而非 **随机函数** ，更能体现其这种性质。
 
 因此在计算机算法中，噪音具有三个特性：
 
@@ -115,8 +115,8 @@ float noise (vec2 st) {
     // Mix 4 coorners percentages
     return mix(a, b, u.x) +
             (c - a)* u.y * (1.0 - u.x) +
-            (d - b) * u.x * u.y;    
-    
+            (d - b) * u.x * u.y;
+
     // Mix 4 coorners percentages
     // return a + (b - a) * u.x +
     //        (c - a) * u.y * (1.0 - u.x) +
@@ -129,6 +129,53 @@ float noise (vec2 st) {
 n 维度的噪声中，选取 $2^n$ 个点进行插值。
 
 上述一维与二维所使用的算法，都是在 random value 之间插值，因此被称为 **Value Noise**，其看起来非常「块状」。
+
+上帝说，要有光。于是便有了 **梯度噪音** (Gradient noise) 。Perlin Noise 是梯度噪音的经典实现。
+
+## Perlin 噪音
+
+Perlin 使用随机向量取代随机值，为最终结果赋予了方向属性，以此抹消了 Value noise 的块状感。
+
+```C#
+float perlinNoise(Vector2 p)
+{
+  //获取包含目标点的最小整值立方体的 4 顶点坐标
+  Vector2 pi = Vector2(floor(p.x),floor(p.y));
+  Vector2 vertex[4] = {{pi.x,pi.y},{pi.x+1,pi.y},{pi.x,pi.y+1},{pi.x+1,pi.y+1}};
+
+  //通过 grad 函数得出坐标对应的随机值
+  float vertexRandom[4] =
+  {
+    grad(vertex[0],p),
+    grad(vertex[1],p),
+    grad(vertex[2],p),
+    grad(vertex[3],p)
+  };
+
+    //平滑插值
+    return mix(
+        mix(vertexRandom[1],
+            vertexRandom[2]),
+        mix(vertexRandom[3],
+            vertexRandom[4])
+        );
+}
+
+//点乘
+float dot(Vector2 v1,Vector2 v2){
+  return v1.x*v2.x+v1.y*v2.y;
+}
+
+//求梯度值（本质是求顶点代表的梯度向量与距离向量的点积）
+float grad(Vector2 vertex, Vector2 p)
+{
+  return dot(hash22(vertex), p);
+}
+```
+
+最终会呈现如下的形态：
+
+![PerlinNoise 的结果](../pic/perlinNoise.png)
 
 ## 参考资料
 

@@ -179,4 +179,5 @@ float grad(Vector2 vertex, Vector2 p)
 
 ## 参考资料
 
-[KillerAery's Blog#Noise](https://www.cnblogs.com/KillerAery/p/10765897.html#%E5%99%AA%E5%A3%B0) [TheBookOfShaders#11](https://thebookofshaders.com/11/?lan=en)
+[KillerAery's Blog#Noise](https://www.cnblogs.com/KillerAery/p/10765897.html#%E5%99%AA%E5%A3%B0)  
+[TheBookOfShaders#11](https://thebookofshaders.com/11/?lan=en)  

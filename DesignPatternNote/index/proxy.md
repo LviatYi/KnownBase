@@ -9,24 +9,24 @@
 
 ## 14.2 模式定义
 
-**代理模式** (Proxy Pattern) ，它属于对象结构型模式
-
-- 给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。
-- 引入了一个新的代理对象，代理对象在客户端对象和目标对象之间起到中介的作用，它去掉客户不能看到的内容和服务或者增添客户需要的额外的新服务。
+> **代理模式** (Proxy Pattern) ，它属于对象结构型模式。
+>
+> - 给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。
+> - 引入了一个新的代理对象，代理对象在客户端对象和目标对象之间起到中介的作用，它去掉客户不能看到的内容和服务或者增添客户需要的额外的新服务。
 
 ## 14.3 模式结构
 
 代理模式包含如下角色：
 
 - Subject 抽象主题角色
-  - 声明了真实主题和代理主题的共同接口，因此允许在任何使用真实主题的地方使用代理主题。  
-  - 客户端通常需要针对抽象主题角色进行编程。  
+  - 声明了真实主题和代理主题的共同接口，因此允许在任何使用真实主题的地方使用代理主题。
+  - 客户端通常需要针对抽象主题角色进行编程。
 - Proxy 代理主题角色
-  - 包含了对真实主题的引用，从而可以在任何时候操作真实主题对象。  
+  - 包含了对真实主题的引用，从而可以在任何时候操作真实主题对象。
   - 提供一个与真实主题角色相同的接口，以便在任何时候都可以替代真实主题。
   - 可以控制对真实主题的使用，负责在需要的时候创建和删除真实主题对象，并对真实主题对象的使用加以约束。
 - RealSubject 真实主题角色
-  - 定义了代理角色所代表的真实对象，在真实主题角色中实现了真实的业务操作。  
+  - 定义了代理角色所代表的真实对象，在真实主题角色中实现了真实的业务操作。
   - 客户端可以通过代理主题角色间接调用真实主题角色中定义的操作。
 
 ```PlantUml
@@ -81,14 +81,14 @@ Proxy--
 
 ## 14.5 代码分析
 
-``` Csharp
+```Csharp
 abstract class Subject
 {
     public abstract void Request();
 }
 ```
 
-``` Csharp
+```Csharp
 class RealSubject : Subject
 {
     public override void Request()
@@ -98,24 +98,24 @@ class RealSubject : Subject
 }
 ```
 
-``` Csharp
+```Csharp
 class Proxy : Subject
 {
     private RealSubject realSubject = new RealSubject(); //维持一个对真实主题对象的引用
- 
-    public void PreRequest() 
+
+    public void PreRequest()
     {
         ...
     }
- 
-    public override void Request() 
+
+    public override void Request()
     {
         PreRequest();
         realSubject.Request(); //调用真实主题对象的方法
         PostRequest();
     }
- 
-    public void PostRequest() 
+
+    public void PostRequest()
     {
         ...
     }
@@ -146,7 +146,7 @@ class Proxy : Subject
 
 ## 14.12 模式扩展
 
-实际开发中常用的代理模式形式上并不固定。常根据目的与实现方式分为不同种类。常用的几种如下：  
+实际开发中常用的代理模式形式上并不固定。常根据目的与实现方式分为不同种类。常用的几种如下：
 
 - 远程代理 (Remote Proxy)
   - 为一个位于不同的地址空间的对象提供一个本地的代理对象，这个不同的地址空间可以是在同一台主机中，也可是在另一台主机中，远程代理又称为大使 (Ambassador)。

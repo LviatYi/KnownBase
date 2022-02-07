@@ -18,6 +18,9 @@
 14. [代理模式](index/proxy.md)
 15. [职责链模式](index/chainOfResponsibility.md)
 16. [命令模式](index/command.md)
+17. [解释器模式](index/interpreter.md)
+18. [迭代器模式](index/iterator.md)
+19. [中介者模式](index/mediator.md)
 
 ## 设计模式简介
 

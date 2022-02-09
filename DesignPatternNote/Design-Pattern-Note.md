@@ -21,6 +21,11 @@
 17. [解释器模式](index/interpreter.md)
 18. [迭代器模式](index/iterator.md)
 19. [中介者模式](index/mediator.md)
+20. [备忘录模式](index/memento.md)
+21. [状态模式](index/state.md)
+22. [策略模式](index/strategy.md)
+23. [模板方法模式](index/templateMethod.md)
+24. [访问者模式](index/visitor.md)
 
 ## 设计模式简介
 

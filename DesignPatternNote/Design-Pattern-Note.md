@@ -22,16 +22,17 @@
 18. [迭代器模式](index/iterator.md)
 19. [中介者模式](index/mediator.md)
 20. [备忘录模式](index/memento.md)
-21. [状态模式](index/state.md)
-22. [策略模式](index/strategy.md)
-23. [模板方法模式](index/templateMethod.md)
-24. [访问者模式](index/visitor.md)
+21. [观察者模式](index/observer.md)
+22. [状态模式](index/state.md)
+23. [策略模式](index/strategy.md)
+24. [模板方法模式](index/templateMethod.md)
+25. [访问者模式](index/visitor.md)
 
 ## 设计模式简介
 
 ### 简单介绍
 
-设计模式即软件开发的总体指导思路或参照样板。
+设计模式是软件开发的总体指导思路或参照样板。
 
 设计模式如下所示：
 

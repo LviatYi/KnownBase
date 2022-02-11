@@ -19,7 +19,7 @@
 
 - Originator 原发器
   - 一般将需要保存内部状态的类设计为原发器。
-  - 可以创建一个备忘录，并存储它的当前内部状态。  
+  - 可以创建一个备忘录，并存储它的当前内部状态。
   - 可以使用备忘录来恢复其内部状态。
 - Memento 备忘录
   - 存储原发器的内部状态。
@@ -28,7 +28,7 @@
 - Caretaker 负责人
   - 又称为管理者。
   - 负责保存备忘录，但是不能对备忘录的内容进行操作或检查。
-  - 可以 **存储** 一个或多个备忘录对象，且只负责存储对象，而不能修改对象，也无须知道对象的实现细节。  
+  - 可以 **存储** 一个或多个备忘录对象，且只负责存储对象，而不能修改对象，也无须知道对象的实现细节。
 
 ```PlantUML
 @startuml Mediator_ClassDiagram
@@ -63,12 +63,72 @@ end note
 @enduml
 ```
 
-
 ## 20.4 时序图
 
 ## 20.5 代码分析
 
+```JAVA
+public class Originator {
+    private String state;
+
+    public Originator(){}
+
+　　// 创建一个备忘录对象
+    public Memento createMemento() {
+　　　　return new Memento(this);
+    }
+
+　　// 根据备忘录对象恢复原发器状态
+    public void restoreMemento(Memento m) {
+　　　　 state = m.state;
+    }
+
+    public void setState(String state) {
+        this.state=state;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+}
+```
+
+```JAVA
+class Memento {
+    private String state;
+
+    public Memento(Originator o) {
+　　　　state = o.getState();
+    }
+
+    public void setState(String state) {
+        this.state=state;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+}
+```
+
+```JAVA
+public class Caretaker {
+    private Memento memento;
+
+    public Memento getMemento() {
+        return memento;
+    }
+
+    public void setMemento(Memento memento) {
+        this.memento=memento;
+    }
+}
+```
+
 ## 20.6 模式分析
+
+- 除 Originator 类，不允许其他类调用 Memento 类的构造函数与相关方法，以免破坏封装性。
+- 一般地，Caretaker 仅用于存储。
 
 ## 20.7 实例
 

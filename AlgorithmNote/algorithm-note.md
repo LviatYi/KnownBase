@@ -2,7 +2,7 @@
 
 ## 目录
 
-0. [序言](index/perface.md)  
+1. [算法基础](index/algorithm-basic.md)  
 
 ## 算法简介
 

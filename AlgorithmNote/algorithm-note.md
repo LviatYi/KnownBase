@@ -2,7 +2,8 @@
 
 ## 目录
 
-1. [算法基础](index/algorithm-basic.md)  
+1. [算法基础](./index/algorithm-basic.md)  
+2. [分治策略](./index/divideConquer.md)  
 
 ## 算法简介
 

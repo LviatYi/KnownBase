@@ -4,7 +4,7 @@
 
 `INSERTION-SORT(A)`
 
-```vb {.line-numbers}
+```pascal {.line-numbers}
 for j = 2 to A.length
     key = A[j]
     // Insert A[j] into the sorted sequence A[1..j-1]

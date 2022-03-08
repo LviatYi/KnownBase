@@ -24,3 +24,8 @@ vector<int> Solution1::twoSum(vector<int>& nums, int target) {
     return ans;
 }
 
+std::vector<int> Solution1::twoSum2(std::vector<int>& nums, int target) {
+    vector<int> ans;
+
+    return ans;
+}

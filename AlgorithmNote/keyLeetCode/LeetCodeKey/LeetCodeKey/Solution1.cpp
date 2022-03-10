@@ -1,6 +1,7 @@
 #include "Solution1.h"
 
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -8,6 +9,7 @@ Solution1::Solution1() {
 }
 
 Solution1::~Solution1() {
+
 }
 
 vector<int> Solution1::twoSum(vector<int>& nums, int target) {
@@ -25,7 +27,14 @@ vector<int> Solution1::twoSum(vector<int>& nums, int target) {
 }
 
 std::vector<int> Solution1::twoSum2(std::vector<int>& nums, int target) {
-    vector<int> ans;
-
-    return ans;
+    // ¹þÏ£±í½â·¨
+    unordered_map<int, int > hashtable;
+    for (int i = 0; i < nums.size(); ++i) {
+        auto it = hashtable.find(target - nums[i]);
+        if (it != hashtable.end()) {
+            return { it->second, i };
+        }
+        hashtable[nums[i]] = i;
+    }
+    return {};
 }

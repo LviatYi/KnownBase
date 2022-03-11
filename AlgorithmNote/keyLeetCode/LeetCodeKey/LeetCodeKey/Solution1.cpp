@@ -27,7 +27,7 @@ vector<int> Solution1::twoSum(vector<int>& nums, int target) {
 }
 
 std::vector<int> Solution1::twoSum2(std::vector<int>& nums, int target) {
-    // ¹þÏ£±í½â·¨
+    // å“ˆå¸Œè¡¨è§£æ³•
     unordered_map<int, int > hashtable;
     for (int i = 0; i < nums.size(); ++i) {
         auto it = hashtable.find(target - nums[i]);

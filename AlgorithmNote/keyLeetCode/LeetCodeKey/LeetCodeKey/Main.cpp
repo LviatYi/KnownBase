@@ -2,21 +2,16 @@
 
 #include <iostream>
 #include "Solutions.h"
+#include <string>
 
 using namespace std;
 
 int main() {
-    Solution2 solution;
+    Solution3 solution;
 
-    ListNode* l1 = new ListNode(2, new ListNode(4, new ListNode(3)));
-    ListNode* l2 = new ListNode(5, new ListNode(6, new ListNode(4)));
-    ListNode* ans = solution.addTwoNumbers(l1, l2);
-
-    cout
-        << ans->val << ' '
-        << ans->next->val << ' '
-        << ans->next->next->val << ' '
-        << endl;
+    string s = " ";
+    int i = solution.lengthOfLongestSubstring(s);
+    cout << i;
 
     return 1;
 }

@@ -1,16 +1,19 @@
 #include "Main.h"
-
-#include <iostream>
 #include "Solutions.h"
+#include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 int main() {
-    Solution3 solution;
+    Solution4 solution;
+    vector<int> nums1 = { 1,2 };
+    vector<int> nums2 = { 3,4 };
 
-    string s = " ";
-    int i = solution.lengthOfLongestSubstring(s);
+
+    double i = solution.findMedianSortedArrays2(nums1, nums2);
+
     cout << i;
 
     return 1;

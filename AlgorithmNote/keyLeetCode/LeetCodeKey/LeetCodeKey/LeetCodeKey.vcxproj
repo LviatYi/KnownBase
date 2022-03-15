@@ -142,6 +142,7 @@
     <ClInclude Include="CHello.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Solution1.h" />
+    <ClInclude Include="Solution10.h" />
     <ClInclude Include="Solution2.h" />
     <ClInclude Include="Solution3.h" />
     <ClInclude Include="Solution4.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="CHello.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Solution1.cpp" />
+    <ClCompile Include="Solution10.cpp" />
     <ClCompile Include="Solution2.cpp" />
     <ClCompile Include="Solution3.cpp" />
     <ClCompile Include="Solution4.cpp" />

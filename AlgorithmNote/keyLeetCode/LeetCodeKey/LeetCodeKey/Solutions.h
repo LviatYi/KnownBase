@@ -10,3 +10,4 @@
 #include "Solution7.h"
 #include "Solution8.h"
 #include "Solution9.h"
+#include "Solution10.h"

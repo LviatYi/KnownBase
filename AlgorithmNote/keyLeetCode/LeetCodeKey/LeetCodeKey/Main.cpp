@@ -7,9 +7,9 @@
 using namespace std;
 
 int main() {
-    Solution9 solution;
+    Solution10 solution;
 
-    cout << solution.isPalindrome(12320);
+    cout << solution.isMatch("aaab", "a*aab");
 
     return 1;
 }

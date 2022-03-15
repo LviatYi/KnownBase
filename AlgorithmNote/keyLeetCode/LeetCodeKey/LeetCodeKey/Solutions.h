@@ -11,3 +11,5 @@
 #include "Solution8.h"
 #include "Solution9.h"
 #include "Solution10.h"
+#include "Solution11.h"
+#include "Solution12.h"

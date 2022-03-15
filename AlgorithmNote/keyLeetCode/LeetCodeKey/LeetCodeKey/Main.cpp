@@ -7,13 +7,10 @@
 using namespace std;
 
 int main() {
-    Solution4 solution;
-    vector<int> nums1 = { 1,2 };
-    vector<int> nums2 = { 3,4 };
+    Solution7 solution;
 
-
-    double i = solution.findMedianSortedArrays2(nums1, nums2);
-
+    int i = INT_MAX;
+    i += 1;
     cout << i;
 
     return 1;

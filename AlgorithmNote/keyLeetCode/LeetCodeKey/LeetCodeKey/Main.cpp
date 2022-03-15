@@ -7,9 +7,11 @@
 using namespace std;
 
 int main() {
-    Solution12 solution;
+    Solution14 solution;
 
-    cout << solution.intToRoman(1994);
+    vector<string>strs = { "" };
+
+    cout << solution.longestCommonPrefix(strs);
 
     return 1;
 }

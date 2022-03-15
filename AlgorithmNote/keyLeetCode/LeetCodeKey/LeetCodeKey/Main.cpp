@@ -7,11 +7,9 @@
 using namespace std;
 
 int main() {
-    Solution7 solution;
+    Solution8 solution;
 
-    int i = INT_MAX;
-    i += 1;
-    cout << i;
+    cout << solution.myAtoi2("   -2046541604030465340alksfdna");
 
     return 1;
 }

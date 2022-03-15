@@ -8,3 +8,4 @@
 #include "Solution5.h"
 #include "Solution6.h"
 #include "Solution7.h"
+#include "Solution8.h"

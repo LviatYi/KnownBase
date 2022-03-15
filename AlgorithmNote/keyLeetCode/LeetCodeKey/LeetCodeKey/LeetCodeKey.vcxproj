@@ -116,6 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +145,8 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Solution1.h" />
     <ClInclude Include="Solution10.h" />
+    <ClInclude Include="Solution11.h" />
+    <ClInclude Include="Solution12.h" />
     <ClInclude Include="Solution2.h" />
     <ClInclude Include="Solution3.h" />
     <ClInclude Include="Solution4.h" />
@@ -158,6 +162,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Solution1.cpp" />
     <ClCompile Include="Solution10.cpp" />
+    <ClCompile Include="Solution11.cpp" />
+    <ClCompile Include="Solution12.cpp" />
     <ClCompile Include="Solution2.cpp" />
     <ClCompile Include="Solution3.cpp" />
     <ClCompile Include="Solution4.cpp" />

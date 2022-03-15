@@ -7,9 +7,9 @@
 using namespace std;
 
 int main() {
-    Solution8 solution;
+    Solution9 solution;
 
-    cout << solution.myAtoi2("   -2046541604030465340alksfdna");
+    cout << solution.isPalindrome(12320);
 
     return 1;
 }

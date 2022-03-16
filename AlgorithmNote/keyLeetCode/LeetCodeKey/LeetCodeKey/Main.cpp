@@ -8,12 +8,11 @@
 using namespace std;
 
 int main() {
-    Solution15 solution;
+    Solution16 solution;
 
-    vector<int> key = { 1,-1,-1,0 };
-    vector<vector<int>> ans = solution.threeSum(key);
+    vector<int> key = { 0,0,0 };
+    cout << solution.threeSumClosest(key, 1);
 
-    cout << "hello";
 
     return 1;
 }

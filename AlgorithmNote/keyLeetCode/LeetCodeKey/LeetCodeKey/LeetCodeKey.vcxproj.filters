@@ -72,6 +72,15 @@
     <ClInclude Include="Solution16.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution17.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution18.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution19.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -126,6 +135,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution17.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution18.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution19.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

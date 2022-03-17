@@ -8,11 +8,11 @@
 using namespace std;
 
 int main() {
-    Solution16 solution;
+    Solution19 solution;
 
-    vector<int> key = { 0,0,0 };
-    cout << solution.threeSumClosest(key, 1);
+    ListNode* head = new ListNode(1, new ListNode(2));
 
+    head = solution.removeNthFromEnd(head, 2);
 
     return 1;
 }

@@ -20,3 +20,4 @@
 #include "Solution17.h"
 #include "Solution18.h"
 #include "Solution19.h"
+#include "Solution20.h"

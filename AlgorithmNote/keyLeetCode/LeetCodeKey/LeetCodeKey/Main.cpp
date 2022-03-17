@@ -8,11 +8,9 @@
 using namespace std;
 
 int main() {
-    Solution19 solution;
+    Solution20 solution;
 
-    ListNode* head = new ListNode(1, new ListNode(2));
-
-    head = solution.removeNthFromEnd(head, 2);
+    solution.isValid("(]");
 
     return 1;
 }

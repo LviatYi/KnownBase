@@ -81,6 +81,9 @@
     <ClInclude Include="Solution19.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution20.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -144,6 +147,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution19.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution20.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

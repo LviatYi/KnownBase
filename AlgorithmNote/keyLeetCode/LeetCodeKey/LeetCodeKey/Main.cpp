@@ -8,9 +8,9 @@
 using namespace std;
 
 int main() {
-    Solution20 solution;
+    Solution22 solution;
 
-    solution.isValid("(]");
+    vector<string> strs = solution.generateParenthesis(3);
 
     return 1;
 }

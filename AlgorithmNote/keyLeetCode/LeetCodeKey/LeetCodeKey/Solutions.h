@@ -25,3 +25,5 @@
 #include "Solution22.h"
 #include "Solution23.h"
 #include "Solution24.h"
+#include "Solution25.h"
+#include "Solution26.h"

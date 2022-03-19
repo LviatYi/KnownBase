@@ -10,11 +10,11 @@
 using namespace std;
 
 int main() {
-    Solution24 solution;
+    Solution26 solution;
 
-    ListNode* head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+    vector<int> nums = { 0,0,1,1,1,2,2,3,4 };
 
-    ListNode* ans = solution.swapPairs(head);
+    cout << solution.removeDuplicates(nums);
 
     return 1;
 }

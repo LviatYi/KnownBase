@@ -161,6 +161,8 @@
     <ClInclude Include="Solution22.h" />
     <ClInclude Include="Solution23.h" />
     <ClInclude Include="Solution24.h" />
+    <ClInclude Include="Solution25.h" />
+    <ClInclude Include="Solution26.h" />
     <ClInclude Include="Solution3.h" />
     <ClInclude Include="Solution4.h" />
     <ClInclude Include="Solution5.h" />
@@ -190,6 +192,8 @@
     <ClCompile Include="Solution22.cpp" />
     <ClCompile Include="Solution23.cpp" />
     <ClCompile Include="Solution24.cpp" />
+    <ClCompile Include="Solution25.cpp" />
+    <ClCompile Include="Solution26.cpp" />
     <ClCompile Include="Solution3.cpp" />
     <ClCompile Include="Solution4.cpp" />
     <ClCompile Include="Solution5.cpp" />

@@ -24,3 +24,4 @@
 #include "Solution21.h"
 #include "Solution22.h"
 #include "Solution23.h"
+#include "Solution24.h"

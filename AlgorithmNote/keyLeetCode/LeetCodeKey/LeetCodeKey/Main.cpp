@@ -10,11 +10,11 @@
 using namespace std;
 
 int main() {
-    Solution26 solution;
+    Solution27 solution;
 
-    vector<int> nums = { 0,0,1,1,1,2,2,3,4 };
+    vector<int> nums = { 0,1,2,2,3,0,4,2 };
 
-    cout << solution.removeDuplicates(nums);
+    cout << solution.removeElement(nums, 2);
 
     return 1;
 }

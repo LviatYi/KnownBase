@@ -30,3 +30,4 @@
 #include "Solution27.h"
 #include "Solution28.h"
 #include "Solution29.h"
+#include "Solution30.h"

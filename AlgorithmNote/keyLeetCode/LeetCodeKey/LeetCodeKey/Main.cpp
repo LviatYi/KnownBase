@@ -10,8 +10,17 @@
 using namespace std;
 
 int main() {
-    Solution29 solution;
+    Solution30 solution;
 
-    cout << solution.divide(7, -3);
+    string str = "barfoothefoobarman";
+    vector<string>words = { "foo","bar" };
+    vector<int>ans;
+
+    ans = solution.findSubstring(str, words);
+
+    for (int i : ans) {
+        cout << i << endl;
+    }
+
     return 1;
 }

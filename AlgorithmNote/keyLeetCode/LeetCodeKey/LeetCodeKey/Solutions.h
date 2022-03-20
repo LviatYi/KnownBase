@@ -28,3 +28,5 @@
 //#include "Solution25.h"
 #include "Solution26.h"
 #include "Solution27.h"
+#include "Solution28.h"
+#include "Solution29.h"

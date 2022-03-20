@@ -10,11 +10,8 @@
 using namespace std;
 
 int main() {
-    Solution27 solution;
+    Solution29 solution;
 
-    vector<int> nums = { 0,1,2,2,3,0,4,2 };
-
-    cout << solution.removeElement(nums, 2);
-
+    cout << solution.divide(7, -3);
     return 1;
 }

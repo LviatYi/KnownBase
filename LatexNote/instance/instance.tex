@@ -7,8 +7,13 @@
 %   设置文档类选项 UTF8
 \documentclass[UTF8]{ctexart}
 
+
+% ---------------------------------------- 导言区 ----------------------------------------
+
 % 控制序列 documentclass 与 begin 之间的内容为 导言。
 %   导言区的内容主要影响文档格式。
+
+% -------------------- 加载宏包 --------------------
 
 % usepackage 控制序列
 %   加载 amsmath 宏包。
@@ -20,6 +25,11 @@
 %-- \usepackage{lmodern}
 \usepackage{xfrac}
 \usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+
+% -------------------- 定义文档属性 --------------------
 
 % title 控制序列
 %   定义 Title。
@@ -31,6 +41,49 @@
 %   定义 Date
 %   \today 插入编译时日期。
 \date{\today}
+
+% -------------------- 版面设置 --------------------
+
+%   页边距
+%   geometry.germetry
+%       纸张大小
+\geometry{papersize={210mm,297mm}}
+%       页边距
+\geometry{left=2cm,right=2cm,top=3cm,bottom=3cm}
+
+%   fancyhdr.*
+%   设置页眉或页脚。
+%   设定 pagestyle。
+\pagestyle{fancy}
+%   EOLCRHF 选项用于指定位置。
+%       E   偶数页显示
+%       O   奇数页显示
+%       L   左部
+%       C   中部
+%       R   右部
+%       H   页眉部
+%       F   页脚部
+\fancyhf[LH]{LviatYi}
+\fancyhf[CH]{\today}
+\fancyhf[RH]{158********}
+\fancyhf[CF]{\thepage}
+%   设置页眉分割线宽度
+\renewcommand{\headrulewidth}{1pt}
+%   设置页脚分割线宽度
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headwidth}{\textwidth}
+
+%   行间距
+%   setspace.*
+%   设置行距为字号的 1.5 倍。
+\onehalfspacing
+
+%   段间距
+%   增加 0.4em 至段间距。
+%   减少则为负。
+\addtolength{\parskip}{.4em}
+
+% ---------------------------------------- 正文环境 ----------------------------------------
 
 % begin 控制序列
 %   指定 document 环境。
@@ -190,9 +243,11 @@ Latex 公式参考： https://www.zybuluo.com/codeep/note/163962
 
 %   指定 tabular 环境。
 %   其提供简单的表格功能。
-%   \hline 命令表示横线。
+%   定义列格式，分别用 l、c、r 定义 居左、居中、居右
 \begin{tabular}{|l|c|r|}
+    %   \hline 命令表示横线。
     \hline
+    %   使用 & 分列，使用 \\ 换行。
     操作系统   & 发行版   & 编辑器    \\
     \hline
     Windows    & MikTeX   & TexMakerX \\
@@ -201,11 +256,43 @@ Latex 公式参考： https://www.zybuluo.com/codeep/note/163962
     \hline
     Mac OS     & MacTeX   & TeXShop   \\
     \hline
-    通用       & TeX Live & TeXworks  \\
+    通用       & TeX Live & VSCode    \\
     \hline
 \end{tabular}
 
+\section{浮动}
+
+%   htbp 选项用于指定插图位置。
+%       h   here        这里
+%       t   top         页顶
+%       b   bottom      页尾
+%       p   float page  浮动页（专门放浮动体的单独页面或分栏）
+\begin{figure}[htbp]
+    %   定义居中。
+    \centering
+    \includegraphics[width = .5\textwidth]{assets/pic/Lviat Logo.png}
+    %   设置插图标题。
+    \caption{LviatYi Logo}
+    \label{fig:myphoto}
+\end{figure}
+
+\section{版面设置}
+
+\subsection{页边距}
+
+见导言区。
+
+\subsection{页眉与页脚}
+
+见导言区。
+
+\subsection{行间距与段间距}
+
+见导言区。
+
 \end{document}
+
+% ---------------------------------------- 无效区 ----------------------------------------
 
 % end 控制序列后的内容是无效的。
 % 无效的

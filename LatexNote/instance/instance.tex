@@ -1,0 +1,215 @@
+% documentclass 控制序列
+%   调用 article 文档类。
+%   文档类是一些格式的集合。
+%   部分控制序列还有被方括号 [] 包括的可选参数。
+%-- \documentclass{article}
+%   调用 ctexart 文档类。
+%   设置文档类选项 UTF8
+\documentclass[UTF8]{ctexart}
+
+% 控制序列 documentclass 与 begin 之间的内容为 导言。
+%   导言区的内容主要影响文档格式。
+
+% usepackage 控制序列
+%   加载 amsmath 宏包。
+\usepackage{amsmath}
+%   加载 anyfontsize 宏包。
+%       允许连续缩放字体大小。
+%       也可以使用 lmodern 字体解决字体大小相关警告。
+\usepackage{anyfontsize}
+%-- \usepackage{lmodern}
+\usepackage{xfrac}
+\usepackage{graphicx}
+
+% title 控制序列
+%   定义 Title。
+\title{Latex 实例}
+% author 控制序列
+%   定义 Author。
+\author{LviatYi}
+% date 控制序列
+%   定义 Date
+%   \today 插入编译时日期。
+\date{\today}
+
+% begin 控制序列
+%   指定 document 环境。
+%   与 end 控制序列成对出现。
+\begin{document}
+
+% 控制序列 begin 与 end 之间的内容为 环境。
+% 环境中的内容主要影响文档内容。
+
+% maketitle 控制序列
+%   按照预定格式展示 title author date。
+\maketitle
+
+% tableofcontents 控制序列
+%   依照文章结构生成一个目录。
+\tableofcontents
+
+% section 控制序列
+%   生成一个章节。
+%   用于控制文章结构。
+%   定义于文档类 article/ctexart
+%   类似作用还有：
+%       \subsection{}       生成一个子章节
+%       \subsubsection{}    生成一个子子章节
+%       \paragraph{}        生成一个段落
+%       \subparagraph{}     生成一个子段落
+%       \chapter{}          生成一个章节    （定义于文档类 report / ctexrep)
+%       \part{}             生成一个章节    （定义于文档类 book / ctexbook）
+\section{文章结构}
+
+\subsection{章节}
+
+\subsubsection{中文}
+
+你好，世界！
+
+\subsubsection{英语}
+
+Hello world!
+
+\subsubsection{法语}
+
+Bonjour le monde!
+
+\subsection{段落}
+
+\paragraph{Self introduction}
+
+% 两个换行表示一个换行。
+Here is Lviat Yi,
+
+a dreamer who wanted to be a game producer.
+
+\subparagraph{School}
+
+NUIST
+
+\subparagraph{Major}
+
+Software Engineering
+
+\section{方程}
+
+\subsection{两种数学模式}
+
+\subsubsection{行内公式}
+能量可以转化成质量，质量可以湮灭成能量。爱因斯坦使用 $E=mc^2$ 描述质量与能量之间的当量关系。
+
+\subsubsection{行间公式}
+%   也可以使用 \begin{math}..\end{math}
+%   不推荐使用 $$..$$
+\[E=mc^2\]
+
+\subsection{上下标}
+
+%   默认只作用一个字符。
+%   若要作用多个字符，需要使用 {}。
+
+\[z = r\cdot e^{2\pi i}\]
+
+\[I = I_1 + I_2\]
+
+\subsection{根式与分式}
+
+根式与分式 $\sqrt{x}$, $\frac12$.
+
+\[ \sqrt{x} \]
+
+\[ \frac{1}{2} \]
+
+%   为了保持合适行高，行内公式与行间公式的输出效果有差异。
+%   可以使用 \dfrac 强制行内模式的分式显示为行间模式的大小。
+%   反之使用 \tfrac。
+
+强制行间模式大小 $\dfrac12 $
+
+强制行内模式大小
+\[ \tfrac{1}{2} \]
+
+%   xfrac.sfrac
+微小行内分式 $\sfrac 1 2$
+
+繁分式 \[\cfrac{1}{1+\cfrac1x}\]
+
+\subsection{运算符}
+
+小型且未被 Latex 使用的运算符可以直接输入。
+
+\subsubsection{需要控制序列生成的运算符}
+
+%   \; 用于生成一个空格
+\[ \pm\; \times \; \div\; \cdot\; \cap\; \cup\;
+    \geq\; \leq\; \neq\; \approx \; \equiv \]
+
+%   连加 连乘 极限 积分
+$ \sum_{i=1}^n i\quad \prod_{i=1}^n $
+
+%   使用 \limits 和 \nolimits 显式指定是否压缩下标。
+$ \sum\limits _{i=1}^n i\quad \prod\limits _{i=1}^n $
+
+\[ \lim_{x\to0}x^2 \quad \int_a^b x^2 dx \]
+\[ \lim\nolimits _{x\to0}x^2\quad \int\nolimits_a^b x^2 dx \]
+
+%   多重积分
+\[ \iint\quad \iiint\quad \iiiint\quad \idotsint \]
+
+\subsection{定界符（括号）}
+
+\[ \Biggl(\biggl(\Bigl(\bigl((x)\bigr)\Bigr)\biggr)\Biggr) \]
+\[ \Biggl[\biggl[\Bigl[\bigl[[x]\bigr]\Bigr]\biggr]\Biggr] \]
+\[ \Biggl \{\biggl \{\Bigl \{\bigl \{\{x\}\bigr \}\Bigr \}\biggr \}\Biggr\} \]
+\[ \Biggl\langle\biggl\langle\Bigl\langle\bigl\langle\langle x
+    \rangle\bigr\rangle\Bigr\rangle\biggr\rangle\Biggr\rangle \]
+\[ \Biggl\lvert\biggl\lvert\Bigl\lvert\bigl\lvert\lvert x
+    \rvert\bigr\rvert\Bigr\rvert\biggr\rvert\Biggr\rvert \]
+\[ \Biggl\lVert\biggl\lVert\Bigl\lVert\bigl\lVert\lVert x
+    \rVert\bigr\rVert\Bigr\rVert\biggr\rVert\Biggr\rVert \]
+
+\subsection{省略号}
+
+\[ x_1,x_2,\dots ,x_n\quad 1,2,\cdots ,n\quad
+    \vdots\quad \ddots \]
+
+\subsection{更多高阶技巧}
+
+Latex 公式参考： https://www.zybuluo.com/codeep/note/163962
+
+\section{图片与表格}
+
+\subsection{图片}
+
+%   graphicx.includegraphics
+%   缩放图片的宽度至页面宽度的 90%，图片的总高度会按比例缩放。
+\includegraphics[width = .9\textwidth]{assets/pic/Lviat Logo.png}
+
+\subsection{表格}
+
+%   指定 tabular 环境。
+%   其提供简单的表格功能。
+%   \hline 命令表示横线。
+\begin{tabular}{|l|c|r|}
+    \hline
+    操作系统   & 发行版   & 编辑器    \\
+    \hline
+    Windows    & MikTeX   & TexMakerX \\
+    \hline
+    Unix/Linux & teTeX    & Kile      \\
+    \hline
+    Mac OS     & MacTeX   & TeXShop   \\
+    \hline
+    通用       & TeX Live & TeXworks  \\
+    \hline
+\end{tabular}
+
+\end{document}
+
+% end 控制序列后的内容是无效的。
+% 无效的
+Hello, world!
+
+
+

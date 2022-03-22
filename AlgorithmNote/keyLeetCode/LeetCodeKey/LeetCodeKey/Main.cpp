@@ -10,11 +10,11 @@
 using namespace std;
 
 int main() {
-    Solution33 solution;
+    Solution34 solution;
 
-    vector<int> nums = { 1,2 };
+    vector<int> nums = { 1 };
 
-    cout << solution.search(nums, 1);
+    solution.searchRange(nums, 1);
 
     return 1;
 }

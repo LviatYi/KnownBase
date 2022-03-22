@@ -168,6 +168,8 @@
     <ClInclude Include="Solution29.h" />
     <ClInclude Include="Solution3.h" />
     <ClInclude Include="Solution30.h" />
+    <ClInclude Include="Solution31.h" />
+    <ClInclude Include="Solution32.h" />
     <ClInclude Include="Solution4.h" />
     <ClInclude Include="Solution5.h" />
     <ClInclude Include="Solution6.h" />
@@ -203,6 +205,8 @@
     <ClCompile Include="Solution29.cpp" />
     <ClCompile Include="Solution3.cpp" />
     <ClCompile Include="Solution30.cpp" />
+    <ClCompile Include="Solution31.cpp" />
+    <ClCompile Include="Solution32.cpp" />
     <ClCompile Include="Solution4.cpp" />
     <ClCompile Include="Solution5.cpp" />
     <ClCompile Include="Solution6.cpp" />

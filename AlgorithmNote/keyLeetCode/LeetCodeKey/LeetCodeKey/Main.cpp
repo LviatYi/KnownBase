@@ -10,17 +10,9 @@
 using namespace std;
 
 int main() {
-    Solution30 solution;
+    Solution32 solution;
 
-    string str = "barfoothefoobarman";
-    vector<string>words = { "foo","bar" };
-    vector<int>ans;
-
-    ans = solution.findSubstring(str, words);
-
-    for (int i : ans) {
-        cout << i << endl;
-    }
+    cout << solution.longestValidParentheses("(()");
 
     return 1;
 }

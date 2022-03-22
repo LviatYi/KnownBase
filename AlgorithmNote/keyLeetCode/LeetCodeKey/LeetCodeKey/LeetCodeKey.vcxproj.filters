@@ -123,6 +123,9 @@
     <ClInclude Include="Solution32.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution33.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -225,6 +228,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution32.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution33.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

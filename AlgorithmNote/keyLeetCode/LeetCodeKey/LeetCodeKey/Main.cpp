@@ -10,9 +10,11 @@
 using namespace std;
 
 int main() {
-    Solution32 solution;
+    Solution33 solution;
 
-    cout << solution.longestValidParentheses("(()");
+    vector<int> nums = { 1,2 };
+
+    cout << solution.search(nums, 1);
 
     return 1;
 }

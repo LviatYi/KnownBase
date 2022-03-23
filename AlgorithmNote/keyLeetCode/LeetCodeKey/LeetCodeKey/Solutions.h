@@ -35,3 +35,5 @@
 #include "Solution32.h"
 #include "Solution33.h"
 #include "Solution34.h"
+#include "Solution35.h"
+#include "Solution36.h"

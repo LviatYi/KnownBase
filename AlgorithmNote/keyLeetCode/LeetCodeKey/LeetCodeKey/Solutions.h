@@ -37,3 +37,4 @@
 #include "Solution34.h"
 #include "Solution35.h"
 #include "Solution36.h"
+#include "Solution37.h"

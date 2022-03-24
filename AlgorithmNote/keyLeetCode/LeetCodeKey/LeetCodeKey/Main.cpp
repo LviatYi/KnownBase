@@ -10,11 +10,14 @@
 using namespace std;
 
 int main() {
-    Solution37 solution;
+    Solution39 solution;
 
-    vector<vector<char> >nums = { {'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'}, {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'}, {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'} };
+    vector<int>candidates = { 2,3,6,7 };
+    int target = 7;
 
-    solution.solveSudoku(nums);
+    vector<vector<int>> ans;
+
+    ans = solution.combinationSum(candidates, target);
 
     return 1;
 }

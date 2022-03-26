@@ -3,7 +3,7 @@
 
 using namespace std;
 
-vector<int>currentAns;
+static vector<int>currentAns;
 
 #pragma region 回溯
 /// <summary>
@@ -13,7 +13,7 @@ vector<int>currentAns;
 /// <param name="ans"></param>
 /// <param name="start">起始可选的数字 index</param>
 /// <param name="target"></param>
-void dfs(vector<int>& candidates, vector<vector<int>>& ans, int start, int target) {
+static void dfs(vector<int>& candidates, vector<vector<int>>& ans, int start, int target) {
     if (target < 0) return;
     if (target == 0) {
         ans.push_back(currentAns);

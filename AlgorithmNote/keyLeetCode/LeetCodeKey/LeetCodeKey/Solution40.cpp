@@ -2,9 +2,9 @@
 #include<algorithm>
 using namespace std;
 
-vector<int>currentAns;
+static vector<int>currentAns;
 
-void dfs(vector<int>& candidates, vector<vector<int>>& ans, int start, int target) {
+static void dfs(vector<int>& candidates, vector<vector<int>>& ans, int start, int target) {
     if (target < 0) return;
     if (target == 0) {
         ans.push_back(currentAns);

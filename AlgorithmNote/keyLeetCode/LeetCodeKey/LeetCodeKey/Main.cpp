@@ -10,14 +10,12 @@
 using namespace std;
 
 int main() {
-    Solution39 solution;
+    Sword5 solution;
 
-    vector<int>candidates = { 2,3,6,7 };
-    int target = 7;
+    string s = "abcd abcdsa adaf ";
+    //vector<vector<int>> input = { {1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30} };
 
-    vector<vector<int>> ans;
-
-    ans = solution.combinationSum(candidates, target);
+    cout << solution.replaceSpace(s);
 
     return 1;
 }

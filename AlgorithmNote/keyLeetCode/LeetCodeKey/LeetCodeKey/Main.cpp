@@ -11,11 +11,8 @@
 using namespace std;
 
 int main() {
-    Sword4 solution;
-
-    vector<vector<int>> preorder = { {-5} };
-
-    solution.findNumberIn2DArray(preorder, -5);
+    Sword10 solution;
+    cout << solution.fib(5) << endl;
 
     return 1;
 }

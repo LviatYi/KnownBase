@@ -5,6 +5,7 @@
 1. [算法基础](./index/algorithm-basic.md)
 1. [分治策略](./index/divideConquer.md)
 1. [散列表](./index/hashing.md)
+1. [树](./index/tree.md)
 1. [动态规划](./index/dynamic-programming.md)
 1. [字符串算法](./index/stringAlgo.md)
 

@@ -11,12 +11,11 @@
 using namespace std;
 
 int main() {
-    Sword7 solution;
+    Sword4 solution;
 
-    vector<int> preorder = { 3,9,20,15,7 };
-    vector<int>inorder = { 9,3,15,20,7 };
+    vector<vector<int>> preorder = { {-5} };
 
-    solution.buildTree(preorder, inorder);
+    solution.findNumberIn2DArray(preorder, -5);
 
     return 1;
 }

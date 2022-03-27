@@ -168,6 +168,12 @@
     <ClInclude Include="TreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution105.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword9.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -312,6 +318,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sword7.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution105.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword9.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

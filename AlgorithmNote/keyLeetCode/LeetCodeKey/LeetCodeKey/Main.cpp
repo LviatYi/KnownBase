@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "Solutions.h"
 #include "ListNode.h"
+#include "TreeNode.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,12 +11,12 @@
 using namespace std;
 
 int main() {
-    Sword5 solution;
+    Sword7 solution;
 
-    string s = "abcd abcdsa adaf ";
-    //vector<vector<int>> input = { {1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30} };
+    vector<int> preorder = { 3,9,20,15,7 };
+    vector<int>inorder = { 9,3,15,20,7 };
 
-    cout << solution.replaceSpace(s);
+    solution.buildTree(preorder, inorder);
 
     return 1;
 }

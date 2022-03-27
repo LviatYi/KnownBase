@@ -190,6 +190,8 @@
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
     <ClInclude Include="Sword5.h" />
+    <ClInclude Include="Sword7.h" />
+    <ClInclude Include="TreeNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHello.cpp" />
@@ -239,6 +241,7 @@
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />
     <ClCompile Include="Sword5.cpp" />
+    <ClCompile Include="Sword7.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -46,3 +46,4 @@
 #include "Sword4.h"
 #include "Sword5.h"
 #include "Sword6.h"
+#include "Sword7.h"

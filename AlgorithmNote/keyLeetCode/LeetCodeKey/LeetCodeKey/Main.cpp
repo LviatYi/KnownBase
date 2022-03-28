@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword15 solution;
+    Sword16 solution;
 
-    cout << solution.hammingWeight(11) << endl;
+    cout << solution.myPow(2, -2) << endl;
 
     return 1;
 }

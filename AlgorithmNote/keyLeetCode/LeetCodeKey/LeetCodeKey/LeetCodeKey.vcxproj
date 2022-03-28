@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -152,6 +152,7 @@
     <ClInclude Include="Solution13.h" />
     <ClInclude Include="Solution14.h" />
     <ClInclude Include="Solution15.h" />
+    <ClInclude Include="Solution154.h" />
     <ClInclude Include="Solution16.h" />
     <ClInclude Include="Solution17.h" />
     <ClInclude Include="Solution18.h" />
@@ -185,12 +186,14 @@
     <ClInclude Include="Solution5.h" />
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution7.h" />
+    <ClInclude Include="Solution79.h" />
     <ClInclude Include="Solution8.h" />
     <ClInclude Include="Solution9.h" />
     <ClInclude Include="Solutions.h" />
     <ClInclude Include="Sword10.h" />
     <ClInclude Include="Sword11.h" />
     <ClInclude Include="Sword12.h" />
+    <ClInclude Include="Sword13.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
@@ -210,6 +213,7 @@
     <ClCompile Include="Solution13.cpp" />
     <ClCompile Include="Solution14.cpp" />
     <ClCompile Include="Solution15.cpp" />
+    <ClCompile Include="Solution154.cpp" />
     <ClCompile Include="Solution16.cpp" />
     <ClCompile Include="Solution17.cpp" />
     <ClCompile Include="Solution18.cpp" />
@@ -243,11 +247,13 @@
     <ClCompile Include="Solution5.cpp" />
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution7.cpp" />
+    <ClCompile Include="Solution79.cpp" />
     <ClCompile Include="Solution8.cpp" />
     <ClCompile Include="Solution9.cpp" />
     <ClCompile Include="Sword10.cpp" />
     <ClCompile Include="Sword11.cpp" />
     <ClCompile Include="Sword12.cpp" />
+    <ClCompile Include="Sword13.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />

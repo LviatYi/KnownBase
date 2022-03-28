@@ -11,9 +11,12 @@
 using namespace std;
 
 int main() {
-    Sword10 solution;
-    cout << solution.fib(43) << endl;
-    //cout << solution.numWays(0) << endl;
+    Sword11 solution;
+
+    vector<int> input{ 1,2,3,4,5 };
+
+    cout << solution.minArray(input) << endl;
+
 
     return 1;
 }

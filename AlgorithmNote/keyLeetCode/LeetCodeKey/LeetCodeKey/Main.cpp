@@ -11,14 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword13 solution;
+    Sword14 solution;
 
-    //vector<int> input{ 1,2,3,4,5 };
-    //vector<vector<char>> board = { };
-
-    //solution.exist(board, "");
-
-    cout << solution.movingCount(4, 11, 13) << endl;
+    cout << solution.cuttingRope(58) << endl;
 
     return 1;
 }

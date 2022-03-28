@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword14 solution;
+    Sword15 solution;
 
-    cout << solution.cuttingRope(58) << endl;
+    cout << solution.hammingWeight(11) << endl;
 
     return 1;
 }

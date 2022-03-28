@@ -1,7 +1,7 @@
 #include "Solution79.h"
 
-int rows, cols;
-string target;
+static int rows, cols;
+static string target;
 
 bool isMatch(vector<vector<char>>& board, int x, int y, string& word, int matchCount) {
     if (matchCount >= word.size()) {

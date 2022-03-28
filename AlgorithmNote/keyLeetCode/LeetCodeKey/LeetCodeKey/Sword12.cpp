@@ -3,8 +3,8 @@
 
 #pragma region DFS 剪枝
 // 声明全局变量提速效果明显。
-int rows, cols;
-string target;
+static int rows, cols;
+static string target;
 
 bool isMatch(vector<vector<char>>& board, int x, int y, string& word, int matchCount) {
     if (matchCount >= word.size()) {

@@ -12,7 +12,8 @@ using namespace std;
 
 int main() {
     Sword10 solution;
-    cout << solution.fib(5) << endl;
+    cout << solution.fib(43) << endl;
+    //cout << solution.numWays(0) << endl;
 
     return 1;
 }

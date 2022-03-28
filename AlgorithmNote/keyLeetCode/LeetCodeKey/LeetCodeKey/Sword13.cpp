@@ -41,10 +41,6 @@ int Sword13::movingCount(int m, int n, int k) {
 #pragma region DFS
 static int res = 0;
 static bool visited[100][100];
-int Sword13::movingCount2(int m, int n, int k) {
-    dfs(0, 0, m, n, k);
-    return res;
-}
 
 static void dfs(int x, int y, int m, int n, int k) {
     if (x == m || y == n || visited[x][y]) {
@@ -58,6 +54,10 @@ static void dfs(int x, int y, int m, int n, int k) {
     res++;
     dfs(x + 1, y, m, n, k);
     dfs(x, y + 1, m, n, k);
+}
+int Sword13::movingCount2(int m, int n, int k) {
+    dfs(0, 0, m, n, k);
+    return res;
 }
 #pragma endregion
 

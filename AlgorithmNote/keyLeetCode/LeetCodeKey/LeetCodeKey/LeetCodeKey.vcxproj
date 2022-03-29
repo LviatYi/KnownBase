@@ -185,6 +185,7 @@
     <ClInclude Include="Solution40.h" />
     <ClInclude Include="Solution41.h" />
     <ClInclude Include="Solution5.h" />
+    <ClInclude Include="Solution50.h" />
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution7.h" />
     <ClInclude Include="Solution79.h" />
@@ -198,6 +199,10 @@
     <ClInclude Include="Sword14.h" />
     <ClInclude Include="Sword15.h" />
     <ClInclude Include="Sword16.h" />
+    <ClInclude Include="Sword17.h" />
+    <ClInclude Include="Sword18.h" />
+    <ClInclude Include="Sword19.h" />
+    <ClInclude Include="Sword20.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
@@ -250,6 +255,7 @@
     <ClCompile Include="Solution40.cpp" />
     <ClCompile Include="Solution41.cpp" />
     <ClCompile Include="Solution5.cpp" />
+    <ClCompile Include="Solution50.cpp" />
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution7.cpp" />
     <ClCompile Include="Solution79.cpp" />
@@ -262,6 +268,10 @@
     <ClCompile Include="Sword14.cpp" />
     <ClCompile Include="Sword15.cpp" />
     <ClCompile Include="Sword16.cpp" />
+    <ClCompile Include="Sword17.cpp" />
+    <ClCompile Include="Sword18.cpp" />
+    <ClCompile Include="Sword19.cpp" />
+    <ClCompile Include="Sword20.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />

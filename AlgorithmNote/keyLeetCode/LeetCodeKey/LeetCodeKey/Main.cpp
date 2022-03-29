@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword16 solution;
+    Sword20 solution;
 
-    cout << solution.myPow(2, -2) << endl;
+    cout << solution.isNumber("e234") << endl;
 
     return 1;
 }

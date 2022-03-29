@@ -11,11 +11,11 @@
 using namespace std;
 
 int main() {
-    Sword21 solution;
+    Sword24 solution;
 
-    vector<int> nums = { 1,2,2,4,3,5,6,6,3,5,6,1 };
+    ListNode* head = new ListNode(1,new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
-    nums = solution.exchange(nums);
+    head = solution.reverseList(head);
 
     return 1;
 }

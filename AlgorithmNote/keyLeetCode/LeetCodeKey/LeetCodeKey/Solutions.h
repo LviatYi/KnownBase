@@ -60,3 +60,6 @@
 //#include "Sword19.h"
 #include "Sword20.h"
 #include "Sword21.h"
+#include "Sword22.h"
+#include "Sword24.h"
+#include "Sword25.h"

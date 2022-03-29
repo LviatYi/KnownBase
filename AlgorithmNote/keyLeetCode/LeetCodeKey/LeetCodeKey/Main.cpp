@@ -11,9 +11,11 @@
 using namespace std;
 
 int main() {
-    Sword20 solution;
+    Sword21 solution;
 
-    cout << solution.isNumber("e234") << endl;
+    vector<int> nums = { 1,2,2,4,3,5,6,6,3,5,6,1 };
+
+    nums = solution.exchange(nums);
 
     return 1;
 }

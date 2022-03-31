@@ -18,8 +18,8 @@
 
 - **高度与深度 h** 用于衡量树的层数，不同的环境下有不同的顺序、初值定义。
 - **度** 每个结点孩子的最大数量。
-- **前驱** 给定结点在指定遍历次序的前一个结点。
-- **后继** 给定结点在指定遍历次序的后一个结点。
+- **前驱** 给定结点在中序遍历的前一个结点。
+- **后继** 给定结点在中序遍历的后一个结点。
 
 通过定义树的构建方式，树将展现不同的特性。
 
@@ -36,7 +36,7 @@
 - 指向其他结点的指针。
   - 左孩子 left 。
   - 右孩子 right 。
-  - 父节点 p 。
+  - 父结点 p 。
 
 定义如下特殊形态的二叉树：
 
@@ -69,14 +69,14 @@ $$
 WPL = \sum^n_{k=1} {w_k l_k}
 $$
 
-对于有 $n$ 个权值为 $\{w_1,w_2,\dots,w_n\}$ 的结点，构造的具有最小带权路径长度 $WPL$ 的二叉树为 **赫夫曼树** 。  
+对于有 $n$ 个权值为 $\{w_1,w_2,\dots,w_n\}$ 的结点，构造的具有最小带权路径长度 $WPL$ 的二叉树为 **赫夫曼树** 。
 
 ### 7.2.1 赫夫曼算法
 
 赫夫曼算法用于构建赫夫曼树。
 
-1. 将所有节点分别构造一棵具有一个节点的树。
-1. 选取两棵权值最小的树根节点分别作为左右节点（一般令小在左），并将其权值之和构建新的树根节点。
+1. 将所有结点分别构造一棵具有一个结点的树。
+1. 选取两棵权值最小的树根结点分别作为左右结点（一般令小在左），并将其权值之和构建新的树根结点。
 1. 重复上步骤，直到只有一棵树。
 
 最后剩下的树即赫夫曼树。
@@ -116,7 +116,7 @@ if x!=NULL
 
 ### 7.3.1 查找二叉搜索树
 
-#### 查找包含指定值的结点
+#### 二叉搜索树查找包含指定值的结点
 
 > 函数签名： `TREE_SEARCH(x,k)`  
 > 复杂度： $O(h)$
@@ -144,7 +144,7 @@ while x != NULL or k != x.key
 return x
 ```
 
-#### 查找最大 / 最小值
+#### 二叉搜索树查找最大 / 最小值
 
 二叉搜索树的性质保证了最左侧的结点为最小结点，最右侧的结点为最大结点。
 
@@ -166,7 +166,7 @@ while x.right != NULL
 return x
 ```
 
-#### 查找前驱 / 后继
+#### 二叉搜索树查找前驱 / 后继
 
 对于某结点的后继若存在，则有如下两种情况：
 
@@ -216,9 +216,9 @@ return x.p
 
 插入与删除结点的方式对维护 **树的属性** 具有 **决定性** 的意义。
 
-#### 插入
+#### 二叉搜索树插入
 
-> 函数签名： `TREE_INSERT(T,Z)`  
+> 函数签名： `TREE_INSERT(T,z)`  
 > 复杂度： $O(h)$
 
 ```pascal {.line-numbers}
@@ -239,7 +239,7 @@ else
   y.right = z
 ```
 
-#### 删除
+#### 二叉搜索树删除
 
 相较于插入，二叉搜索树的删除稍显麻烦。
 
@@ -247,7 +247,7 @@ else
 - 如果 $z$ 具有一个孩子结点，则将孩子结点提升至删除位置。
 - 如果 $z$ 具有两个孩子结点，则：
   - 将 $z$ 的后继（或前驱）结点提升至删除位置。
-  - 原 $z$ 的左子树成为新节点的左子树。
+  - 原 $z$ 的左子树成为新结点的左子树。
 
 ![二叉搜索树删除的一种情况（1）](../pic/BinSearchTreeDelete1.png)  
 ![二叉搜索树删除的一种情况（2）](../pic/BinSearchTreeDelete2.png)  
@@ -279,7 +279,8 @@ if z.left == NULL
   TRANSPLANT(T,z,z.right)
 elseif z.right == NULL
   TRANSPLANT(T,z,z.left)
-else y = TREE_MINIMUM(z.right)
+else 
+  y = TREE_MINIMUM(z.right)
   if y.p != z
     TRANSPLANT(T,y,y.right)
     y.right = z.right
@@ -293,18 +294,123 @@ else y = TREE_MINIMUM(z.right)
 
 **平衡二叉树** (balanced binary tree) 又称为 AVL 树。
 
-其具有以下性质：  
+其具有以下性质：
 
 - 其左子树和右子树都是平衡二叉树。
 - 其左子树与右子树的深度之差的绝对值不大于 1 。
 
+树的每个结点包含如下属性：
+
+- bf 平衡属性 (balance factor)  
+  其值为左子树与右子树的深度之差。
+- key
+- left
+- right
+- p
+
 插入时有如下四种情况可能破坏子树平衡性，并对应四种解决方案：
 
-![平衡二叉树 LL](../pic/BalanceLL.png)
-![平衡二叉树 RR](../pic/BalanceRR.png)
-![平衡二叉树 LR](../pic/BalanceLR.png)
+![平衡二叉树 LL](../pic/BalanceLL.png)  
+![平衡二叉树 RR](../pic/BalanceRR.png)  
+![平衡二叉树 LR](../pic/BalanceLR.png)  
 ![平衡二叉树 RL](../pic/BalanceRL.png)
 
 ## 7.5 红黑树
 
+红黑树一种二叉搜索树，其在每个结点上增加了 1 个存储位表示结点的颜色。
 
+通过确保没有一条路径会比其他路径长出 2 倍，因此是近似 **平衡的** 。
+
+树中每个结点包含如下属性：
+
+- color
+- key
+- left
+- right
+- p
+
+定义没有子结点的结点的 **左右孩子** 为叶子结点。定义 `null` 为指向叶子结点或外部节点的指针。定义从某个结点 $x$ 出发（不包含自身）到达一个叶子结点的任意一条简单路径上的黑色结点个数称为该结点的 **黑高** (black-height) 。
+
+一棵红黑树满足如下 **红黑性质** ：
+
+- 每个结点是 **红** 或 **黑** 色的。
+- 根结点是黑色的。
+- 每个叶子结点是黑色的。
+- 如果一个结点是红色的，则它的两个子结点都是黑色的。
+- 对于每个结点，从该节点到其所有后代的叶子结点的简单路径上，均包含相同数目的黑色节点。
+
+为维护红黑性质，需在修改操作的同时修改颜色与指针结构。
+
+指针结构的修改通过 **旋转** (ratation) 完成。
+
+![左旋与右旋](../pic/rotation.png)
+
+> 函数签名： `LEFT_ROTATE(T,x)`
+
+```pascal {.line-numbers}
+y = x.right
+x.right = y.left
+if y.left != NULL
+  y.left.p = x
+y.p = x.p
+if x.p == NULL
+  T.root = y
+elseif x == x.p.left
+  x.p.left = y
+else
+  x.p.right = y
+y.left = x
+x.p = y
+```
+
+![左旋示例](../pic/LrotationExmp.png)
+
+### 7.5.1 修改红黑树
+
+#### 红黑树插入
+
+> 函数签名： `RB_INSERT(T,z)`
+
+```pascal {.line-numbers}
+y = NULL
+x = T.root
+while x != NULL
+  y = x
+  if z.key < x.key
+  x = x.left
+  else
+    x = x.right
+z.p = y
+if y == NULL
+  T.root = z
+elseif z.key < y.key
+  y.left = z
+z.left = NULL
+z.right = NULL
+z.color = RED
+RB_INSERT_FIXUP(T,z)
+```
+
+> 函数签名： `RB_INSERT_FIXUP(T,z)`
+
+```pascal {.line-numbers}
+while z.p.color == RED
+  if z.p == z.p.p.left
+    y = z.p.p.right
+    if y.color == RED
+      z.p.color = BLACK
+      y.color = BLACK
+      z.p.p.color = RED
+      z = z.p.p
+    elseif z == z.p.right
+      z = z.p
+      LEFT_ROTATE(T,z)
+    z.p.color = BLACK
+    z.p.p.color = RED
+    RIGHT_ROTATE(T,z.p.p)
+  else
+    (与另一分支相对称)
+T.root.color = BLACK
+```
+
+![红黑树自平衡](../pic/RBrotation.png)

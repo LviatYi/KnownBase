@@ -146,6 +146,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Solution1.h" />
     <ClInclude Include="Solution10.h" />
+    <ClInclude Include="Solution101.h" />
     <ClInclude Include="Solution105.h" />
     <ClInclude Include="Solution11.h" />
     <ClInclude Include="Solution12.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Solution41.h" />
     <ClInclude Include="Solution5.h" />
     <ClInclude Include="Solution50.h" />
+    <ClInclude Include="Solution54.h" />
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution7.h" />
     <ClInclude Include="Solution79.h" />
@@ -208,6 +210,10 @@
     <ClInclude Include="Sword22.h" />
     <ClInclude Include="Sword24.h" />
     <ClInclude Include="Sword25.h" />
+    <ClInclude Include="Sword26.h" />
+    <ClInclude Include="Sword27.h" />
+    <ClInclude Include="Sword28.h" />
+    <ClInclude Include="Sword29.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
@@ -221,6 +227,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Solution1.cpp" />
     <ClCompile Include="Solution10.cpp" />
+    <ClCompile Include="Solution101.cpp" />
     <ClCompile Include="Solution105.cpp" />
     <ClCompile Include="Solution11.cpp" />
     <ClCompile Include="Solution12.cpp" />
@@ -262,6 +269,7 @@
     <ClCompile Include="Solution41.cpp" />
     <ClCompile Include="Solution5.cpp" />
     <ClCompile Include="Solution50.cpp" />
+    <ClCompile Include="Solution54.cpp" />
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution7.cpp" />
     <ClCompile Include="Solution79.cpp" />
@@ -282,6 +290,10 @@
     <ClCompile Include="Sword22.cpp" />
     <ClCompile Include="Sword24.cpp" />
     <ClCompile Include="Sword25.cpp" />
+    <ClCompile Include="Sword26.cpp" />
+    <ClCompile Include="Sword27.cpp" />
+    <ClCompile Include="Sword28.cpp" />
+    <ClCompile Include="Sword29.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />

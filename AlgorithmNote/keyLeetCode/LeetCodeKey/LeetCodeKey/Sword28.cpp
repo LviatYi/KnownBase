@@ -1,6 +1,6 @@
 #include "Sword28.h"
 
-bool isSame(TreeNode* r1, TreeNode* r2) {
+static bool isSame(TreeNode* r1, TreeNode* r2) {
     if (!r1 && !r2) {
         return true;
     }
@@ -12,7 +12,7 @@ bool isSame(TreeNode* r1, TreeNode* r2) {
     }
 }
 
-bool isSubSymmetric(TreeNode* a, TreeNode* b) {
+static bool isSubSymmetric(TreeNode* a, TreeNode* b) {
     if (!a && !b) {
         return true;
     }

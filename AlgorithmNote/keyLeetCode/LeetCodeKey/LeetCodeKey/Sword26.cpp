@@ -1,13 +1,5 @@
 #include "Sword26.h"
 
-bool Sword26::isSubStructure(TreeNode* A, TreeNode* B) {
-    if (!A || !B) {
-        return false;
-    }
-
-    return isSame(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
-}
-
 static bool isSame(TreeNode* A, TreeNode* B) {
     if (B == nullptr) {
         return true;
@@ -21,4 +13,12 @@ static bool isSame(TreeNode* A, TreeNode* B) {
     }
 
     return isSame(A->left, B->left) && isSame(A->right, B->right);
+}
+
+bool Sword26::isSubStructure(TreeNode* A, TreeNode* B) {
+    if (!A || !B) {
+        return false;
+    }
+
+    return isSame(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
 }

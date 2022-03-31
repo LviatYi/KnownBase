@@ -315,6 +315,8 @@ else
 ![平衡二叉树 右左双旋](../pic/RLrotate.png)  
 ![平衡二叉树 左右双旋](../pic/LRrotate.png)
 
+[平衡二叉树 全实现（递归）](../AlgoExtracts/AlgoExtracts.sln)
+
 ## 7.5 红黑树
 
 红黑树一种二叉搜索树，其在每个结点上增加了 1 个存储位表示结点的颜色。

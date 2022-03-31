@@ -279,7 +279,7 @@ if z.left == NULL
   TRANSPLANT(T,z,z.right)
 elseif z.right == NULL
   TRANSPLANT(T,z,z.left)
-else 
+else
   y = TREE_MINIMUM(z.right)
   if y.p != z
     TRANSPLANT(T,y,y.right)
@@ -310,10 +310,10 @@ else
 
 插入时有如下四种情况可能破坏子树平衡性，并对应四种解决方案：
 
-![平衡二叉树 LL](../pic/BalanceLL.png)  
-![平衡二叉树 RR](../pic/BalanceRR.png)  
-![平衡二叉树 LR](../pic/BalanceLR.png)  
-![平衡二叉树 RL](../pic/BalanceRL.png)
+![平衡二叉树 右单旋转](../pic/Rrotate.png)  
+![平衡二叉树 左单旋转](../pic/Lrotate.png)  
+![平衡二叉树 右左双旋](../pic/RLrotate.png)  
+![平衡二叉树 左右双旋](../pic/LRrotate.png)
 
 ## 7.5 红黑树
 

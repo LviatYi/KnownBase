@@ -71,4 +71,33 @@ if( a * b = c ){}   //ERROR
 `const` 作用于成员函数是一种只读保证。
 
 - 程序员可以知道哪些函数不会改动成员内容。
-- 编译器也可以了解到这一点，因此允许处理 const 对象。
+- 编译器也可以了解到这一点，因此允许其处理 const 对象。
+
+> 如果两个成员函数只是常量性 (constness) 的不同，可以被 **重载** 。
+
+`const` 修饰对于成员函数有时可能过于专制。这是 **bitwise** 的。
+
+- `bitwise constness` 保证对象内的任何一个 bit 都不会更改。
+  - 但这种保证却可能带来预期外的效果：指针。指针指向的内容并不受对象管理。
+- `logical constness` 放松管制，允许对象内某些特殊的成员被改动。
+
+`logical constness` 也是受编译器支持的，即使用 `mutable`。`mutable` 将释放 non-static 成员的 bitwise 约束。
+
+```c++
+class CTextBlock{
+public:
+    std::size_t length() const;
+private:
+    char* pText;
+    mutable std::size_t textLength;
+    mutable bool lengthIsValid;
+}
+
+std::size_t CTextBlock::length() const{
+    if(!lengthIsValid){
+        textLength = std::strlen(pText);
+        lengthIsValid = true;
+    }
+    return textLength;
+}
+```

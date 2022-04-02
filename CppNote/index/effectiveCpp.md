@@ -81,7 +81,7 @@ if( a * b = c ){}   //ERROR
   - 但这种保证却可能带来预期外的效果：指针。指针指向的内容并不受对象管理。
 - `logical constness` 放松管制，允许对象内某些特殊的成员被改动。
 
-`logical constness` 也是受编译器支持的，即使用 `mutable`。`mutable` 将释放 non-static 成员的 bitwise 约束。
+`logical constness` 也是受编译器支持的，即使用 `mutable` 。`mutable` 将释放 non-static 成员的 bitwise 约束。
 
 ```c++
 class CTextBlock{
@@ -95,9 +95,30 @@ private:
 
 std::size_t CTextBlock::length() const{
     if(!lengthIsValid){
-        textLength = std::strlen(pText);
-        lengthIsValid = true;
+        textLength = std::strlen(pText);    // 允许的
+        lengthIsValid = true;               // 允许的
     }
     return textLength;
+}
+```
+
+#### 使用 `const_cast` 避免重复
+
+很多时候使用 `const` 对 `non-const` 的重载，可能都包含大量的重复代码。实际上，大部分情况的 `const` 重载，只是多了限定返回类型的 `const` 关键字而已。
+
+这个使用可以使用 `const_cast` 将 `const` 强制转换为 `non-const` ，并复用代码。
+
+```c++
+class TextBlock{
+public:
+    const char& operator[](std::size_t index) const{
+        ...
+        return text[index];
+    }
+    char& operator[](std::size_t index){
+        return const_cast<char&>(
+            static_cast<const TextBlock&>(*this)[index]
+        );
+    }
 }
 ```

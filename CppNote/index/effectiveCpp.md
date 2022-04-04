@@ -21,7 +21,7 @@ const char* const name="LviatYi";
 
 class Class{
     static const int MAX_CAPACITY = 30;// 静态常量声明
-}
+};
 
 const int Class::MAX_CAPACITY; //常量定义
 ```
@@ -51,7 +51,12 @@ inline void CallFWithMax(const T& a, const T& b){
 ```Cpp
 const typename *p;  // 指向 const 的指针。指向一个只读量。
 typename * const p; // const 指针。p 本身只读。
+
+std::vector<int>::const_iterator citer   // 指向 const 的指针。
+const std::vector<int>::iterator iter   // const 指针。
 ```
+
+---
 
 #### 返回 `const` 的函数
 
@@ -65,6 +70,8 @@ Number a,b,c;
 ...
 if( a * b = c ){}   //ERROR
 ```
+
+---
 
 #### `const` 成员函数
 
@@ -91,7 +98,7 @@ private:
     char* pText;
     mutable std::size_t textLength;
     mutable bool lengthIsValid;
-}
+};
 
 std::size_t CTextBlock::length() const{
     if(!lengthIsValid){
@@ -101,6 +108,8 @@ std::size_t CTextBlock::length() const{
     return textLength;
 }
 ```
+
+---
 
 #### 使用 `const_cast` 避免重复
 
@@ -120,5 +129,114 @@ public:
             static_cast<const TextBlock&>(*this)[index]
         );
     }
+};
+```
+
+> 首先 `static_cast<const TextBlock&>` 强制转型为 `const` 避免自身调用。  
+> 其次 `const_cast<char&>` 强制取消 `const` 。
+
+不要反向实现，即通过 `const` 版本调用 `non-const` 版本。
+
+- `const` 函数保证其对象的逻辑状态 (logical state) 没有改变，而调用的 `non-const` 没有这种保证。
+
+---
+
+### 1.4 确定对象在被使用前已被初始化
+
+永远初始化对象，包括在任何位置的内置类型。
+
+> 无论你对规则的记忆有多好。
+
+在对象中，应区分 **赋值** (assignments) 与 **初始化** (initializations)。
+
+```c++
+class Student{
+    string name;
+    SchClass schClass;
+    int age;
+
+public:
+    Student(
+        const string& _name
+    );
+};
+
+Student::Student(
+    const string& _name
+){
+    this.name = _name;          // 这是赋值而非初始化。
+    this.schClass = SchClass(); // 这甚至不应称为「赋初值」
+    this.age = 0;
 }
 ```
+
+实际上，成员变量的初始化发生在调用默认构造函数之前。当进入构造函数内，其内部字段已经初始化完成（且已经发生一次赋初值行为）。
+
+使用效率更高的 **成员初值列表** (member initialization list) 完成初始化。
+
+```c++
+Student::Student(
+    const string& _name；
+):  name(_name),
+    schClass(),
+    age(0) {};
+```
+
+这将直接调用复制构造函数代替「初始化、赋初值、再赋值」的构造过程。
+
+对象的成员初始化具有固定的顺序，与成员初值列表无关。
+
+- base classes 。
+- 依次声明的成员变量。
+
+---
+
+#### 「不同编译单元内定义之 non-local static 对象」的初始化次序
+
+`static` 对象，即所有寿命以构造为开始，以程序结束为结束的对象。包含：
+
+- global 对象
+- 定义域 namespace 作用域内的对象。
+- 在 classes 内、函数内、在 file 作用域内被声明为 static 的对象。
+
+其中：
+
+- 函数内 static 对象称为 **local static 对象** 。
+- 其他为 **non-local static 对象** 。
+
+**编译单元** (translation unit) 指产出单一目标文件 (single obj file) 的源码。基本上是单一源码文件加上其所含入的头文件 (#include files) 。
+
+C++ 对定义于不同编译单元内的 non-local static 对象的初始化次序没有明确定义。
+
+因此，需要将每个 non-local static 对象声明到专属的 reference-returning 函数内。
+
+> 类似单例模式的实现。
+
+```c++
+FileSys& getFileSysInstance(){
+    static FileSys fs;
+    return fs;
+}
+```
+
+如此可以保证使用时对象的初始化。
+
+但这是线程不安全的。需要在程序的单线程启动阶段 (single-threaded startup portion) 手工调用所有 reference-returning 函数，以消除与初始化有关的「竞速形势 (race conditions)」。
+
+## 2. 构造 / 析构 / 赋值运算
+
+### 2.5 了解 C++ 默认提供的函数与何时调用这些函数
+
+C++ 自动提供如下成员函数（直到被调用时）：
+
+- **默认构造函数** 如果没有定义构造函数
+- **默认析构函数** 如果没有定义
+- **复制构造函数** 如果没有定义
+- **移动构造函数** 如果没有定义
+- **移动赋值构造函数** 如果没有定义
+- **赋值运算符** 如果没有定义
+- **地址运算符** 如果没有定义
+
+除非 base class 自身声明有 `virtual` 析构函数，否则提供 non-virtual 析构函数。
+
+

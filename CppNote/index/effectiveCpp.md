@@ -396,3 +396,81 @@ x = (y = (z = 15));
 对于重载了赋值运算符的自定义类型，也应使其保持这种特性。因此赋值运算符必须返回一个 reference 指向运算符的左侧实参。
 
 此条同样适用于 `+=` `-=` 等其他赋值相关运算符。
+
+### 2.11 在赋值运算符中处理「自我赋值」
+
+自我赋值可能是潜在的、难以避免的。
+
+```c++
+a[i] = a[j]
+```
+
+但自我赋值可能会造成严重的问题，如内存泄露，其常发于指针对象。
+
+```c++
+Widget& Widget::operator=(const Widget& rhs){
+    delete this.pb;
+    this.pb = new WidgetContent(*rhs.pb);   // 若为自我赋值则出现问题。
+    return *this;
+}
+```
+
+传统做法采用 **证同测试** (identity test) 检验是否自我赋值。
+
+方法一（证同测试）：
+
+```c++
+Widget& Widget::operator=(const Widget& rhs){
+    if( this == &rhs) return *this;
+
+    delete this.pb;
+    this.pb = new WidgetContent(*rhs.pb);
+    return *this;
+}
+```
+
+传统方法虽然解决了「自我赋值安全性」，但仍不具备「异常安全性」。
+
+- 可能处于其他原因，指针指向的内容仍为空（内存未成功分配等）。
+
+如果解决「异常安全性」，则「自我赋值安全性」也将被避免。
+
+方法二：
+
+```c++
+Widget& Widget::operator=(const Widget& rhs){
+    WidgetContent* pOrig = this.pb;
+    this.pb = new WidgetContent(*rhs.pb);
+    delete pOrig;
+    return *this;
+}
+```
+
+方法三（copy and swap 技术）：
+
+```c++
+class Widget{
+    void swap(Widget& rhs);
+}
+
+Widget& Widget::operator=(const Widget& rhs){
+    Widget temp(rhs);
+    swap(temp);
+    return *this;
+}
+```
+
+可缩写为：
+
+```c++
+class Widget{
+    void swap(Widget& rhs);
+}
+
+Widget& Widget::operator=(Widget rhs){
+    swap(rhs);
+    return *this;
+}
+```
+
+不清晰但编译器可能会生成更高效的代码。

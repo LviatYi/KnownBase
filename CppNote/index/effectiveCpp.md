@@ -310,3 +310,58 @@ class Sth: private Uncopyable{
 - 为纯虚析构函数提供的一个定义。
 
 纯虚函数是可以拥有定义的，且纯虚析构函数将被子类析构函数调用，如无定义则将发生链接错误。
+
+### 2.8 不要向析构函数外抛出异常
+
+一般有两种方案解决析构函数抛出异常：
+
+- 记录并调用 `abort()` 终止。
+- 仅记录。
+
+```c++
+DBConn::~DBConn(){
+    try{ db.close(); }
+    catch(...){
+        // 记录
+        std::abort();
+    }
+}
+```
+
+```c++
+DBConn::~DBConn(){
+    try{ db.close(); }
+    catch(...){
+        // 记录
+    }
+}
+```
+
+但是这两种方式都无法对「导致 close 抛出异常」的情况做出反应。
+
+因此有如下解决方案，以向客户提供处理错误的机会：
+
+```c++
+class DBConn{
+public:
+    void close(){
+        if( !closed ){
+            db.close();
+            closed = true;
+        }
+    }
+    ~DBConn(){
+        if( !closed ){
+            try{ db.close();}
+            catch{
+                // 记录
+                ...
+                // 吞下异常或继续
+            }
+        }
+    }
+}
+private:
+    DBConnection db;
+    bool closed;
+```

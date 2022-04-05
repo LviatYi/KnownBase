@@ -162,9 +162,9 @@ public:
 Student::Student(
     const string& _name
 ){
-    this.name = _name;          // 这是赋值而非初始化。
-    this.schClass = SchClass(); // 这甚至不应称为「赋初值」
-    this.age = 0;
+    this->name = _name;          // 这是赋值而非初始化。
+    this->schClass = SchClass(); // 这甚至不应称为「赋初值」
+    this->age = 0;
 }
 ```
 
@@ -409,8 +409,8 @@ a[i] = a[j]
 
 ```c++
 Widget& Widget::operator=(const Widget& rhs){
-    delete this.pb;
-    this.pb = new WidgetContent(*rhs.pb);   // 若为自我赋值则出现问题。
+    delete this->pb;
+    this->pb = new WidgetContent(*rhs.pb);   // 若为自我赋值则出现问题。
     return *this;
 }
 ```
@@ -423,8 +423,8 @@ Widget& Widget::operator=(const Widget& rhs){
 Widget& Widget::operator=(const Widget& rhs){
     if( this == &rhs) return *this;
 
-    delete this.pb;
-    this.pb = new WidgetContent(*rhs.pb);
+    delete this->pb;
+    this->pb = new WidgetContent(*rhs.pb);
     return *this;
 }
 ```
@@ -439,8 +439,8 @@ Widget& Widget::operator=(const Widget& rhs){
 
 ```c++
 Widget& Widget::operator=(const Widget& rhs){
-    WidgetContent* pOrig = this.pb;
-    this.pb = new WidgetContent(*rhs.pb);
+    WidgetContent* pOrig = this->pb;
+    this->pb = new WidgetContent(*rhs.pb);
     delete pOrig;
     return *this;
 }
@@ -474,3 +474,50 @@ Widget& Widget::operator=(Widget rhs){
 ```
 
 不清晰但编译器可能会生成更高效的代码。
+
+### 2.12 赋值对象时不要忘记每个成分
+
+拷贝构造函数与赋值函数统称 copying 函数。
+
+有如下代码：
+
+```c++
+class Drived: public Base{
+public:
+    Drived(const Drived& rhs);
+    Drived& operator=(const Drived& rhs);
+private:
+    int num;
+}
+
+Drived::Drived(const Drived& rhs):num(rhs.num){};
+Drived& Drived::operator=(const Drived& rhs){
+    this->num = rhs.num;
+}
+```
+
+如上 copying 函数只顾及了子类中的内容，而忽视了对基类内容的拷贝。
+
+应改为：
+
+```c++
+class Drived: public Base{
+public:
+    Drived(const Drived& rhs);
+    Drived& operator=(const Drived& rhs);
+private:
+    int num;
+}
+
+Drived::Drived(const Drived& rhs):Base(rhs),num(rhs.num){};
+Drived& Drived::operator=(const Drived& rhs){
+    Base::operator=(rhs);
+    this->num = rhs.num;
+}
+```
+
+注意两个不同的 copying 函数在实现上的语法区别。
+
+通过两者之间相互调用以避免代码重复是不合理的。
+
+可以通过抽取公共操作，定义新的成员函数 (init) 消除代码重复。

@@ -139,8 +139,6 @@ public:
 
 - `const` 函数保证其对象的逻辑状态 (logical state) 没有改变，而调用的 `non-const` 没有这种保证。
 
----
-
 ### 1.4 确定对象在被使用前已被初始化
 
 永远初始化对象，包括在任何位置的内置类型。
@@ -237,6 +235,53 @@ C++ 自动提供如下成员函数（直到被调用时）：
 - **赋值运算符** 如果没有定义
 - **地址运算符** 如果没有定义
 
-除非 base class 自身声明有 `virtual` 析构函数，否则提供 non-virtual 析构函数。
+除非基类自身声明有 `virtual` 析构函数，否则提供 non-virtual 析构函数。
+
+---
+
+#### 若类内含有 reference 或 const 成员，需手动支持赋值操作
+
+C++ 不允许修改 reference 的指向目标，因为修改目标的数据占用了这个语法。
+
+```c++
+Name name1 = Name("Jun");
+Name name2 = Name("Zhi");
+Name& nameR = name1;
+
+nameR = name2;  // 这将修改 name1 内容，而非使 nameR 指向 name2
+```
+
+---
+
+#### 若基类声明赋值运算为 `private` ，则子类不会自动提供赋值运算
+
+自动生成的赋值运算需要依赖基类赋值运算。
+
+### 2.6 若不想使用编译器自动生成函数，应明确拒绝
+
+将明确不需要自动生成的函数声明为 `private` 。
+
+且不要实现之。
+
+前者将在编译期拒绝外部调用，后者将在链接期拒绝内部及友元调用。
+
+构建一个 Uncopyable 类并继承之，可以将拒绝内部及友元调用的警告提前至编译期。
+
+```c++
+class Uncopyable{
+protected:
+    Uncopyable(){};
+    ~Uncopyable(){};
+private:
+    Uncopyable(const Uncopyable&);
+    Uncopyable& operator=(const Uncopyable&);
+}
+
+class Sth: private Uncopyable{
+    ...
+}
+```
+
+### 2.7 为多态基类声明 virtual 析构函数
 
 

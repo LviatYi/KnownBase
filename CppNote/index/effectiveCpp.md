@@ -275,11 +275,11 @@ protected:
 private:
     Uncopyable(const Uncopyable&);
     Uncopyable& operator=(const Uncopyable&);
-}
+};
 
 class Sth: private Uncopyable{
     ...
-}
+};
 ```
 
 ### 2.7 为多态基类声明 virtual 析构函数
@@ -360,10 +360,10 @@ public:
             }
         }
     }
-}
 private:
     DBConnection db;
     bool closed;
+};
 ```
 
 ### 2.9 绝不在构造和析构过程中调用 virtual 函数
@@ -465,7 +465,7 @@ Widget& Widget::operator=(const Widget& rhs){
 ```c++
 class Widget{
     void swap(Widget& rhs);
-}
+};
 
 Widget& Widget::operator=(Widget rhs){
     swap(rhs);
@@ -493,7 +493,7 @@ private:
 Drived::Drived(const Drived& rhs):num(rhs.num){};
 Drived& Drived::operator=(const Drived& rhs){
     this->num = rhs.num;
-}
+};
 ```
 
 如上 copying 函数只顾及了子类中的内容，而忽视了对基类内容的拷贝。
@@ -513,7 +513,7 @@ Drived::Drived(const Drived& rhs):Base(rhs),num(rhs.num){};
 Drived& Drived::operator=(const Drived& rhs){
     Base::operator=(rhs);
     this->num = rhs.num;
-}
+};
 ```
 
 注意两个不同的 copying 函数在实现上的语法区别。
@@ -569,7 +569,7 @@ public:
     ~Lock() { unlock(mutexPtr); }
 private:
     Mutex* mutexPtr;
-}
+};
 ```
 
 客户将使用如下方式调用：
@@ -588,8 +588,10 @@ Mutex m;
 - 禁止复制
   - 许多情况下复制 RAII 对象是不合理的。
 - 使用「引用计数法」(reference-count)
+
   - 可以在 RAII 对象中内含一个 shared_ptr 即可完成。
   - shared_ptr 允许自定义删除器 (deleter) 。
+
     - 删除器用于替代 shared_ptr 的默认删除行为，是一个函数或函数对象。
 
     ```c++
@@ -601,7 +603,7 @@ Mutex m;
         // 依赖编译器生成析构函数。将自动调用 non-static 成员变量的析构函数。
     private:
         std::shared_ptr<Mutex> mutexPtr;
-    }
+    };
     ```
 
 - 复制底部资源
@@ -611,3 +613,39 @@ Mutex m;
   - 则可交换底层指针所指对象。
 
 若无自定义的 copying 函数，编译器则将自动生成。这可能出乎预期。
+
+### 3.15 在资源管理类中提供对原始资源的访问
+
+使用资源管理类封装资源后，需要为其提供暴露资源的 API 以提供资源访问。
+
+可以提供显式转换或隐式转换。
+
+显式转换：
+
+- 提供 `.get()` 方法，返回资源指针。
+- 重载指针取值操作符 `->` `*` 。
+
+如上方案 C++ smart pointer 都有提供。
+
+隐式转换：
+
+```c++
+class Font{
+public:
+    operator FontHandle() const{    // RAII
+        return f;
+    }
+private:
+    FontHandle* f;                  // Resource
+};
+```
+
+隐式转换将提供便利，但同时将增加风险。
+
+```c++
+Font f1(getFont());
+...
+FontHandle f2 = f1;     // 可能是非预期的错误。
+```
+
+是否提供隐式转换函数需要进行更多考量。

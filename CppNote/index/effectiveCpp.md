@@ -697,3 +697,107 @@ shared_ptr<Widget>();
 std::shared_ptr<Widget> pw(new Widget);
 processWidget(pw,priority());
 ```
+
+## 4. 设计与声明
+
+> 强迫用户记住规则不是好的设计。记得照顾其他程序员的感受，为他们带去更多便利。不要目光短浅，做个好人。
+
+### 4.18 让接口容易被正确使用，不易被误用
+
+#### 通过外覆类型避免不明确的参数
+
+有如下接口：
+
+```c++
+class Date{
+public:
+    Date(int month, int day, int year);
+}
+```
+
+对于用户而言， `(int, int, int)` 参数列表可能很不直观。
+
+可以定义外覆类型 (wrapper types) 。
+
+```c++
+struct Day{
+    explicit Day(int d):val(d){};
+    int val;
+};
+```
+
+使用 `Day` 替换 `int` 以预防不明确的参数传递。
+
+扩展至类以定义更多约束规则。
+
+```c++
+class Month{
+public:
+    static Month Jan(){
+        return Month(1);
+    }
+    ...
+    static Month Dec(){
+        return Month(12);
+    }
+
+private:
+    explicit Month(int m):val(m){};
+}
+```
+
+使用函数替换静态成员请参考条款 4 。
+
+> 使用 enum 不具备类型安全性，例如 enum 可被作为 int 使用。
+
+代价是膨胀的代码。
+
+---
+
+#### 尽量使 type 行为与内置 type 一致
+
+一般人清楚如下行为是不可行的：
+
+```c++
+int a, b;
+a * b = 10;
+```
+
+除非有更好理由，不要允许类似封装 types 有类似行为。
+
+如条款 3 所述，以 `const` 修饰 `operator*` 的返回类型可避免如下错误：
+
+```c++
+if (a * b = c) ...
+```
+
+---
+
+#### 让行为具有一致性
+
+在代码里同时使用英文词汇、汉语拼音以及各自的缩写作为命名是灾难性的。
+
+同样的，接口也是如此。
+
+一个反例，在 Java 中：
+
+- 对于数组，有 `length` 属性。
+- 对于 `String` 有 `length` 方法。
+- 对于 `List` 有 `size` 方法。
+
+言行如一的人是可靠的，不会给周围人带去更多不必要的麻烦。
+
+---
+
+#### 返回智能指针而不是普通指针
+
+强迫客户将返回值存储于一个资源管理类中，可以避免很多资源泄露。
+
+使用 `shared_ptr` 并定义删除器，可以强定义析构行为。
+
+同时，使用 `shared_ptr` 与删除器可以避免 **cross-DLL problem** 。
+
+- 这指一个动态分配内存的指针在不同的 DLL 文件中做了 `new` 与 `delete` 行为。
+- 不同 DLL 文件可能编译自不同环境，因而 `new/delete` 的行为一致性是不保证的。
+
+而 `shared_ptr` 将追踪删除器记录，确保 `new` 与 `delete` 来自同一个 DLL 文件。

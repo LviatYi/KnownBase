@@ -649,3 +649,15 @@ FontHandle f2 = f1;     // 可能是非预期的错误。
 ```
 
 是否提供隐式转换函数需要进行更多考量。
+
+### 3.16 成对使用 new 和 delete 时要采取相同形式
+
+`new []` 需要与 `delete[]` 搭配，这是很基础的语法规则。
+
+需要特别留意 `typedef` 定义的别名是否为数组形式。
+
+一般约定不要使用 `typedefs` 即类似：
+
+```c++
+typedef std::string AddressLines[4];
+```

@@ -661,3 +661,39 @@ FontHandle f2 = f1;     // 可能是非预期的错误。
 ```c++
 typedef std::string AddressLines[4];
 ```
+
+### 3.17 以独立语句将 newed 对象置入智能指针
+
+设有如下函数：
+
+```c++
+int priority();     // 一个普通的函数。用于计算程序优先权。
+void processWidget(std::shared_ptr<Widget> pw,int priority);
+```
+
+有如下调用：
+
+```c++
+processWidget(std::shared_ptr<Widget>(new Widget),priority());
+```
+
+C++ 对参数计算顺序是未标准化的。只能保证 `Widget` 初始化优先于 `shared_ptr<Widget>` 的初始化。
+
+若有如下顺序：
+
+```c++
+new Widget;
+priority();
+shared_ptr<Widget>();
+```
+
+若 `priority()` 发生异常，将造成资源泄露。
+
+因此有如下原则：
+
+不能分离 **资源创建** 与 **资源封装** 。
+
+```c++
+std::shared_ptr<Widget> pw(new Widget);
+processWidget(pw,priority());
+```

@@ -534,6 +534,8 @@ void f(){
 }
 ```
 
+**RAII 原则** (Resource Acquisition Is Initialization)：
+
 - 获得资源后立即放入管理对象
 - 管理对象运用析构函数确保资源被释放。
 
@@ -544,3 +546,68 @@ void f(){
 ```c++
 std::shared_ptr<std::string> strs(new std::string[10]);
 ```
+
+### 3.14 警惕资源管理类中的 copying 行为
+
+智能指针只可以满足 heap-based 资源的自动管理。若智能指针无法满足需求，则可以建立自己的资源管理类。
+
+对于互斥器对象有如下锁相关函数：
+
+```c++
+void lock(Mutex* pm);
+void unlock(Mutex* pm);
+```
+
+为确保资源被正确的释放，则需要使用类似指针管理的机制在资源析构后自动调用解锁。
+
+```c++
+class Lock {
+public:
+    explicit Lock(Mutex* pm): mutexPtr(pm){
+        lock(mutexPtr);
+    }
+    ~Lock() { unlock(mutexPtr); }
+private:
+    Mutex* mutexPtr;
+}
+```
+
+客户将使用如下方式调用：
+
+```c++
+Mutex m;
+...
+{
+    Lock ml(&m);
+    ...
+}
+```
+
+对于其复制行为，一般如下解决方案：
+
+- 禁止复制
+  - 许多情况下复制 RAII 对象是不合理的。
+- 使用「引用计数法」(reference-count)
+  - 可以在 RAII 对象中内含一个 shared_ptr 即可完成。
+  - shared_ptr 允许自定义删除器 (deleter) 。
+    - 删除器用于替代 shared_ptr 的默认删除行为，是一个函数或函数对象。
+
+    ```c++
+    class Lock {
+    public:
+        explicit Lock(Mutex* pm): mutexPtr(pm,unlock){
+            lock(mutexPtr.get());
+        }
+        // 依赖编译器生成析构函数。将自动调用 non-static 成员变量的析构函数。
+    private:
+        std::shared_ptr<Mutex> mutexPtr;
+    }
+    ```
+
+- 复制底部资源
+  - 即深拷贝。将资源本身也生成副本并赋予复制对象。
+- 转移所有权
+  - 有时需求需要确保永远只有一个 RAII 对象指向一个未加工资源。
+  - 则可交换底层指针所指对象。
+
+若无自定义的 copying 函数，编译器则将自动生成。这可能出乎预期。

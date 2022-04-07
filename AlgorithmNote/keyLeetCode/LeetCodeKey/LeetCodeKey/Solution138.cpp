@@ -1,11 +1,11 @@
-#include "Sword35.h"
+#include "Solution138.h"
 #include <unordered_map>
 
 using std::unordered_map;
 
 static unordered_map<Node*, Node*> map;
 
-Node* Sword35::copyRandomList(Node* head) {
+Node* Solution138::copyRandomList(Node* head) {
     if (!head) {
         return nullptr;
     }

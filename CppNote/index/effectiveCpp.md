@@ -482,16 +482,16 @@ Widget& Widget::operator=(Widget rhs){
 有如下代码：
 
 ```c++
-class Drived: public Base{
+class Derived: public Base{
 public:
-    Drived(const Drived& rhs);
-    Drived& operator=(const Drived& rhs);
+    Derived(const Derived& rhs);
+    Derived& operator=(const Derived& rhs);
 private:
     int num;
 }
 
-Drived::Drived(const Drived& rhs):num(rhs.num){};
-Drived& Drived::operator=(const Drived& rhs){
+Derived::Derived(const Derived& rhs):num(rhs.num){};
+Derived& Derived::operator=(const Derived& rhs){
     this->num = rhs.num;
 };
 ```
@@ -501,16 +501,16 @@ Drived& Drived::operator=(const Drived& rhs){
 应改为：
 
 ```c++
-class Drived: public Base{
+class Derived: public Base{
 public:
-    Drived(const Drived& rhs);
-    Drived& operator=(const Drived& rhs);
+    Derived(const Derived& rhs);
+    Derived& operator=(const Derived& rhs);
 private:
     int num;
 }
 
-Drived::Drived(const Drived& rhs):Base(rhs),num(rhs.num){};
-Drived& Drived::operator=(const Drived& rhs){
+Derived::Derived(const Derived& rhs):Base(rhs),num(rhs.num){};
+Derived& Derived::operator=(const Derived& rhs){
     Base::operator=(rhs);
     this->num = rhs.num;
 };
@@ -748,7 +748,7 @@ private:
 }
 ```
 
-使用函数替换静态成员请参考条款 4 。
+使用函数替换静态成员请参考 **条款 4** 。
 
 > 使用 enum 不具备类型安全性，例如 enum 可被作为 int 使用。
 
@@ -767,7 +767,7 @@ a * b = 10;
 
 除非有更好理由，不要允许类似封装 types 有类似行为。
 
-如条款 3 所述，以 `const` 修饰 `operator*` 的返回类型可避免如下错误：
+如 **条款 3** 所述，以 `const` 修饰 `operator*` 的返回类型可避免如下错误：
 
 ```c++
 if (a * b = c) ...
@@ -891,3 +891,30 @@ inline const Number operator*(const Number& lhs,const Number& rhs){
 实际上，编译器可能施行优化，以改善目标码运行效率。这种操作可能会将返回值的构造和析构过程安全地消除。
 
 作为成员函数，可以返回对象自身引用，即 `*this` ，以实现链式运算。
+
+### 4.22 将成员变量声明为 private
+
+将成员变量声明为 private 将使对象拥有以下优点：
+
+- **一致性** 只允许客户通过成员函数访问对象。
+  - 此条维护了 **条款 18** 的一致性观点。即用户不需要纠结访问 class 成员是否该使用 `()` ，因为所有可访问的接口都是函数。
+- **细微划分访问控制** 定义 `getter/setter` （访问器）控制对成员变量的读写行为。
+  - 使变量可以在读写性上有更多可能。
+  - 可藉由访问器添加约束性条件。
+- **封装性** 其后维护代码时，某些成员变量可能变化为 **计算属性** ，即通过函数得出的量，这种变化对于客户端不会带来更多负担。
+
+封装性与「当其内容改变时可能造成的代码破坏量」成 **反比** 。
+
+一致性与细微划分访问控制对于 `protect` 来说同样适用。
+
+而 `protect` 相比于 `public` 并不会带来更好的封装性。
+
+修改一个 `public` 成员，对用户代码是毁灭性的。  
+修改一个 `protect` 成员，对 derived class 是毁灭性的。
+
+同样是改动大量代码， `protect` 并不比 `public` 拥有更多封装性。
+
+对于可见性，只有两种：
+
+- 提供封装 `private`
+- 不提供封装

@@ -7,5 +7,6 @@ class Sword32 {
 public:
     vector<int> levelOrder(TreeNode* root);
     vector<vector<int>> levelOrder2(TreeNode* root);
+    vector<vector<int>> levelOrder3(TreeNode* root);
 };
 

@@ -11,11 +11,10 @@
 using namespace std;
 
 int main() {
-    Sword31 solution;
-    vector<int> pushed = { 1,2,3,4,5 };
-    vector<int> popped = { 4,5,3,2,1 };
+    Sword33 solution;
+    vector<int> v = { 1, 2, 3, 4, 5 };
 
-    cout << solution.validateStackSequences2(pushed, popped);
+    cout << solution.verifyPostorder(v);
 
     return 1;
 }

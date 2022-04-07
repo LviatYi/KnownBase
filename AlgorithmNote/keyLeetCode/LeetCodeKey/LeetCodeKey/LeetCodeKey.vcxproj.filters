@@ -279,6 +279,15 @@
     <ClInclude Include="Sword34.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution113.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword35.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -534,6 +543,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sword34.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution113.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword35.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

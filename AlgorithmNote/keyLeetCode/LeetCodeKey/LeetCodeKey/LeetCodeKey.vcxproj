@@ -144,11 +144,13 @@
     <ClInclude Include="CHello.h" />
     <ClInclude Include="ListNode.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Solution1.h" />
     <ClInclude Include="Solution10.h" />
     <ClInclude Include="Solution101.h" />
     <ClInclude Include="Solution105.h" />
     <ClInclude Include="Solution11.h" />
+    <ClInclude Include="Solution113.h" />
     <ClInclude Include="Solution12.h" />
     <ClInclude Include="Solution13.h" />
     <ClInclude Include="Solution14.h" />
@@ -222,6 +224,7 @@
     <ClInclude Include="Sword32.h" />
     <ClInclude Include="Sword33.h" />
     <ClInclude Include="Sword34.h" />
+    <ClInclude Include="Sword35.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
@@ -233,11 +236,13 @@
   <ItemGroup>
     <ClCompile Include="CHello.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Solution1.cpp" />
     <ClCompile Include="Solution10.cpp" />
     <ClCompile Include="Solution101.cpp" />
     <ClCompile Include="Solution105.cpp" />
     <ClCompile Include="Solution11.cpp" />
+    <ClCompile Include="Solution113.cpp" />
     <ClCompile Include="Solution12.cpp" />
     <ClCompile Include="Solution13.cpp" />
     <ClCompile Include="Solution14.cpp" />
@@ -310,6 +315,7 @@
     <ClCompile Include="Sword32.cpp" />
     <ClCompile Include="Sword33.cpp" />
     <ClCompile Include="Sword34.cpp" />
+    <ClCompile Include="Sword35.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />

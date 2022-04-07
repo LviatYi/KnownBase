@@ -1,5 +1,5 @@
 #pragma once
-#include "Node.h";
+#include "Node.h"
 
 class Sword35 {
 public:

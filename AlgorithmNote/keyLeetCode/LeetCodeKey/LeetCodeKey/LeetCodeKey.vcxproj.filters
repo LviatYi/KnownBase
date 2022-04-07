@@ -288,6 +288,9 @@
     <ClInclude Include="Sword35.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution138.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -552,6 +555,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sword35.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution138.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

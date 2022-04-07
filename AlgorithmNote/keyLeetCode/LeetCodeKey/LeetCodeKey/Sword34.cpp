@@ -1,9 +1,6 @@
 #include "Sword34.h"
 
 static void subPathSum(TreeNode* root, int target, vector<int>& currentAns, vector<vector<int>>& ans) {
-    if (target < 0) {
-        return;
-    }
 
     if (root->left) {
         currentAns.push_back(root->left->val);
@@ -27,7 +24,7 @@ vector<vector<int>> Sword34::pathSum(TreeNode* root, int target) {
     if (!root) {
         return ans;
     }
-    vector<int>currentAns(root->val);
+    vector<int>currentAns(1, root->val);
     subPathSum(root, target - root->val, currentAns, ans);
 
     return ans;

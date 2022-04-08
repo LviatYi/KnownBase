@@ -11,10 +11,10 @@
 using namespace std;
 
 int main() {
-    Sword36 solution;
+    Sword37 solution;
     TreeNode* root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(5));
 
-    solution.treeToDoublyList(root);
+    root = solution.deserialize(solution.serialize(root));
 
     return 1;
 }

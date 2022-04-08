@@ -1,7 +1,6 @@
 #pragma once
 #include "TreeNode.h"
-
-class Sword36 {
+class Solution426 {
 public:
     TreeNode* treeToDoublyList(TreeNode* root);
 };

@@ -1,4 +1,5 @@
-#include "Sword36.h"
+#include "Solution426.h"
+
 TreeNode* inorderWalk(TreeNode* root, TreeNode*& lastNode) {
     if (!root) {
         return nullptr;
@@ -21,7 +22,7 @@ TreeNode* inorderWalk(TreeNode* root, TreeNode*& lastNode) {
     }
 }
 
-TreeNode* Sword36::treeToDoublyList(TreeNode* root) {
+TreeNode* Solution426::treeToDoublyList(TreeNode* root) {
     TreeNode* preHead = new TreeNode(0);
     TreeNode* lastNode = preHead;
 

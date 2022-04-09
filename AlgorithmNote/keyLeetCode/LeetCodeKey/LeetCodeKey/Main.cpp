@@ -11,10 +11,14 @@
 using namespace std;
 
 int main() {
-    Sword37 solution;
-    TreeNode* root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(5));
+    Sword41 solution;
+    //TreeNode* root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(5));
 
-    root = solution.deserialize(solution.serialize(root));
+    solution.findMedian();
+    solution.addNum(0);
+    solution.addNum(0);
+    solution.findMedian();
+
 
     return 1;
 }

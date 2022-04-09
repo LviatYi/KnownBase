@@ -1,10 +1,10 @@
-#include "Sword44.h"
+#include "Solution400.h"
 #include<string>
 
 using std::string;
 using std::to_string;
 
-int Sword44::findNthDigit(int n) {
+int Solution400::findNthDigit(int n) {
     if (n < 10) {
         return n;
     }

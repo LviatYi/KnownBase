@@ -1,9 +1,9 @@
 #pragma once
 #include"ListNode.h"
-class Sword41 {
+class Solution295 {
 public:
     /** initialize your data structure here. */
-    Sword41();
+    Solution295();
 
     void addNum(int num);
     void addNum2(int num);

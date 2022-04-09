@@ -315,6 +315,12 @@
     <ClInclude Include="Sword41.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution295.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword42.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -606,6 +612,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sword41.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution295.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword42.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,13 +11,13 @@
 using namespace std;
 
 int main() {
-    Sword41 solution;
-    //TreeNode* root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(5));
+    Sword42 solution;
 
-    solution.findMedian();
-    solution.addNum(0);
-    solution.addNum(0);
-    solution.findMedian();
+    //vector<int> q = { -5,8,-5,1,1,-3,5,5,-3,-3,6,4,-7,-4,-8,0,-1,-6 };
+    vector<int> q = { -5,8,-5,1,1,-3,5,5,-3 };
+
+
+    solution.maxSubArray3(q);
 
 
     return 1;

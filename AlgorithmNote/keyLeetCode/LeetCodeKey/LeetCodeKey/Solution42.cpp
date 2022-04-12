@@ -1,7 +1,7 @@
 #include "Sword49.h"
 
 #pragma region 双指针
-int Sword49::trap(vector<int>& height) {
+int Solution42::trap(vector<int>& height) {
     int sum = 0;
     int left = *(height.begin());
     int right = *(height.end() - 1);
@@ -39,7 +39,7 @@ int Sword49::trap(vector<int>& height) {
 
 using std::stack;
 using std::min;
-int Sword49::trap2(vector<int>& height) {
+int Solution42::trap2(vector<int>& height) {
         stack<int> leftPeakPos;
         int sum = 0;
         int currVol = 0;

@@ -245,6 +245,7 @@
     <ClInclude Include="Sword46.h" />
     <ClInclude Include="Sword47.h" />
     <ClInclude Include="Sword48.h" />
+    <ClInclude Include="Solution42.h" />
     <ClInclude Include="Sword49.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
@@ -357,6 +358,7 @@
     <ClCompile Include="Sword46.cpp" />
     <ClCompile Include="Sword47.cpp" />
     <ClCompile Include="Sword48.cpp" />
+    <ClCompile Include="Solution42.cpp" />
     <ClCompile Include="Sword49.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />

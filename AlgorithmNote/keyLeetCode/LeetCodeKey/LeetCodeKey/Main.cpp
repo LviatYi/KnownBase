@@ -11,9 +11,11 @@
 using namespace std;
 
 int main() {
-    Sword49 solution;
+    Sword51 solution;
 
-    cout << solution.nthUglyNumber(10);
+    vector<int> nums = { 7,5,6,4 };
 
-    return 1;
+    int sum = solution.reversePairs(nums);
+
+    return sum;
 }

@@ -1,5 +1,6 @@
 #include "Sword53.h"
 
+#pragma region Sword53_1
 static int binarySearchSmaller(const vector<int>& nums, int target, int begin, int end) {
     if (nums[begin] >= target) {
         return -1;
@@ -48,3 +49,26 @@ int Sword53::search(vector<int>& nums, int target) {
 
     return biggerPos - smallerPos - 1;
 }
+#pragma endregion
+#pragma region Sword53_2
+int Sword53::missingNumber(vector<int>& nums) {
+    if (nums.at(nums.size() - 1) == nums.size() - 1) {
+        return nums.size();
+    }
+    int begin = 0;
+    int end = nums.size();
+    int mid = (begin + end) / 2;
+
+    while (begin < end - 1) {
+        if (nums.at(mid - 1) == mid - 1) {
+            begin = mid;
+            mid = (begin + end) / 2;
+        }
+        if (nums.at(mid - 1) > mid - 1) {
+            end = mid;
+            mid = (begin + end) / 2;
+        }
+    }
+    return begin;
+}
+#pragma endregion

@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword57 solution;
-
-    solution.findContinuousSequence(50252);
+    Sword59 solution;
+    vector<int> nums{ 1,-1 };
+    solution.maxSlidingWindow(nums, 1);
 
     return 0;
 }

@@ -11,11 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword51 solution;
+    Sword57 solution;
 
-    vector<int> nums = { 7,5,6,4 };
+    solution.findContinuousSequence(50252);
 
-    int sum = solution.reversePairs(nums);
-
-    return sum;
+    return 0;
 }

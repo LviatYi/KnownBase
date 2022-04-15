@@ -255,6 +255,10 @@
     <ClInclude Include="Sword51.h" />
     <ClInclude Include="Sword52.h" />
     <ClInclude Include="Sword53.h" />
+    <ClInclude Include="Sword54.h" />
+    <ClInclude Include="Sword55.h" />
+    <ClInclude Include="Sword56.h" />
+    <ClInclude Include="Sword57.h" />
     <ClInclude Include="Sword6.h" />
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
@@ -374,6 +378,10 @@
     <ClCompile Include="Sword51.cpp" />
     <ClCompile Include="Sword52.cpp" />
     <ClCompile Include="Sword53.cpp" />
+    <ClCompile Include="Sword54.cpp" />
+    <ClCompile Include="Sword55.cpp" />
+    <ClCompile Include="Sword56.cpp" />
+    <ClCompile Include="Sword57.cpp" />
     <ClCompile Include="Sword6.cpp" />
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />

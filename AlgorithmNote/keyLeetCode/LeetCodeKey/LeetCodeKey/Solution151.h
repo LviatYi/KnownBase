@@ -3,7 +3,7 @@
 
 using std::string;
 
-class Sword58 {
+class Solution151 {
 public:
     string reverseWords(string s);
 };

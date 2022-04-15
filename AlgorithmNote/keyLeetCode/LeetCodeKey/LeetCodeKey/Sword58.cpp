@@ -21,3 +21,7 @@ string Sword58::reverseWords(string s) {
 
     return ans;
 }
+
+string Sword58::reverseLeftWords(string s, int n) {
+    return string(s.begin() + n, s.end()) + string(s.begin(), s.begin() + n);
+}

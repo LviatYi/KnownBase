@@ -15,7 +15,7 @@ string Sword58::reverseWords(string s) {
         begin--;
     }
     ans += string(begin + 1, end);
-    if (ans.at(ans.size() - 1) == ' ') {
+    if (!ans.empty() && ans.at(ans.size() - 1) == ' ') {
         ans.erase(ans.size() - 1, 1);
     }
 

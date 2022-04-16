@@ -271,6 +271,7 @@
     <ClInclude Include="Sword62.h" />
     <ClInclude Include="Sword63.h" />
     <ClInclude Include="Sword64.h" />
+    <ClInclude Include="Sword66.h" />
     <ClInclude Include="Sword7.h" />
     <ClInclude Include="Sword9.h" />
     <ClInclude Include="TreeNode.h" />
@@ -402,6 +403,7 @@
     <ClCompile Include="Sword62.cpp" />
     <ClCompile Include="Sword63.cpp" />
     <ClCompile Include="Sword64.cpp" />
+    <ClCompile Include="Sword66.cpp" />
     <ClCompile Include="Sword7.cpp" />
     <ClCompile Include="Sword9.cpp" />
   </ItemGroup>

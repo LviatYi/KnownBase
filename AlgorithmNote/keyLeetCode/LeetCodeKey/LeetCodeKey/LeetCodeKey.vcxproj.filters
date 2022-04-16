@@ -423,6 +423,9 @@
     <ClInclude Include="Solution236.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution235.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -822,6 +825,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution236.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution235.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

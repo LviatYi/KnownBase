@@ -150,8 +150,10 @@
     <ClInclude Include="Solution1.h" />
     <ClInclude Include="Solution10.h" />
     <ClInclude Include="Solution101.h" />
+    <ClInclude Include="Solution104.h" />
     <ClInclude Include="Solution105.h" />
     <ClInclude Include="Solution11.h" />
+    <ClInclude Include="Solution110.h" />
     <ClInclude Include="Solution113.h" />
     <ClInclude Include="Solution12.h" />
     <ClInclude Include="Solution121.h" />
@@ -290,8 +292,10 @@
     <ClCompile Include="Solution1.cpp" />
     <ClCompile Include="Solution10.cpp" />
     <ClCompile Include="Solution101.cpp" />
+    <ClCompile Include="Solution104.cpp" />
     <ClCompile Include="Solution105.cpp" />
     <ClCompile Include="Solution11.cpp" />
+    <ClCompile Include="Solution110.cpp" />
     <ClCompile Include="Solution113.cpp" />
     <ClCompile Include="Solution12.cpp" />
     <ClCompile Include="Solution121.cpp" />

@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword59 solution;
-    vector<int> nums{ 1,-1 };
-    solution.maxSlidingWindow(nums, 1);
+    Sword63 solution;
+    vector<int> prices{ 7,1,5,3,6,4 };
+    solution.maxProfit(prices);
 
     return 0;
 }

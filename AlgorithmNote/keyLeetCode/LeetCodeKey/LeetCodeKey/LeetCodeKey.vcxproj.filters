@@ -393,6 +393,18 @@
     <ClInclude Include="Sword59.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Sword60.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword61.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword62.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword63.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -762,6 +774,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sword59.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword60.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword61.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword62.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword63.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

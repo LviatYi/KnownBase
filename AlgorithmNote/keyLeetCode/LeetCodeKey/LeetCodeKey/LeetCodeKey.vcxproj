@@ -266,6 +266,10 @@
     <ClInclude Include="Sword3.h" />
     <ClInclude Include="Sword4.h" />
     <ClInclude Include="Sword5.h" />
+    <ClInclude Include="Sword60.h" />
+    <ClInclude Include="Sword61.h" />
+    <ClInclude Include="Sword62.h" />
+    <ClInclude Include="Sword63.h" />
     <ClInclude Include="Sword7.h" />
     <ClInclude Include="Sword9.h" />
     <ClInclude Include="TreeNode.h" />
@@ -392,6 +396,10 @@
     <ClCompile Include="Sword3.cpp" />
     <ClCompile Include="Sword4.cpp" />
     <ClCompile Include="Sword5.cpp" />
+    <ClCompile Include="Sword60.cpp" />
+    <ClCompile Include="Sword61.cpp" />
+    <ClCompile Include="Sword62.cpp" />
+    <ClCompile Include="Sword63.cpp" />
     <ClCompile Include="Sword7.cpp" />
     <ClCompile Include="Sword9.cpp" />
   </ItemGroup>

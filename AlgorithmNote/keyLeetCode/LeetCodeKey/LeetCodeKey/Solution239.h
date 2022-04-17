@@ -13,10 +13,5 @@ private:
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k);
     vector<int> maxSlidingWindow2(vector<int>& nums, int k);
-
-    Solution239();
-    int max_value();
-    void push_back(int value);
-    int pop_front();
 };
 

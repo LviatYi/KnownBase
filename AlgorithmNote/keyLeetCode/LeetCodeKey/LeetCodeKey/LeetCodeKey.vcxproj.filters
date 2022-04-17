@@ -429,13 +429,13 @@
     <ClInclude Include="Solution121.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Solution239.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="Solution110.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Solution104.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution239.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -848,11 +848,11 @@
     <ClCompile Include="Solution239.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Solution110.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="Solution104.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution110.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -918,3 +918,26 @@ inline const Number operator*(const Number& lhs,const Number& rhs){
 
 - 提供封装 `private`
 - 不提供封装
+
+### 4.23 优先采用 `non-member` 且 `non-friend` 而非 `member` 或 `friend` 函数
+
+#### 更好的封装性
+
+面向对象守则要求，数据尽可能地被封装。
+
+优先采用 `non-member` 且 `non-friend` 函数具有如下优点：
+
+- 其具有更好的封装性。
+- 其具有更优的包裹弹性 (packaging flexibility)。
+
+封装意味着不可见。越多属性被封装，则越少第三者能看到它。而越少的第三者看到它，意味着开发者拥有更大的弹性修改它，因为改变造成的影响因封装而降至最低。
+
+并非所有类都为了封装性而存在，因此「成为 class 的 `non-member`」并不意味着它「不可以是另一个 class 的 `member`」。
+
+对于 Java ，C# 而言，一切皆为对象。可以令 `non-member` 函数成为某个工具类的 `public static` `member` 函数。而对于 C++ 而言，可以仅使之成为 `non-member non-friend` 函数，并使之位于合适的 `namespace` 内。
+
+#### 更好的切割性
+
+将 `non-member non-friend` 函数置于指定的 `namespace` 且声明于不同的头文件中，则可以带来更好的切割性。
+
+用户可以不引入不使用的函数，也可以在包含相同 `namespace` 的头文件声明新的函数以扩展功能。

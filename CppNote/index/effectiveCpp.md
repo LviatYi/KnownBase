@@ -986,3 +986,131 @@ const Rational operator*(const Rational& lhs, const Rational& rhs);
 > 为了引出友元函数，「C++ Primer Plus」使用为此函数赋予友元属性，解决上述难题。
 
 然而优秀的哲学观要求尽量避免友元函数。如果使用 public 接口足以解决问题，则应使之成为 `non-member non-friend` 函数。
+
+### 4.25 考虑写出一个不抛异常的 `swap` 函数
+
+所谓 `swap` 函数，指将两对象的值彼此赋予对方。
+
+标准库提供了类似如下的 `swap` 算法：
+
+```c++
+template<typename T>
+void swap(T& a,T& b){
+    T temp(a);
+    a = b;
+    b = temp;
+}
+```
+
+这涉及了一次 `copy` 构造与两次赋值运算，这可能带来性能问题。
+
+设有如下 pimpl (pointer to implementation) 类：
+
+```c++
+class WidgetImpl {
+private:
+    int a, b, c;
+    vector<double>v;
+};
+
+class Widget {
+private:
+    WidgetImpl* widget_impl_;
+};
+```
+
+显然，对于其 swap 行为仅需要 swap 指针内容即可。但我们一般定义其 copying 函数为深拷贝。参考 **条款 14** 。这意味着会有多余的复制行为。
+
+于是有如下解决方案：
+
+```c++
+class WidgetImpl {
+private:
+    int a, b, c;
+    vector<double>v;
+};
+
+class Widget {
+public:
+    void swap(Widget& other) {
+        std::swap(this->widget_impl_, other.widget_impl_);
+    }
+private:
+    WidgetImpl* widget_impl_;
+};
+
+void swap<Widget>(Widget& lhs, Widget& rhs) {
+    lhs.swap(rhs);
+}
+```
+
+但如果 Widget 为模板类，则依习惯可能有如下错误代码：
+
+```c++
+// ERROR CODE
+template<typename T>
+class WidgetImpl {
+public:
+private:
+    int a, b, c;
+    vector<T>v;
+};
+
+template<typename T>
+class Widget {
+public:
+    void swap(Widget& other) {
+        std::swap(this->widget_impl_, other.widget_impl_);
+    }
+private:
+    WidgetImpl<T>* widget_impl_;
+};
+
+// 对 std::swap 的特化
+template<typename T>
+void swap<Widget<T>>(Widget<T>& lhs, Widget<T>& rhs) {
+    // ERROR: Function template partial specialization is not allowed
+    // ERROR: 不允许模板函数的偏特化
+    lhs.swap(rhs);
+}
+```
+
+也许重载函数是个解决方法。
+
+```c++
+// 对 std::swap 的重载
+template<typename T>
+void swap(Widget<T>& lhs, Widget<T>& rhs) {
+    // 注意函数重载与函数特化的区别
+    lhs.swap(rhs);
+}
+```
+
+但 `namespace std` 并不允许开发者添加新的 `templates` `classes` 或 `functions` （重载即意味着添加新的 `templates` ），只能全特化 `std` 内的 `templates`。因此应该将 `swap` 置入 `Widget` 所在的命名空间内，其既不是 `std::swap` 的重载，也不是 `std::swap` 的特化。
+
+```c++
+namespace WidgetStuff{
+    template<typename T>
+    class Widget{...}
+
+    template<typename T>
+    void swap(Widget<T>& lhs, Widget<T>& rhs){lhs.swap(rhs);}
+}
+```
+
+如果仅仅这样做而没有对 `std::swap` 进行特化，则意味加入限定名的 `std::swap()` 调用无法调用优化后的版本。但加入了限定名的调用非常常见。其可能出现在：
+
+- 未知程序员无意识的限定。
+- 标准库的模板实现。
+
+因此对于 `swap` ，总结有如下方法论：
+
+- 如果缺省的 `swap` 有足够的效率，则不要自行实现 `swap` 函数。
+- 提供一个 `public swap` 成员函数，其针对性地优化了 `swap` 过程，且绝不应该抛出异常。
+- 在 `class` 或 `template` 所在的命名空间内提供一个 `non-member swap` ，并令其调用 `swap` 成员函数。
+- 如果是一个 `class` 而非 `class template` ，则特化 `std::swap` 。
+
+对于为何不应该抛出异常：
+
+- `swap` 应为其 `class` （或 `class template` ）提供异常安全性 (exception-safety) 保障。  
+- 一般地，高效率的 `swap` 基于内置类型操作，本身便不会抛出异常。

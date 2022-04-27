@@ -1112,11 +1112,60 @@ namespace WidgetStuff{
 
 对于为何不应该抛出异常：
 
-- `swap` 应为其 `class` （或 `class template` ）提供异常安全性 (exception-safety) 保障。  
+- `swap` 应为其 `class` （或 `class template` ）提供异常安全性 (exception-safety) 保障。
 - 一般地，高效率的 `swap` 基于内置类型操作，本身便不会抛出异常。
 
 ## 5. 实现
 
 ### 5.26 尽可能延后变量定义式的出现时间
 
-test
+应留意声明变量所带来的构造与析构成本。
+
+- 如果用不到，就不要提前声明。
+- 如果可以，直接在构造时赋值。
+
+```c++
+// Worse
+string encryptPassword(const string& password){
+    string encrypted;
+    if(password.length() < MinimumPasswordLength){
+        throw ...
+    }
+    ...
+    return encrypted;
+}
+```
+
+```c++
+// Better
+string encryptPassword(const string& password){
+    if(password.length() < MinimumPasswordLength){
+        throw ...
+    }
+    string encrypted = encrypt(password);
+    ...
+    return encrypted;
+}
+```
+
+对于声明放置在循环内还是循环外，有如下时空花费参考：
+
+```c++
+Student stu1;
+for(int i = 0 ;i < n ;i++){
+    stu1 = k;
+    Student stu2(k);
+}
+```
+
+- **循环外** $1$ 个构造函数 + $1$ 个析构函数 + $n$ 个赋值操作
+- **循环内** $n$ 个构造函数 + $n$ 个析构函数
+
+另仍要考虑到循环外方案的副作用，即使变量的作用域扩大，是否可能损害程序的可理解性与易维护性。
+
+因此除非 **同时满足** 以下两条件：
+
+- 赋值成本比一组「构造 + 析构」成本更低。
+- 所构建的模块对效率要求高 (performance-sensitive) 。
+
+应采用循环外，否则采用循环内。

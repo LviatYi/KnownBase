@@ -1114,3 +1114,5 @@ namespace WidgetStuff{
 
 - `swap` 应为其 `class` （或 `class template` ）提供异常安全性 (exception-safety) 保障。  
 - 一般地，高效率的 `swap` 基于内置类型操作，本身便不会抛出异常。
+
+## 5. 实现

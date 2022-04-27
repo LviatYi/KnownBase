@@ -1118,3 +1118,5 @@ namespace WidgetStuff{
 ## 5. 实现
 
 ### 5.26 尽可能延后变量定义式的出现时间
+
+test

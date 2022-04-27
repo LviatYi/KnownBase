@@ -941,3 +941,48 @@ inline const Number operator*(const Number& lhs,const Number& rhs){
 将 `non-member non-friend` 函数置于指定的 `namespace` 且声明于不同的头文件中，则可以带来更好的切割性。
 
 用户可以不引入不使用的函数，也可以在包含相同 `namespace` 的头文件声明新的函数以扩展功能。
+
+### 4.24 若所有参数皆需类型转换，请为此采用 `non-member` 函数
+
+设存在一个有理数 (Rational) 类型：
+
+```c++
+class Rational{
+public:
+    Rational(   int numerator = 0,      // 允许 int-to-Rational 隐式转换。
+                int denominator = 1);
+    int numerator() const;              // 分子
+    int denominator() const;            // 分母
+}
+```
+
+其含有对乘号 `*` 的重载。若将其定义为 `member` 函数：
+
+```c++
+class Rational{
+    ...
+public:
+    const Rational operator*(const Rational& rhs) const;
+}
+```
+
+对于有理数而言，将其与一个 `int` `long` `float` `double` 相乘非常合理。
+
+而上种实现难以满足这种需求。至少不能满足一半。
+
+```c++
+result = Rational(10) * 5;  //allowed
+result = 5 * Rational(10);  //not allowed
+```
+
+只有当参数被列于参数列中 (parameter list) ，才允许发生隐式类型转换。
+
+因此有如下解决方案，使之成为 `non-member` 函数：
+
+```c++
+const Rational operator*(const Rational& lhs, const Rational& rhs);
+```
+
+> 为了引出友元函数，「C++ Primer Plus」使用为此函数赋予友元属性，解决上述难题。
+
+然而优秀的哲学观要求尽量避免友元函数。如果使用 public 接口足以解决问题，则应使之成为 `non-member non-friend` 函数。

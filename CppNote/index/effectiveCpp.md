@@ -1347,5 +1347,74 @@ iter != bases.end();
 
 完全摆脱转型动作不切实际。
 
-应尽可能隔离转型动作，将其隐藏在某个函数内。
-应尽可能允许用户在不使用转型动作的情况下完成工作。
+应尽可能隔离转型动作，将其隐藏在某个函数内。应尽可能允许用户在不使用转型动作的情况下完成工作。
+
+### 5.28 避免返回 `handles` 指向对象内部成分
+
+设计一个矩形：
+
+```c++
+class Point{
+public:
+    Point(int x,int y);
+    ...
+    void setX(int x);
+    void setY(int y);
+};
+
+struct RectData{
+    Point ulhc; // upper left-hand corner 左上角
+    Point lrhc; // lower right-hand corner 右下角
+};
+
+class Rectangle{
+private:
+    shared_ptr<RectData> pData;
+public:
+    Point& upperLeft()const{return pData->ulhc;}    // 注意点
+    Point& lowerRight()const{return pData->lrhc;}   // 考虑到效率，返回引用
+};
+```
+
+这种设计可以通过编译，但却是错误的设计。
+
+其中 `upperLeft()` 与 `lowerRight()` 分别作为获取左上角与右上角坐标的 `getter` ，其本身应该作为 `const` 函数。然而以上设计却允许用户修改器内容，且可以通过编译。
+
+因此要注意：
+
+- 成员变量的封装性最多只等于「返回其 `reference`」的函数的访问级别（水桶的短板）。
+  - 例中的 `ulhc` 和 `lrhc` 声明为 private ，实际却为 public 。因为其被两个 `getter` 传出了 `reference` 。
+- 如果 `const` 成员函数传出一个 `reference` ，后者所指数据与对象自身有关联，而它又被存储于对象之外，那么这个函数的调用者可以修改那笔数据 （ bitwise constness ，见 **条款 3** ）。
+
+以上情况可推广至 **handle** （其包括引用、指针和迭代器，用以取得某个对象）。返回 handle 便有降低对象封装性的风险。
+
+通常来说，对象「内部」指其成员变量，但实际上，不被公开使用的成员函数，同样是对象内部的一部分。这意味着返回一个私有的成员函数指针同样需要慎重对待。
+
+一般地，可以通过返回 `const handle` 解决上述问题。
+
+```c++
+class Rectangle{
+...
+    const Point& upperLeft()const{return pData->ulhc;}
+    const Point& lowerRight()const{return pData->lrhc;}
+};
+```
+
+但即便如此，仍可能导致 `dangling handles` （空悬的 handle ），即 handle 所指东西不复存在。
+
+```c++
+class GUIObj{...};  // GUI 对象，内含一个 Rectangle 作为边界
+const Rectangle boundingBox(const GUIObj& obj) // 值返回 GUI 对象中的 Rectangle 边界
+```
+
+而后客户如此使用这个函数：
+
+```c++
+GUIObj* guiObj;
+...
+const Point* pUpperLeft = &(boundingBox(*pgo).upperLeft());
+```
+
+错误之处在于，当函数执行完毕， **boundingBox()** 返回的对象将被销毁，这将造成 `pUpperLeft` 所指的对象连带着被销毁。
+
+这个责任由客户承担还是由开发者承担，很难定义。为了方便他人，应尽量避免返回一个 handle 代表对象内部成分。

@@ -17,6 +17,7 @@
 1. [Alogorithm Design 算法设计][algorithmdesign]
 1. [Alogorithm 算法][algorithm]
 1. [Compilation Principle 编译原理][compilationprinciplenote]
+1. [C++][cpp]
 1. [CSS 层叠样式表][css]
 1. [Database 数据库][database]
 1. [Design Pattern 设计模式][designpattern]
@@ -54,6 +55,7 @@ $$
 [algorithmdesign]: ./Algorithm-designNote/algorithm-design-note.md
 [algorithm]: ./AlgorithmNote/algorithm-note.md
 [compilationprinciplenote]: ./CompilationPrincipleNote/compilation-principle-note.md
+[cpp]: ./CppNote/Cpp-note.md
 [css]: ./CSSNote/CSS-note.md
 [database]: ./DatabaseNote/Database-note.md
 [designpattern]: ./DesignPatternNote/Design-Pattern-Note.md

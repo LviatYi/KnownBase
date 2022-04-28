@@ -1169,3 +1169,183 @@ for(int i = 0 ;i < n ;i++){
 - 所构建的模块对效率要求高 (performance-sensitive) 。
 
 应采用循环外，否则采用循环内。
+
+### 5.27 尽量少做转型动作
+
+请保证「类型错误」绝不可能发生！
+
+C++ 提供四种新式转型 (C++-style casts)。
+
+- const_cast<T>( expression )
+  - cast away the constness
+  - 消除对象的常量性。
+- dynamic_cast<T>( expression )
+  - safe downcasting
+  - 安全向下转型。
+  - 决定某对象是否归属其继承体系中的某个类型。
+  - 耗费大量运行成本。
+- static_cast<T>( expression )
+  - implicit conversions
+  - 强迫隐式转换。
+  - 可为对象赋予常量性（`non-const` >> `const`）。
+  - 允许向上转型。
+    - 包括转型至空指针。
+  - 允许向下转型。
+    - 包括将空指针转型。
+  - 允许基本类型间转型。
+- reinterpret_cast<T>( expression )
+  - 允许任何转型。
+  - 低级转型，**及其危险** 。
+  - 实际结果取决于编译器，**不可移植** 。
+
+使用新式转型有如下好处：
+
+- 在代码中是人机易读的（包括人工辨识与 grep 等工具）。
+- 细化转型动作的作用，使编译器更易于诊断出错误的应用。
+
+#### 对象布局永远当成非预期的
+
+由于多重继承（菱形继承）的存在，一个对象可能拥有一个以上的地址指向它。
+
+```c++
+class Base1{}
+class Base2{}
+class Derived:public Base1,public Base2{}
+...
+Derived* instance = new Derived{};                          //0x013D80D0
+Base1* instance_base_1 = static_cast<Base1*>(&instance);    //0x013D80D0
+Base2* instance_base_2 = static_cast<Base2*>(&instance);    //0x013D80D8
+```
+
+这意味着指针在包含继承关系的转型中，会有一个偏移量（offset）在运行期被施加于原指针之上，以确定新的指针位置。不仅是多继承，即便是单继承也有可能发生偏移行为。
+
+对象的布局方式与地址计算方式随编译器的不同而不同。不要自信于了解对象的布局方式。
+
+#### 转型是值返回
+
+如下代码可能造成预期外行为：
+
+```c++
+class Window{
+public:
+    virtual void onResize(){...}
+    ...
+};
+
+class SpecialWindow:public Window{
+public:
+    virtual void onResize(){
+        static_cast<Window>(*this).onResize();  // 期待先调用父类 onResize()
+        ...
+    }
+};
+```
+
+由于转型是值返回，因此预期中所调用的父类的 `onResize()` 实际上来自一个父类的副本。这可能是预期外的。
+
+明确使用如下方式调用父类函数。
+
+```c++
+class SpecialWindow:public Window{
+public:
+    virtual void onResize(){
+        Window::onResize();  // 调用自身父类 onResize()
+        ...
+    }
+};
+```
+
+#### 即便是有合理理由，也尽量避免 `dynamic_cast`
+
+`dynamic_cast` 的效率很低，与其实现版本中包含的「`class` 名称的字符串比较」有关。
+
+一般 `dynamic_cast` 有如下使用场景：
+
+期待调用一个认定为 `derived class` 的 `derived` 函数，但只能取得一个指向 `base` 的指针或引用。
+
+```c++
+// Original code
+class Derived: public Base{
+public:
+    void ind_fun(){}
+}
+...
+vector<shared_ptr<Base>> bases;
+...
+for(auto iter = bases.begin();
+iter != bases.end();
+++iter){
+    if(Derived* pd = dynamic_cast<Derived*>(iter->get())){
+        pd->ind_fun();
+    }
+}
+```
+
+有两个一般性方法可以解决问题：
+
+- 使用容器并在其中存储直接指向 `derived class` 对象的指针（通常是智能指针），以消除「通过 `base class` 接口处理对象」的需要。
+
+```c++
+// Optimized code1
+class Derived: public Base{
+public:
+    void ind_fun(){}
+}
+...
+vector<shared_ptr<Derived>> deriveds;
+...
+for(auto iter = deriveds.begin();
+iter != deriveds.end();
+++iter){
+    (*iter)->ind_fun();
+}
+```
+
+> LviatYi 2022.04 注：这是否有点太理想化。如果存在继承，则必然要考虑其他派生类。这样丧失了面向抽象编程的特性。
+
+- 将必要的接口在父类中提供。类似设计模式中的 **透明组合模式** 。
+  - 在 `base class` 中提供派生类需要调用的函数。
+  - 在 `base class` 中提供缺省实现。
+
+```c++
+// Optimized code2
+class Base{
+    virtual void ind_fun(){};   // 缺省实现，什么也不做
+}
+
+class Derived: public Base{
+public:
+    void ind_fun(){}
+}
+...
+vector<shared_ptr<Base>> bases;
+...
+for(auto iter = bases.begin();
+iter != bases.end();
+++iter){
+    (*iter)->ind_fun();
+}
+```
+
+以上两种方法旨在尽力提供 `dynamic_cast` 的替代方案，并不适用于所有情况。
+
+绝对应该避免的是 **连串 (cascading) `dynamic_cast`** ：
+
+```c++
+for(auto iter = bases.begin();
+iter != bases.end();
+++iter){
+    if(Derived1* pd = dynamic_cast<Derived1*>(iter->get())){...}else if(Derived2* pd = dynamic_cast<Derived2*>(iter->get())){...}
+    else if(Derived3* pd = dynamic_cast<Derived3*>(iter->get())){...}
+    ...
+}
+```
+
+这不仅有极低的效率，还会有极高的维护成本。
+
+#### 隔离转型动作
+
+完全摆脱转型动作不切实际。
+
+应尽可能隔离转型动作，将其隐藏在某个函数内。
+应尽可能允许用户在不使用转型动作的情况下完成工作。

@@ -2,12 +2,10 @@
 
 ## 目录
 
-1. [算法基础](./index/algorithm-basic.md)
-1. [分治策略](./index/divideConquer.md)
-1. [散列表](./index/hashing.md)
-1. [树](./index/tree.md)
-1. [动态规划](./index/dynamic-programming.md)
-1. [字符串算法](./index/stringAlgo.md)
+1. [算法分析基础](index/algorithm-analysis-basic.md)
+2. [分治法](index/divideConquer.md)
+3. [动态规划法](index/dynamic.md)
+4. [贪心算法](index/greedy.md)
 
 ## 算法简介
 
@@ -23,32 +21,18 @@
 4. **能行性** 算法的每一条指令必须足够基本，它们可以通过已经实现的基本运算执行有限次来实现。
 5. **有穷性** 算法必须总能在执行有限步之后终止。
 
+---
+
 ### 问题求解步骤
 
 1. **建模** 对输入参数和解给出形式化或半形式化的描述。
 2. **设计算法** 采用何种算法。
 3. **分析算法** 分析其效率。
 
-## 学习资料
+---
 
-### 参考书目
+## 参考资料
 
-《算法导论 第三版》
-
-### 学习视频
+### 参考视频
 
 [【北大公开课】 算法设计与分析 屈婉玲教授 （76p）](https://www.bilibili.com/video/BV1Ls411W7PB) —— @ 屈婉玲教授 北京大学
-
-## Note 简介
-
-本份 Note 旨在记录学习进度，提供部分参考，而非学习教程。
-
-类似「每条 Java 语句都需要以半角分号 `;` 结尾」这种重要知识点不会在 Note 中被提及，因此不适合新手作为教材学习。
-
-## 开发环境
-
-VS Code VS 2022
-
-## 版本号
-
-`v0.10`

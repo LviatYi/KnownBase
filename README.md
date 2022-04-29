@@ -8,11 +8,11 @@
 
 但由于能力所限，个人编写的内容与行文结构存在不少疏漏。部分内容编写仓促，如有不当之处欢迎指出。
 
-此 LearningNote 编排自 LviatYi，并参考了很多大佬的博客与书籍。在教程的序言中，都声明了参考内容的出处。其功能首要为记录本人的学习路程，其次略，最后可供外人参考。  
+此 LearningNote 编排自 LviatYi，并参考了很多前辈的博客与书籍。在教程的序言中，都声明了参考内容的出处。其功能首要为记录本人的学习路程，其次略，最后可供外人参考。  
 如果您喜欢 Note ，建议您在打星的同时访问相应的参考链接，并为其打分。  
-如果您不喜欢 Note，非常推荐您直接点击参考链接，阅读大佬的技术文章。
+如果您不喜欢 Note，非常推荐您点击参考链接，直接阅读前辈的技术文章。
 
-## 笔记目录
+## 内容指南
 
 1. [Alogorithm Design 算法设计][algorithmdesign]
 1. [Alogorithm 算法][algorithm]
@@ -34,21 +34,13 @@
 1. [Vue][vue]
 1. [XML][xml]
 
-## 版本号规则
+## 文档规范
 
-新版 LearningNote 重构自旧版 Note ，且大部分仍处于重构过程中。
-
-`v1.00` 前为重构过程中版本，以如下公式反映重构进度：
-
-$$
-V_{版本号}=C_{已完成内容量}/C_{目标内容量}
-$$
-
-`v1.00` 后为维护版本。
+文档规范参考 [Note Guideline][noteguideline]
 
 ## 致谢与声明
 
-谨对各文中提及的大佬们的互联网奉献精神致上敬意。
+谨对各文中提及的前辈之互联网奉献精神致上敬意。
 
 若有部分内容引用自您的文章且未注明出处，请务必与 <a href="mailto:lviatyi@qq.com">LviatYi</a> 联系。
 
@@ -71,3 +63,4 @@ $$
 [uml]: ./UMLNote/UML-note.md
 [vue]: ./VueNote/Vue-Note.md
 [xml]: ./XMLNote/XML-note.md
+[noteguideline]: ./NoteGuide/note-guideline.md

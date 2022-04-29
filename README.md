@@ -18,7 +18,6 @@
 1. [Alogorithm 算法][algorithm]
 1. [Compilation Principle 编译原理][compilationprinciplenote]
 1. [C++][cpp]
-1. [CSS 层叠样式表][css]
 1. [Database 数据库][database]
 1. [Design Pattern 设计模式][designpattern]
 1. [Game Dev 游戏技术日志][gamedev]
@@ -47,8 +46,7 @@
 [algorithmdesign]: ./Algorithm-designNote/algorithm-design-note.md
 [algorithm]: ./AlgorithmNote/algorithm-note.md
 [compilationprinciplenote]: ./CompilationPrincipleNote/compilation-principle-note.md
-[cpp]: ./CppNote/Cpp-note.md
-[css]: ./CSSNote/CSS-note.md
+[cpp]: ./CppNote/Cpp-note.四月/29/2022 15:47:53  星期五 
 [database]: ./DatabaseNote/Database-note.md
 [designpattern]: ./DesignPatternNote/Design-Pattern-Note.md
 [gamedev]: ./GameDevNote/Game-Development-Note.md

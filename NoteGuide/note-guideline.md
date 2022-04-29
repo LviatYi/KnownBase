@@ -16,6 +16,7 @@
 - **\_zh** 以中文形式，默认地区 中国大陆
 - **\_en** 以英文形式，默认地区 美国
 - **subject_name** 项目 / 学科名称
+- **category_name** 分类名称
 
 ---
 
@@ -38,7 +39,7 @@ Pascal 法。
 #### 概述文件名称
 
 $$
-subject\_ name\_ en
+subject\_ name\_ en[+ category\_ name \_ en]
 $$
 
 以 **-** 分隔单词，全小写。

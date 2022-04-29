@@ -75,15 +75,9 @@
 
 **J2EE 模式** 描述了「对象合起来要做什么」。
 
-## Note 简介
+## 参考资料
 
-本份 Note 旨在记录学习进度，提供部分参考，而非学习教程。
-
-类似「每条 Java 语句都需要以半角分号 `;` 结尾」这种重要知识点不会在 Note 中被提及，因此不适合新手作为教材学习。
-
-## 学习资料
-
-### 参考资料
+### 参考文述
 
 [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html) —— @ colin Github
 

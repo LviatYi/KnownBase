@@ -1,4 +1,4 @@
-# Design Pattern Note
+# Computer Graphics Note
 
 ## 目录
 

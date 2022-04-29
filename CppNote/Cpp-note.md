@@ -1,4 +1,4 @@
-# Design Pattern Note
+# C++ Note
 
 ## 目录
 

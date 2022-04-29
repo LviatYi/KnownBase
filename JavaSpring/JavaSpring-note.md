@@ -3,9 +3,6 @@
 ## 目录
 
 1. [IOC 控制反转](index/ioc.md)
-2. [](index/.md)
-3. [](index/.md)
-4. [](index/.md)
 
 ## 基本介绍
 
@@ -51,21 +48,11 @@ Spring 是目前主流的 Java Web 开发框架，是 Java 世界最为成功的
 - Spring Cloud
   - SpringCloud 是基于 SpringBoot 实现的。
 
-## Note 简介
+## 参考资料
 
-本份 Note 旨在记录学习进度，提供部分参考，部分内容可能不甚严谨。
-
-类似「每条 Java 语句都需要以半角分号 `;` 结尾」这种重要知识点不会在 Note 中被提及，因此不适合新手学习。
-
-## 学习资料
-
-### 学习视频
+### 参考视频
 
 [【狂神说 Java】Spring5 最新完整教程 IDEA 版通俗易懂](https://www.bilibili.com/video/BV1WE411d7Dv?from=search&seid=14885296346718072648) —— @ 遇见狂神说 Bilibili
-
-### 外部链接
-
-[]()
 
 ## 版本号
 

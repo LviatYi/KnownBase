@@ -69,3 +69,7 @@ Web 标准的构成：
 Visual Studio Code
 
 [w3schools]: https://www.w3schools.com/
+
+## 版本号
+
+`v1.00`

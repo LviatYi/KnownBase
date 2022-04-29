@@ -57,3 +57,7 @@ Java 中最主要的三个概念，JDK，JRE 和 JVM
 ### 开发环境
 
 IntelliJ IDEA Community
+
+## 版本号
+
+`v1.00`

@@ -113,6 +113,66 @@ $
 $
 
 $$
-\vec{c} = \vec{a} \times \vec{b} =
-    \begin{vmatrix} i&j&k \\ a_x&a_y&a_z \\ b_x&b_y&b_z \\ \end{vmatrix}
+\begin{align*}
+    \vec{c} & = \vec{a} \times \vec{b} =
+        \begin{vmatrix}
+            i&j&k \\
+            a_x&a_y&a_z \\
+            b_x&b_y&b_z \\
+        \end{vmatrix}=
+        \begin{pmatrix}
+            a_y b_z - b_y a_z\\
+            a_z b_x - a_x b_z\\
+            a_x b_y - a_y b_x\\
+        \end{pmatrix}\\
+        & =A^* \vec{b}=
+        \begin{pmatrix}
+            0 & -z_a & y_a \\
+            z_a & 0 & x_a \\
+            -y_a & x_a & 0 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            x_b \\
+            y_b \\
+            z_b \\
+        \end{pmatrix}
+\end{align*}
 $$
+
+#### 叉乘运算法则
+
+直角坐标系中：
+
+$\vec{x} \times \vec{y} = +\vec{z}$  
+$\vec{y} \times \vec{x} = -\vec{z}$  
+$\vec{y} \times \vec{z} = +\vec{x}$  
+$\vec{z} \times \vec{y} = -\vec{x}$  
+$\vec{z} \times \vec{x} = +\vec{y}$  
+$\vec{x} \times \vec{z} = -\vec{y}$
+
+$
+\vec{a} \times \vec{b} =
+    - \vec{b} \times \vec{a}
+$
+
+$
+\vec{a} \times \vec{a} =
+    \vec{0}
+$
+
+$
+\vec{a} \times (\vec{b} +\vec{c})=
+    \vec{a} \times \vec{b} +\vec{a} \times \vec{c}
+$
+
+$
+\vec{a} \times (k \vec{b}) =
+    k(\vec{a} \times \vec{b})
+$
+
+#### 叉乘用途
+
+- 构建三维空间中的直角坐标系。
+- 判断左 / 右
+  - 在 XY 平面中，$\vec{a}$ 旋转至 $\vec{b}$ 是逆时针 / 顺时针旋转（沿夹角）。 ![判断左右](../pic/judgeWise.png)
+- 判断内 / 外 ![判断内外](../pic/judgeInside.png)

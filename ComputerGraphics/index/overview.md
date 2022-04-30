@@ -10,4 +10,4 @@
 
 计算机图形学与计算机视觉：
 
-![计算机图形学与计算机视觉](./pic/computerGraphics%26Vision.png)
+![计算机图形学与计算机视觉](../pic/computerGraphics%26Vision.png)

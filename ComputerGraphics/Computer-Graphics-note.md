@@ -2,7 +2,8 @@
 
 ## 目录
 
-1. [Computer Graphics note](index/effectiveCpp.md)
+1. [概述](index/overview.md)
+1. [向量与线性代数](index/miscellaneousMath.md)
 
 ## 学习资料
 

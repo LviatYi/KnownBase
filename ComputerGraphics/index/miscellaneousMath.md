@@ -223,7 +223,7 @@ $
 \end{pmatrix}
 $
 
-矩阵乘法行列数将满足一下条件：
+矩阵乘法行列数将满足以下条件：
 
 $
 (M \times N)(N \times P)=(M \times P)

@@ -4,6 +4,7 @@
 
 1. [概述](index/overview.md)
 1. [向量与线性代数](index/miscellaneousMath.md)
+1. [变换](index/transform.md)
 
 ## 学习资料
 

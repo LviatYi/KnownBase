@@ -252,13 +252,13 @@ $$
 \end{pmatrix}
 $$
 
-#### 第三个维度的意义
+#### 新增维度的意义
 
 对于平移变换，坐标与向量具有不同的表现。
 
-因此简单来说，用第三个维度的 0 或 1 表示可加以区分。
+因此简单来说，用新增维度的 0 或 1 表示可加以区分。
 
-实际上第三个维度可被赋予数学意义：
+实际上新增维度可被赋予数学意义：
 
 - 向量 + 向量 = 向量
   - 0+0=0
@@ -278,6 +278,12 @@ $ 为 2D 点 $
     x/w\\ y/w\\ 1\\
 \end{pmatrix}
 $ ，其中 $w \neq 0$
+
+因此实际上，若 $w \neq 0$ ，则 $
+\begin{pmatrix}
+    wx\\ wy\\ w\\
+\end{pmatrix}
+$ 都表示同一点。
 
 ## 3.4 逆变换
 
@@ -524,10 +530,78 @@ $R_{\text{view}}$ 为 $R_{\text{view}}^{-1}$ 逆矩阵，且为旋转矩阵之�
 
 #### 正交投影
 
-正交投影中，互相平行的线将汇聚至一点。
+![正交投影](../pic/orthographicProj.png)
 
-即 **近大远小** 。
+正交投影中，互相平行的线将平行。
+
+![正交投影 第 1 步](../pic/orthographicProjStep1.png) ![正交投影 第 2 步](../pic/orthographicProjStep2.png) ![正交投影 第 3 步](../pic/orthographicProjStep3.png)
+
+$x = l \equiv \text{left plane}$ $x = r \equiv \text{right plane}$ $y = b \equiv \text{bottom plane}$ $y = t \equiv \text{top plane}$ $z = n \equiv \text{near plane}$ $z = f \equiv \text{far plane}$
+
+转换矩阵：
+
+$
+M_{\text{ortho}}=
+\begin{bmatrix}
+\frac{2}{r-l}&0&0&0\\
+0&\frac{2}{t-b}&0&0\\
+0&0&\frac{2}{n-f}&0\\
+0&0&0&1\\
+\end{bmatrix}
+\begin{bmatrix}
+1&0&0&-\frac{r+l}{2}\\
+0&1&0&-\frac{t+b}{2}\\
+0&0&1&-\frac{n+f}{2}\\
+0&0&0&1\\
+\end{bmatrix}
+$
+
+注：约定正交投影将缩放至规范 (canonical) 立方体（$\begin{bmatrix}-1&1\end{bmatrix}^3$）。渲染时将再缩放回原比例。
+
+右手系中远的 $z$ 反而小，而左手系则正常。
 
 #### 透视投影
 
-正交投影中，互相平行的线将平行。
+![透视投影](../pic/perspectiveProj.png)
+
+透视投影中，互相平行的线将汇聚至一点。
+
+即 **近大远小** 。
+
+![透视投影过程](../pic/perspectiveProjStep1.png)
+
+透视投影意味着将截头锥体视场转换为立方体。随后再进行正交投影即可。
+
+规定：
+
+- 近平面保持不变。
+- 远平面 $z$ 保持不变。
+- 远平面中心点保持不变。
+
+![透视投影 第 2 步](../pic/perspectiveProjStep2.png)
+
+因此
+
+$
+y'=\dfrac nz y
+$
+
+同理
+
+$
+x'=\dfrac nz x
+$
+
+$
+M_{{persp}\rightarrow{ortho}} =
+\begin{bmatrix}
+n&0&0&0\\
+0&n&0&0\\
+0&0&n+f&-nf\\
+0&0&1&0\\
+\end{bmatrix}
+$
+
+$
+M_{persp}=M_{ortho}M_{{persp}\rightarrow{ortho}}
+$

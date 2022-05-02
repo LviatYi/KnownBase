@@ -404,11 +404,63 @@ $
 
 #### 3D 点的旋转变换
 
-绕任意轴的 3D 旋转都可分解为分别绕 $x$、$y$、$z$ 轴的选择
+绕任意轴的 3D 旋转都可分解为分别绕 $x$、$y$、$z$ 轴的旋转。
+
+如绕某轴顺时针旋转 $\alpha$ 角的旋转矩阵：
+
+$
+R_x(\alpha) =
+    \begin{pmatrix}
+        1 &0 &0 &0\\
+        0 &\cos{\alpha} &-\sin{\alpha} &0\\
+        0 &\sin{\alpha} &\cos{\alpha} &0\\
+        0 &0 &0 &1\\
+    \end{pmatrix}
+$
+
+$
+R_y(\alpha) =
+    \begin{pmatrix}
+        \cos{\alpha} &0 &\sin{\alpha} &0\\
+        0 &1 &0 &0\\
+        -\sin{\alpha} &0 &\cos{\alpha} &0\\
+        0 &0 &0 &1\\
+    \end{pmatrix}
+$
+
+$
+R_z(\alpha) =
+    \begin{pmatrix}
+        \cos{\alpha} &-\sin{\alpha} &0 &0\\
+        \sin{\alpha} &\cos{\alpha} &0 &0\\
+        0 &0 &1 &0\\
+        0 &0 &0 &1\\
+    \end{pmatrix}
+$
+
+基于此，可使用 **欧拉角** 描述物体的旋转。
+
+欧拉角包含：
+
+- 旋近角 $\psi$
+- 章动角 $\theta$
+- 自转角 $\varphi$
 
 $$
 R_{xyz}(\alpha , \beta , \gamma)=
 R_{x}(\alpha)R_{y} (\beta)R_{z} (\gamma)
+$$
+
+绕 $n$ 轴（$n$ 过原点）顺时针旋转 $\alpha$ 角的旋转矩阵：
+
+$$
+R(n,\alpha) = \\
+\cos{(\alpha)} I+(1-\cos{(\alpha)})nn^T+\sin(\alpha)
+\begin{pmatrix}
+    0&-n_z&n_y\\
+    n_z&0&-n_x\\
+    -n_y&n_x&0\\
+\end{pmatrix}
 $$
 
 ## 3.7 观测变换
@@ -417,8 +469,65 @@ $$
 
 ### 3.7.1 视图变换
 
+视图变换 (View transformation) 象征着观察角度的变化。
+
+观察者（一般指相机 camera）有如下属性：
+
+- $\vec{e}$ 位置 Position
+- $\hat{g}$ 面部朝向 Loot-at / Gaze direction
+- $\hat{t}$ 顶部朝向 Up direction
+
+约定：观察者具有固定的属性：
+
+- $\vec{e}=(0,0,0)^T$
+- $\hat{g} = (0,0,-1)^T$
+- $\hat{t}= (0,1,0)^T$
+
+定义 $M_{\text{view}}$ 以将观察者从当前位置初始化:
+
+- 将 $\vec{e}$ 平移至原点；
+- 将 $\hat{g}$ 旋转至 $-Z$；
+- 将 $\hat{t}$ 旋转至 $Y$；
+- 将 $\hat{g} \times \hat{t}$ 旋转至 $X$；
+
+$
+M_{\text{view}}=R_{\text{view}}T_{\text{view}}
+$
+
+$
+T_{\text{view}}=
+\begin{bmatrix}
+    1&0&0&-e_x\\
+    0&1&0&-e_y\\
+    0&0&1&-e_z\\
+    0&0&0&1\\
+\end{bmatrix}
+$
+
+$
+R_{\text{view}}=
+\begin{bmatrix}
+    (\hat{g} \times \hat{t})_x&(\hat{g} \times \hat{t})_y&(\hat{g} \times \hat{t})_z&0\\
+    \hat{t}_x&\hat{t}_y&\hat{t}_z&0\\
+    (\hat{-g})_x&(\hat{-g})_y&(\hat{-g})_z&0\\
+    0&0&0&1\\
+\end{bmatrix}
+$
+
+$R_{\text{view}}$ 为 $R_{\text{view}}^{-1}$ 逆矩阵，且为旋转矩阵之逆矩阵。
+
+将相机归位，同时可将物体跟随相机变换。
+
+即以观察者属性建立新的坐标系。
+
 ### 3.7.2 投影变换
 
 #### 正交投影
 
+正交投影中，互相平行的线将汇聚至一点。
+
+即 **近大远小** 。
+
 #### 透视投影
+
+正交投影中，互相平行的线将平行。

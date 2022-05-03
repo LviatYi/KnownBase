@@ -46,7 +46,7 @@
 [algorithmdesign]: ./Algorithm-designNote/algorithm-design-note.md
 [algorithm]: ./AlgorithmNote/algorithm-note.md
 [compilationprinciplenote]: ./CompilationPrincipleNote/compilation-principle-note.md
-[cpp]: ./CppNote/Cpp-note.四月/29/2022 15:47:53  星期五 
+[cpp]: ./CppNote/Cpp-note/cpp-note.md
 [database]: ./DatabaseNote/Database-note.md
 [designpattern]: ./DesignPatternNote/Design-Pattern-Note.md
 [gamedev]: ./GameDevNote/Game-Development-Note.md

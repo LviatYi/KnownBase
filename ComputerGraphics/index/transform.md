@@ -534,9 +534,16 @@ $R_{\text{view}}$ 为 $R_{\text{view}}^{-1}$ 逆矩阵，且为旋转矩阵之�
 
 正交投影中，互相平行的线将平行。
 
-![正交投影 第 1 步](../pic/orthographicProjStep1.png) ![正交投影 第 2 步](../pic/orthographicProjStep2.png) ![正交投影 第 3 步](../pic/orthographicProjStep3.png)
+![正交投影 第 1 步](../pic/orthographicProjStep1.png)  
+![正交投影 第 2 步](../pic/orthographicProjStep2.png)  
+![正交投影 第 3 步](../pic/orthographicProjStep3.png)
 
-$x = l \equiv \text{left plane}$ $x = r \equiv \text{right plane}$ $y = b \equiv \text{bottom plane}$ $y = t \equiv \text{top plane}$ $z = n \equiv \text{near plane}$ $z = f \equiv \text{far plane}$
+$x = l \equiv \text{left plane}$  
+$x = r \equiv \text{right plane}$  
+$y = b \equiv \text{bottom plane}$  
+$y = t \equiv \text{top plane}$  
+$z = n \equiv \text{near plane}$  
+$z = f \equiv \text{far plane}$
 
 转换矩阵：
 

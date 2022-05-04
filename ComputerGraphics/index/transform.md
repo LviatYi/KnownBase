@@ -612,3 +612,24 @@ $
 $
 M_{persp}=M_{ortho}M_{{persp}\rightarrow{ortho}}
 $
+
+定义投影变换的视锥：
+
+![视锥](../pic/visualCone.png)
+
+视界宽度： $\text{width}$  
+视界高度： $\text{height}$  
+纵横比 (aspect ratio)： $\text{width}/\text{height}$  
+水平可视角度 (Vertical Field of View)： $\text{visual cone}$
+
+可据此计算 $l$ $r$ $b$ $t$
+
+![计算 lrbt](../pic/calLRBT.png)
+
+$
+\tan{\frac{\text{fovY}}{2}}= \frac{t}{\lvert n \rvert}
+$
+
+$
+\text{aspect} = \frac{r}{t}
+$

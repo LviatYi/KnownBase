@@ -203,4 +203,21 @@ $
 - DLSS (Deep Learning Super Sampling)
   - 运用了深度学习以补全缺失信息。
 
-## 4.4 深度缓冲
+## 4.4 遮挡与可见性
+
+绘制到屏幕时应处理物体的先后遮挡关系。
+
+尝试使用画家算法 (painter's algorithm) ：
+
+- 先绘制远处物体，后绘制近处物体以覆盖。
+- 难以描述远近关系。
+- 无法处理两两覆盖关系。 ![画家算法无法处理的难题](../pic/painterPuzzle.png)
+
+因此引入 **深度缓冲** (Z-buffer) 算法。 
+
+- frame buffer 存储每个像素点的最浅深度。
+- depth buffer(z-buffer) 存储每个像素的颜色。
+
+\* 此处 z 深度表示某点到摄像机的距离，永远为非负数。
+
+![运用 z-buffer 的渲染](../pic/zBuffer.png)

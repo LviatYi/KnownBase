@@ -110,6 +110,8 @@ $
 
 锯齿是线在光栅化时产生的失真，根本原因在于采样精度低于人眼精度。
 
+更多参见 **数字图像处理** 。
+
 #### 4.3.1.1 时域与频域
 
 时域 (time domain) 指相对于 **时间** 的数学函数或信号的分析。频域 (frequency domain) 指相对于 **频率** 的数学函数或信号的分析。
@@ -117,17 +119,41 @@ $
 时域图显示信号如何随时间变化，而频域图显示每个给定频段内有多少信号位于一定频率范围内。
 
 傅里叶变换将时域转换为频域。  
-逆傅里叶变换与之相对。  
+逆傅里叶变换与之相对。
 
 ![傅里叶变换 by wikipedia](<../pic/fourier_transform_time_and_frequency_domains_(small)_from_wiki.gif>)
 
 对于图像处理，时域不再指时间，而指空间中的位置。
+
+![图像的时域图与频域图](../pic/time%26frequency.png)
 
 可以使用傅里叶级数展开规律函数，但实际中不允许无限展开，这将产生精度问题。
 
 ![采样与傅里叶变换](../pic/sampling.png)
 
 采样频率应与原函数频率相匹配，否则将出现失真。
+
+#### 4.3.1.2 滤波
+
+滤波 (filtering) 即抹除指定频率的信息。
+
+![高通滤波](../pic/highPassFilter.png)  
+![低通滤波](../pic/lowPassFilter.png)
+
+滤波相当于卷积 (convolution)，亦相当于（加权）平均 (averaging) 。
+
+![一维卷积](../pic/convolution.png)
+
+图像时域上的卷积等价于图 像和卷积核在频域上的乘积。
+
+![图像卷积](../pic/imageConvolution.png)
+
+> 将图像压缩为原图的 $1/3$
+
+- 盒滤波
+
+![盒滤波](../pic/boxFilter.png)  
+![盒滤波的频域图](../pic/boxFilterFeq.png)
 
 ### 4.3.2 模糊化处理
 

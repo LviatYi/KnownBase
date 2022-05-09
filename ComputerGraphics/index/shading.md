@@ -126,3 +126,28 @@ $
 ![Blinn-Phong 模型渲染效果](../pic/blinnPhoneExmp.png)
 
 ## 5.2 着色频率
+
+![着色频率概念](../pic/shadingFeq.png)
+
+**着色频率** 指在物体上选定着色点的分布频率。
+
+左侧球：选定了较低的着色频率。
+中间球：选定了较低的着色频率，但对三角形内部做了差值。
+右侧球：选定了较高的着色频率。
+
+有如下正规定义：
+
+- **平面着色** Flat shading
+  - 对三角形的平面求取法线，以此决定整个三角形的颜色。
+  ![平面着色](../pic/flatShading.png)
+- **顶点着色** Gouraud shading
+  - 对三角形的顶点分别求取法线，以此分别决定三个顶点的颜色。
+  - 随后对三角形内部进行差值。
+  ![顶点着色](../pic/gouraudShading.png)
+- **片元着色** Phong shading
+  - 对三角形的顶点分别求取法线。
+  - 随后对三角形内部法线进行差值。
+  - 根据每个像素的法线决定颜色。
+  ![片元着色](../pic/phongShading.png)
+
+![渲染效果的究极答案：模型精度](../pic/modelAccuracy%26ShadingEffect.png)

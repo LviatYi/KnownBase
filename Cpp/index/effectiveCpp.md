@@ -1110,6 +1110,8 @@ namespace WidgetStuff{
 - 在 `class` 或 `template` 所在的命名空间内提供一个 `non-member swap` ，并令其调用 `swap` 成员函数。
 - 如果是一个 `class` 而非 `class template` ，则特化 `std::swap` 。
 
+作为使用者，在调用 `swap()` 函数前应 `using std::swap`
+
 对于为何不应该抛出异常：
 
 - `swap` 应为其 `class` （或 `class template` ）提供异常安全性 (exception-safety) 保障。
@@ -1418,3 +1420,83 @@ const Point* pUpperLeft = &(boundingBox(*pgo).upperLeft());
 错误之处在于，当函数执行完毕， **boundingBox()** 返回的对象将被销毁，这将造成 `pUpperLeft` 所指的对象连带着被销毁。
 
 这个责任由客户承担还是由开发者承担，很难定义。为了方便他人，应尽量避免返回一个 handle 代表对象内部成分。
+
+### 5.29 为了「异常安全」而努力是值得的
+
+异常安全性观点要求满足以下两条件：
+
+- 不泄露任何资源
+  - 例如调用一个带有互斥器的成员函数，若在调用时出现异常，可能不会调用 `unlock()` ，从而造成死锁。
+- 不允许数据败坏
+  - 例如 `new` 而造成的空指针异常。
+
+**条款 13** 与 **条款 14** 保证了第一条被正确处理。
+
+异常安全函数 (Expection-safe functions) 提供以下三个保证之一：
+
+- **基本承诺**
+  - 如果异常被抛出，程序内的任何事物保持在有效状态。
+  - 没有任何对象或数据结构会因此而败坏，所有对象处于一种内部前后一致的状态。
+- **强烈保证**
+  - 如果异常被抛出，程序状态不改变。
+  - 调用函数失败，则应返回调用前状态。
+- **不抛掷 (nothrow) 保证**
+  - 承诺绝不抛出异常，因为它们总是能够完成它们原先承诺的功能。
+  - 作用于内置类型（`int` , `pointer` 等）的操作应提供 nothrow 保证。
+  - 抛出一个空异常 **不属于** nothrow ，因为其无法从声明中被辨识是安全的。
+
+具有异常安全性的代码 (Exception-safe code) 必须提供上述三种保证之一。
+
+应该尽可能提供更高等级的保证。
+
+```c++
+class Window{
+private:
+    shared_ptr<Image> bgImage;
+    Mutex mutex;
+    int changeCount;
+    Image* bgImage;
+};
+
+void Window::changeBackground(std::istream& imgSrc){
+    Lock ml(&mutex);// 使用 Lock 类，在其解析时自动解锁。
+    bgImage.reset(new Image(imgSrc));// 使用智能指针，仅在成功 reset 后发生原资源的 delete。
+    ++changeCount;// 仅在成功操作后记录变换。
+}
+```
+
+除此之外 copy and swap 策略可以提供强烈保证。  
+其原理为：封装即将修改的数据并提供一个副本，在修改时先修改副本，后采取 swap 操作。
+
+```c++
+struct PMImpl{
+    shared_ptr<Image> bgImage;
+    int changeCount;
+};
+
+class Window{
+private:
+    shared_ptr<PMImpl> pImpl;
+};
+
+void Window::changeBackground(std::istream& imgSrc){
+    using std::swap;
+    Lock ml(&mutex);
+    shared_ptr<PMImpl> pNew(new PMImpl(*pImpl));
+    pNew->bgImage.reset(new Image(imgSrc));
+    ++pNew->changeCount;
+
+    swap(pImpl,pNew);
+}
+```
+
+但不意味着运用了 copy and swap 就是完全安全的。
+
+- 对于整个函数，异常安全性具有水桶效应。
+  - 如果函数调用了另外的函数，若所调用的函数的异常安全性低于强烈保证，则原函数本身就不再是强烈保证的。
+- 对于整个函数，异常安全性具有连带影响。
+  - 如果另外先调用的 `f1()` 正常而后调用的 `f2()` 异常，则 `f1()` 修改的部分将影响强烈保证。
+
+其次， copy and swap 中的 copy 部分明显影响了效率。
+
+若成本难以割舍，则提供基本保证。除非所操作的屎山代码本身就没有提供异常安全性。

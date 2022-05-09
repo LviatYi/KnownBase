@@ -11,8 +11,10 @@
 对于 Blinn-Phong 反射模型，其光照主要包含三部分：
 
 - 镜面反射光照
-- 漫反射
+- 漫反射光照
 - 间接光照
+
+Blinn-Phong 反射模型是一种简化的模型，不是准确反映现实物理的模型。
 
 考虑一个点 (shading point) 的着色结果，可以将此点认为是一个极小的平面。因此有如下定义：
 
@@ -57,3 +59,70 @@ $
   - 不同材质表面对光能的吸收具有不同的效率。
 
 ![漫反射渲染结果](../pic/diffuseShading.png)
+
+### 5.1.2 镜面反射
+
+镜面反射光照即 **高光**。
+
+验证是否在着色点发生可见的镜面反射，仅需比较 **半程向量** 与法线向量。
+
+半程向量指观测向量与光线向量的角平分线向量。
+
+![半程向量](../pic/halfVec.png)
+
+$
+\begin{aligned}
+\vec{h} &= bisector(\vec{v},\vec{l})\\
+        &= \frac{\vec{v}+\vec{l}}{\lVert \vec{v}+\vec{l} \rVert}\\
+\end{aligned}
+$
+
+$
+\begin{aligned}
+L_s &= k_s (I/r^2)max(0,\cos{\alpha})^p\\
+&= k_s (I/r^2)max(0,n\cdot h)^p\\
+\end{aligned}
+$
+
+其中：
+
+- $L_s$ 镜面反射亮度
+- $k_s$ 镜面反射系数
+  - 通常认为是白色。
+- $p$ 作为指数，用于调整高光的真实性。
+  - 如果没有指数调整，高光将呈现的范围过大而显得不真实。
+  - 通过指数调整其亮度与面积。  
+    ![指数 p](../pic/p.png)  
+    ![k_s 与 p 的作用](../pic/blinnPhoneFeflection.png)
+
+### 5.1.3 间接光
+
+![环境光](../pic/ambient.png)
+
+间接光即环境光。
+
+由于其他物体的漫反射，一般物体在背光面也不是全黑的。
+
+因此假定间接光接收来自环境的光照强度一致。
+
+$
+L_a = k_a I_a
+$
+
+其中：
+
+- $L_a$ 环境光亮度
+- $k_a$ 环境光系数
+
+综上，
+
+$
+\begin{aligned}
+L&= L_a + L_d + L_s\\
+ &= k_a I_a + k_d (I/r^2) max(0,\vec{n} \times \vec{l}) +k_s (I/r^2)max(0,n\cdot h)^p\\
+\end{aligned}
+$
+
+![Blinn-Phong 模型渲染效果](../pic/blinnPhoneExmp.png)
+
+## 5.2 着色频率

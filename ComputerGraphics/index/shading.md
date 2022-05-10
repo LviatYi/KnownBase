@@ -160,3 +160,133 @@ $
 $
 
 ## 5.3 实时渲染管线
+
+渲染管线 (pipeline) 也称为渲染流水线，是三维模型渲染到二维屏幕上的过程。
+
+![渲染管线](../pic/pipeline.png)
+
+### 5.3.1 Shader
+
+现代 GPU 允许用户对渲染管线编程。所操作的可在硬件上运行的语言即 Shader 语言。
+
+Shader 描述每个像素的运作方式。
+
+通过操作不同类型的目标，Shader 分为：
+
+- **顶点着色器** Vertex Shader
+  - Shader 操作顶点
+- **像素着色器** Fragment/Pixel Shader
+  - Shader 操作每个像素
+
+```glsl
+uniform sampler2D myTexture;  // program parameter
+uniform vec3 lightDir;        // program parameter
+varying vec2 uv;    // per fragment value (interp. by rasterizer)
+varying vec3 norm;  // per fragment value (interp. by rasterizer)
+
+void diffuseShader(){
+  vec3 kd;
+  kd = texture2d(myTexture,uv);   // material color from texture
+  kd *= clamp(dot(-lightDir,norm),0.0,1.0); // Lambertian shading model
+  gl_FragColor = vec4(kd,1.0);    // output fragment color
+}
+```
+
+## 5.4 纹理映射
+
+![纹理映射](../pic/textureMapping.png)
+
+纹理映射 (texture mapping) 定义了在物体表面任何一点的基本属性。
+
+图形渲染中，任何一个三维物体的表面都可以二维形式表现。
+
+地球的表面展开：
+
+![3D 地球的表面在 2D 的展开](../pic/theEarthIn2D.png)
+
+不规则体的表面展开：
+
+![纹理映射渲染](../pic/renderingTexture.png)
+
+通过指定的展开方式，可以将展开纹理的 2D 坐标系映射到渲染时的 3D 坐标系。
+
+![纹理坐标](../pic/textureCoor.png)
+
+一般约定 $u、v$ 都在 $[0,1]$ 之间。
+
+将纹理坐标系的二维坐标映射到三维模型表面的某个三角形顶点坐标，再通过插值方式计算三角形内部坐标，从而完成纹理映射。
+
+但纹理映射可能发生错误。
+
+### 5.4.1 放大纹理
+
+当模型放大后，使用重心坐标插值时所追溯的 $u,v$ 坐标 (texel,a pixel on a texture) 可能将出现非整数。简单的取整可能呈现不好的效果。
+
+![浮点插值难题](../pic/floatInterp.png)
+
+上图分别为四舍五入、双线性插值、呈现的效果。
+
+#### 双线性插值
+
+**双线性插值** (bilinear interpolation)
+
+## 5.5 重心坐标
+
+重心坐标用于解决三角形内部的插值问题。
+
+三角形内插值在 shading 中具有广泛应用。
+
+![重心坐标](../pic/barycentricCoordinate.png)
+
+**重心坐标** $(\alpha,\beta,\gamma)$ 是一个齐次坐标，定义在三角形上，满足如下条件：
+
+$
+(x,y) = \alpha A + \beta B + \gamma C
+$
+
+且
+
+$
+\begin{cases}
+\alpha + \beta + \gamma = 1 \\
+\end{cases}
+$
+
+当 $
+\alpha \geqslant 0 ,\beta \geqslant 0 ,\gamma \geqslant 0$ 时，点在三角形内。否则只保证在同平面。
+
+![将三角形按点分割](../pic/divideTo3.png)
+
+对于三角形内任意一点，可通过如下方式计算任意一点的 $\alpha \beta \gamma$ ：
+
+$
+\alpha = \dfrac{A_A}{A_A+A_B+A_C}
+$  
+$
+\beta = \dfrac{A_B}{A_A+A_B+A_C}
+$  
+$
+\gamma = \dfrac{A_C}{A_A+A_B+A_C}
+$
+
+其中 $A_i$ 表示 所在三角形面积。
+
+当 $\alpha=\frac13, \beta=\frac13, \gamma=\frac13$ 时，此点为三角形 **重心** 。
+
+其次若已知三顶点坐标，可通过如下方式计算任意一点的 $\alpha \beta \gamma$ ：
+
+$
+\alpha = \dfrac{-(x-x_B)(y_C-y_B)+(y-y_B)(x_C-x_B)}{-(x_A-x_B)(y_C-y_B)+(y_A-y_B)(x_C-x_B)}\\
+$  
+$
+\beta = \dfrac{-(x-x_C)(y_A-y_C)+(y-y_C)(x_A-x_C)}{-(x_B-x_C)(y_A-y_C)+(y_B-y_C)(x_A-x_C)}\\
+$  
+$
+\gamma = 1- \alpha -\beta \\
+$
+
+根据点的重心坐标，可进行插值。
+
+对于三角形三顶点 $A \; B \; C$ 分别有属性 $V_A \; V_B \; V_C$ ，则对于平面内任意一点，其属性：
+
+$V =\alpha V_A + \beta V_B + \gamma V_C$

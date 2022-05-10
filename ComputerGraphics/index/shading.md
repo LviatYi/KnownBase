@@ -224,11 +224,31 @@ void diffuseShader(){
 
 ![浮点插值难题](../pic/floatInterp.png)
 
-上图分别为四舍五入、双线性插值、呈现的效果。
+上图分别为四舍五入、双线性插值、双三次插值呈现的效果。
 
 #### 双线性插值
 
-**双线性插值** (bilinear interpolation)
+**双线性插值** (bilinear interpolation) 根据临近的 2 点进行采样。
+
+![双线性插值](../pic/bilinearInterp.png)
+
+定义线性插值：
+
+$
+lerp(x,v_0,v_1) = v_0 + x(v_1-v_0)
+$
+
+其中 $0 \leqslant x\leqslant 1$ 。
+
+因此：
+
+$
+v_{xy} = lerp(t, lerp(s,u_{01},u_{11}),lerp(s,u_{00},u_{10}))
+$
+
+#### 双三次插值
+
+**双三次插值** (bicubic interpolation) 根据临近的 16 点进行采样。
 
 ## 5.5 重心坐标
 

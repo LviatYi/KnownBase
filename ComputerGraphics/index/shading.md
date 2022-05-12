@@ -268,7 +268,51 @@ Mipmap 允许快速、近似地进行正方形范围查询。
 
 Mipmap 生成一系列针对原图的处理图。每张处理后的图像大小相当于处理前的 $1/4$ 。
 
-因此占用的额外存储量为 $3/4$ 。
+因此占用的额外存储量不超过 $1/3$ 。
+
+实际应用中，需要计算屏幕上某点在纹理上的表示范围，可使用 Mipmap。
+
+![计算 Mipmap](../pic/computeMipmapLevelD.png)
+
+$
+D=\log_2{L}\\
+L=max\left(
+  \sqrt{
+    {\left( \dfrac{du}{dx}\right)}^2+
+    {\left( \dfrac{dv}{dx}\right)}^2},
+  \sqrt{
+    {\left( \dfrac{du}{dy}\right)}^2+
+    {\left( \dfrac{dv}{dy}\right)}^2}
+    \right)
+$
+
+因此将在第 $D$ 层 Mipmap 查询颜色。
+
+若 $D$ 为非整数则进行三线性插值，即查询 $D$ 与 $D+1$ 层后进行线性插值。
+
+![三线性插值与 Mipmap](../pic/trilinearMipmap.png)
+
+最终缩小时运用 Mipmap 与三线性插值的效果：
+
+![运用 Mipmap 与三线性插值缩小后的图像](../pic/MipmapTrilinearSampling.png)
+
+可见远处细节过度模糊 (Overblur)。
+
+使用 **各向异性过滤** (anisotropic filtering) 可缓解此问题。
+
+### 5.4.4 Ripmap
+
+Ripmap 允许快速、近似地进行矩形范围查询。
+
+![Ripmap](../pic/ripmap.png)
+
+分析 Mipmap 中存在的问题，使用正方形概括像素点可能存在较大的误差，实际上一点像素可能代表纹理图上的更多非规则四边形。
+
+![非规则四边形](../pic/irregularPixelFootprint.png)
+
+各向异性过滤优化了对垂直的或水平的类矩形的查询。但其对于斜着的类矩形无法更好地处理。
+
+因此还有更多的各向异性过滤，如 EWA 过滤。
 
 ## 5.5 重心坐标
 

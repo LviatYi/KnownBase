@@ -7,6 +7,7 @@
 1. [变换](index/transform.md)
 1. [光栅化](index/rasterization.md)
 1. [着色](index/shading.md)
+1. [几何](index/geometry.md)
 
 ## 学习资料
 

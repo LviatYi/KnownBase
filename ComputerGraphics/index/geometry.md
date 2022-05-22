@@ -154,3 +154,19 @@ $
 类似地，使用贝塞尔曲面定义曲面。
 
 ![贝塞尔曲面](../pic/bezierSurface.png)
+
+在两个方向上分别应用贝塞尔曲线，即可构成贝塞尔曲面。
+
+![构建贝塞尔曲面](../pic/buildBezierSurface.png)
+
+#### 网格
+
+图形学中常用多个多边形连接而成的网格表示曲面。
+
+![网格](../pic/mesh.png)
+
+对于网格表示的模型，需要定义许多常用的操作。
+
+- 网格细分 subdivisiion
+- 网格简化 simplification
+- 网格正规化 regularization

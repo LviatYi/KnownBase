@@ -1583,3 +1583,95 @@ Derived::Derived(){
 - 禁止在 debug 中 inlining。
 
 综上，将一个函数 inlining 需要谨慎考虑。一般仅将小型、频繁调用的函数进行 inlining。
+
+### 5.31 将文件间的编译依存关系降至最低
+
+C++ 对于接口与实现分离没有语法上较好的支持。
+
+#### 前置声明与引用头文件
+
+在使用符号前，必须有对应的声明。有两种方式添加声明：
+
+- 前置声明
+- 引用头文件
+
+前者由使用者自行添加，其要求对此符号的声明完全了解：
+
+> class 还是 template？
+
+后者一般由符号的定义者提供。
+
+头文件引用的处理发生在编译器前，因此头文件若发生改动，将引起一连串的重新编译。
+
+C++ 不允许类外声明，其中一个理由为：
+
+- 编译器必须在编译期知晓对象的大小，以便进行正确的内存分配。
+
+而不需要处理内存分配的符号使用（声明、指针、引用），则建议使用前置声明来避免重新编译。
+
+因此可以将接口与实现分离：
+
+```c++
+#include<string>
+#include<memory>
+class PersonImpl;
+class Date;
+class Address;
+
+class Person{
+public:
+    Person(
+        const std::string&name,
+        const Date& birthday,
+        const Address& address);
+    std::string name() const;
+    std::string birthday() const;
+    std::string address() const;
+private:
+    std::shared_ptr<PersonImpl> pImpl;
+}
+```
+
+其中 main class `Person` 只内涵一个指针成员指向其实现类，这种设计即 pimpl idiom 。  
+其使得 `Person` 的客户与 `Date`、`Address`、`Person` 的实现细目分离。
+
+这种处理的关键在于以「声明的依存性」替换「定义的依存性」，这就是编译依存性最小化的本质：现实中让头文件尽可能自我满足，否则让它与其他文件内的声明式（而非定义式）相依存。
+
+- 如果使用 `obj references` 或 `obj pointers` 可以完成任务，就不要使用 `obj` 本身。
+  - 如果只使用前者，就只需要一个类型声明式。
+- 尽量以 `class` 声明式替换 `class` 定义式。
+  - 在声明中使用某个 `class` 时，并不需要其 `class` 的定义。即便是值传递的。
+- 为声明式和定义式提供不同的头文件。
+  - 实际上，前置声明也形成头文件并由符号设计者提供。
+  - 一般命名上采用 `fwd` 后缀，如 `iosfwd`。
+
+#### 使用 interface
+
+除此之外，另一种制作 `handle class` 的方法是使用 `abstract base class` ，即 **抽象基类**，亦即 `Interface class`。
+
+通常，C++ Interface 不包含成员变量、构造函数（这在 C++ 中是有弹性的，而 Java 中严格禁止），而仅有一个 virtual 析构函数与一系列纯虚函数。
+
+由于其特性，Interface 禁止被实例化，因此其只能通过引用或指针使用。一般地，存在一个工厂函数负责实例化 interface 的具体实现类。这种函数通常在 interface 中被声明为 `static`。
+
+```c++
+class Person{
+public:
+    virtual ~Person();
+    virtual std::string name() const = 0;
+    virtual std::string birthday() const = 0;
+    virtual std::string address() const = 0;
+
+    static std::shared_ptr<Person> createInstance(
+        const std::string&name,
+        const Date&birthday,
+        const std::string&address);
+}
+```
+
+实践中的工厂函数会根据不同的条件创建不同类型的 interface 实现类。包括但不限于：
+
+- 额外的参数值。
+- 读自文件或数据库的数据。
+- 环境变量。
+
+采用如上的方式虽会带来降低编译依存性的好处，但也有一定的代价，如 `virtual` 带来的更多间接跳跃与虚函数表成本。

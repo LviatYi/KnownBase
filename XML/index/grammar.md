@@ -2,9 +2,53 @@
 
 ## 2.1 元素
 
+XML 文档由元素构成。  
+元素由开始标签，至结束标签。
+
+元素可以包含：
+
+- 其他元素
+- 文本
+- 属性
+
+### 2.1.1 命名规范
+
+- 必须以字母或下划线开头。
+- 可以含字母 `a-z` `A-Z` 、数字 `0-9` 以及部分字符 `.` `-` `_`。
+- 不能以字符 `xml` `XML` `Xml` 开始。
+- 不能包含空格。
+
+### 2.1.2 根元素
+
 XML 将第一个标签视作根元素，逻辑上整个文档的父级元素即根元素。
 
 XML 文档必须拥有一个根元素。
+
+### 2.1.3 可扩展
+
+XML 元素是可扩展的，以携带更多信息。  
+
+```XML
+<note>
+    <to>Tove</to>
+    <from>Jani</from>
+    <body>Don't forget me this weekend!</body>
+</note>
+```
+
+如上实例，如果我们补充了一些其他信息：  
+
+```XML
+<note>
+    <date>2008-01-10</date>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+</note>
+```
+
+程序读取时也不应崩溃。因为其仍然能够获得原有的信息。  
 
 ## 2.2 声明
 

@@ -3,7 +3,8 @@
 ## 目录
 
 1. [树结构](index/tree.md)
-2. [语法](index/grammar.md)
+1. [语法](index/grammar.md)
+1. [有效性](index/validity.md)
 
 ## XML 简介
 
@@ -27,4 +28,8 @@ XML 用于结构化存储或传输信息；
 
 ## 参考资料
 
-## 开发环境
+### 网站教程
+
+[w3schools][w3schools] —— With the world's largest web developer site.
+
+[w3schools]: https://www.w3schools.com/

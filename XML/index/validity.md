@@ -483,12 +483,29 @@ xsi:schemaLocation="https://www.w3schools.com note.xsd">
 指示符包含：
 
 - 顺序指示符
+
   - `all` 可以按任何顺序出现，且有且仅有一次。
   - `choice` 只能选择一个元素。
   - `sequence` 必须按照指定顺序出现。
+
+  ```xml
+    <xs:sequence>
+      <xs:element name="elem1" type="xs:string"/>
+      <xs:element name="elem2" type="xs:string"/>
+    </xs:sequence>
+  ```
+
 - 出现指示符
+
   - `maxOccurs` 指定最多出现次数，可以为 `unbounded`。
   - `minOccurs` 指定最少出现次数。
+
+  ```xml
+    <xs:sequence>
+      <xs:element name="elem1" type="xs:string" minOccurs="0" maxOccurs="10"/>
+    </xs:sequence>
+  ```
+
 - 分组指示符
 
   - `group` 定义相关的元素集。

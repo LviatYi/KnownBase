@@ -1,0 +1,40 @@
+<!ELEMENT Orders (Order*)>
+
+<!ELEMENT Order (OrderInformation,ConsigneeInformation,PayAndDelivery,BillInformation,ProductList,PaymentInformation)>
+
+<!ELEMENT OrderInformation EMPTY>
+
+<!ELEMENT ConsigneeInformation (Consignee,Address,FixedPhone,MobilePhone,Email)>
+<!ELEMENT Consignee (#PCDATA)>
+<!ELEMENT Address (#PCDATA)>
+<!ELEMENT FixedPhone (#PCDATA)>
+<!ELEMENT MobilePhone (#PCDATA)>
+<!ELEMENT Email (#PCDATA)>
+
+<!ELEMENT PayAndDelivery EMPTY>
+
+<!ELEMENT BillInformation (BillTitle,BillContent)>
+<!ELEMENT BillTitle (#PCDATA)>
+<!ELEMENT BillContent (#PCDATA)>
+
+<!ELEMENT ProductList (Product+)>
+
+<!ELEMENT Product (ProductID,ProductName,ProductPrice,ProductNumber)>
+<!ELEMENT ProductID (#PCDATA)>
+<!ELEMENT ProductName (#PCDATA)>
+<!ELEMENT ProductPrice (#PCDATA)>
+<!ELEMENT ProductNumber (#PCDATA)>
+
+<!ELEMENT PaymentInformation (ProductAmount,Freight,Cashback,OrderAmount)>
+<!ELEMENT ProductAmount (#PCDATA)>
+<!ELEMENT Freight (#PCDATA)>
+<!ELEMENT Cashback (#PCDATA)>
+<!ELEMENT OrderAmount (#PCDATA)>
+
+<!ATTLIST OrderInformation OrderID ID #REQUIRED>
+<!ATTLIST OrderInformation OrderState (正在出库|正在配送|完成) "正在出库">
+
+<!ATTLIST PayAndDelivery PayMethod (在线支付|邮局汇款|公司转账|分期付款|货到付款) "货到付款">
+<!ATTLIST PayAndDelivery DeliveryMethod (工作日送货|双休日与假日送货|工作日-双休日与假日均可送货) "工作日-双休日与假日均可送货">
+
+<!ATTLIST BillInformation BillType (普通发票|增值税发票) #IMPLIED> 

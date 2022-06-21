@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Library xmlns="http://lviat.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lviat.com e-library.xsd">
+    <Book ISBN="978-7-5606-2118-0">
+        <BookName>XML案例教程</BookName>
+        <Author>
+            <AuthorName>眭碧霞</AuthorName>
+            <Gender>女</Gender>
+        </Author>
+        <Author>
+            <AuthorName>郭永洪</AuthorName>
+            <Gender>男</Gender>
+        </Author>
+        <Publisher>
+            <PublisherName>西安电子科技大学出版社</PublisherName>
+            <PublisherAddress>
+                <Province>陕西省</Province>
+                <City>西安市</City>
+                <AddressDetail>科技路41号西安电子科技大学出版社 (710071)</AddressDetail>
+            </PublisherAddress>
+        </Publisher>
+        <Price>26.00</Price>
+        <BookNumber>30</BookNumber>
+        <PublishDate>2008-10-01</PublishDate>
+        <CatalogDateTime>2010-03-01T14:30:00</CatalogDateTime>
+        <InStoreDateTime>2010-04-01T14:00:00</InStoreDateTime>
+    </Book>
+</Library>

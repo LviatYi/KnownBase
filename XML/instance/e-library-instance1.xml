@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="e-library.css" type="text/css"?>
+<Library xmlns="http://lviat.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lviat.com e-library.xsd">
+    <Book ISBN="978-7-0403-7256-4">
+        <BookName>软件开发与项目管理</BookName>
+        <Author>
+            <AuthorName>朱利华</AuthorName>
+            <Gender>女</Gender>
+        </Author>
+        <Author>
+            <AuthorName>郭永洪</AuthorName>
+            <Gender>男</Gender>
+        </Author>
+        <Publisher>
+            <PublisherName>高等教育出版社</PublisherName>
+            <PublisherAddress>
+                <Province>北京市</Province>
+                <City>西城区</City>
+                <AddressDetail>北京市西城区德外大街4号 (100120)</AddressDetail>
+            </PublisherAddress>
+        </Publisher>
+        <Price>33.80</Price>
+        <BookNumber>20</BookNumber>
+        <PublishDate>2013-04-01</PublishDate>
+        <CatalogDateTime>2014-02-10T14:30:00</CatalogDateTime>
+        <InStoreDateTime>2014-03-10T12:00:00</InStoreDateTime>
+    </Book>
+</Library>

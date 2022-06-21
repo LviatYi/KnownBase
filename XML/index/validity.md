@@ -109,6 +109,12 @@ DTD 的实体声明使用如下语法：
 <author>&writer;&mailto;</author>
 ```
 
+### 3.1.5 DTD 实例
+
+[一个关于网络订单的 DTD 实例](../instance/webOrder.dtd)
+
+[被验证数据](../instance/webOrder.xml)
+
 ## 3.2 Schema
 
 XML Schema 是 DTD 的基于 XML 的替代方法，也被称为 XSD (XML Schema Definition)，比 DTD 更强大：
@@ -682,3 +688,10 @@ Schema 允许将一个元素替换为另一个元素。
 可替换元素的类型必须与 head 元素一致或派生自 head 元素。当一致时不需指定替换元素的类型。
 
 替换组中的所有元素（head 元素和可替换元素）都必须声明为全局元素（Schema 元素的直接子元素，而非嵌套在其他元素中的元素），否则它将不起作用！
+
+### 3.2.9 Schema 实例
+
+[一个关于电子图书馆的 Schema 实例](../instance/e-library.xsd)
+
+[被验证数据 1](../instance/e-library-instance1.xml)  
+[被验证数据 2](../instance/e-library-instance2.xml)

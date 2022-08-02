@@ -288,6 +288,7 @@
     <ClInclude Include="Sword9.h" />
     <ClInclude Include="Swordii1.h" />
     <ClInclude Include="Swordii3.h" />
+    <ClInclude Include="Swordii4.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +435,7 @@
     <ClCompile Include="Sword9.cpp" />
     <ClCompile Include="Swordii1.cpp" />
     <ClCompile Include="Swordii3.cpp" />
+    <ClCompile Include="Swordii4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

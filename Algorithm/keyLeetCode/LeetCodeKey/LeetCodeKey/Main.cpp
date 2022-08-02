@@ -11,24 +11,8 @@
 using namespace std;
 
 int main() {
-	Swordii3 s;
-
-	vector<int> ret;
-	ret = s.countBits(10);
-	for (int ret1 : ret) {
-		std::cout << ret1 << endl;
-	}
-
-	std::cout << "--------------------------------" << endl;
-	ret = s.countBits2(10);
-	for (int ret1 : ret) {
-		std::cout << ret1 << endl;
-	}
-
-	std::cout << "--------------------------------" << endl;
-	ret = s.countBits3(10);
-	for (int ret1 : ret) {
-		std::cout << ret1 << endl;
-	}
-
+	Swordii4 s;
+	vector<int> v{1, 2, 2, 1, 3, 2, 1};
+	int ret = s.singleNumber(v);
+	std::cout << ret << endl;
 }

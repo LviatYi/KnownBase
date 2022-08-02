@@ -11,9 +11,24 @@
 using namespace std;
 
 int main() {
-    Sword63 solution;
-    vector<int> prices{ 7,1,5,3,6,4 };
-    solution.maxProfit(prices);
+	Swordii3 s;
 
-    return 0;
+	vector<int> ret;
+	ret = s.countBits(10);
+	for (int ret1 : ret) {
+		std::cout << ret1 << endl;
+	}
+
+	std::cout << "--------------------------------" << endl;
+	ret = s.countBits2(10);
+	for (int ret1 : ret) {
+		std::cout << ret1 << endl;
+	}
+
+	std::cout << "--------------------------------" << endl;
+	ret = s.countBits3(10);
+	for (int ret1 : ret) {
+		std::cout << ret1 << endl;
+	}
+
 }

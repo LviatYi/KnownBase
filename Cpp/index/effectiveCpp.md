@@ -1724,7 +1724,7 @@ d.func1(1); // Error
 
 > 设计者为了防止程序员在程序库或应用框架内建立新的 derived class 时附带地从疏远的 base classes 继承重载函数。
 
-但通常程序员对这一特性相当排斥，因按照常理子类应继承基类所有成员。
+但通常程序员对这一特性相当排斥 ，因按照常理子类应继承基类所有成员。
 可以使用 using 声明式强制继承所有同名重载函数。
 
 ```c++
@@ -1743,7 +1743,6 @@ public:
 
 对于私有继承，通常仅需使基类中的个别函数被暴露。一般采用转交函数 (forwarding function) 。
 
-
 ```c++
 class Base{
 public:
@@ -1757,4 +1756,86 @@ public:
         Base::func1();
     };
 }
+```
+
+### 6.34 区分接口继承和实现继承
+
+公有继承可更加细化为以下两种：
+
+- **函数接口继承** (function interfaces)
+- **函数实现继承** (function implementations)
+
+设有如下程序：
+
+```c++
+class Shape{
+public:
+    virtual void draw() const = 0;
+    virtual void error(const string& msg);
+    int objectID() const;
+    ...
+};
+class Rectangle: public Shape {...};
+class Ellipse: public Shape {...};
+```
+
+抽象类 Shape 包含如下成员函数：
+
+- 纯虚函数 `draw()` 。
+  - 所有继承 Shape 的子类必须重新声明虚函数。这意味着对其提供定义。
+  - 纯虚函数允许被定义，但必须通过限定名以调用。
+  - 声明一个纯虚函数的目的是为了让子类 **只继承函数接口** 。
+- 虚函数 `error()` 。
+  - 基类提供了缺省实现。
+  - 子类可以选择覆写 (override) 之。
+  - 声明一个虚函数的目的是为了让子类 **继承函数接口和缺省实现** 。
+- 函数  `objectID()` 。
+  - 继承时具有不变性 (invariant) 而非特异性 (specialization) 。
+  - 声明一个非虚函数的目的是为了让子类 **继承函数的接口及一份强制性实现** 。
+
+同时提供函数接口与缺省实现可能为后期维护或扩展形成隐患。
+
+- 面向对象设计要求不同类的共同性质应被提升至公共的基类。
+- 而后期扩展的新子类也许会发生「变异」，因而缺省实现可能完全不适用，但并不被编译器提醒。
+
+可以采用如下两种方式将接口与实现分离：
+
+```c++
+// 允许默认行为与接口有不同保护级别
+class Base {
+public:
+    virtual void vfunc()=0;
+protected:
+    void defaultFunc();
+};
+
+Base::defaultFunc(){
+    ...
+}
+
+class Derived: public Base{
+public:
+    virtual void vfunc(){
+        defaultFunc();
+    };
+};
+```
+
+```c++
+// 避免过多名称形成重复，造成命名空间污染
+class Base {
+public:
+    virtual void vfunc()=0;
+};
+
+Base::vfunc(){
+    ...
+}
+
+class Derived: public Base{
+public:
+    virtual void vfunc(){
+        Base::vfunc();
+    };
+};
 ```

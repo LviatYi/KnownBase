@@ -8,35 +8,35 @@
 /// <param name="dividend"></param>
 /// <param name="divisor"></param>
 /// <returns></returns>
-int quickDiv(int dividend, int divisor) {
-    if (dividend > divisor) {
-        return 0;
-    }
+static int quickDiv(int dividend, int divisor) {
+	if (dividend > divisor) {
+		return 0;
+	}
 
-    int ans = 1;
-    int sumDivisor = divisor;
+	int ans = 1;
+	int sumDivisor = divisor;
 
-    while (sumDivisor > dividend - sumDivisor) {
-        // 翻倍
-        sumDivisor += sumDivisor;
-        ans += ans;
-    }
+	while (sumDivisor > dividend - sumDivisor) {
+		// 翻倍
+		sumDivisor += sumDivisor;
+		ans += ans;
+	}
 
-    return ans + quickDiv(dividend - sumDivisor, divisor);
+	return ans + quickDiv(dividend - sumDivisor, divisor);
 }
 
 int Solution29::divide(int dividend, int divisor) {
-    if (dividend == 0) return 0;
-    if (divisor == 1) return dividend;
-    if (divisor == -1) {
-        if (dividend > INT_MIN) return -dividend;
-        return INT_MAX;
-    }
+	if (dividend == 0) return 0;
+	if (divisor == 1) return dividend;
+	if (divisor == -1) {
+		if (dividend > INT_MIN) return -dividend;
+		return INT_MAX;
+	}
 
-    bool isNeg = (divisor < 0 && dividend < 0 || divisor>0 && dividend>0) ? 0 : 1;
+	bool isNeg = (divisor < 0 && dividend < 0 || divisor > 0 && dividend > 0) ? 0 : 1;
 
-    dividend = dividend < 0 ? dividend : -dividend;
-    divisor = divisor < 0 ? divisor : -divisor;
+	dividend = dividend < 0 ? dividend : -dividend;
+	divisor = divisor < 0 ? divisor : -divisor;
 
-    return isNeg ? -quickDiv(dividend, divisor) : quickDiv(dividend, divisor);
+	return isNeg ? -quickDiv(dividend, divisor) : quickDiv(dividend, divisor);
 }

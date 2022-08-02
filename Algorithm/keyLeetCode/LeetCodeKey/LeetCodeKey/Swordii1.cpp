@@ -8,7 +8,7 @@
 /// <param name="dividend"></param>
 /// <param name="divisor"></param>
 /// <returns></returns>
-int quickDiv(int dividend, int divisor) {
+static int quickDiv(int dividend, int divisor) {
 	if (dividend > divisor) {
 		return 0;
 	}

@@ -33,26 +33,26 @@ int Sword67::strToInt(string str) {
 int Sword67::strToInt2(string str) {
 	// 自动机
 
-	Automaton automaton;
+	Automaton_Sword67 automaton;
 	for (char c : str)
 		automaton.get(c);
 	return automaton.sign * automaton.ans;
 }
 
-AtoiStatus Automaton::getStatus(char c) {
-	if (isspace(c)) return AtoiStatus::start;
-	if (c == '+' or c == '-') return AtoiStatus::sign;
-	if (isdigit(c)) return AtoiStatus::number;
-	return AtoiStatus::end;
+AtoiStatus_Sword67 Automaton_Sword67::getStatus(char c) {
+	if (isspace(c)) return AtoiStatus_Sword67::start;
+	if (c == '+' or c == '-') return AtoiStatus_Sword67::sign;
+	if (isdigit(c)) return AtoiStatus_Sword67::number;
+	return AtoiStatus_Sword67::end;
 }
 
-void Automaton::get(char c) {
+void Automaton_Sword67::get(char c) {
 	state = table[state][getStatus(c)];
-	if (state == AtoiStatus::number) {
+	if (state == AtoiStatus_Sword67::number) {
 		ans = ans * 10 + c - '0';
 		ans = sign == 1 ? std::min(ans, (long long)INT_MAX) : std::min(ans, -(long long)INT_MIN);
 	}
-	else if (state == AtoiStatus::sign)
+	else if (state == AtoiStatus_Sword67::sign)
 		sign = c == '+' ? 1 : -1;
 
 }

@@ -4,33 +4,54 @@
 
 using namespace std;
 
-enum AtoiStatus {
-    start = 0,
-    sign = 1,
-    number = 2,
-    end = 3
+enum AtoiStatus_Solution8 {
+	start = 0,
+	sign = 1,
+	number = 2,
+	end = 3
 };
 
-class Automaton {
-    AtoiStatus state = AtoiStatus::start;
+class Automaton_Solution8 {
+	AtoiStatus_Solution8 state = AtoiStatus_Solution8::start;
 
-    unordered_map<AtoiStatus, vector<AtoiStatus>> table = {
-        {AtoiStatus::start, {AtoiStatus::start, AtoiStatus::sign, AtoiStatus::number, AtoiStatus::end}},
-        {AtoiStatus::sign, {AtoiStatus::end, AtoiStatus::end, AtoiStatus::number, AtoiStatus::end}},
-        {AtoiStatus::number, {AtoiStatus::end, AtoiStatus::end, AtoiStatus::number, AtoiStatus::end}},
-        {AtoiStatus::end, {AtoiStatus::end, AtoiStatus::end, AtoiStatus::end, AtoiStatus::end}}
-    };
+	unordered_map<AtoiStatus_Solution8, vector<AtoiStatus_Solution8>> table = {
+		{
+			AtoiStatus_Solution8::start,
+			{
+				AtoiStatus_Solution8::start, AtoiStatus_Solution8::sign, AtoiStatus_Solution8::number,
+				AtoiStatus_Solution8::end
+			}
+		},
+		{
+			AtoiStatus_Solution8::sign,
+			{
+				AtoiStatus_Solution8::end, AtoiStatus_Solution8::end, AtoiStatus_Solution8::number,
+				AtoiStatus_Solution8::end
+			}
+		},
+		{
+			AtoiStatus_Solution8::number,
+			{
+				AtoiStatus_Solution8::end, AtoiStatus_Solution8::end, AtoiStatus_Solution8::number,
+				AtoiStatus_Solution8::end
+			}
+		},
+		{
+			AtoiStatus_Solution8::end,
+			{AtoiStatus_Solution8::end, AtoiStatus_Solution8::end, AtoiStatus_Solution8::end, AtoiStatus_Solution8::end}
+		}
+	};
 
-    AtoiStatus getStatus(char c);
+	AtoiStatus_Solution8 getStatus(char c);
 public:
-    int sign = 1;
-    long long ans = 0;
+	int sign = 1;
+	long long ans = 0;
 
-    void get(char c);
+	void get(char c);
 };
 
 class Solution8 {
 public:
-    int myAtoi(string s);
-    int myAtoi2(string s);
+	int myAtoi(string s);
+	int myAtoi2(string s);
 };

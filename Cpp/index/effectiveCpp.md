@@ -1677,3 +1677,84 @@ public:
 采用如上的方式虽会带来降低编译依存性的好处，但也有一定的代价，如 `virtual` 带来的更多间接跳跃与虚函数表成本。
 
 ## 6. 继承与面向对象设计
+
+### 6.32 确定你的 public 继承塑膜出 is-a 关系
+
+**公开继承** (public inheritance) 意味着 is-a 关系。
+
+强调了 **里氏代换原则** 。
+
+> **里氏代换原则** (Liskov Substitution Principle)
+>
+> - 任何基类可以出现的地方，都可以用子类替换之。
+
+确定 is-a 关系时不可囿于常识性判断，而应该经过站在软件设计适用性的角度上严谨论证。
+
+> - 鸟会飞
+> - 企鹅是鸟
+> - 企鹅会飞？
+
+### 6.33 避免遮掩继承而来的名称
+
+作用域使得相同名称间可能存在遮掩现象。即名称查找将优先搜索更近且更小范围的名称。
+
+对于对象来说，遮掩意味着覆盖。
+
+- 除了虚函数之外，子类中的函数将覆盖基类中的同名函数。
+
+有如下代码：
+
+```c++
+class Base{
+public:
+    virtual void func1() = 0;
+    virtual void func1(int);
+}
+
+class Derived: public Base{
+public:
+    virtual void func1();
+}
+...
+Derived d;
+d.func1(1); // Error
+```
+
+这意味着 Derived 的 `func1()` 覆盖了 Base 的 `func1(int)` ，即便是不同类型的虚函数。
+
+> 设计者为了防止程序员在程序库或应用框架内建立新的 derived class 时附带地从疏远的 base classes 继承重载函数。
+
+但通常程序员对这一特性相当排斥，因按照常理子类应继承基类所有成员。
+可以使用 using 声明式强制继承所有同名重载函数。
+
+```c++
+class Base{
+public:
+    virtual void func1() = 0;
+    virtual void func1(int);
+}
+
+class Derived: public Base{
+public:
+    using Base::func1;
+    virtual void func1();
+}
+```
+
+对于私有继承，通常仅需使基类中的个别函数被暴露。一般采用转交函数 (forwarding function) 。
+
+
+```c++
+class Base{
+public:
+    virtual void func1() = 0;
+    virtual void func1(int);
+}
+
+class Derived: private Base{
+public:
+    virtual void func1(){
+        Base::func1();
+    };
+}
+```

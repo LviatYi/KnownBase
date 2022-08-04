@@ -459,6 +459,9 @@
     <ClInclude Include="Swordii5.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Solution318.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -895,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="Swordii5.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution318.cpp">
+      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

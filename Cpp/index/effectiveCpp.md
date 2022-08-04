@@ -1091,7 +1091,7 @@ void swap(Widget<T>& lhs, Widget<T>& rhs) {
 ```c++
 namespace WidgetStuff{
     template<typename T>
-    class Widget{...}
+    class Widget{...};
 
     template<typename T>
     void swap(Widget<T>& lhs, Widget<T>& rhs){lhs.swap(rhs);}
@@ -1210,9 +1210,9 @@ C++ 提供四种新式转型 (C++-style casts)。
 由于多重继承（菱形继承）的存在，一个对象可能拥有一个以上的地址指向它。
 
 ```c++
-class Base1{}
-class Base2{}
-class Derived:public Base1,public Base2{}
+class Base1{};
+class Base2{};
+class Derived:public Base1,public Base2{};
 ...
 Derived* instance = new Derived{};                          //0x013D80D0
 Base1* instance_base_1 = static_cast<Base1*>(&instance);    //0x013D80D0
@@ -1313,12 +1313,12 @@ iter != deriveds.end();
 // Optimized code2
 class Base{
     virtual void ind_fun(){};   // 缺省实现，什么也不做
-}
+};
 
 class Derived: public Base{
 public:
     void ind_fun(){}
-}
+};
 ...
 vector<shared_ptr<Base>> bases;
 ...
@@ -1629,7 +1629,7 @@ public:
     std::string address() const;
 private:
     std::shared_ptr<PersonImpl> pImpl;
-}
+};
 ```
 
 其中 main class `Person` 只内涵一个指针成员指向其实现类，这种设计即 pimpl idiom 。  
@@ -1665,7 +1665,7 @@ public:
         const std::string&name,
         const Date&birthday,
         const std::string&address);
-}
+};
 ```
 
 实践中的工厂函数会根据不同的条件创建不同类型的 interface 实现类。包括但不限于：
@@ -1709,12 +1709,12 @@ class Base{
 public:
     virtual void func1() = 0;
     virtual void func1(int);
-}
+};
 
 class Derived: public Base{
 public:
     virtual void func1();
-}
+};
 ...
 Derived d;
 d.func1(1); // Error
@@ -1732,13 +1732,13 @@ class Base{
 public:
     virtual void func1() = 0;
     virtual void func1(int);
-}
+};
 
 class Derived: public Base{
 public:
     using Base::func1;
     virtual void func1();
-}
+};
 ```
 
 对于私有继承，通常仅需使基类中的个别函数被暴露。一般采用转交函数 (forwarding function) 。
@@ -1748,14 +1748,14 @@ class Base{
 public:
     virtual void func1() = 0;
     virtual void func1(int);
-}
+};
 
 class Derived: private Base{
 public:
     virtual void func1(){
         Base::func1();
     };
-}
+};
 ```
 
 ### 6.34 区分接口继承和实现继承
@@ -1811,7 +1811,7 @@ protected:
 
 Base::defaultFunc(){
     ...
-}
+};
 
 class Derived: public Base{
 public:
@@ -1830,7 +1830,7 @@ public:
 
 Base::vfunc(){
     ...
-}
+};
 
 class Derived: public Base{
 public:
@@ -1838,4 +1838,186 @@ public:
         Base::vfunc();
     };
 };
+```
+
+### 6.35 考虑 virtual 函数以外的其他选择
+
+#### 藉由非虚接口实现模板方法模式
+
+> **模板方法模式** (Template Method Pattern) ，它属于类行为型模式。
+>
+> - 定义一个操作中算法的框架，而将一些步骤延迟到子类中。
+> - 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。
+
+C++ 通过 NVI (non-virtual interface) 技术实现模板方法模式。
+
+```c++
+class Base {
+public:
+    // 模板方法是基本方法的外覆器 (wrapper)
+    void method(){
+        // 子类不得重新定义
+
+        templateMethod();
+    }
+
+private:
+    virtual void templateMethod(){
+        // 子类可重新定义
+        ...
+    }
+};
+```
+
+模板方法模式有如下优点：
+
+- 保证在基本方法执行前后的准备与清理工作。如记录日志、控制互斥器、验证约束等。
+
+虽然看起来子类本身可能不会调用重新定义的虚函数，但实际上「函数何时被调用」与「函数如何实现机能」两者并无影响。
+
+#### 藉由函数指针实现策略模式
+
+> **策略模式** (Strategy Pattern) 又称为 **政策模式** (Policy) ，它属于对象行为型模式。
+>
+> - 将算法封装至算法类。
+> - 允许算法类相互替换。
+> - 其使算法独立于使用它的客户而变化。
+
+策略模式提供了行为的弹性，其可在运行期改变计算函数。
+
+```c++
+class GameCharacter;
+int defaultHealthCalc(const GameCharacter& gc);
+class GameCharacter{
+public:
+    // 定义函数指针
+    typedef int (*HealthCalcFunc)(const GameCharacter&);
+    explicit GameCharacter(HealthCalcFunc hcf = defaultHealthCalc):healthFunc(hcf) {}
+    int healthValue() const{
+        return healthFunc(*this);
+    }
+
+private:
+    HealthCalcFunc healthFunc;
+};
+```
+
+如此便可延后特化行为至构造时确定，但这种方式存在一些问题：
+
+- 只能依赖类的公有接口得到信息。
+
+一般通过弱化 class 的封装性，以使非成员函数访问类的非公开接口：
+
+- 使非成员函数成为 **友元函数** 。
+- 为其实现的某一部分提供公有访问函数。
+
+#### 藉由 `std::function` 实现策略模式
+
+`std::function` 是通用多态函数包装器，其可持有任何可调用物 (callable entity) ，即函数指针、函数对象或成员函数指针。
+
+```c++
+class GameCharacter;
+int defaultHealthCalc(const GameCharacter& gc);
+class GameCharacter{
+public:
+    // 定义 std::function，其可以保存任何与此签名兼容的可调用物。
+    //  兼容包括：
+    //  - 参数可隐式转换为 const
+    //  - 返回类型可隐式转换为 int
+    typedef function<int(const GameCharacter&)> HealthCalcFunc;
+    explicit GameCharacter(HealthCalcFunc hcf = defaultHealthCalc):healthFunc(hcf) {}
+    int healthValue() const{
+        return healthFunc(*this);
+    }
+
+private:
+    HealthCalcFunc healthFunc;
+};
+```
+
+```c++
+// 普通函数
+int defaultHealthCalc(const GameCharacter& gc) {
+return 100;
+};
+
+// 仿函数
+class HealthCalculator {
+public:
+    int operator()(const GameCharacter&) const {
+        return 80;
+    }
+};
+
+// 成员函数
+class HasFunction {
+public:
+    int healthCalc(const GameCharacter& gc) {
+        return 60;
+    }
+};
+
+...
+HasFunction has_func;
+
+// 普通函数（已通过默认参数传入）
+GameCharacter gc1;
+// 仿函数
+GameCharacter gc2((HealthCalculator()));
+// 成员函数（需通过 bind() 进行包装）
+GameCharacter gc3(bind(&HasFunction::healthCalc, has_func, placeholders::_1));
+```
+
+#### 传统策略模式
+
+传统策略模式将策略本身视为类型。
+
+```PlantUML
+@startuml Strategy_ClassDiagram
+hide empty members
+
+class Context{
+    - strategy : Strategy
+    + algorithm()
+}
+
+class Strategy{
+    + algorithm()
+}
+
+class ConcreteStrategyA{
+    + algorithm()
+}
+
+class ConcreteStrategyB{
+    + algorithm()
+}
+
+Context o-right->Strategy
+Strategy <|-- ConcreteStrategyA
+Strategy <|-- ConcreteStrategyB
+@enduml
+```
+
+```c++
+class GameCharacter;
+class HealthCalcFunc{
+public:
+    virtual int calc(const GameCharacter& gc) const{
+        ...
+    }
+};
+
+HealthCalcFunc defaultHealthCalc;
+class GameCharacter{
+public:
+    explicit GameCharacter(HealthCalcFunc* phcf = & defaultHealthCalc):pHealthCalc(phcf){}
+
+    int healthValue() const{
+        return pHealthCalc->calc(*this);
+    }
+
+private:
+    HealthCalcFunc* pHealthCalc;
+}
 ```

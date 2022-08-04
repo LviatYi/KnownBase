@@ -11,8 +11,9 @@
 using namespace std;
 
 int main() {
-	Swordii4 s;
-	vector<int> v{1, 2, 2, 1, 3, 2, 1};
-	int ret = s.singleNumber(v);
-	std::cout << ret << endl;
+    Swordii5 s;
+
+    vector<string> words = {"abcw", "baz", "foo", "bar", "fxyz", "abcdef"};
+
+    int ret = s.maxProduct2(words);
 }

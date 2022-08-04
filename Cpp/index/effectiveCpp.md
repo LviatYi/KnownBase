@@ -1724,8 +1724,7 @@ d.func1(1); // Error
 
 > 设计者为了防止程序员在程序库或应用框架内建立新的 derived class 时附带地从疏远的 base classes 继承重载函数。
 
-但通常程序员对这一特性相当排斥 ，因按照常理子类应继承基类所有成员。
-可以使用 using 声明式强制继承所有同名重载函数。
+但通常程序员对这一特性相当排斥 ，因按照常理子类应继承基类所有成员。可以使用 using 声明式强制继承所有同名重载函数。
 
 ```c++
 class Base{
@@ -1789,7 +1788,7 @@ class Ellipse: public Shape {...};
   - 基类提供了缺省实现。
   - 子类可以选择覆写 (override) 之。
   - 声明一个虚函数的目的是为了让子类 **继承函数接口和缺省实现** 。
-- 函数  `objectID()` 。
+- 函数 `objectID()` 。
   - 继承时具有不变性 (invariant) 而非特异性 (specialization) 。
   - 声明一个非虚函数的目的是为了让子类 **继承函数的接口及一份强制性实现** 。
 
@@ -2019,5 +2018,101 @@ public:
 
 private:
     HealthCalcFunc* pHealthCalc;
+}
+```
+
+### 6.36 绝不重新定义继承而来的非虚函数
+
+发生在非虚函数的覆写相当危险。
+
+非虚函数是静态绑定的 (statically bound) 的，这意味着并不能通过 pointer-to-B 的指针调用 D 的同名函数。
+
+```c++
+class B {
+public:
+    void func() {
+        std::cout << "Base" << endl;
+    }
+};
+
+class D : public B {
+public:
+    void func() {
+        std::cout << "Derived" << endl;
+    }
+};
+
+int main() {
+    D d;
+    B* pb = &d;
+    D* pd = &d;
+
+    pb->func();
+    pd->func();
+}
+
+-------- Out --------
+Base
+Derived
+```
+
+而虚函数则是动态绑定的 (dynamically bound) ，因此无论指针类型，都可以调用到实际指向的 D 的同名函数。
+
+**条款 32** 规定了公有继承必须是 is-a 关系。 **条款 34** 规定了非虚函数应为该类的不变性而非特异性负责。
+
+因此：
+
+- 适用于基类对象的每一件事，也适用于子类对象。因为每一个子类对象都是一个基类对象。
+- 基类的所有子类必然会继承基类非虚函数的接口与实现。
+
+**条款 7** 是此条款在析构函数上的反映。
+
+语法的自由提供了权利，但程序员应为代码合理性履行义务。
+
+### 6.37 绝不重新定义继承而来的缺省参数值
+
+虚函数是动态绑定的 (dynamically bound) 的，但缺省参数值却是静态绑定的 (statically bound) 。
+
+**静态绑定** 也称为前期绑定 (early binding) 。
+
+- 是在程序中被声明时所采用的类型。  
+
+**动态绑定** 也称为后期绑定 (late binding) 。
+
+- 是目前所指对象的类型。
+
+其行为与 **条款 36** 中反映类似。未被正确使用的静态绑定特性将在指针或引用表现异常。
+
+当确有需要写出如下代码：
+
+```c++
+class Shape{
+public:
+    virtual void draw(int size=10) const = 0;
+}
+
+class Rectangle:public Shape{
+public:
+    virtual void draw(int size=10) const;
+}
+```
+
+这种设计虽然合规，但是具有代码重复与相依性 (with dependencies) 的弱点。相依性指若基类缺省参数值改变，则子类也有必要更改，极大提高了出错的可能性。
+
+这时我们需要进行替代设计。如 **条款 35** 中的 NVI 技术。
+
+```c++
+class Shape{
+public:
+    virtual void draw(int size=10) const {
+        doDraw(10);
+    };
+private:
+    virtual void doDraw(int size) const = 0;
+}
+
+class Rectangle:public Shape{
+private:
+    virtual void doDraw(int size) const;
 }
 ```

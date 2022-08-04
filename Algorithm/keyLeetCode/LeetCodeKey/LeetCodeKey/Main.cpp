@@ -11,9 +11,11 @@
 using namespace std;
 
 int main() {
-    Swordii5 s;
+    Swordii7 s;
 
-    vector<string> words = {"abcw", "baz", "foo", "bar", "fxyz", "abcdef"};
+    vector<int> words = {-2, 0, 0, 2, 2};
 
-    int ret = s.maxProduct2(words);
+    vector<vector<int>> ret = s.threeSum(words);
+
+
 }

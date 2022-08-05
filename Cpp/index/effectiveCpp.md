@@ -787,7 +787,7 @@ if (a * b = c) ...
 - 对于 `String` 有 `length` 方法。
 - 对于 `List` 有 `size` 方法。
 
-言行如一的人是可靠的，不会给周围人带去更多不必要的麻烦。
+言行如一的人是可靠的，不至于给周围人带去很多不必要的麻烦。
 
 ---
 
@@ -2116,3 +2116,62 @@ private:
     virtual void doDraw(int size) const;
 }
 ```
+
+### 6.38 通过复合塑膜出 has-a 或 is-implemented-in-terms-of 关系
+
+**复合** (composition) 是类型之间的一种关系。一般呈现为某种类型的对象内含其他类型的对象。
+
+```c++
+class Address{};
+class PhoneNumber{};
+class Person{
+private:
+    Address address;
+    PhoneNumber phoneNumber;
+}
+```
+
+```plantUML
+@startuml
+hide empty members
+
+Person *-down- PhoneNumber
+Person *-down- Address
+@enduml
+```
+
+复合意味着 has-a （有一个） 或 is-implemented-in-terms-of （根据某物实现出）关系。
+
+> 程序中的某些对象相当于自然中的实际存在，如人、车、树，这些对象属于应用域 (application domain) ；
+> 另一些对象则是促成实现的人工制品，如缓冲区、互斥器、查找树等，这些对象属于实现域 (implementation domain) 。
+
+当复合发生于应用域内的对象之间，表现出 has-a 关系。
+当它发生于实现域内则表现 is-implemented-in-terms-of 关系。
+
+假设要设计某种内存友好型 Set （STL 中的 Set 通常以平衡二叉树实现，是面向速度的设计），大致目标要求以链表作为存储形式，因此决定复用 STL `list<T>`。
+
+因此有如下设计：
+
+```c++
+template <typename T>
+class Set: public std::list<T>{...};
+```
+
+这是一种错误设计。理由是：如果 Set is-a list ，且 list 可以内含重复元素，那么 Set 也应可以包含重复元素。但这与现实不符。
+
+因此应进行如下设计：
+
+```c++
+template <typename T>
+class Set{
+public:
+    bool member(const T& item) const;
+    void insert(const T& item);
+    void remove(const T& item);
+    std::size_t size() const;
+private:
+    std::list<T> rep;
+};
+```
+
+此即反映了 is-implemented-in-terms-of 关系。

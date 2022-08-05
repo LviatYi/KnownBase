@@ -1621,7 +1621,7 @@ class Address;
 class Person{
 public:
     Person(
-        const std::string&name,
+        const std::string& name,
         const Date& birthday,
         const Address& address);
     std::string name() const;
@@ -2075,7 +2075,7 @@ Derived
 
 **静态绑定** 也称为前期绑定 (early binding) 。
 
-- 是在程序中被声明时所采用的类型。  
+- 是在程序中被声明时所采用的类型。
 
 **动态绑定** 也称为后期绑定 (late binding) 。
 
@@ -2142,10 +2142,10 @@ Person *-down- Address
 
 复合意味着 has-a （有一个） 或 is-implemented-in-terms-of （根据某物实现出）关系。
 
-> 程序中的某些对象相当于自然中的实际存在，如人、车、树，这些对象属于应用域 (application domain) ；
+> 程序中的某些对象相当于自然中的实际存在，如人、车、树，这些对象属于应用域 (application domain) ；  
 > 另一些对象则是促成实现的人工制品，如缓冲区、互斥器、查找树等，这些对象属于实现域 (implementation domain) 。
 
-当复合发生于应用域内的对象之间，表现出 has-a 关系。
+当复合发生于应用域内的对象之间，表现出 has-a 关系。  
 当它发生于实现域内则表现 is-implemented-in-terms-of 关系。
 
 假设要设计某种内存友好型 Set （STL 中的 Set 通常以平衡二叉树实现，是面向速度的设计），大致目标要求以链表作为存储形式，因此决定复用 STL `list<T>`。
@@ -2175,3 +2175,155 @@ private:
 ```
 
 此即反映了 is-implemented-in-terms-of 关系。
+
+### 6.39 明智而审慎地使用 private 继承
+
+private 继承具有如下特性：
+
+- 编译器不会自动将子类对象转换为基类对象。
+- private 继承而来的所有成员将在子类中转化为 private。
+
+private 继承意味着 implemented-in-terms-of （根据某物实现出）。
+
+private 旨在采纳基类已经完备的某些特性，而非其他任何观念上的关系。亦理解为只继承 **实现部分**，而略去 **接口部分**。
+
+当 is-implemented-in-terms-of 关系需要被描述时，已有两种选项供程序员选择：
+
+- 复合关系
+- private 继承
+
+除非必要情况，尽可能避免 private 继承：
+
+- 当 protected 成员或 virtual 函数需要特殊处理时。
+- EBO (empty base optimization) 空白基类最优化。
+
+```c++
+class Timer{
+public:
+    explicit Timer(int tickFrequency);
+    virtual void onTick() const;
+};
+
+// private 继承
+class Widget: private Timer{
+private:
+    virtual void onTick() const;
+};
+
+// 复合关系
+class Widget{
+private:
+    // 内部类 嵌套式 private 对象，仍是复合关系。
+    class WidgetTimer: public Timer{
+        public: virtual void onTick() const;
+    };
+    WidgetTimer timer;
+};
+```
+
+如上的 public 继承加复合与 private 继承相比稍显复杂，但其具有如下优点：
+
+- 其实现了密封功能（Java 的 final 和 C# 的 sealed）。  
+  即阻止了子类重新定义 virtual 函数。  
+- 降低了编译依存性。  
+  如果 Widget 继承 Timer ，则 Timer 的定义必须可见，因此必须引入相关头文件。  
+  而使用指针指向 WidgetTimer 则只需一个声明式。详见 **条款 31**。  
+
+EBO (empty base optimization) 空白基类最优化需要 private 继承。
+
+当一个类不带任何数据，即：
+
+- 不包含任何 non-static 成员变量。
+- 不包含任何 virtual 函数（包含虚函数的类将带有虚函数表）。
+
+这种类被实例化后理论上不占用任何空间，但 C++ 标准要求凡是独立对象都必须有非 0 大小。而被继承的基类则例外（其非独立）。
+
+```c++
+class Empty{};
+
+// sizeof(HoldsAnInt) > sizeof(int)
+class HoldsAnInt{
+private:
+    int x;
+    Empty e;
+}
+
+// sizeof(HoldsAnInt) == sizeof(int)
+class HoldsAnInt: public Empty{
+private:
+    int x;
+}
+```
+
+面对空间及其紧张的需求时应考虑 EBO，且应注意 EBO 仅在单一继承下可行。
+
+### 6.40 明智而审慎地使用多重继承
+
+多重继承 (multiple inheritance) 指一个子类继承多个父类。
+
+C++ 提供了对多重继承的语法支持。
+
+子类可能从多个基类继承相同名称，这可能导致更多的歧义机会。
+
+```c++
+class BorrowableItem{
+public:
+    void checkOut();
+};
+
+class ElectronicGadget{
+private:
+    bool checkOut() const;
+};
+
+class MP3Player: 
+    public BorrowableItem,
+    public ElectronicGadget{};
+
+MP3Player mp;
+mp.checkOut();  // 歧义！调用哪个 checkOut()
+mp.BorrowableItem::checkOut(); // 实际写法
+```
+
+虽然上例中只有一个 `checkOut()` 是可用的，但 C++ 首先寻找最佳匹配函数，其次才检验可用性。上例中有多个相同匹配程度的函数，因此无法找到最佳匹配，可用性尚未进入考察范围。
+
+多重继承还可能发生严重的菱形继承，即继承而来的多个基类可能分别都继承自一个共同的基类（祖先基类）。C++ 面对菱形继承将默认复制祖先基类的成员，除非使用 virtual 继承。
+
+```plantUML
+@startuml
+hide empty member
+File <|-down- InputFile
+File <|-down- OutputFile
+InputFile <|-down- IOFile
+OutputFile <|-down- IOFile
+@enduml
+```
+
+```c++
+class File{};
+class InputFile:virtual public File {};
+class OutputFile:virtual public File{};
+class IOFile: 
+    public InputFile,
+    public OutputFile{};
+```
+
+从行为上来看，所有 public 继承都应该是 virtual 的，因为要避免继承而来的成员变量重复。但也正因为要提供保证，C++ 将为 virtual 继承付出空间与时间上的代价和其他副作用：
+
+- virtual base 的初始化责任是由继承体系中的最底层 (most derived) class 负责。
+  - 如果派生自 virtual bases 的 class 需要初始化，必须认知其 virtual bases。
+  - 当心的 derived class 加入继承体系中，它必须承担其 virtual bases 的初始化责任，无论直接或间接。
+
+因此应尽可能少使用 virtual bases，其次使用时应尽可能避免在其中放置数据。
+
+对于多重继承，参考 Java 对于 Interface 与继承的设计，即：
+
+- 单一继承类型。
+- 允许多继承 Interface 。
+
+Java 中的 Interface 就类似 C++ 中不包含数据，仅包含函数声明的类型。
+
+因此多重继承的最正当的用途即：
+
+- public 继承某个 Interface class。
+- private 继承某个协助实现的 class。

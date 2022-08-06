@@ -2327,3 +2327,98 @@ Java 中的 Interface 就类似 C++ 中不包含数据，仅包含函数声明�
 
 - public 继承某个 Interface class。
 - private 继承某个协助实现的 class。
+
+## 7. 模板与泛型编程
+
+### 7.41 了解隐式接口和编译期多态
+
+```c++
+class Widget{
+public:
+    Widget();
+    virtual ~Widget() {}
+    virtual std::size_t size() const;
+    virtual void normalize();
+    void swap(Widget& other);
+    ...
+};
+
+void doProcessing(Widget& w){
+    if(w.size() > 10 && w != someNastyWidget){
+        Widget temp(w);
+        temp.normalize();
+        temp.swap(w);
+    }
+}
+```
+
+对于函数 `doProcessing()` 中的 `w` ：
+
+- `w` 的类型明确声明为 Widget ，因此其必支持 Widget 接口。Widget 接口细节在源码中明确可见，即其为一个 **显式接口** (explicit interface) 。
+- Widget 的某些成员函数是 virtual ，因此 `w` 对那些函数的调用将表现出运行期多态 (runtime polymorphism) ，即将在运行期根据 `w` 的动态类型决定究竟调用哪个函数。
+
+对于 Template 与泛型编程，显式接口和运行期多态仍然存在，但重要性降低。与之相对，隐式接口与编译器多态占据主流。
+
+设将 `doProcessing` 转变为函数模板。
+
+```c++
+template<typename T>
+void doProcessing(T& w){
+    if(w.size() > 10 && w != someNastyWidget){
+        T temp(w);
+        temp.normalize();
+        temp.swap(w);
+    }
+}
+```
+
+对于模板函数 `doProcessing()` 中的 `w` ：
+
+- `w` 必须支持哪种接口，取决于 template 中 w 的行为决定。
+  - 至少包含： `size()` `normalize()` `swap()` 拷贝构造函数 不等比较符。
+  - 此即隐式接口。
+- 凡涉及 `w` 的任何函数调用，如操作符 `>` 和 `!=` ，都可能造成模板具现化 (instantiated) ，使这些调用得以成功。这些具现行为发生在编译期，「以不同的 template 参数具现化模板函数」会导致调用不同的函数，这就是所谓的编译期多态 (compile-time polymorphism) 。
+
+运行期多态与编译期多态之间的差异，类似于「哪一个重载函数该被调用（发生在编译期）」与「哪一个 virtual 函数该被绑定（发生在运行期）」之间的差异。
+
+**显式接口** 一般由函数的签名（函数名称、参数类型、返回类型）构成。
+
+```c++
+class Widget{
+public:
+    Widget();
+    virtual ~Widget();
+    virtual std::size_t size() const;
+    virtual void normalize();
+    void swap(Widget& other);
+};
+```
+
+对于 Widget 来说，其显式接口包括：
+
+- 构造函数
+- 析构函数
+- `size()`
+- `normalize()`
+- `swap()`
+- 及其参数类型、返回类型、常量性
+- copying 函数（自动生成）
+
+另外还可以包括：
+
+- typedefs
+- public 成员变量（违反了 **条款 22**）
+
+而 `隐式接口` 则完全不同，其由 **有效表达式** (valid expressions) 组成。
+
+对于 `template doProcessing()` 来说，`T` 必须满足：
+
+- 支持 `size()` (自身接口或继承而来的接口)，且返回值兼容 `>`。
+  - 兼容指，其返回值可以隐式转换为支持 `>` 的对象。
+- 兼容 `!=`。
+- 抑或其他某些条件。
+  - 也许隐式转换而来的某个类型支持重载的 `&&`，从而使表达式成立。
+
+这些条件来自有效表达式：`if(w.size() > 10 && w != someNastyWidget)` 。条件的检查与显式接口同样地在编译期完成检查。
+
+因此隐式接口应面向有效表达式。

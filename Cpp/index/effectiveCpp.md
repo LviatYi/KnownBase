@@ -2422,3 +2422,87 @@ public:
 这些条件来自有效表达式：`if(w.size() > 10 && w != someNastyWidget)` 。条件的检查与显式接口同样地在编译期完成检查。
 
 因此隐式接口应面向有效表达式。
+
+### 6.42 了解 `typename` 的双重意义
+
+对于 C++ 来说，`template` 声明式中的 `class` 和 `typename` 意义完全相同。
+
+除非用于验证 **嵌套从属类型名称**。
+
+template 内出现的名称若依赖于某个 template 参数，则称其为 **从属名称** (dependent names)。
+相反，不依赖任何 template 参数的名称称为 **非从属名称** (non-dependent names)。
+若从属名称在 class 内呈嵌套状，则称其为 **嵌套从属名称** (nested dependent name)。
+若嵌套从属名称指涉某类型，则称为 **嵌套从属类型名称** (nested dependent type name)。
+
+```c++
+template <typename C>
+void print2nd(const C& container2){
+    if (container2.size() >= 2){
+        C::const_iterator iter(container.begin());  // Error
+        ++iter;
+        int value = *iter;
+        std::cout << value;
+    }
+}
+```
+
+其中 `iter` 即从属名称，`C::const_iterator` 是一个嵌套从属名称。
+`value` 为非从属名称。
+
+嵌套从属名称可能导致 **解析** (parsing) 困难。
+
+例如：
+
+```c++
+C::const_iterator* x;
+```
+
+`C` 在不指定类型的情况下，`C::const_iterator` 具有二义性。
+
+- 可能是一个静态数据成员。
+- 可能是一个内部类型。
+- etc.
+
+C++ 面对嵌套从属类型，默认解析为非类型，除非指定为 `typename`。
+
+```c++
+typename C::const_iterator iter;
+```
+
+「`typename` 必须作为嵌套从属名称的前缀词」的例外：
+
+- `typename` 不可以出现在 base classes list 内的嵌套从属名称类型之前。
+- `typename` 不可在成员初值列表 (member initialization list) 中作为 base class 修饰符。
+
+```c++
+template<typename T>
+class Derived: public Base<T>::Nested{ // base class list 中不允许 typename
+public:
+    explicit Derived(int x):Base<T>::Nested(x){ // 成员初值列表不允许 typename
+        typename Base<T>::Nested temp;
+    }
+};
+```
+
+设有如下代码，将一个迭代器指涉的对象做 local 副本：
+
+```c++
+template<typename IterT>
+void workWithIterator(IterT iter){
+    typename std::iterator_traits<IterT>::value_type temp(*iter);
+}
+```
+
+其中 `std::iterator_traits<IterT>::value_type` 相当于「类型为 `IterT` 的对下你给所指对象的类型」。如若 `IterT` 为 `vector<int>::iterator`，则 `temp` 的类型为 `string`。
+
+由于过长的名称，一般会考虑使用 `typedef` 简化代码：
+
+```c++
+template<typename IterT>
+void workWithIterator(IterT iter){
+    typedef typename std::iterator_traits<IterT>::value_type;
+    value_type temp(*iter);
+}
+```
+
+如上代码作为 `typename` 的标准应用。

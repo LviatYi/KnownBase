@@ -2595,7 +2595,7 @@ public:
 template<typename Company>
 class LoggingMsgSender: public MsgSender<Company>{
 public:
-    using  MsgSender<Company>::sendCLear;
+    using MsgSender<Company>::sendCLear;
     void sendClearMsg(const MsgInfo& info){
         log(...);
         sendClear(info);
@@ -2622,3 +2622,84 @@ public:
 从名称可视点 (visibility point) 角度出发，上述解法的思路都相同：向编译器提供「模板基类的任何特化版本都支持其一般版本所提供的接口」的保证。但这种保证责任由程序员承担，是不可靠的。当调用了某个未遵守保证的特化版本类的函数，将无法通过编译。
 
 面对「指涉的模板基类成员」的无效引用，编译器的诊断可能发生在早期（解析模板子类的定义式时），也可能发生在晚期（当模板类被特定的模板参数具现化时）。秉持宁愿早诊断的原则，C++ 将假设对基类内容一无所知。
+
+### 7.44 将与参数无关的代码抽离 templates
+
+templates 在自适应代码复用方面为程序员提供了相当大的便利。通过 templates ，由编译器自行决定具现化的时机。但过于冗长的 template 可能反而导致代码膨胀 (code bloat)：其二进制码带着过多重复的代码、数据，即便源码看似简洁。
+
+常用 **共性与变性分析** (commonality and variability analysis) 解决上述问题。
+
+在编写函数或类时，常对不同的函数或类进行分析其异同。相似的实现码将被抽离出其他函数或基类中。编写 templates 时与之类似，但 templates 中发生的重复比较隐晦。
+
+```c++
+template<typename T,size_t n>
+// 由于某些需求，需要 size_t 作为 template 非类型参数表示方阵的大小。
+class SquareMatrix{
+public:
+    void invert();
+}
+```
+
+C++ 将为 `SquareMatrix<int,5>` 与 `SquareMatrix<int,10>` 具现化两种 `invert()`。因此将相同部分抽离：
+
+```c++
+template<typename T>
+class SquareMatrixBase{
+protected:
+    void invert(size_t matrixSize);
+};
+
+template<typename T,size_t n>
+class SquareMatrix:private SquareMatrixBase<T>{
+private:
+    using SquareMatrixBase<T>::invert;
+public:
+    void invert(){
+        this->invert(n);
+    }
+}；
+```
+
+如此改造使得对于给定元素对象类型，所有矩阵将共享同一个 `SquareMatrixBase::invert()`。
+
+为了能保障功能的正常运作，需要把必要的数据放入 base 类中。
+
+```c++
+template<typename T>
+class SquareMatrixBase{
+protected:
+    SquareMatrixBase(size_t n,T* pMem):size(n),pData(pMem){}
+    void setDataPtr(T* ptr){ pData = ptr; }
+
+    void invert(size_t matrixSize);
+private:
+    std::size_t size;
+    T* pData;
+};
+
+template<typename T,size_t n>
+class SquareMatrix:private SquareMatrixBase<T>{
+private:
+    using SquareMatrixBase<T>::invert;
+    T data[n*n];
+public:
+    SquareMatrix():SquareMatrixBase<T>(n,data){}
+
+    void invert(){
+        this->invert(n);
+    }
+};
+```
+
+实际上，比较包含矩阵尺寸的 invert 版本与共享版本两者在速度或空间上的区别并非一目了然的。
+
+在「尺寸专属版」中，尺寸是一个编译期常量，编译期会针对这一特点进行最优化，如使其称为直接操作数。
+然而另一角度看，共享版本无疑能减少可执行文件大小，从而降低程序的 working set，并强化指令高速缓存区的引用集中化 (locality of reference)。
+
+> 所谓 working set 指对一个在虚拟内存环境下执行的进程而言，其所使用的那一组内存页 (pages)。
+
+因此到底何种方式能够有效提高效率，只能两者都尝试并在测试中进行比较。
+
+上述都是非类型模板参数带来的膨胀，而类型参数也会导致膨胀。如 `vector<int>` 与 `vector<long>`。某些连接器将合并完全相同的函数实现码，而有些不会。
+
+特别是对于指针类型来说，由于不同类型的指针的二进制表述相同，因此应令其调用来自公共基类中操作 `void*` 类型指针的函数。

@@ -2786,10 +2786,126 @@ public:
     shared_ptr& operator=(shared_ptr<Y> const& r);
     template<class Y>    
     shared_ptr& operator=(auto_ptr<Y>& r);
-}
+};
 ```
 
 - 除了泛化构造函数，以上所有构造函数都是 `explicit`。
 - 与 `auto_ptr` 相关的函数并未声明为 `const` ，因为复制一个 `auto_ptr` 时，已经对其有改动了。
 
 成员函数模板不会改变语言的基本规则。**条款 5** 指出，编译器默认生成 4 个成员函数，包括 2 个拷贝构造函数和赋值构造函数。在类内声明泛化拷贝构造函数不会阻止编译器生成默认的拷贝构造函数。赋值操作同上。
+
+### 7.46 需要类型转换时请为模板定义非成员函数
+
+**条款 24** 指出只有非成员函数才可对所有实参进行隐式类型转换，并以 `Rational` 为例。现有模板化 `Rational`：
+
+```c++
+template<typename T>
+class Rational{
+public:
+    Rational(const T& numerator = 0,const T& denominator = 1);
+    const T numerator() const;
+    const T denominator() const;
+};
+
+template<typename T>
+const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
+    ...
+}
+```
+
+当以平常逻辑使用时将发生错误：
+
+```c++
+Rational<int> oneHalf(1,2);
+Rational<int> result = oneHalf * 2; // Error
+```
+
+编译器在 template 实参推导过程中不会将隐式类型转换函数纳入考虑，仅知道存在一个名为 `operator*` 且接受两个 `Rational<T>` 参数的函数，编译器不会主动将 `int (2)` 转换为 `Rational`。
+
+令 `Rational<T> class` 声明适当的 `operator*` 为友元函数可以解决问题。
+
+- template 实参推导仅施行于模板函数上，Class templates 不依赖这个过程。
+
+每当 `class Rational<T>` 具现化时，`T` 的类型即可确定。
+
+```c++
+template<typename T>
+class Rational{
+public:
+    friend const Rational operator*(const Rational& lhs,const Rational& rhs);
+};
+
+template<typename T>
+const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
+    ...
+}
+```
+
+在 class template 内，template 名称可被用来作为「template 及其参数」的简略表达方式，效果等同如下代码：
+
+```c++
+template<typename T>
+class Rational{
+public:
+    friend const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs);
+};
+
+template<typename T>
+const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
+    ...
+}
+```
+
+如此一来，对 `operator*` 的混合式调用便可通过编译了。
+
+- 当 `oneHalf` 被声明为 `Rational<int>` 时，`class Rational<int>` 便被具现化出来。
+- 作为过程的一部分，接受两个 `Rational<int>` 参数的友元函数 `operator*` 也被自动声明出来，而这个函数是非模板函数，从而可以隐式转换。
+
+虽通过编译，但上述代码将发生链接错误。
+
+如上所述，编译器 `operator*` 跟随 `Rational` 具现化的 **同时** 自动声明出来，因此定义式应紧跟声明式，否则编译器具现化 `Rational` 时无法找到定义式，即便就在类外部的下方数行之内。
+
+```c++
+template<typename T>
+class Rational{
+public:
+    friend const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
+        ...
+    }
+};
+```
+
+如此方式与 friend 的传统用途「访问 class 的非公有接口」毫无联系。而友元函数的作用域为类外。
+
+- 为了允许类型转换发生在所有实参之上，需要使之称为非成员函数；
+- 为了使函数自动具现化，需要将其声明在 class 内；
+- 为了在类内声明非成员函数的唯一办法：使之成为友元函数。
+
+**条款 30** 指出，定义于类内的函数都隐式转换为了 inline ，即使是友元函数。但 inline 函数有负面效果。
+
+可以令 `operator*` 不做任何事情，仅调用一个定义与 class 外的辅助函数：
+
+```c++
+template<typename T>
+class Rational;
+template<typename T>
+const Rational<T> doMultiply(const Rational<T>& lhs,const Rational<T>& rhs);
+
+template<typename T>
+class Rational{
+public:
+    friend const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
+        return doMultiply(lhs,rhs); 
+    };
+};
+
+template<typename T>
+const Rational<T> doMultiply(const Rational<T>& lhs,const Rational<T>& rhs){
+    ...
+}
+```
+
+模板类不是类，而是用于生成类的模板。template 定义式应该跟随声明式放在头文件中。
+
+- `operator*` 支持混合式操作，其允许隐式转换在参数列表中发生。
+- 作为 template，`doMultiply` 不允许混合式操作，但 `operator*` 传给它的参数已经转换完成。

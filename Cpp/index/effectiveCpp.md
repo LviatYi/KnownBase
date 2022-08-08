@@ -1764,7 +1764,7 @@ public:
 - **函数接口继承** (function interfaces)
 - **函数实现继承** (function implementations)
 
-设有如下程序：
+设有如下代码：
 
 ```c++
 class Shape{
@@ -2224,10 +2224,10 @@ private:
 如上的 public 继承加复合与 private 继承相比稍显复杂，但其具有如下优点：
 
 - 其实现了密封功能（Java 的 final 和 C# 的 sealed）。  
-  即阻止了子类重新定义 virtual 函数。  
+  即阻止了子类重新定义 virtual 函数。
 - 降低了编译依存性。  
   如果 Widget 继承 Timer ，则 Timer 的定义必须可见，因此必须引入相关头文件。  
-  而使用指针指向 WidgetTimer 则只需一个声明式。详见 **条款 31**。  
+  而使用指针指向 WidgetTimer 则只需一个声明式。详见 **条款 31**。
 
 EBO (empty base optimization) 空白基类最优化需要 private 继承。
 
@@ -2276,7 +2276,7 @@ private:
     bool checkOut() const;
 };
 
-class MP3Player: 
+class MP3Player:
     public BorrowableItem,
     public ElectronicGadget{};
 
@@ -2303,7 +2303,7 @@ OutputFile <|-down- IOFile
 class File{};
 class InputFile:virtual public File {};
 class OutputFile:virtual public File{};
-class IOFile: 
+class IOFile:
     public InputFile,
     public OutputFile{};
 ```
@@ -2423,16 +2423,13 @@ public:
 
 因此隐式接口应面向有效表达式。
 
-### 6.42 了解 `typename` 的双重意义
+### 7.42 了解 `typename` 的双重意义
 
 对于 C++ 来说，`template` 声明式中的 `class` 和 `typename` 意义完全相同。
 
 除非用于验证 **嵌套从属类型名称**。
 
-template 内出现的名称若依赖于某个 template 参数，则称其为 **从属名称** (dependent names)。
-相反，不依赖任何 template 参数的名称称为 **非从属名称** (non-dependent names)。
-若从属名称在 class 内呈嵌套状，则称其为 **嵌套从属名称** (nested dependent name)。
-若嵌套从属名称指涉某类型，则称为 **嵌套从属类型名称** (nested dependent type name)。
+template 内出现的名称若依赖于某个 template 参数，则称其为 **从属名称** (dependent names)。相反，不依赖任何 template 参数的名称称为 **非从属名称** (non-dependent names)。若从属名称在 class 内呈嵌套状，则称其为 **嵌套从属名称** (nested dependent name)。若嵌套从属名称指涉某类型，则称为 **嵌套从属类型名称** (nested dependent type name)。
 
 ```c++
 template <typename C>
@@ -2446,8 +2443,7 @@ void print2nd(const C& container2){
 }
 ```
 
-其中 `iter` 即从属名称，`C::const_iterator` 是一个嵌套从属名称。
-`value` 为非从属名称。
+其中 `iter` 即从属名称，`C::const_iterator` 是一个嵌套从属名称。 `value` 为非从属名称。
 
 嵌套从属名称可能导致 **解析** (parsing) 困难。
 
@@ -2506,3 +2502,123 @@ void workWithIterator(IterT iter){
 ```
 
 如上代码作为 `typename` 的标准应用。
+
+### 7.43 学习处理模板化基类内的名称
+
+设有如下代码，用于向目标公司发送特定信息：
+
+```c++
+class CompanyA{
+public:
+    void sendCleartext(const string& msg);
+    void sendEncrypted(const string& msg);
+};
+class CompanyB{
+public:
+    void sendCleartext(const string& msg);
+    void sendEncrypted(const string& msg);
+};
+
+class MsgInfo{...};
+
+template<typename Company>
+class MsgSender{
+public:
+    void sendClear(const MsgInfo& info){
+        string msg;
+        Company c;
+        c.sendCleartext(msg);
+    }
+
+    void sendSecret(const MsgInfo& info){...}
+};
+```
+
+现功能需要扩展，将添加日志记录功能，于是有：
+
+```c++
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company>{
+public:
+    void sendClearMsg(const MsgInfo& info){
+        log(...);
+        sendClear(info); // Error
+        log(...);
+    }
+};
+```
+
+`sendClearMsg()` 函数（命名原因见 **条款 33**、**条款 36**，避免遮掩继承而来的名称，避免覆盖一个 non-virtual 函数）将发生编译错误。
+
+原因显而易见，`LoggingMsgSender` 并不确定 `Company` 是什么，从而就无法知道继承哪个 `MsgSender<Company>` （也许有一个特化版的 `MsgSender`）：
+
+```c++
+class CompanyZ{
+// 一个新的 Company ，未定义 sendCleartext()
+public:
+    void sendEncrypted(const string& msg);
+}
+
+template<>
+class MsgSender<CompanyZ>{
+// CompanyZ 的全特化版本
+public:
+    void sendSecret(const MsgInfo& info){
+        ...
+    }
+};
+```
+
+模板全特化 (total template specialization) 相对于偏特化是全面性的，一旦类型参数被定义，就没有其他 template 参数可供变化。
+
+如此，编译器就有理由拒绝调用模板基类的函数，因为完全有可能存在一个特化版本的模板基类未提供同名接口。
+
+有三种办法取消 C++ 的这种默认行为：
+
+- 在调用基类的函数前添加 `this->`。
+
+```c++
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company>{
+public:
+    void sendClearMsg(const MsgInfo& info){
+        log(...);
+        this->sendClear(info);
+        log(...);
+    }
+};
+```
+
+- 使用 using 声明式。
+
+```c++
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company>{
+public:
+    using  MsgSender<Company>::sendCLear;
+    void sendClearMsg(const MsgInfo& info){
+        log(...);
+        sendClear(info);
+        log(...);
+    }
+};
+```
+
+- 指明函数位于基类中。  
+  此解法往往不令人满意。当被调用的函数是虚函数时，这种明确资格修饰 (explicit qualification) 将关闭 virtual 绑定行为。
+
+```c++
+template<typename Company>
+class LoggingMsgSender: public MsgSender<Company>{
+public:
+    void sendClearMsg(const MsgInfo& info){
+        log(...);
+        MsgSender<Company>::sendClear(info);
+        log(...);
+    }
+};
+```
+
+从名称可视点 (visibility point) 角度出发，上述解法的思路都相同：向编译器提供「模板基类的任何特化版本都支持其一般版本所提供的接口」的保证。但这种保证责任由程序员承担，是不可靠的。当调用了某个未遵守保证的特化版本类的函数，将无法通过编译。
+
+面对「指涉的模板基类成员」的无效引用，编译器的诊断可能发生在早期（解析模板子类的定义式时），也可能发生在晚期（当模板类被特定的模板参数具现化时）。秉持宁愿早诊断的原则，C++ 将假设对基类内容一无所知。

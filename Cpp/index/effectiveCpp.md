@@ -2703,3 +2703,93 @@ public:
 上述都是非类型模板参数带来的膨胀，而类型参数也会导致膨胀。如 `vector<int>` 与 `vector<long>`。某些连接器将合并完全相同的函数实现码，而有些不会。
 
 特别是对于指针类型来说，由于不同类型的指针的二进制表述相同，因此应令其调用来自公共基类中操作 `void*` 类型指针的函数。
+
+### 7.45 运用成员函数模板接受所有兼容类型不会改变语言的基本规则。
+
+智能指针作为一种「行为像指针」的对象，具有诸多好处，但其与旧式指针略有不及的一点在于：不支持隐式转换。
+
+```c++
+class Top{...};
+class Middle: public Top{...};
+class Bottom: public Middle{...};
+
+Top* pt1 = new Middle; // Middle* 转换为 Top*
+Top* pt2 = new Bottom; // Bottom* 转换为 Top*
+const Top* pct2 = pt1; // Top* 转换为 const Top*
+```
+
+```c++
+template<typename T>
+class SmartPtr{
+public:
+    explicit SmartPtr(T* realPtr);
+    ...
+};
+
+SmartPtr<Top> pt1 = SmartPtr<Middle>(new Middle); // Error
+SmartPtr<Top> pt2 = SmartPtr<Bottom>(new Bottom); // Error
+SmartPtr<const Top> pct2 = pt1; // Error
+```
+
+`SmartPtr<Top>` 与 `SmartPtr<Middle>` 之间没有任何关系，因此自然而然是不支持隐式转换的。
+
+#### Templates 和泛型编程 (Generic Programming)
+
+通过新增构造函数来提供对转型的支持的工作量是难以预估的。因为 template 可以被无限地具现化。
+
+因此我们可以编写一个构造模板，这样的模板即 **成员模板函数** (member function templates)，常简称为 **成员模板** (member templates)。
+
+```c++
+template<typename T>
+class SmartPtr{
+public:
+    template<typename U>
+    SmartPtr(const SmartPtr<U>& other); // 泛化的拷贝构造函数。未被声明 explicit，因为允许隐式转换。
+};
+```
+
+实际实现中要注意进行转换的约束。一般仅允许子类向基类的隐式转换。
+
+```c++
+template<typename T>
+class SmartPtr{
+public:
+    template<typename U>
+    SmartPtr(const SmartPtr<U>& other):heldPtr(other.get()){
+        ...
+    }
+    T* get() const { return heldPtr; }
+    ...
+private:
+    T* heldPtr;
+};
+```
+
+如上代码中使用成员初始化列表，以 类型为 `U*` 的初值初始化类型为 `T*` 的成员变量。这个行为默认只有当「存在某个隐式转换将 `U*` 转为 `T*` 指针」时才能通过编译，符合设计目标。
+
+成员模板不限于构造函数的应用，还常用于赋值操作。`shared_ptr` 支持所有「来自兼容的内置指针、`shared_ptrs`、`auto_ptrs`、`weak_ptrs`」的构造行为以及赋值操作。
+
+```c++
+template<class T>
+class shared_ptr{
+public:
+    template<class Y>
+    explicit shared_ptr(Y* p);
+    template<class Y>
+    shared_ptr(shared_ptr<Y> const& r);
+    template<class Y>
+    explicit shared_ptr(weak_ptr<Y> const& r);
+    template<class Y>
+    explicit shared_ptr(auto_ptr<Y>& r);
+
+    template<class Y>
+    shared_ptr& operator=(shared_ptr<Y> const& r);
+    template<class Y>    
+    shared_ptr& operator=(auto_ptr<Y>& r);
+}
+```
+
+- 除了泛化构造函数，以上所有构造函数都是 `explicit`。
+- 与 `auto_ptr` 相关的函数并未声明为 `const` ，因为复制一个 `auto_ptr` 时，已经对其有改动了。
+
+成员函数模板不会改变语言的基本规则。**条款 5** 指出，编译器默认生成 4 个成员函数，包括 2 个拷贝构造函数和赋值构造函数。在类内声明泛化拷贝构造函数不会阻止编译器生成默认的拷贝构造函数。赋值操作同上。

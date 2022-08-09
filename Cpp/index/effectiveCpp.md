@@ -2694,6 +2694,7 @@ public:
 实际上，比较包含矩阵尺寸的 invert 版本与共享版本两者在速度或空间上的区别并非一目了然的。
 
 在「尺寸专属版」中，尺寸是一个编译期常量，编译期会针对这一特点进行最优化，如使其称为直接操作数。
+
 然而另一角度看，共享版本无疑能减少可执行文件大小，从而降低程序的 working set，并强化指令高速缓存区的引用集中化 (locality of reference)。
 
 > 所谓 working set 指对一个在虚拟内存环境下执行的进程而言，其所使用的那一组内存页 (pages)。
@@ -2784,7 +2785,7 @@ public:
 
     template<class Y>
     shared_ptr& operator=(shared_ptr<Y> const& r);
-    template<class Y>    
+    template<class Y>
     shared_ptr& operator=(auto_ptr<Y>& r);
 };
 ```
@@ -2895,7 +2896,7 @@ template<typename T>
 class Rational{
 public:
     friend const Rational<T> operator*(const Rational<T>& lhs,const Rational<T>& rhs){
-        return doMultiply(lhs,rhs); 
+        return doMultiply(lhs,rhs);
     };
 };
 
@@ -2909,3 +2910,183 @@ const Rational<T> doMultiply(const Rational<T>& lhs,const Rational<T>& rhs){
 
 - `operator*` 支持混合式操作，其允许隐式转换在参数列表中发生。
 - 作为 template，`doMultiply` 不允许混合式操作，但 `operator*` 传给它的参数已经转换完成。
+
+### 7.47 请使用 traits classes 表现类型信息
+
+STL 主要由「用于表现容器、迭代器和算法」的 templates 组成，其次覆盖了若干工具性 templates 。
+
+STL 共有 5 种迭代器分类：
+
+- **input 迭代器** 仅向前移动，一次 1 步，只读且仅 1 次。  
+  模仿指向输入文件的读指针 (read pointer)。
+- **Output 迭代器** 仅向前移动，一次 1 步，只写且仅 1 次。  
+  模仿指向输出文件的写指针 (write pointer)。
+
+以上只适合 **一次性操作算法** (one-pass algorithms)。
+
+- **forward 迭代器** 仅向前移动，一次 1 步，可读可写。
+- **bidirectional 迭代器** 可前后移动，一次 1 步，可读可写。  
+  `set` `multiset` `map` `multimap`
+- **random 迭代器** 可前后移动，可跳跃距离，可读可写。  
+  `vector` `deque` `string`
+
+以上可用于 **多次性操作算法** (multi-pass algorithms)。
+
+C++ 标准库分别提供了专属的卷标结构 (tag struct) 加以确认：
+
+```c++
+struct input_iterator_tag{};
+struct output_iterator_tag{};
+struct forward_iterator_tag:public input_iterator_tag{};
+struct bidirectional_iterator_tag:public forward_iterator_tag{};
+struct random_access_iterator_tag:public bidirectional_iterator_tag{};
+```
+
+STL 中存在一个工具性 template advance，用于将某个迭代器移动某个给定距离：
+
+```c++
+template<typename IterT,typename DistT>
+void advance(IterT& iter,DistT d);
+```
+
+希望以如下方式实现 advance，以实现迭代器优势：
+
+```c++
+template<typename IterT,typename DistT>
+void advance(IterT& iter,DistT d){
+    if (iter is a random access iterator) {
+        iter += d;
+    } else {
+        if ( d >= 0 ){
+            while( d-- ) ++iter;
+        } else {
+            while( d++ ) --iter;
+        }
+    }
+}
+```
+
+需要知晓 IterT 的类型信息，因此需要借助 **Traits**。
+
+Traits 并不是 C++ 关键字或预定义的构件。Traits 是一种技术，是一个 C++ 程序员共同遵守的协议。
+
+Traits 要求其必须能够施行于内置类型（如指针），因此不能通过将信息存储于类型中的方式实现，信息必须位于类型自身之外。
+
+实现 Traits 的标准技术是将其放入一个 template 及其一或多个特化版本中。如 STL 中的 `iterator_traits`：
+
+```c++
+template<typename IterT>
+struct iterator_traits;
+```
+
+一般 traits 被实现为 structs，但称之为 traits classes。
+
+`iterator_traits` 的运作方式是：针对每一个类型 `IterT` ，在 `struct iterator_traits<IterT>` 内声明一个名为 `iterator_category` 的 typedef，后者用以确认 `IterT` 的迭代器分类。
+
+`iterator_traits` 以两个部分实现上述要求。首先其要求每一个「用户自定义迭代器类型」必须嵌套一个 typedef，名为 `iterator_category`，用以确认适当的卷标结构。
+
+以 deque 与 list 为例：
+
+```c++
+template<...>
+class deque{
+public:
+    class iterator{
+    public:
+        typedef random_access_iterator_tag iterator_category;
+    }
+}
+
+template<...>
+class list{
+public:
+    class iterator{
+    public:
+        typedef bidirectional_iterator_tag iterator_category;
+    }
+}
+```
+
+而 `iterator_traits` 则能够将信息根据类型提取出来：
+
+```c++
+// 适应用户自定义类型
+template<typename IterT>
+struct iterator_traits{
+    typedef typename IterT::iterator_category iterator_category;
+}
+
+// 偏特化版本 适应内置指针
+template<typename IterT>
+struct iterator_traits<IterT*>{
+    typedef random_access_iterator_tag iterator_category;
+}
+```
+
+以上即体现了设计并实现 trait class 的标准流程：
+
+- 确认需要取得的类型相关信息。  
+  例如对迭代器而言，希望取得分类 (category) 信息。
+- 为信息选择名称。  
+  例如 `iterator_category` 。
+- 提供一个 template 和一组特化版本，内含支持的类型相关信息。  
+  例如 `iterator_traits` 。
+
+在先前的 advance 中，可以进行如下应用：
+
+```c++
+template <template IterT,typename DistT>
+void advance(IterT& iter,DistT d){
+    if( typeid(typename std::iterator_traits<IterT>::iterator_category) 
+    == typeid(std::random_access_iterator_tag) ){
+        ...
+    }
+}
+```
+
+如上代码存在一些问题：
+
+- 编译问题，参考 **条款 48**。
+- `IterT` 在编译期确定，即 if 语句中的条件在编译期即可有结果，却必须等到运行期。这不仅浪费时间，还可能造成可执行文件膨胀。
+
+因此可以使用 **重载** 解决上述问题。
+
+```c++
+template <template IterT,typename DistT>
+void doAdvance(IterT& iter,DistT d,std::random_access_iterator_tag){
+    iter += d;
+}
+
+template <template IterT,typename DistT>
+void doAdvance(IterT& iter,DistT d,std::bidirectional_iterator_tag){
+    if ( d >= 0 ){
+        while( d-- ) ++iter;
+    } else {
+        while( d++ ) --iter;
+    }
+}
+
+template <template IterT,typename DistT>
+void doAdvance(IterT& iter,DistT d,std::input_iterator_tag){
+    // 由于继承关系的存在，forward_iterator 也被此函数处理。
+    if ( d < 0 ){
+        throw std::out_of_range("Negative distance");
+    }
+    while( d-- ) ++iter;
+
+}
+
+template <template IterT,typename DistT>
+void advance(IterT& iter,DistT d){
+    doAdvance(
+        iter,
+        d,
+        typename std::iterator_traits<IterT>::iterator_category()
+    );
+}
+```
+
+总结如何使用 traits class：
+
+- 建立一组重载函数或函数模板，彼此之间的差异只在于各自的 traits 参数，令每个函数实现码与其接受之 traits 信息相匹配。
+- 建立一个控制函数或函数模板，调用上述重载函数并传递 traits class 的信息。

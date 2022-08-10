@@ -3065,7 +3065,7 @@ struct iterator_traits<IterT*>{
 ```c++
 template <template IterT,typename DistT>
 void advance(IterT& iter,DistT d){
-    if( typeid(typename std::iterator_traits<IterT>::iterator_category) 
+    if( typeid(typename std::iterator_traits<IterT>::iterator_category)
     == typeid(std::random_access_iterator_tag) ){
         ...
     }
@@ -3118,3 +3118,73 @@ void advance(IterT& iter,DistT d){
 
 - 建立一组重载函数或函数模板，彼此之间的差异只在于各自的 traits 参数，令每个函数实现码与其接受之 traits 信息相匹配。
 - 建立一个控制函数或函数模板，调用上述重载函数并传递 traits class 的信息。
+
+### 7.48 认识 template 元编程
+
+模板元编程 (TMP,template metaprogramming) 是以 C++ 写成，执行于 C++ 编译器内的程序。TMP 的输出为从 templates 具现出的 C++ 源码。
+
+TMP 是被发现而非发明出来的，当 templates 加入 C++ 时 TMP 即被引进，其主要有两大优势：
+
+- TMP 使编程变得简单，提高了复用性，让不可能变为可能。
+- TMP 执行于编译期，可以将部分工作从运行期提前，提高了运行效率与排错效率。
+
+考虑 STL advance 的 `typeid` 实现方案：
+
+```c++
+template <template IterT,typename DistT>
+void advance(IterT& iter,DistT d){
+    if( typeid(typename std::iterator_traits<IterT>::iterator_category)
+    == typeid(std::random_access_iterator_tag) ){
+        ...
+    }
+}
+```
+
+**条款 47** 指出，基于 `typeid` 的实现方案的效率比 traits 低，因为：
+
+- 类型测试发生于运行期而非编译期。
+- 「运行期类型测试」代码会被链接于可执行文件中。
+
+此例展示了为何 TMP 的效率更高。
+
+当传入一个非 `random_access_iterator` 时，如上代码将会出错。即便由于判断语句的存在，确保了运行时不会对 `random_access_iterator` 进行未定义操作，但编译器仍将报错。而 TMP 将针对不同类型形成不同代码，因此可以轻松实现。
+
+此例展示了 TMP 如何将问题的解决简单化。
+
+TMP 已被证明其图灵完备性 (Turing-complete) ，即它已经足够强大以处理任何计算，它可以声明变量、执行循环、编写及调用函数，但 TMP 实现相对于正常 C++ 语句实现迥然不同。针对 TMP 设计的程序库提供更高层级的语法。
+
+以循环为例。TMP 并没有真正的循环构件，其循环效果藉由递归实现，这种递归与函数递归调用无关，而涉及「递归模板具现化」(recursive template instantiation)。
+
+如下代码示例提供了阶乘运算：
+
+```c++
+template<unsigned n>
+struct Factorial{
+    enum {
+        value = n * Factorial<n-1>::value;
+    }
+}
+template<>
+struct Factorial<0>{
+    enum { value = 1 };
+}
+```
+
+循环发生在 template 具现体 `Factorial<n>` 内部指涉另一个 `Factorial<n-1>` 时。当至特殊情况 `n = 0` 时递归结束。
+
+每个 Factorial template 具现体都是一个 struct。每个 struct 都使用 enum hack 声明一个名为 `value` 的 TMP 变量，其用于保存当前计算值。对于 enum hack 技术详情，见 **条款 2**。
+
+```c++
+int main(){
+    std::cout << Factorial<5>::value; // output: 120
+}
+```
+
+实际应用中，常为达成以下目标使用 TMP ：
+
+- **确保度量单位正确**
+  - 在科学和工程应用程序中，确保量度单位（例如质量、距离、时间……等等）正确结合是绝对必要的。举个例子，将一个质量变量赋值给一个速度变量是错误的，但是将一个距离变量除以一个时间变量并将结果赋值给一个速度变量则成立。如果使用 TMP，就可以确保（在编译期）程序中所有量度单位的组合都正确，不论其计算多么复杂。这也就是为什么 TMP 可被用来进行早期错误侦测。这种 TMP 用途的一个有趣情况是，就连因次为分数的指数 (fractional dimensional exponents) 也可支持，但分数必须先在编译期被化简，例如 $time^{\frac12}$ 与 $time^{\frac48}$ 单位相同。
+- **优化矩阵运算**
+  - 使用 expression templates 可以消除临时对象并合并循环（如矩阵连乘）。
+- **生成客户定制的设计模式实现品**
+  - 设计模式如 Strategy，Observer，Visitor 等等都可以多种方式实现出来。运用所谓 policy-based design 之 TMP-based 技术，有可能产生一些 templates 用来表述独立的设计选项（所谓「policies」），然后可以任意结合它们，导致模式实现品带着客户定制的行为。这项技术已被用来让若干 templates 实现出智能指针的行为政策 (behavioral policies)，用以在编译期间生成数以百计不同的智能指针类型。这项技术已经超越编程工艺领域如设计模式和智能指针，更广义地成为 generative programming(殖生式编程）的一个基础。

@@ -20,16 +20,44 @@ const double PI = 3.1415926;
 const char* const name="LviatYi";
 
 class Class{
-    static const int MAX_CAPACITY = 30;// 静态常量声明
+    static const int MAX_CAPACITY = 30;// 静态常量声明，某些编译器中这不是定义。
 };
 
-const int Class::MAX_CAPACITY; //常量定义
+const int Class::MAX_CAPACITY; //常量定义，一般出现在实现文件
 ```
+
+在某些编译器中，class 的 static const 整型（integral type，例如 ints，chars，bools）需要特殊处理，其包含赋值的声明式不一定代表定义。
 
 > 「声明」仅建立了一个标识符。而「定义」赋予标识符空间。
 >
-> - 常量若只有带赋初值的声明，使用时可能采用立即数替代。
-> - 这种量若无声明，取地址行为可能是未定义的。某些编译器（GCC）将报错，某些编译器（MSVC）则会通过编译。
+> - 在某些编译器中，常量若只有带赋初值的声明，使用时可能采用立即数替代。
+> - 这种量若无定义，取地址行为可能是未定义的。某些编译器（GCC）将报错，某些编译器（MSVC）则会通过编译。
+> - 若不取地址，其行为是安全的。
+
+当编译器不支持 static 成员的类内赋值，可以将初值置于定义式。但当在 class 编译期需要一个 class 常量值：
+
+```c++
+class Class{
+    static const int MAX_CAPACITY; // static 成员类内赋值不允许
+
+    int array[MAX_CAPACITY]; // 使用该常量
+};
+const int Class::MAX_CAPACITY = 30; // 晚了！执行时 array 初始化已完成
+```
+
+此时可用 enum hack 技术补偿之：
+
+```c++
+class Class{
+    enum { MAX_CAPACITY = 30 };
+
+    int array[MAX_CAPACITY];
+};
+```
+
+- enum hack 的某些行为更像 #define 而非 const，这有时是合乎需求的：
+  - 取 enum 的地址是不合法的。
+- enum hack 技术被广泛应用于各种代码，其为模板元编程的基础技术。
 
 永远不要使用宏函数，即使带了控制优先级以避免注入的括号。
 

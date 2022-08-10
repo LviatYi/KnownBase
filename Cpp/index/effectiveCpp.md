@@ -3063,7 +3063,7 @@ struct iterator_traits<IterT*>{
 在先前的 advance 中，可以进行如下应用：
 
 ```c++
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void advance(IterT& iter,DistT d){
     if( typeid(typename std::iterator_traits<IterT>::iterator_category)
     == typeid(std::random_access_iterator_tag) ){
@@ -3080,12 +3080,12 @@ void advance(IterT& iter,DistT d){
 因此可以使用 **重载** 解决上述问题。
 
 ```c++
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void doAdvance(IterT& iter,DistT d,std::random_access_iterator_tag){
     iter += d;
 }
 
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void doAdvance(IterT& iter,DistT d,std::bidirectional_iterator_tag){
     if ( d >= 0 ){
         while( d-- ) ++iter;
@@ -3094,7 +3094,7 @@ void doAdvance(IterT& iter,DistT d,std::bidirectional_iterator_tag){
     }
 }
 
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void doAdvance(IterT& iter,DistT d,std::input_iterator_tag){
     // 由于继承关系的存在，forward_iterator 也被此函数处理。
     if ( d < 0 ){
@@ -3104,7 +3104,7 @@ void doAdvance(IterT& iter,DistT d,std::input_iterator_tag){
 
 }
 
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void advance(IterT& iter,DistT d){
     doAdvance(
         iter,
@@ -3131,7 +3131,7 @@ TMP 是被发现而非发明出来的，当 templates 加入 C++ 时 TMP 即被�
 考虑 STL advance 的 `typeid` 实现方案：
 
 ```c++
-template <template IterT,typename DistT>
+template <typename IterT,typename DistT>
 void advance(IterT& iter,DistT d){
     if( typeid(typename std::iterator_traits<IterT>::iterator_category)
     == typeid(std::random_access_iterator_tag) ){
@@ -3163,11 +3163,11 @@ struct Factorial{
     enum {
         value = n * Factorial<n-1>::value;
     }
-}
+};
 template<>
 struct Factorial<0>{
     enum { value = 1 };
-}
+};
 ```
 
 循环发生在 template 具现体 `Factorial<n>` 内部指涉另一个 `Factorial<n-1>` 时。当至特殊情况 `n = 0` 时递归结束。
@@ -3187,4 +3187,157 @@ int main(){
 - **优化矩阵运算**
   - 使用 expression templates 可以消除临时对象并合并循环（如矩阵连乘）。
 - **生成客户定制的设计模式实现品**
-  - 设计模式如 Strategy，Observer，Visitor 等等都可以多种方式实现出来。运用所谓 policy-based design 之 TMP-based 技术，有可能产生一些 templates 用来表述独立的设计选项（所谓「policies」），然后可以任意结合它们，导致模式实现品带着客户定制的行为。这项技术已被用来让若干 templates 实现出智能指针的行为政策 (behavioral policies)，用以在编译期间生成数以百计不同的智能指针类型。这项技术已经超越编程工艺领域如设计模式和智能指针，更广义地成为 generative programming(殖生式编程）的一个基础。
+  - 设计模式如 Strategy，Observer，Visitor 等等都可以多种方式实现出来。运用所谓 policy-based design 之 TMP-based 技术，有可能产生一些 templates 用来表述独立的设计选项（所谓「policies」），然后可以任意结合它们，导致模式实现品带着客户定制的行为。这项技术已被用来让若干 templates 实现出智能指针的行为政策 (behavioral policies)，用以在编译期间生成数以百计不同的智能指针类型。这项技术已经超越编程工艺领域如设计模式和智能指针，更广义地成为 generative programming（殖生式编程）的一个基础。
+
+## 8. 定制 new 和 delete
+
+### 8.49 了解 new-handler 的行为
+
+operator new 分配内存失败后将抛出异常。旧编译器将返回空指针。当抛出异常前，其先会调用一个客户指定的错误处理函数，即一个所谓的 new-handler。客户通过调用 `set_new_handler` （声明于 <new> 标准库） 设定这个函数。
+
+```c++
+namespace std {
+    typedef void (*new_handler)();
+    new_handler set_new_handler(new_handler p) noexcept;
+}
+```
+
+`new_handler` 是一个函数指针，这个函数没有参数且返回 void。  
+`set_new_handler` 需要一个 `new_handler`（新函数）并返回一个 `new_handler` (更改前的函数)。该函数不抛出异常。
+
+允许这样使用 `set_new_handler`：
+
+```c++
+void outOfMem(){
+    std::cerr << "Unable to satisfy request for memory\n";
+    std::abort();
+}
+
+int main(){
+    std::set_new_handler(outOfMem);
+    int* pBigDataArray = new int[1e10L];
+}
+```
+
+当 operator new 无法满足内存申请时，将不断调用 `new_handler` 函数，直到有足够内存（详见 **条款 51**）。
+
+一个设计良好的 `new_handler` 函数必须做到一下几点：
+
+- **让更多内存可被使用**  
+  努力使下一次内存分配动作可能成功。
+- **安装另一个 `new_handler`**  
+  自动替换至有分配能力的 `new_handler`。
+- **卸载 `new_handler`**  
+  若找不到任何有分配能力的 `new_handler`，则考虑将 nullptr 传入 `set_new_handler`。
+- **抛出 `bad_alloc`（或派生自 `bad_alloc`）的异常**  
+  这个异常不会被 operator new 捕捉，将传播至申请内存处。
+- **不返回**  
+  通常调用 `abort()` 或 `exit()`。
+
+以上选择将为实现 `new_handler` 提供弹性。
+
+如若需要根据分配物所属的 class 来确定 `new_handler`，只需令每个 class 提供自己的 `set_new_handler` 与 operator new 。前者用于允许客户设定 `new_handler`，后者用于确保分配 class 对象内存的过程中使用 `new_handler`。
+
+现有 Widget 类，将为其设定内存分配失败的行为。
+
+```c++
+class Widget{
+public:
+    static std::new_handler set_new_handler(std::new_handler p) noexcept;
+    static void* operator new(std::size_t size_t) throw(std::bad_alloc);
+private:
+    static std::new_handler currentHandler;
+};
+
+std::new_handler Widget::currentHandler = nullptr;
+
+std::new_handler Widget::set_new_handler(std::new_handler p) noexcept{
+    std:: new_handler oldHandler = currentHandler;
+    currentHandler = p;
+    return oldHandler;
+}
+```
+
+最后，Widget 的 operator new 负责完成一下事情：
+
+- 调用标准 `set_new_handler`，告知 Widget 的错误处理函数。  
+  这会将 Widget 的 `new_handler` 安装为 global `new_handler`。  
+- 调用 global operator new，执行实际的内存分配。如果分配失败，global operator new 会调用 Widget 的`new_handler`，因为那个函数刚刚被安装为 global`new_handler`。如果 global operator new 最终无法分配足够内存，会抛出一个 bad_alloc 异常。在此情况下 Widget 的 operator new 必须恢复原本的 global `new_handler`，然后再传播该异常。  
+  为确保原本的 `new_handler` 总是能够被重新安装回去，Widget 将 global `new_handler` 视为资源并遵守 **条款 13** 的忠告，运用资源管理对象 (resource-managing objects) 防止资源泄漏。
+- 如果 global operator new 能够分配足够一个 Widget 对象所用的内存，Widget 的 operator new 会返问一个指针，指向分配所得。Widget 析构函数会管理 global `new_handler`，它会自动将 operator new 被调用前的那个 global `new_handler`恢复回来。
+
+如下代码使用 RAII 技术保存旧 new_handler 并重置。
+
+```c++
+class NewHandlerHolder{
+public:
+    explicit NewHandlerHolder(std::new_handler nh):handler(nh){} // 取得原 new_handler
+    ~NewHandlerHolder() {
+        // 释放时重置
+        std::set_new_handler(handler);
+    }
+private:
+    std::new_handler handler;
+    NewHandlerHolder(const NewHandlerHolder&); // 组织 copying
+    NewHandlerHolder& operator=(const NewHandlerHolder&);
+}
+
+void* Widget::operator new(std::size_t size) throw(std::bad_alloc){
+    NewHandlerHolder h(std::set_new_handler(currentHandler));
+    return ::operator new(size);
+}
+```
+
+客户应如此使用：
+
+```c++
+void outOfMem();
+
+Widget::set_new_handler(outOfMem); // 设定 outOfMem 作为 new_handler 函数
+Widget* pw1 = new Widget;
+std::string* ps = new std::string;
+Widget::set_new_handler(nullptr); // 设定 nullptr 作为 new_handler 函数
+Widget* pw2 = new Widget;
+```
+
+一般地，使用 mixin 风格的基类以允许子类继承单一能力——在此处即「设定 class 专属 new_handler 的能力」。将这个基类转换为 template ，以使每个子类获得实体互异的 class data 复件：
+
+```c++
+template<typename T>
+class NewHandlerSupport{
+public:
+    static std::new_handler set_new_handler(std::new_handler p) noexcept;
+    static void* operator new(std::size_t size_t) throw(std::bad_alloc);
+private:
+    static std::new_handler currentHandler;
+};
+
+template<typename T>
+std::new_handler
+NewHandlerSupport::set_new_handler(std::new_handler p) noexcept {
+    std:: new_handler oldHandler = currentHandler;
+    currentHandler = p;
+    return oldHandler;
+}
+
+template<typename T>
+void* NewHandlerSupport<T>::operator new(std::size_t size) throw(std::bad_alloc){
+    NewHandlerHolder h(std::set_new_handler(currentHandler));
+    return ::operator new(size);
+}
+
+template<typename T>
+std::new_handler NewHandlerHolder<T>::currentHandler = nullptr;
+```
+
+有了这个模板类，可以为 Widget 轻松添加 `set_new_handler`：
+
+```c++
+class Widget:public NewHandlerSupport<Widget>{
+    ...
+};
+```
+
+在 `NewHandlerSupport<T>` 中，代码内并未使用到参数 `T`。实际上 `T` 并不需要被直接使用，其作为达成实体互异的条件即可，参数 `T` 只是用来区分不同的子类，Template 机制将为每个 `T` 生成一份 currentHandler。
+
+Widget 继承自一个模板化的基类，而后者却又以 Widget 作为类型参数。这是一种有用的技术，称为 **怪异的循环模板模式** (CRTP,curiously recurring template pattern)

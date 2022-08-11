@@ -3482,3 +3482,119 @@ void Base::operator delete(void* rawMemroy) throw(){
     回收 rawMemroy 所指内存
 }
 ```
+
+### 8.52 写了 placement new 也要写 placement delete
+
+```c++
+Widget* pw = new Widget;
+```
+
+如上语句共有两个函数被调用：
+
+- operator new
+- Widget 默认构造函数
+
+假设第一个函数调用成功而第二个函数调用异常，C++ 运行期系统有义务归还第一个函数分配的内存。
+
+如果没有定制的 operator new 与 delete，C++ 将尝试调用默认行为。但当使用了定制的 operator new 时，C++ 将调用一个与 new 额外参数列表相同的 delete，找不到时不调用 delete，这意味着可能引起内存泄漏。
+
+```c++
+class Widget{
+public:
+    static void* operator new(std::size_t,std::ostream& logStream) throw(std::bad_alloc);
+    static void operator delete(void* pMemory,std::size_t size) noexcept;
+}
+```
+
+如果 operator new 接受的参数除了必需的 `size_t` 之外还有其他，那么它便是个 placement new。
+
+> 实际上，placement new 最初的版本用于在一个指定位置进行构造对象：
+>
+> ```c++
+> void operator new(std::size_t,void* pMemory) noexcept;
+> ```
+>
+> 后通过扩展，一般性的「placement new」意味着带有任意额外参数的 new。
+
+如上的 Widget 类的构造函数抛出异常后，可能引起内存泄漏，因为它需要一个：
+
+```c++
+void operator delete(void*,std::ostream&) noexcept;
+```
+
+添加以上实现，则不会再内存泄露。
+
+这个与 placement new 对应的 placement delete 不会被用户调用，它仅在伴随 placement new 调用而触发的构造函数出现异常时被调用：
+
+```c++
+Widget* pw = new(std::cerr) Widget;
+delete pw; // 调用了一个正常形式的 delete
+```
+
+这意味正常形式的 delete 同样要负责避免 placement new 可能造成的内存泄漏。
+
+缺省情况下 C++ 将在全局作用域提供以下形式的 operator new：
+
+```c++
+void* operator new(std::size_t) throw(std::bad_alloc);
+void* operator new(std::size_t,void*) noexcept;
+// nothrow 版本，失败时仅返回空指针，不抛异常
+void* operator new(std::size_t,const std::nothrow_t&) noexcept;
+```
+
+基类中的 placement new 将覆盖全局 new。
+子类中的 placement new 将覆盖基类 new 与全局 new。
+
+```c++
+class Base{
+public:
+    static void* operator new(std::size_t,std::ostream& logStream)
+    throw(std::bad_alloc);
+}
+
+Base* pb = new (std::cerr) Base; // Right
+Base* pb = new Base; // Error
+
+class Derived{
+public:
+    static void* operator new(std::size_t) throw(std::bad_alloc);
+    Derived* pd = new Derived;
+    Derived* pd = new (std::clog) Derived; // Error
+}
+```
+
+为了防止这种情况（如非必要），需要设计一个 base class ，内含所哟正常形式的 new 和 delete。
+而希望扩展的类型应利用继承机制与 using 声明式取得标准形式。
+
+```c++
+class StandardNewDeleteForms{
+public:
+    static void* operator new(std::size_t) throw(std::bad_alloc){
+        return ::operator new(size);
+    }
+    static void* operator delete(void* pMemory) noexcept{
+        return ::operator delete(pMemory);
+    }
+    static void* operator new(std::size_t,void* ptr) throw(std::bad_alloc){
+        return ::operator new(size,ptr);
+    }
+    static void* operator delete(void* pMemory,void* ptr) noexcept{
+        return ::operator delete(pMemory,ptr);
+    }
+    static void* operator new(std::size_t,const std::nothrow_t&) throw(std::bad_alloc){
+        return ::operator new(size,nt);
+    }
+    static void* operator delete(void* pMemory,const std::nothrow_t&) noexcept{
+        return ::operator delete(pMemory);
+    }
+}
+
+class Widget: public StandardNewDeleteForms{
+public:
+    using StandardNewDeleteForms::operator new;
+    using StandardNewDeleteForms::operator delete;
+    
+    static void* operator new(std::size_t,std::ostream& logStream) throw(std::bad_alloc);
+    static void operator delete(void* pMemory,std::size_t size) noexcept;
+}
+```

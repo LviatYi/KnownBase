@@ -28,7 +28,7 @@ XML 用于结构化存储或传输信息；
 
 ## 参考资料
 
-### 网站教程
+### 文述
 
 [w3schools][w3schools] —— With the world's largest web developer site.
 

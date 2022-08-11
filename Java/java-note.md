@@ -50,7 +50,7 @@ Java 中最主要的三个概念，JDK，JRE 和 JVM
 
 ## 参考资料
 
-### 参考视频
+### 视频
 
 [【狂神说 Java 】Java 零基础学习视频通俗易懂](https://www.bilibili.com/video/BV12J41137hu?p=6&spm_id_from=pageDriver) —— @ 遇见狂神说 Bilibili
 

@@ -31,11 +31,11 @@
 
 ## 参考资料
 
-### 参考文述
+### 文献
 
-算法导论 第三版—— Thomas H. Cormen ,Charles E. Leiserson ,Ronald L. Rivest ,Clifford Stein
+算法导论 第三版 —— Thomas H. Cormen ,Charles E. Leiserson ,Ronald L. Rivest ,Clifford Stein
 
-### 参考视频
+### 视频
 
 [【北大公开课】 算法设计与分析 屈婉玲教授 （76p）](https://www.bilibili.com/video/BV1Ls411W7PB) —— @ 屈婉玲教授 北京大学
 
@@ -46,4 +46,4 @@ VS 2022
 
 ## 版本号
 
-`v0.41`
+`v0.42`

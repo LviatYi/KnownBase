@@ -56,13 +56,13 @@ Web 标准的构成：
 
 ## 参考资料
 
-### 参考视频
-
-[黑马程序员 pink 老师前端入门视频教程](https://www.bilibili.com/video/BV14J4114768?p=4&spm_id_from=pageDriver) —— @ 黑马程序员 pink 老师 Bilibili
-
-### 网站教程
+### 文献
 
 [w3schools][w3schools] —— With the world's largest web developer site.
+
+### 视频
+
+[黑马程序员 pink 老师前端入门视频教程](https://www.bilibili.com/video/BV14J4114768?p=4&spm_id_from=pageDriver) —— @ 黑马程序员 pink 老师 Bilibili
 
 ### 开发环境
 

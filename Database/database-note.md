@@ -16,13 +16,13 @@
 
 ## 参考资料
 
-### 参考视频
-
-[数据库系统概论完整版(基础篇+高级篇+新技术篇)](https://www.bilibili.com/video/BV12J41137hu?p=6&spm_id_from=pageDriver) —— @ 王珊教授 中国人民大学
-
-### 外部链接
+### 文献
 
 [W3Schools | SQL Tutorial](https://www.w3schools.com/sql/default.asp)
+
+### 视频
+
+[数据库系统概论完整版(基础篇+高级篇+新技术篇)](https://www.bilibili.com/video/BV12J41137hu?p=6&spm_id_from=pageDriver) —— @ 王珊教授 中国人民大学
 
 ## 版本号
 

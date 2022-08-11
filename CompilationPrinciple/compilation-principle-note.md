@@ -13,7 +13,7 @@
 
 ## 参考资料
 
-### 参考视频
+### 视频
 
 [编译原理（哈工大）](https://www.bilibili.com/video/BV1zW411t7YE?from=search&seid=12908759793851092624) —— @ 陈鄞博士 哈尔滨工业大学
 

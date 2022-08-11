@@ -9,9 +9,9 @@
 1. [着色](index/shading.md)
 1. [几何](index/geometry.md)
 
-## 学习资料
+## 参考资料
 
-### 参考资料
+### 视频
 
 [Games101](https://www.bilibili.com/video/BV1X7411F744) —— @ 闫令琪 GAMES-Webinar
 

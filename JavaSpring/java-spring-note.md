@@ -50,7 +50,7 @@ Spring 是目前主流的 Java Web 开发框架，是 Java 世界最为成功的
 
 ## 参考资料
 
-### 参考视频
+### 视频
 
 [【狂神说 Java】Spring5 最新完整教程 IDEA 版通俗易懂](https://www.bilibili.com/video/BV1WE411d7Dv?from=search&seid=14885296346718072648) —— @ 遇见狂神说 Bilibili
 

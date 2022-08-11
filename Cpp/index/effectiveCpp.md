@@ -3261,7 +3261,7 @@ std::new_handler Widget::set_new_handler(std::new_handler p) noexcept{
 最后，Widget 的 operator new 负责完成一下事情：
 
 - 调用标准 `set_new_handler`，告知 Widget 的错误处理函数。  
-  这会将 Widget 的 `new_handler` 安装为 global `new_handler`。  
+  这会将 Widget 的 `new_handler` 安装为 global `new_handler`。
 - 调用 global operator new，执行实际的内存分配。如果分配失败，global operator new 会调用 Widget 的`new_handler`，因为那个函数刚刚被安装为 global`new_handler`。如果 global operator new 最终无法分配足够内存，会抛出一个 bad_alloc 异常。在此情况下 Widget 的 operator new 必须恢复原本的 global `new_handler`，然后再传播该异常。  
   为确保原本的 `new_handler` 总是能够被重新安装回去，Widget 将 global `new_handler` 视为资源并遵守 **条款 13** 的忠告，运用资源管理对象 (resource-managing objects) 防止资源泄漏。
 - 如果 global operator new 能够分配足够一个 Widget 对象所用的内存，Widget 的 operator new 会返问一个指针，指向分配所得。Widget 析构函数会管理 global `new_handler`，它会自动将 operator new 被调用前的那个 global `new_handler`恢复回来。
@@ -3340,4 +3340,145 @@ class Widget:public NewHandlerSupport<Widget>{
 
 在 `NewHandlerSupport<T>` 中，代码内并未使用到参数 `T`。实际上 `T` 并不需要被直接使用，其作为达成实体互异的条件即可，参数 `T` 只是用来区分不同的子类，Template 机制将为每个 `T` 生成一份 currentHandler。
 
-Widget 继承自一个模板化的基类，而后者却又以 Widget 作为类型参数。这是一种有用的技术，称为 **怪异的循环模板模式** (CRTP,curiously recurring template pattern)
+Widget 继承自一个模板化的基类，而后者却又以 Widget 作为类型参数。这是一种有用的技术，称为 **怪异的循环模板模式** (CRTP,curiously recurring template pattern)。
+
+### 8.50 了解 new 和 delete 的合理替换时机
+
+一般有如下常见理由，需要替换编译器提供的 operator new 或 operator delete：
+
+- 用来检测运用上的错误。
+
+如果 delete 失败，无疑会导致内存泄露 (memory leaks)。如果多次 delete 则会导致不确定行为。自行设计 new 与 delete 可以避免这些异常。
+
+- 优化效率
+
+new 与 delete 需要处理的情况非常复杂，包括大块内存、小块内存、大小混合型内存。其必须接纳各种分配形态，范围从程序存活期间的少量区块动态分配，到大数量短命对象的持续分配和归还。还必须考虑内存碎片问题，避免运行一段时间后无整块大内存可用。
+
+对不同的对象进行合理定制 new 与 delete 相较于缺省而言效率更高。
+
+- 收集使用上的统计数据
+
+为了定制出最合理的 new 与 delete，必须对程序进行分析，主要需要了解：分配区块大小分布、寿命分布、倾向于 FIFO （先进先出）或 LIFO （后进先出）还是完全随机的分配与回收、分收形态是否随时间改变、最大分配量等等。
+
+如下代码为检测溢出的一种方法：
+
+```c++
+// 溢出检测标记 将插入至内存首尾 当内存首尾发生改变时意味着溢出。
+static const int signature = 0xDEADBEEF;
+typedef unsigned char Byte;
+
+void* operator new(std::size_t size) throw(std::bad_alloc){
+    using namespace std;
+    size_t realSize = size + 2 * sizeof(int);
+
+    void* pMem = malloc(realSize);
+    if (!pMem) throw bad_alloc();
+
+    // 在首尾插入溢出检测标记
+    *(static_cast<int*>(pMem)) = signature;
+    *(reinterpret_cast<int*>(static_cast<Byte*>(pMem)+realSize-sizeof(int))) = signature;
+
+    return static_cast<Byte*>(pMem) + sizeof(int);
+}
+```
+
+如上代码中的 operator new 略去了反复调用 new-handling 函数（详见 **条款 51**），现在首先讨论内存对其问题。
+
+许多计算机体系结构要求特定类型必须放在特定内存地址上，例如一般要求内存地址必须是 4 倍数，而 double 必须是 8 倍数。
+
+`malloc()` 分配内存时将遵守这个规则，但上例代码中返回了一个偏移一个 int 大小的指针，这种未对齐的指针可能造成崩溃或低效率运行。
+
+实际上已有相当多 IDE 提供的调试状态的内存管理函数、商业或开源的内存管理器提供给程序员，无需再自行设计内存管理。
+
+一般有如下理由促使替换缺省的 new 与 delete：
+
+- 为了检测运用上的错误（如前所述）。
+- 为了收集动态分配内存的使用统计信息（如前所述）。
+- 为了提高分配与回收速度。  
+  泛用型分配器一般会比定制型分配器慢。
+- 为了降低缺省内存管理器带来的额外空间开销。  
+  泛用型分配器一般会比定制型分配器占用更多内存。
+- 为了弥补缺省分配器中的非最佳对齐。  
+  某些 x86 架构可能允许非对齐，但这会降低效率。
+- 为了将相关对象成簇集中。  
+  如果知晓某个数据结构往往被一起使用，则可以专门为此结构创建另一个 heap，以降低内存缺页频率。  
+  new 和 delete 的 placement 版本可能可以实现这种集簇行为。
+- 为了获得非传统的行为。  
+  有时候你会希望 operator new 和 delete 做编译器附带版没做的某些事情。例如分配和归还共享内存 (shared memory) 内的区块，但唯一能够管理该内存的只有 C API 函数，那么写下一个定制版 new 和 delete (很可能是 placement 版本，见 **条款 52**），就可以用 C++ 习惯调用 C API。你也可以写一个自定的 operator delete，在其中将所有归还内存内容覆盖为 0，藉此增加应用程序的数据安全性。
+
+### 8.51 编写 new 和 delete 时需固守常规
+
+**条款 50** 指明了什么时候可以定制 operator new 与 delete。
+
+此条款将解释定制 operator new 与 delete 时应遵守什么规则。
+
+对于 operator new 来说，主要需遵守如下条件：
+
+- 实现一致性 operator new 必须返回正确值。
+- 内存不足时必须调用 `new_handler()`。
+- 必须有对付零内存需求的准备。C++ 要求即便 0 byte，operator new 仍需要返回一个合法的指针。这种设定主要为了简化语言的其他部分。
+- 避免不慎遮掩正常形式的 new（详见 **条款 52** ）。
+
+operator new 返回：
+
+- 成功分配则返回指向内存的指针。
+- 失败则不断调用 `new_handler()`，尝试释放内存并重新分配。
+- 否则抛出 bad_alloc 异常。
+
+```c++
+// 示例为成员版本
+void* Base::operator new(std::size_t size) throw(std::bad_alloc){
+    using namespace std;
+    if (size != sizeof(Base)){
+        // 防止基类的 operator new 被子类继承
+        // C++ 要求对象必须具有非零大小，因此 sizeof 不可能为 0
+        return ::operator new(size);
+    }
+
+    if (size == 0){
+        // 处理 0 byte 申请，将其视为 1 byte
+        size = 1;
+    }
+    while (true){
+        // 表明其是一个无穷循环
+        尝试分配 size bytes;
+
+        if ( 分配成功 ){
+            return 指针;
+        }
+
+        分配失败
+        // 由于没有所谓 get_new_handler ，因此需要如此操作
+        // 多线程需要锁
+        new_handler globalHandler = set_new_handler(0);
+        set_new_handler(globalHandler);
+
+        if (globalHandler) {
+            (*globalHandler)();
+        } else {
+            throw std::bad_alloc();
+        }
+        
+    }
+}
+```
+
+如果要定制 class 的数组分配行为，则需实现 operator new[] ，读作 array new。在这之中只需分配一块未加工内存即可，因为无法对 array 之内尚未存在的对象做任何事，也不知晓对象实际大小（被子类调用，而子类可能更大，在基类数组中是可以存放子类的）。
+
+对于 operator delete 来说，主要需遵守如下条件：
+
+- 保证删除空指针永远安全。
+
+```c++
+// 示例为成员版本
+void Base::operator delete(void* rawMemroy) throw(){
+    if (rawMemroy == 0) return;
+
+    if (size != sizeof(Base)){
+        ::operator delete(rawMemroy);
+        return;
+    }
+
+    回收 rawMemroy 所指内存
+}
+```

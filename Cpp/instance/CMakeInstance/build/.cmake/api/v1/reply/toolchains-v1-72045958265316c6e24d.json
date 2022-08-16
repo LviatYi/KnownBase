@@ -1,0 +1,137 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include",
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include-fixed",
+						"E:/Environment/mingw-w64/x86_64-w64-mingw32/include"
+					],
+					"linkDirectories" : 
+					[
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0",
+						"E:/Environment/mingw-w64/lib/gcc",
+						"E:/Environment/mingw-w64/x86_64-w64-mingw32/lib",
+						"E:/Environment/mingw-w64/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"iconv",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32"
+					]
+				},
+				"path" : "E:/Environment/mingw-w64/bin/gcc.exe",
+				"version" : "12.1.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include/c++",
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include/c++/x86_64-w64-mingw32",
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include/c++/backward",
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include",
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0/include-fixed",
+						"E:/Environment/mingw-w64/x86_64-w64-mingw32/include"
+					],
+					"linkDirectories" : 
+					[
+						"E:/Environment/mingw-w64/lib/gcc/x86_64-w64-mingw32/12.1.0",
+						"E:/Environment/mingw-w64/lib/gcc",
+						"E:/Environment/mingw-w64/x86_64-w64-mingw32/lib",
+						"E:/Environment/mingw-w64/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"mingw32",
+						"gcc_s",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"iconv",
+						"mingw32",
+						"gcc_s",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"kernel32"
+					]
+				},
+				"path" : "E:/Environment/mingw-w64/bin/g++.exe",
+				"version" : "12.1.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "E:/Environment/mingw-w64/bin/windres.exe"
+			},
+			"language" : "RC",
+			"sourceFileExtensions" : 
+			[
+				"rc",
+				"RC"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

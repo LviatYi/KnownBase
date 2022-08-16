@@ -1,4 +1,4 @@
-# Design Pattern Note
+# Latex Note
 
 ## 目录
 

@@ -30,6 +30,7 @@
 1. [oracle][oracle]
 1. [Software Test 软件测试][softwaretest]
 1. [UML][uml]
+1. [Vcs][vcs]
 1. [XML][xml]
 
 ## 文档规范
@@ -42,21 +43,22 @@
 
 若有部分内容引用自您的文章且未注明出处，请务必与 <a href="mailto:lviatyi@qq.com">LviatYi</a> 联系。
 
-[algorithmdesign]:./AlgorithmDesign/algorithm-design-note.md
-[algorithm]:./Algorithm/algorithm-note.md
-[compilationprinciplenote]:./CompilationPrinciple/compilation-principle-note.md
-[cpp]:./Cpp/cpp-note.md
-[database]:./Database/database-note.md
-[designpattern]:./DesignPattern/design-pattern-note.md
-[gamedev]:./GameDev/game-development-blog.md
-[gamescienceintroduction]:./GameScienceIntroduction/game-science-introduction-note.md
-[html]:./HTML/html-note.md
-[java]:./Java/java-note.md
-[javaspring]:./JavaSpring/java-spring-note.md
-[latex]:./Latex/latex-note.md
-[markdown]:./Markdown/index.md
-[oracle]:./Oracle/oracle-note.md
-[softwaretest]:./SoftwareTest/software-test-note.md
-[uml]:./UML/uml-note.md
-[xml]:./XML/xml-note.md
-[noteguideline]:./NoteGuide/note-guideline.md
+[algorithmdesign]: ./AlgorithmDesign/algorithm-design-note.md
+[algorithm]: ./Algorithm/algorithm-note.md
+[compilationprinciplenote]: ./CompilationPrinciple/compilation-principle-note.md
+[cpp]: ./Cpp/cpp-note.md
+[database]: ./Database/database-note.md
+[designpattern]: ./DesignPattern/design-pattern-note.md
+[gamedev]: ./GameDev/game-development-blog.md
+[gamescienceintroduction]: ./GameScienceIntroduction/game-science-introduction-note.md
+[html]: ./HTML/html-note.md
+[java]: ./Java/java-note.md
+[javaspring]: ./JavaSpring/java-spring-note.md
+[latex]: ./Latex/latex-note.md
+[markdown]: ./Markdown/index.md
+[oracle]: ./Oracle/oracle-note.md
+[softwaretest]: ./SoftwareTest/software-test-note.md
+[uml]: ./UML/uml-note.md
+[vcs]: ./Vcs/vcs-note.md
+[xml]: ./XML/xml-note.md
+[noteguideline]: ./NoteGuide/note-guideline.md

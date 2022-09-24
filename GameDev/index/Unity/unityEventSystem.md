@@ -48,6 +48,10 @@
 
 通常 Canvas 自带 Graphic Raycaster，当场景加入其他 Raycaster，EventSystem 将会检测相应物理元素。
 
+## 事件定义
+
+自定义消息
+
 ## 事件处理
 
 有两种方式对事件进行处理：

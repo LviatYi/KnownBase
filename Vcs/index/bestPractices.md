@@ -71,3 +71,5 @@ feat!: send an email to the customer when a product is shipped
 - 除了 `BREAKING CHANGE`，脚注的 token 必须使用 `-` 作为连字符。
 - 脚注必须使用 `:<space>` 或 `<space>#` 作为 token 与 value 的分隔符。
 - 如果提交了破坏式变更，若没有在 **类型 type** 后添加 `!` ，则必须包含 `BREAKING CHANGE` 脚注。
+
+test gravatar image

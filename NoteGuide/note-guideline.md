@@ -71,4 +71,4 @@ $$
 
 [Markdown Style Guide][styleguideline]
 
-[styleguideline]: ../MarkdownNote/Markdown-style-guide/index.md
+[styleguideline]: ../Markdown/Markdown-style-guide/index.md

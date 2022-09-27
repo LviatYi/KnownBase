@@ -8,7 +8,8 @@
 
 ### 文献
 
-[Microsoft | C# Code Convention][csharpcodeconvention]
+[Microsoft | C# Code Convention][csharpcodeconvention]  
+[Github Dotnet Styleguide][dotnetstyleguide]
 
 ## 开发环境
 
@@ -20,3 +21,4 @@ ReSharper 2022.1.1
 `v1.00`
 
 [csharpcodeconvention]: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
+[dotnetstyleguide]: https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md

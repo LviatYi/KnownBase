@@ -67,7 +67,7 @@ Unity 中没有最完美的文件结构可供参考，这并不意味着可以�
 
 ### 代码命名
 
-详情参考 C# 命名约定。
+详情参考 [C# 命名约定][csharpcodeconvention]。
 
 ## 拆分资产
 
@@ -79,4 +79,6 @@ Unity 中没有最完美的文件结构可供参考，这并不意味着可以�
 
 ## 使用预设
 
-通过创建预设，可以提高复用性，便于项目管理。
+通过创建 Prefab ，可以提高复用性，便于项目管理。
+
+[csharpcodeconvention]: ../../../CSharp/index/csharpCodeConvention.md

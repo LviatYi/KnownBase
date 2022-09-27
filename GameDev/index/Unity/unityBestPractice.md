@@ -35,17 +35,16 @@ Unity 中没有最完美的文件结构可供参考，这并不意味着可以�
     │  ├─ Sprite
     │  │  └─ Tile
     │  ├─ Terrain
+    │  ├─ Config
     │  └─ ScriptableObject
-    ├─ Src
-    │  ├─ Script
-    │  ├─ Shader
-    │  └─ Test
+    ├─ Scripts
     ├─ Game
     │  ├─ Camera
     │  └─ UI
     ├─ Scenes
     ├─ UI Toolkit
     ├─ Editor
+    ├─ Test
     └─ Third
 ```
 

@@ -2,7 +2,7 @@
 
 ## 目录
 
-1. [C# 编程约定](index/csharpCodeConvention.md)
+1. [C# 编码约定](index/csharpCodeConvention.md)
 
 ## 参考资料
 

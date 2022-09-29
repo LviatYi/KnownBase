@@ -77,7 +77,7 @@ public interface IWalkable{
 }
 ```
 
-#### `public` 成员（字段、属性、事件）的命名 **_必须_** 使用 Pascal case
+#### `public` 成员（字段、事件）的命名 **_必须_** 使用 Pascal case
 
 ```Csharp
 public class Student{
@@ -87,7 +87,7 @@ public class Student{
 
 - `record` 成员的所有参数命名都 **_必须_** 使用 Pascal case，因为它们是公共属性。
 
-#### 所有方法的命名 **_必须_** 使用 Pascal case
+#### 所有方法与属性的命名 **_必须_** 使用 Pascal case
 
 ```Csharp
 public class Student{

@@ -118,6 +118,21 @@ public T SomeMethod<T>(int someNumber, bool isValid){
 
 ---
 
+### 复数
+
+#### 枚举类名 **_必须_** 使用名词复数
+
+**_推荐_** 以 Type 或 Statu 结尾。
+
+```csharp
+enum Directions{
+    Left,
+    Right,
+}
+```
+
+---
+
 ## 编码风格
 
 ### 缩进

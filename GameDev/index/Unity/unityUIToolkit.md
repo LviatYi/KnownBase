@@ -1,15 +1,15 @@
 # Unity UIToolkit
 
-UIToolkit 是 Unity 下一代 UI 系统。前身为发布于 Unity 2018 的 UIElement，设计目标在于取代 UGUI。
+UIToolkit (UITK) 是 Unity 下一代 UI 系统。前身为发布于 Unity 2018 的 UIElement，设计目标在于取代 UGUI。
 
-UIToolkit 使用 XML 表示界面布局，使用 CSS 描述样式。
+UITK 使用 XML 表示界面布局，使用 CSS 描述样式。
 
-UIToolkit 提供了 UIBuilder 编辑器编写上述文件。
+UITK 提供了 UIBuilder 编辑器编写上述文件。
 
-UIToolkit 相比于 UGUI 的优越性：
+UITK 相比于 UGUI 的优越性：
 
 - 传统 UGUI 将 UI 元素保存为 GameObject ，这意味着需要存储一系列序列化数据，带来无意义的开销。
-- UIToolkit 提供了默认信息，因此可以只保留需要修改的部分，使描述信息精简化。
+- UITK 提供了默认信息，因此可以只保留需要修改的部分，使描述信息精简化。
 
 ## UIBuilder
 
@@ -210,3 +210,33 @@ $$
 容器 flex 布局的换行性。
 
 `nowrap|wrap|wrap-reverse`
+
+---
+
+### transition 类
+
+决定元素指定属性的过渡。
+
+当监测到指定属性发生变化时，UITK 将计算插值，生成补间动画。
+
+属性变化前后的单位应保持一致，否则过渡失败。
+
+---
+
+## UI Panel Settings
+
+### Scale Mode
+
+#### Constant Pixel Size
+
+不考虑屏幕大小，元素大小完全按照设定的像素值。
+
+#### Constant Physical Size
+
+根据参考 DPI (Reference DPI) 与实际系统 DPI 进行比较，若不同，则将缩放 UI。
+
+即将参考系统缩放。
+
+#### Scale With Screen Size
+
+根据参考分辨率与实际系统分辨率进行比较，若不同，则将缩放 UI。

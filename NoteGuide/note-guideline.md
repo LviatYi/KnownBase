@@ -3,7 +3,7 @@
 ## 文档属性
 
 作者：LviatYi  
-最后更新时间： 2022/4/29
+最后更新时间： 2022/11/05
 
 ## 符号约定
 
@@ -25,7 +25,7 @@
 ### 根目录名称
 
 $$
-subject\_ name\_ en
+subject\text{\_} name\text{\_} en
 $$
 
 Pascal 法。
@@ -39,7 +39,7 @@ Pascal 法。
 #### 概述文件名称
 
 $$
-subject\_ name\_ en[+ category\_ name \_ en]
+subject\text{\_} name\text{\_} en[+ category\text{\_} name \text{\_} en]
 $$
 
 以 **-** 分隔单词，全小写。

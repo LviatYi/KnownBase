@@ -25,7 +25,7 @@
 ### 根目录名称
 
 $$
-subject\_ name \_ en
+subject\underline{\hspace{5px}} name \_ en
 $$
 
 Pascal 法。

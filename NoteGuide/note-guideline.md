@@ -25,7 +25,7 @@
 ### 根目录名称
 
 $$
-subject\underline{\hspace{5px}} name \_ en
+subject\underline{\hspace{5px}} name \underline{\hspace{5px}} en
 $$
 
 Pascal 法。
@@ -39,7 +39,7 @@ Pascal 法。
 #### 概述文件名称
 
 $$
-subject\_ name\_ en[+ category\_ name \_ en]
+subject\underline{\hspace{5px}} name\underline{\hspace{5px}} en[+ category\underline{\hspace{5px}} name \underline{\hspace{5px}} en]
 $$
 
 以 **-** 分隔单词，全小写。

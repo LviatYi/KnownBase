@@ -240,3 +240,49 @@ $$
 #### Scale With Screen Size
 
 根据参考分辨率与实际系统分辨率进行比较，若不同，则将缩放 UI。
+
+---
+
+## 事件监听
+
+### 事件调度
+
+UITK 事件系统监听来自操作系统或脚本的时间，并借助 EventDispatcher 将时间分发到 Visual Element。
+
+事件具有如下声明周期：
+
+![事件生命周期](https://docs.unity3d.com/cn/current/uploads/Main/UIElementsEvents.png)
+
+- **涓滴阶段** (trickle-down) 事件从视觉元素树的根部开始向目标下降。
+- **目标阶段** (target) 事件目标接受事件。
+- **冒泡阶段** (bubble-up) 事件沿树上升到根。
+
+大多数事件拥有完整的生命周期，小部分事件可能跳过其中某些阶段。
+
+如果元素被隐藏或被禁用，它将不会接受事件，但事件仍会传播到其后代和祖先。
+
+**事件目标** 取决于事件类型。
+
+- 对于鼠标事件，目标一般为鼠标下方最上层的可选元素。
+- 对于键盘事件，目标一般为当前获得焦点的元素。
+
+### 事件处理
+
+事件处理具有如下顺序：
+
+1. 处理涓滴阶段抵达元素的回调。
+2. 执行事件目标的回调。
+3. 执行事件目标的 `ExecuteDefaultActionAtTarget()` 。
+4. 执行冒泡阶段抵达元素的回调。
+5. 执行事件目标的 `ExecuteDefaultAction()` 。
+
+使用 `(element.RegisterCallback<SomeEvent>(MyCallback,...))` 注册回调；  
+使用 `(element.UnregisterCallback<SomeEvent>(MyCallback,...))` 取消回调。
+
+默认在冒泡阶段与目标阶段执行回调。使用 `TrickleDown.TrickleDown` 作为参数可在涓滴阶段和目标阶段执行回调。
+
+回调函数签名：
+
+```csharp
+void MyCallback(SomeEvent evt){}
+```

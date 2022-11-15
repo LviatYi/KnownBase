@@ -132,3 +132,70 @@
 不同物体渲染后可能叠加在相同的像素上，对于不透明物体，可以关闭 **混合** (Blend) 操作。而对于半透明物体，则需要使用混合操作。
 
 ![混合操作](http://static.zybuluo.com/candycat/28t2ora2kenj1uudwfgfig95/Stencil%20Test_Depth%20Test.png)
+
+## Unity Shader
+
+Unity 提供了 Unity Shader 以提高 Shader 开发效率。
+
+Unity Shader 与材质 (Meterial) 共同配合以渲染对象。
+
+### ShaderLab
+
+Unity Shader 是 Unity 提供的高层级渲染抽象层。
+
+![Unity Shader](http://static.zybuluo.com/candycat/mfyfmiwipc220l4v8iowww6k/shaderlab_abstract.png)
+
+ShaderLab 是一种用于编写 Unity Shader 的说明性语言，描述了显示一个材质所需的所有定义，而不仅仅是着色器代码。
+
+Unity 将根据所使用的平台将 ShaderLab 编译成真正的代码和 Shader 文件。
+
+### Unity Shader 结构
+
+```unityShader {.line-numbers}
+// Unity Shader 的基础结构
+Shader "ShaderName" {
+  Properties {
+    // 属性
+  }
+  SubShader{
+    // 显卡 A 使用的子着色器
+  }
+  SubShader{
+    // 显卡 B 使用的子着色器
+  }
+  Fallback "VertexLit"
+}
+```
+
+#### Shader Name
+
+line 2 `Shader "ShaderName"`
+
+定义 Shader 名称，可同时定义下拉列表，如 "Custom/ShaderName"
+
+#### 属性块
+
+line 3 `Properties{}`
+
+定义 Shader 属性，这些属性将出现在编辑器的材质面板中。
+
+属性使用如下语法：
+
+`Name ("display name", PropertyType) = DefaultValue`
+
+- `Name` 属性名
+  用于在 Shader 中访问的标识符。
+- `display name` Editor 显示名
+  编辑器中的显示名称。
+- `PropertyType` 类型
+  编辑器中的类型。
+- `DefaultValue` 默认值
+
+```unityShader
+Properties {
+  _Color ("Color", Color) = (1,1,1,1)
+  _Glossiness ("Smoothness", Range(0,1)) = 0.5
+}
+```
+
+See-also [SL-Properties | Unity](https://docs.unity3d.com/Manual/SL-Properties.html)

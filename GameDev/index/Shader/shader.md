@@ -183,12 +183,9 @@ line 3 `Properties{}`
 
 `Name ("display name", PropertyType) = DefaultValue`
 
-- `Name` 属性名
-  用于在 Shader 中访问的标识符。
-- `display name` Editor 显示名
-  编辑器中的显示名称。
-- `PropertyType` 类型
-  编辑器中的类型。
+- `Name` 属性名用于在 Shader 中访问的标识符。
+- `display name` Editor 显示名编辑器中的显示名称。
+- `PropertyType` 类型编辑器中的类型。
 - `DefaultValue` 默认值
 
 ```unityShader
@@ -198,4 +195,179 @@ Properties {
 }
 ```
 
-See-also [SL-Properties | Unity](https://docs.unity3d.com/Manual/SL-Properties.html)
+See-also [SL-Properties | Unity][sl-properties]
+
+![所有 ShaderLab 支持的属性](../../pic/shaderLabProperties.png)
+
+![所有 ShaderLab 支持的属性在检视窗口](/assets/shaderPropertiesInspector.png)
+
+Unity 支持重载默认的材质编辑面板。
+
+#### SubShader
+
+line 6 `SubShader{}`
+
+定义了 LOD 、一系列 **通道 `Pass`** 以及可选的 **标签 `tags`** 和 **命令 `commands`** 。
+
+每个 Unity Shader 最少 1 个。当 Unity 加载 Unity Shader 时，将扫描所有 SubShader 语义块，然后选择首个可以在目标平台运行的 SubShader，否则使用 Fallback 定义的 Unity Shader。
+
+- **命令** 将 GPU 指令或着色器代码添加到 SubShader。主要分为以下类别：
+
+  - 用于在 GPU 上设置渲染状态的命令。
+  - 用于创建具有特定用途的通道。
+  - 如果使用旧版「fixed function style」命令，无需编写 HLSL 也可创建着色器程序。
+
+  | 命令名称 | 解释 |
+  | --- | --- |
+  | AlphaToMask | 设置 alpha-to-coverage 模式 |
+  | Blend | 启用和配置 alpha 混合 |
+  | BlendOp | 设置 Blend 命令使用的操作 |
+  | ColorMask | 设置颜色通道写入掩码 |
+  | Conservative | 启用和禁用保守光栅化 |
+  | Cull | 设置多边形剔除模式 |
+  | Offset | 设置多边形深度偏移 |
+  | Stencil | 配置模板测试，以及向模板缓冲区写入的内容 |
+  | ZClip | 设置深度剪辑模式 |
+  | ZTest | 设置深度测试模式 |
+  | ZWrite | 设置深度缓冲区写入模式 |
+  | UsePass | 定义一个通道，它从另一个 Shader 对象导入指定的通道的内容 |
+  | GrabPass | 创建一个通道，将屏幕内容抓取到纹理中，以便在之后的通道中使用 |
+
+  See-also [Shaderlab Commands | Unity][shaderlab-commands]
+
+- **标签** 是一个 **键值对**，其键与值都是字符串。  
+  Unity 具有一系列预定义的标签，也可以自定义标签。
+
+  | 标签名称 | 说明 |
+  | --- | --- |
+  | Queue | 向 Unity 告知要用于它渲染的几何体的渲染队列。渲染队列是确定 Unity 渲染几何体的顺序的因素之一 |
+  | RenderType | 可覆盖 Shader 对象的行为 可用于着色器替换 |
+  | ForceNoShadowCasting | 阻止子着色器中的几何体投射（有时是接收）阴影。确切行为取决于渲染管线和渲染路径 |
+  | DisableBatching | 阻止 Unity 将动态批处理应用于使用此子着色器的几何体 |
+  | IgnoreProjector | （仅内置渲染管线）向 Unity 告知几何体是否受投影器影响 |
+  | PreviewType | 告知 Unity 编辑器如何在材质 Inspector 中显示使用此子着色器的材质 |
+  | CanUseSpriteAtlas | 在使用 Legacy Sprite Packer 的项目中使用此子着色器标签可警告用户着色器依赖于原始纹理坐标，因此不应将其纹理打包到图集中 |
+
+  See-also [Shaderlab Tags | Unity][shaderlab-tags]
+
+  标签可以通过 C# 访问。
+
+  ```Csharp
+  Renderer myRenderer = GetComponent<Renderer>();
+  string tagValue = myRenderer.material.GetTag(ExampleTagName, true, "Tag not found");
+  ```
+
+- **通道** 定义了一次完整的渲染流程。  
+  过多的 `Pass` 数量将造成渲染性能下降。
+
+  Pass 示例：
+
+  ```unityShader
+  Pass {
+    Name "ExamplePassName" // Pass 名称
+    Tags { "ExampleTagKey" = "ExampleTagValue" }
+
+    // Commands
+
+    // HLSL Code
+  }
+  ```
+
+  通过定义名称可以使用 UsePass 命令在其他 Unity Shader 中使用该 Pass。在内部，Unity 将名称转换为 **大写**。
+
+  通道可使用 **通道标签**，与 **SubShader 标签** 不同，因此 SubShader 中的预定义标签不能与通道预定义标签混用。  
+  通道预定义标签包括：
+
+  | 标签名称    | 说明                                         |
+  | ----------- | -------------------------------------------- |
+  | `LightMode` | 用于所有渲染管线。其他通道标签因渲染管线而异 |
+
+  See-also [Shaderlab Pass Tags | Unity][shaderlab-passtags]
+
+#### Fallback
+
+line 12 `Fallback "name"`
+
+设定回退 shader ，当不存在可用 SubShader 时，调用指定 shader。
+
+设定 `Off` 时取消回退。
+
+#### Catagory
+
+`Catagory{}` 语义块用于定义一个空间，用于将某个命令的生命周期限定在块内。
+
+### Unity Shader 形式
+
+可编程管线的着色器包括：
+
+- 表面着色器
+  - 善于处理复杂的光照情况。
+  - 损失一定性能。
+- 顶点 / 片元着色器
+  - 更加灵活的渲染效果。
+
+不可编程管线的着色器包括：
+
+- 固定函数着色器
+
+固定函数着色器为非常老旧的设备提供支持。
+
+#### 表面着色器
+
+**表面着色器 (Surface shader)** 是 Unity 提供的顶点、片元着色器的一层抽象，其提供对光照细节的处理。
+
+表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，将 HLSL 转换为 CG。而 CG 本身已经渐渐被淘汰。
+
+Shader 语句由 `HLSLPROGRAM` 起始，由 `ENDHLSL` 结尾。
+
+```unityShader
+Shader "Custom/Simple Surface Shader" {
+  SubShader {
+    Tags { "RenderType" = "Opaque" }
+
+    HLSLPROGRAM
+    #pragma surface surf Lambert
+    struct Input {
+      float4 color : COLOR;
+    };
+    void surf ( Input IN , inout SurfaceOutput o ) {
+      o.Albedo = 1;
+    }
+    ENDHLSL
+  }
+  Fallback "Diffuse"
+}
+```
+
+#### 顶点 / 片元着色器
+
+顶点 / 片元着色器 (Vertex/Fragment Shader) 具有更复杂的功能与更高的灵活性。
+
+顶点 / 片元着色器定义于 Pass 语义块。
+
+```unityShader
+Shader "Custom/Simple VertexFragment Shader" {
+  SubShader {
+    Pass {
+      HLSLPROGRAM
+      #pragma vertex vert
+      #pragma fragment frag
+
+      float4 vert(float4 v : POSITION) : SV_POSITION {
+        return mul( UNITY_MATRIX_MVP , v);
+      }
+
+      fixed4 frag() : SV_Target {
+        return fixed4( 1.0 , 0.0 , 0.0 , 1.0 );
+      }
+
+      ENDHLSL
+    }
+  }
+}
+```
+
+[sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
+[shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
+[shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
+[shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html

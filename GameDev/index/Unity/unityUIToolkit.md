@@ -318,11 +318,13 @@ VisualElement 提供了计划任务，以在设定的规则下调用 Action，�
 | 方法签名 | 说明 |
 | --- | --- |
 | `Every(long intervalMs)` | 每 `intervalMs` 调用一次 |
-| `ExecuteLater(long delayMs)` | 设定在 `delayMs` 后首次调用计划任务 |
+| `ExecuteLater(long delayMs)` | 设定在 `delayMs` 后重新调用计划任务 |
 | `ForDuration(long durationMs)` | 在 `durationMs` 后取消计划任务 |
 | `Pause()` | 暂停计划任务 |
 | `Resume()` | 继续计划任务 |
-| `StartingIn(long delayMs)` | 设定在 `delayMs` 后首次调用计划任务，可以继续链式调用 |
+| `StartingIn(long delayMs)` | 设定在 `delayMs` 后调用计划任务，可以继续链式调用 |
 | `Until(Func<bool> stopCondition)` | 当条件为 `false` 时取消计划任务 |
+
+`ExecuteLater` 在内部调用 `StartingIn` ，但其会 `Resume` 计划任务。
 
 [uitk-event]: https://docs.unity3d.com/Manual/UIE-Events-Reference.html

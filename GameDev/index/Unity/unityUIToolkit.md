@@ -311,3 +311,18 @@ VisualElement 提供了计划任务，以在设定的规则下调用 Action，�
 
 若要对同一个行为进行多次控制，应保留对返回值 `IVisualElementScheduledItem` 的引用。
 
+### `IVisualElementScheduledItem` 调用时机
+
+单位默认为毫秒 (ms)。
+
+| 方法签名 | 说明 |
+| --- | --- |
+| `Every(long intervalMs)` | 每 `intervalMs` 调用一次 |
+| `ExecuteLater(long delayMs)` | 设定在 `delayMs` 后首次调用计划任务 |
+| `ForDuration(long durationMs)` | 在 `durationMs` 后取消计划任务 |
+| `Pause()` | 暂停计划任务 |
+| `Resume()` | 继续计划任务 |
+| `StartingIn(long delayMs)` | 设定在 `delayMs` 后首次调用计划任务，可以继续链式调用 |
+| `Until(Func<bool> stopCondition)` | 当条件为 `false` 时取消计划任务 |
+
+[uitk-event]: https://docs.unity3d.com/Manual/UIE-Events-Reference.html

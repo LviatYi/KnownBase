@@ -286,3 +286,28 @@ UITK 事件系统监听来自操作系统或脚本的时间，并借助 EventDis
 ```csharp
 void MyCallback(SomeEvent evt){}
 ```
+
+### 事件参考
+
+See Also [UITK Event | Unity][uitk-event]
+
+## 计划任务
+
+由于 UITK 的特殊性，其可视元素的生命周期与 Unity GameObject 生命周期有所不同。
+
+比如，在某组件中的 `Update()` 中新增了新的可视元素，但并不会立即完成实例化。这就意味着其许多参数并未立即完成初始化，比如大小、位置。
+
+VisualElement 提供了计划任务，以在设定的规则下调用 Action，可以弥补上述问题。
+
+### `VisualElement.schedule.Execute(Action action)`
+
+为 action 生成计划任务。
+
+`action` 为需要进行计划任务的实际行为。
+
+返回 `IVisualElementScheduledItem` 接口，借助其可以对计划任务进行控制。
+
+- 具有一系列方法，以提供在特定时机调用的保证。
+
+若要对同一个行为进行多次控制，应保留对返回值 `IVisualElementScheduledItem` 的引用。
+

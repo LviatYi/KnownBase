@@ -316,7 +316,7 @@ line 12 `Fallback "name"`
 
 **表面着色器 (Surface shader)** 是 Unity 提供的顶点、片元着色器的一层抽象，其提供对光照细节的处理。
 
-表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，将 HLSL 转换为 CG。而 CG 本身已经渐渐被淘汰。
+表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，允许将 HLSL 转换为 CG。而 CG 本身已经渐渐被淘汰。
 
 Shader 语句由 `HLSLPROGRAM` 起始，由 `ENDHLSL` 结尾。
 
@@ -367,7 +367,12 @@ Shader "Custom/Simple VertexFragment Shader" {
 }
 ```
 
+## Shader 数学基础
+
+[Miscellaneous Math | LearningNote][learningnote-mm]
+
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
+[learningnote-mm]: ../../../ComputerGraphics/index/miscellaneousMath.md

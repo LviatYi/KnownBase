@@ -371,8 +371,45 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 [Miscellaneous Math | LearningNote][learningnote-mm]
 
+### Unity Shader 内置变换矩阵
+
+![Unity 坐标空间与变换](http://static.zybuluo.com/candycat/z0ibvp779phr1hb0l902n1qy/vertex_conversion.png)
+
+| 名称                  | 说明                           |
+| --------------------- | ------------------------------ |
+| `UNITY_MATRIX_MVP`    | 从模型空间变换到裁剪空间       |
+| `UNITY_MATRIX_MV`     | 从模型空间变换到观察空间       |
+| `UNITY_MATRIX_V`      | 从世界空间变换到观察空间       |
+| `UNITY_MATRIX_P`      | 从观察空间变换到裁剪空间       |
+| `UNITY_MATRIX_VP`     | 从世界空间变换到裁剪空间       |
+| `UNITY_MATRIX_T_MV`   | `UNITY_MATRIX_MV` 的转置矩阵   |
+| `UNITY_MATRIX_IT_MV`  | `UNITY_MATRIX_MV` 的逆转置矩阵 |
+| `unity_ObjectToWorld` | 从模型空间变换到世界空间       |
+| `unity_WorldToObject` | 从世界空间变换到模型空间       |
+
+### Unity Shader 内置摄像机和屏幕参数
+
+- **Near** 近裁切平面到摄像机的距离。
+- **Far** 远裁切平面到摄像机的距离。
+- **width** 摄像机渲染目标的像素宽度。
+- **height** 摄像机渲染目标的像素高度。
+
+| 名称 | 类型 | 值 |
+| --- | --- | --- |
+| `WorldSpaceCameraPos` | `float3` | 摄像机的世界空间位置 |
+| `ProjectionParams` | `float4` | $x=1.0$（如果当前使用翻转投影矩阵进行渲染，则为 $–1.0$），$y=Near$，$z=Far$，$w=\frac{1}{Far}$ |
+| `ScreenParams` | `float4` | $x=width$，$y=height$，$z=1.0 + 1.0/width$，$w=1.0+1.0/height$ |
+| `ZBufferParams` | `float4` | $x = 1− \frac{Far}{Near}$，$y = \frac{Far}{Near}$，$z = \frac{x}{Far}$，$w = \frac{y}{Far}$ |
+| `unity_OrthoParams` | `float4` | $x=正交摄像机的宽度$，$y=正交摄像机的高度$，$z$ 未定义，$w$ 在摄像机为正交模式时是 $1.0$，而在摄像机为透视模式时是 $0.0$ |
+| `unity_CameraProjection` | `float4x4` | 摄像机的投影矩阵 |
+| `unity_CameraInvProjection` | `float4x4` | 摄像机投影矩阵的逆矩阵 |
+| unity_CameraWorldClipPlanes[6] | `float4` | 摄像机视锥体平面世界空间方程，按以下顺序：左、右、底、顶、近、远 |
+
+更多内置变量 See also [Unity Shader variables | Unity][unityshadervariables]
+
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
 [learningnote-mm]: ../../../ComputerGraphics/index/miscellaneousMath.md
+[unityshadervariables]: https://docs.unity3d.com/cn/current/Manual/SL-UnityShaderVariables.html

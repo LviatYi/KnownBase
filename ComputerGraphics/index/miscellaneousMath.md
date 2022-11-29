@@ -24,6 +24,8 @@ $
 
 ### 2.2.1 点乘 Dot Product
 
+**点乘** 即 **内积**。
+
 #### 点乘定义
 
 $$
@@ -80,6 +82,8 @@ $k=\lVert \vec{b}_{\perp} \rVert=\lVert \vec{b} \rVert \cos{\theta}$
 ![判断向量朝向](../pic/determineTowards.png)
 
 ### 2.2.2 叉乘 Cross Product
+
+**叉乘** 即 **外积**。
 
 #### 叉乘定义
 

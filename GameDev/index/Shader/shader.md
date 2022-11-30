@@ -407,9 +407,87 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 更多内置变量 See also [Unity Shader variables | Unity][unityshadervariables]
 
+## HLSL in Shader Lab
+
+### Pragma 指令
+
+Pragma 指令是一种预处理器指令。它们向着色器编译器提供其他类型的预处理器指令未涵盖的其他信息。
+
+#### 表面着色器指令
+
+```unityShader
+#pragma surface <surface function> <lighting model> [optional parameters]
+```
+
+声明 `<surface function>` 作为表面着色器。
+
+- `<lighting model>` 使用的光照模型。
+
+---
+
+#### 常规着色器指令
+
+```unityShader
+#pragma vertex <name>
+```
+
+声明函数为顶点着色器。
+
+- 必需的
+- `<name>` 函数名称
+
+---
+
+```unityShader
+#pragma fragment <name>
+```
+
+声明函数为片元着色器。
+
+- 必需的
+- `<name>` 函数名称
+
+---
+
+```unityShader
+#pragma geometry <name>
+```
+
+声明函数为几何着色器。
+
+- 将自动添加 `#pragma require geometry`
+- `<name>` 函数名称
+
+---
+
+```unityShader
+#pragma hull <name>
+```
+
+声明函数为 hull 着色器。
+
+- 将自动添加 `#pragma require tessellation`
+- `<name>` 函数名称
+
+---
+
+```unityShader
+#pragma domain <name>
+```
+
+声明函数为 domail 着色器。
+
+- 将自动添加 `#pragma require tessellation`
+- `<name>` 函数名称
+
+---
+
+See Also [Pragma in HLSL | Unity][shaderlab-pragma]
+
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
 [learningnote-mm]: ../../../ComputerGraphics/index/miscellaneousMath.md
 [unityshadervariables]: https://docs.unity3d.com/cn/current/Manual/SL-UnityShaderVariables.html
+[shaderlab-pragma]:https://docs.unity3d.com/cn/current/Manual/SL-PragmaDirectives.html

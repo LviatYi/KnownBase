@@ -484,10 +484,249 @@ Pragma 指令是一种预处理器指令。它们向着色器编译器提供其�
 
 See Also [Pragma in HLSL | Unity][shaderlab-pragma]
 
+### 语义
+
+语义是附加到着色器输入或输出的字符串，用于传达有关参数预期使用的信息。
+
+着色器阶段之间传递的所有变量都需要语义。
+
+See Also [Semantic in HLSL | Unity][shaderlab-semantic]
+
+## Unity 基础光照
+
+### 漫反射光照模型
+
+#### 兰伯特光照模型
+
+$$
+c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) max(0, \vec{n}\cdot \vec{l})
+$$
+
+- $c_\text{diffuse}$ 漫反射光的颜色和强度。
+- $c_\text{light}$ 入射光线的颜色和强度。
+- $m_{\text{diffuse}}$ 材质的漫反射系数。
+- $\vec{n}$ 表面法线。
+- $\vec{l}$ 光源方向。
+
+逐顶点 Shader：
+
+```shaderlab
+Shader "Custom/Shader-exmp-03" {
+    Properties {
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+    }
+
+    SubShader {
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            float4 _Diffuse;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 color : COLOR;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                // Transform the vertex from object space to projection space
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                // Get ambient term
+                float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // Transform the normal fram object space to world space
+                float3 worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
+                // Get the light direction in world space
+                float3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
+                // Compute diffuse term
+                float3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
+
+                o.color.xyz = ambient + diffuse;
+
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                return float4(i.color, 0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+![shader-exmp-03](/assets/shader-exmp-03.png)
+
+逐片元 Shader：
+
+```Shaderlab
+Shader "Custom/Shader-exmp-04" {
+    Properties {
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+    }
+
+    SubShader {
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            float4 _Diffuse;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                // Transform the vertex from object space to projection space
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
+
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                // 逐片元处理 交界处将获得更加细腻的渲染
+
+                // Get ambient term
+                float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // Get the light direction in world space
+                float3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
+
+                // Compute diffuse term
+                float3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(i.worldNormal, worldLight));
+
+                return float4(ambient + diffuse, 0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+![shader-exmp-04](/assets/shader-exmp-04.png)
+
+#### 半兰伯特光照模型
+
+$$
+c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) (\alpha (\vec{n}\cdot \vec{l})+\beta)
+$$
+
+- $c_\text{diffuse}$ 漫反射光的颜色和强度。
+- $c_\text{light}$ 入射光线的颜色和强度。
+- $m_{\text{diffuse}}$ 材质的漫反射系数。
+- $\vec{n}$ 表面法线。
+- $\vec{l}$ 光源方向。
+- $\alpha$ 缩放倍数。
+- $\beta$ 偏移量
+
+半兰伯特光照模型提高了整体亮度，支持了背面的明暗变化。
+
+```unityShader
+Shader "Custom/Shader-exmp-05" {
+    Properties {
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+    }
+
+    SubShader {
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            float4 _Diffuse;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                // Transform the vertex from object space to projection space
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
+
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                // 逐片元处理 交界处将获得更加细腻的渲染
+
+                // Get ambient term
+                float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // Get the light direction in world space
+                float3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
+
+                // Compute diffuse term
+                float3 diffuse = _LightColor0.rgb * _Diffuse.rgb * (saturate(dot(i.worldNormal, worldLight) * 0.4) + 0.2);
+
+                return float4(ambient + diffuse, 0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+![半兰伯特光照模型](../../pic/halfLambert.png)
+
+### 高光反射模型
+
+$$
+c_{\text{specular}} = (c_{\text{light}} \cdot m_{\text{specular}}) max(0,\vec{v}\cdot\vec{r})^{m_\text{gloss}}
+$$
+
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
 [learningnote-mm]: ../../../ComputerGraphics/index/miscellaneousMath.md
 [unityshadervariables]: https://docs.unity3d.com/cn/current/Manual/SL-UnityShaderVariables.html
-[shaderlab-pragma]:https://docs.unity3d.com/cn/current/Manual/SL-PragmaDirectives.html
+[shaderlab-pragma]: https://docs.unity3d.com/cn/current/Manual/SL-PragmaDirectives.html
+[shaderlab-semantic]: https://learn.microsoft.com/zh-cn/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics

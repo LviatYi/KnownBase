@@ -396,14 +396,26 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 | 名称 | 类型 | 值 |
 | --- | --- | --- |
-| `WorldSpaceCameraPos` | `float3` | 摄像机的世界空间位置 |
-| `ProjectionParams` | `float4` | $x=1.0$（如果当前使用翻转投影矩阵进行渲染，则为 $–1.0$），$y=Near$，$z=Far$，$w=\frac{1}{Far}$ |
-| `ScreenParams` | `float4` | $x=width$，$y=height$，$z=1.0 + 1.0/width$，$w=1.0+1.0/height$ |
-| `ZBufferParams` | `float4` | $x = 1− \frac{Far}{Near}$，$y = \frac{Far}{Near}$，$z = \frac{x}{Far}$，$w = \frac{y}{Far}$ |
+| `_WorldSpaceCameraPos` | `float3` | 摄像机的世界空间位置 |
+| `_ProjectionParams` | `float4` | $x=1.0$（如果当前使用翻转投影矩阵进行渲染，则为 $–1.0$），$y=Near$，$z=Far$，$w=\frac{1}{Far}$ |
+| `_ScreenParams` | `float4` | $x=width$，$y=height$，$z=1.0 + 1.0/width$，$w=1.0+1.0/height$ |
+| `_ZBufferParams` | `float4` | $x = 1− \frac{Far}{Near}$，$y = \frac{Far}{Near}$，$z = \frac{x}{Far}$，$w = \frac{y}{Far}$ |
 | `unity_OrthoParams` | `float4` | $x=正交摄像机的宽度$，$y=正交摄像机的高度$，$z$ 未定义，$w$ 在摄像机为正交模式时是 $1.0$，而在摄像机为透视模式时是 $0.0$ |
 | `unity_CameraProjection` | `float4x4` | 摄像机的投影矩阵 |
 | `unity_CameraInvProjection` | `float4x4` | 摄像机投影矩阵的逆矩阵 |
 | unity_CameraWorldClipPlanes[6] | `float4` | 摄像机视锥体平面世界空间方程，按以下顺序：左、右、底、顶、近、远 |
+
+### Unity Shader 内置光照变量
+
+| 名称 | 类型 | 值 |
+| --- | --- | --- |
+| `_LightColor0` (UnityLightingCommon.cginc) | `fixed4` | 光源颜色 |
+| `_WorldSpaceLightPos0` | `float4` | 平行光：`xyz=光源朝向的反向（物体点的入射方向的负向量）`  `w=0`；其他光源：`xyz=光源位置`  `w=1` |
+| `unity_WorldToLight` (AutoLight.cginc) | `float4x4` | 世界/光源矩阵。用于对剪影和衰减纹理进行采样 |
+| `unity_4LightPosX0 \unity_4LightPosY0 \unity_4LightPosZ0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的世界空间位置 |
+| `unity_4LightAtten0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的衰减因子 |
+| `unity_LightColor` | `half4[4]` | [ForwardBase 通道] 前四个非重要点光源的颜色 |
+| `unity_WorldToShadow` | `float4x4[4]` | 世界到阴影矩阵。一个矩阵用于聚光灯，最多四个用于定向光级联 |
 
 更多内置变量 See also [Unity Shader variables | Unity][unityshadervariables]
 

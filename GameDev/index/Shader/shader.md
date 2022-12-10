@@ -387,7 +387,7 @@ Shader "Custom/Simple VertexFragment Shader" {
 | `unity_ObjectToWorld` | 从模型空间变换到世界空间       |
 | `unity_WorldToObject` | 从世界空间变换到模型空间       |
 
-### Unity Shader 内置摄像机和屏幕参数
+### Unity Shader 内置摄像机和屏幕变量
 
 - **Near** 近裁切平面到摄像机的距离。
 - **Far** 远裁切平面到摄像机的距离。

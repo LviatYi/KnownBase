@@ -506,19 +506,21 @@ See Also [Semantic in HLSL | Unity][shaderlab-semantic]
 
 ## Unity 基础光照
 
+![光线名词定义](../../pic/ray.png)
+
 ### 漫反射光照模型
 
 #### 兰伯特光照模型
 
 $$
-c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) max(0, \vec{n}\cdot \vec{l})
+c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) max(0, \hat{n}\cdot \hat{l})
 $$
 
 - $c_\text{diffuse}$ 漫反射光的颜色和强度。
 - $c_\text{light}$ 入射光线的颜色和强度。
 - $m_{\text{diffuse}}$ 材质的漫反射系数。
-- $\vec{n}$ 表面法线。
-- $\vec{l}$ 光源方向。
+- $\hat{n}$ 表面法线。
+- $\hat{l}$ 光源方向。
 
 逐顶点 Shader：
 
@@ -652,14 +654,14 @@ Shader "Custom/Shader-exmp-04" {
 #### 半兰伯特光照模型
 
 $$
-c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) (\alpha (\vec{n}\cdot \vec{l})+\beta)
+c_\text{diffuse} = (c_\text{light} \cdot m_{\text{diffuse}}) (\alpha (\hat{n}\cdot \hat{l})+\beta)
 $$
 
 - $c_\text{diffuse}$ 漫反射光的颜色和强度。
 - $c_\text{light}$ 入射光线的颜色和强度。
 - $m_{\text{diffuse}}$ 材质的漫反射系数。
-- $\vec{n}$ 表面法线。
-- $\vec{l}$ 光源方向。
+- $\hat{n}$ 表面法线。
+- $\hat{l}$ 光源方向。
 - $\alpha$ 缩放倍数。
 - $\beta$ 偏移量
 
@@ -731,8 +733,114 @@ Shader "Custom/Shader-exmp-05" {
 ### 高光反射模型
 
 $$
-c_{\text{specular}} = (c_{\text{light}} \cdot m_{\text{specular}}) max(0,\vec{v}\cdot\vec{r})^{m_\text{gloss}}
+c_{\text{specular}} = (c_{\text{light}} \cdot m_{\text{specular}}) max(0,\hat{v}\cdot\hat{r})^{m_\text{gloss}}
 $$
+
+- $c_{\text{specular}}$ 高光反射的颜色和强度。
+- $c_{\text{light}}$ 入射光线的颜色和强度。
+- $m_{\text{specular}}$ 材质的高光反射系数。
+- $\hat{v}$ 视角方向。
+  - 由物体点指向摄像机的方向。
+- $\hat{r}$ 反射方向。
+- $m_\text{gloss}$ 高光反射光泽度。
+  - 控制材质对于高光反射区域的大小。
+  - 值越大，亮点越小。
+
+反射方向计算公式：
+
+$$
+\hat{r} = \hat{l} - 2 (\hat{n} \cdot \hat{l}) \hat{n}
+$$
+
+```unityShader
+Shader "Custom/Shader-exmp-06" {
+    Properties {
+        // 漫反射强度
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+
+        // 高光反射强度
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+
+        // 高光区域大小
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+
+    SubShader {
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            float4 _Diffuse;
+            float4 _Specular;
+            float _Gloss;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                // 投影空间位置
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                
+                // 世界空间位置
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                
+                // 法线世界控件方向
+                o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
+
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                // 逐片元处理 交界处将获得更加细腻的渲染
+
+                // 环境光
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // 法线世界空间方向
+                fixed3 worldNormal = normalize(i.worldNormal);
+
+                // 光源世界空间方向
+                fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
+
+                // 漫反射光
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLightDir));
+
+                // 反射光方向 
+                fixed3 reflectDir = normalize(reflect(-worldLightDir, worldNormal));
+
+                // 视角方向 从点到摄像头的方向
+                fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - i.worldPos.xyz);
+
+                // 高光反射
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(viewDir, reflectDir)), _Gloss);
+
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+![高光反射](../../pic/specular.png)
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

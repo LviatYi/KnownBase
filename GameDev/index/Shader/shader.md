@@ -880,7 +880,114 @@ Shader "Custom/Shader-exmp-06" {
 }
 ```
 
-![高光反射](../../pic/specular.png)
+![高光反射](../../pic/phongSpecular.png)
+
+#### Blinn-Phone 光照模型高光部分
+
+$$
+\hat{h} = \frac{\hat{v}+\hat{l}}{\lvert\hat{v}+\hat{l}\rvert}\\
+c_{\text{specular}} = (c_{\text{light}} \cdot m_{\text{specular}}) max(0,\hat{n}\cdot\hat{h})^{m_\text{gloss}}\\
+$$
+
+- $c_{\text{specular}}$ 高光反射的颜色和强度。
+- $c_{\text{light}}$ 入射光线的颜色和强度。
+- $m_{\text{specular}}$ 材质的高光反射系数。
+- $\hat{n}$ 法线。
+- $\hat{h}$ 半程向量。
+- $m_\text{gloss}$ 高光反射光泽度。
+  - 控制材质对于高光反射区域的大小。
+  - 值越大，亮点越小。
+
+```unityShader
+Shader "Custom/Shader-exmp-07" {
+    Properties {
+        // 漫反射强度
+        _Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
+
+        // 高光反射强度
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+
+        // 高光区域大小
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+
+    SubShader {
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            float4 _Diffuse;
+            float4 _Specular;
+            float _Gloss;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                // 投影空间位置
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                // 世界空间位置
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                // 法线世界控件方向
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                // 逐片元处理 交界处将获得更加细腻的渲染
+
+                // 环境光
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // 法线世界空间方向
+                fixed3 worldNormal = normalize(i.worldNormal);
+
+                // 光源世界空间方向
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                // 漫反射光
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLightDir));
+
+                // 视角方向 从点到摄像头的方向
+                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
+
+                // 半程向量
+                fixed3 halfDir = normalize(viewDir + worldLightDir);
+
+                // 高光反射
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(worldNormal, halfDir)), _Gloss);
+
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Diffuse"
+}
+```
+
+![高光反射](../../pic/blinn-phongSpecular.png)
+
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

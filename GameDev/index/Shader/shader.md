@@ -771,6 +771,8 @@ Shader "Custom/Shader-exmp-05" {
 
 ### 高光反射模型
 
+#### Phong 光照模型高光部分
+
 $$
 c_{\text{specular}} = (c_{\text{light}} \cdot m_{\text{specular}}) max(0,\hat{v}\cdot\hat{r})^{m_\text{gloss}}
 $$
@@ -834,10 +836,10 @@ Shader "Custom/Shader-exmp-06" {
                 v2f o;
                 // 投影空间位置
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-                
+
                 // 世界空间位置
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-                
+
                 // 法线世界控件方向
                 o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
 
@@ -859,7 +861,7 @@ Shader "Custom/Shader-exmp-06" {
                 // 漫反射光
                 fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLightDir));
 
-                // 反射光方向 
+                // 反射光方向
                 fixed3 reflectDir = normalize(reflect(-worldLightDir, worldNormal));
 
                 // 视角方向 从点到摄像头的方向

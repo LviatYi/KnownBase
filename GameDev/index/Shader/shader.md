@@ -423,7 +423,7 @@ Shader "Custom/Simple VertexFragment Shader" {
 | 名称 | 类型 | 值 |
 | --- | --- | --- |
 | `_LightColor0` (UnityLightingCommon.cginc) | `fixed4` | 光源颜色 |
-| `_WorldSpaceLightPos0` | `float4` | 平行光：`xyz=光源朝向的反向（物体点的入射方向的负向量）`  `w=0`；其他光源：`xyz=光源位置`  `w=1` |
+| `_WorldSpaceLightPos0` | `float4` | 平行光：`xyz=光源朝向的反向（顶点坐标的入射方向的负向量）` `w=0`；其他光源：`xyz=光源位置` `w=1` |
 | `unity_WorldToLight` (AutoLight.cginc) | `float4x4` | 世界/光源矩阵。用于对剪影和衰减纹理进行采样 |
 | `unity_4LightPosX0 \unity_4LightPosY0 \unity_4LightPosZ0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的世界空间位置 |
 | `unity_4LightAtten0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的衰减因子 |
@@ -532,7 +532,7 @@ $$
 - $c_\text{diffuse}$ 漫反射光的颜色和强度。
 - $c_\text{light}$ 入射光线的颜色和强度。
 - $m_{\text{diffuse}}$ 材质的漫反射系数。
-- $\hat{n}$ 表面法线。
+- $\hat{n}$ 法线。
 - $\hat{l}$ 光源方向。
 
 逐顶点 Shader：
@@ -673,7 +673,7 @@ $$
 - $c_\text{diffuse}$ 漫反射光的颜色和强度。
 - $c_\text{light}$ 入射光线的颜色和强度。
 - $m_{\text{diffuse}}$ 材质的漫反射系数。
-- $\hat{n}$ 表面法线。
+- $\hat{n}$ 法线。
 - $\hat{l}$ 光源方向。
 - $\alpha$ 缩放倍数。
 - $\beta$ 偏移量
@@ -753,7 +753,6 @@ $$
 - $c_{\text{light}}$ 入射光线的颜色和强度。
 - $m_{\text{specular}}$ 材质的高光反射系数。
 - $\hat{v}$ 视角方向。
-  - 由物体点指向摄像机的方向。
 - $\hat{r}$ 反射方向。
 - $m_\text{gloss}$ 高光反射光泽度。
   - 控制材质对于高光反射区域的大小。

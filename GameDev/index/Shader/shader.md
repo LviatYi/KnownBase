@@ -396,6 +396,8 @@ Shader "Custom/Simple VertexFragment Shader" {
 | `unity_ObjectToWorld` | 从模型空间变换到世界空间       |
 | `unity_WorldToObject` | 从世界空间变换到模型空间       |
 
+---
+
 ### Unity Shader 内置摄像机和屏幕变量
 
 - **Near** 近裁切平面到摄像机的距离。
@@ -413,6 +415,8 @@ Shader "Custom/Simple VertexFragment Shader" {
 | `unity_CameraProjection` | `float4x4` | 摄像机的投影矩阵 |
 | `unity_CameraInvProjection` | `float4x4` | 摄像机投影矩阵的逆矩阵 |
 | unity_CameraWorldClipPlanes[6] | `float4` | 摄像机视锥体平面世界空间方程，按以下顺序：左、右、底、顶、近、远 |
+
+---
 
 ### Unity Shader 内置光照变量
 

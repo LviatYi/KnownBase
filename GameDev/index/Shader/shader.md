@@ -203,6 +203,15 @@ See-also [SL-Properties | Unity][sl-properties]
 
 Unity 支持重载默认的材质编辑面板。
 
+Unity Shaderlab 还支持了一些特殊的纹理属性。
+
+- 纹理平铺和偏移
+  属性名 `float4 {TextureName}_ST`
+- 纹理大小
+  属性名 `float4 {TextureName}_TexelSize`
+- 纹理 HDR参数
+  属性名 `float4 {TextureName}_HDR`
+
 #### SubShader
 
 line 6 `SubShader{}`

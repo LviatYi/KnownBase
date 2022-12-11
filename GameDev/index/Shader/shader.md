@@ -988,6 +988,22 @@ Shader "Custom/Shader-exmp-07" {
 
 ![高光反射](../../pic/blinn-phongSpecular.png)
 
+## 基础纹理
+
+借助 **纹理映射** (texture mapping) 技术，能够以指定纹理中的 **纹素** (texel) 控制模型的颜色。
+
+通常地，美术会将 **纹理映射坐标** (texture-mapping coordinates) 存储在每个顶点上。这些坐标使用一个二维变量 $(u,v)$ 表示，因此也称为 UV 坐标。
+
+纹理坐标范围被归一化到 $[0,1]$ 内，但纹理采样时使用的坐标不一定在 $[0,1]$ 范围内。而在范围外的坐标如何采样则取决于纹理的平铺模式。
+
+在 DirectX 中，纹理坐标原点位于左上角。
+在 OpenGL 中，纹理坐标原点位于左下角。
+
+在 Unity 中，统一采用 OpenGL 传统的纹理坐标系。
+
+### 单张纹理
+
+通常会使用一张纹理来代替物体的漫反射颜色。
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

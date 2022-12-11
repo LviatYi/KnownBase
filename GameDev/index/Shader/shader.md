@@ -432,6 +432,32 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 更多内置变量 See also [Unity Shader variables | Unity][unityshadervariables]
 
+### Unity Shader 内置辅助函数
+
+Unity Shader 内置辅助函数声明于 `UnityCG.cginc`。
+
+- 通用辅助函数
+
+| 函数签名 | 描述 |
+| --- | --- |
+| `float3 WorldSpaceViewDir(float4)` | 模型空间顶点至摄像机的世界空间方向 |
+| `float3 UnityWorldSpaceViewDir(float3)` | 世界空间顶点至摄像机的世界空间方向 |
+| `float3 ObjSpaceViewDir (float4)` | 模型空间顶点至摄像机的模型空间方向 |
+| `float3 UnityObjectToWorldDir(float3)` | [normalize]将向量从模型空间转换至世界空间 |
+| `float3 UnityWorldToObjectDir(float3)` | [normalize]将法线从世界空间转换至模型空间 |
+| `float3 UnityObjectToWorldNormal(float3)` | [normalize]将法线从模型空间转换至世界空间 |
+
+- 仅前向渲染辅助函数
+  - 仅在前向渲染时（`ForwardBase` `ForwardAdd`）可用。
+
+| 函数签名                            | 描述                           |
+| ----------------------------------- | ------------------------------ |
+| `float3 WorldSpaceLightDir(float4)` | 顶点至光源的世界空间方向       |
+| `float3 ObjSpaceLightDir(float4)`   | 顶点至光源的模型空间方向       |
+| `float3 Shade4PointLights(...)`     | 计算顶点上来自四个点光源的照明 |
+
+---
+
 ## HLSL in Shader Lab
 
 ### Pragma 指令

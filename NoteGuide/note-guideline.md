@@ -65,9 +65,9 @@ $$
 
 `v1.00` 后为维护版本。
 
-## 编写时规范
+## Markdown 文档编写时规范
 
-编写时规范参考：
+Markdown 文档编写时规范参考：
 
 [Markdown Style Guide][styleguideline]
 

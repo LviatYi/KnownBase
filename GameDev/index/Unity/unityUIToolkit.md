@@ -266,6 +266,8 @@ UITK 事件系统监听来自操作系统或脚本的时间，并借助 EventDis
 - 对于鼠标事件，目标一般为鼠标下方最上层的可选元素。
 - 对于键盘事件，目标一般为当前获得焦点的元素。
 
+---
+
 ### 事件处理
 
 事件处理具有如下顺序：
@@ -287,9 +289,13 @@ UITK 事件系统监听来自操作系统或脚本的时间，并借助 EventDis
 void MyCallback(SomeEvent evt){}
 ```
 
+---
+
 ### 事件参考
 
 See Also [UITK Event | Unity][uitk-event]
+
+---
 
 ## 计划任务
 
@@ -311,6 +317,8 @@ VisualElement 提供了计划任务，以在设定的规则下调用 Action，�
 
 若要对同一个行为进行多次控制，应保留对返回值 `IVisualElementScheduledItem` 的引用。
 
+---
+
 ### `IVisualElementScheduledItem` 调用时机
 
 单位默认为毫秒 (ms)。
@@ -326,5 +334,7 @@ VisualElement 提供了计划任务，以在设定的规则下调用 Action，�
 | `Until(Func<bool> stopCondition)` | 当条件为 `false` 时取消计划任务 |
 
 `ExecuteLater` 在内部调用 `StartingIn` ，但其会 `Resume` 计划任务。
+
+---
 
 [uitk-event]: https://docs.unity3d.com/Manual/UIE-Events-Reference.html

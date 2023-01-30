@@ -199,7 +199,7 @@ See-also [SL-Properties | Unity][sl-properties]
 
 ![所有 ShaderLab 支持的属性](../../pic/shaderLabProperties.png)
 
-![所有 ShaderLab 支持的属性在检视窗口](/assets/shaderPropertiesInspector.png)
+![所有 ShaderLab 支持的属性在检视窗口](../../pic/shaderPropertiesInspector.png)
 
 Unity 支持重载默认的材质编辑面板。
 
@@ -424,7 +424,7 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 | 名称 | 类型 | 值 |
 | --- | --- | --- |
-| `_LightColor0` (UnityLightingCommon.cginc) | `fixed4` | 光源颜色 |
+| `_LightColor0` (UnityLightingCommon.cginc) | `fix![P[N7$3J9R}SO0HC4MK{6~LT](/assets/P[N7$3J9R}SO0HC4MK{6~LT.png)ed4` | 光源颜色 |
 | `_WorldSpaceLightPos0` | `float4` | 平行光：`xyz=光源朝向的反向（顶点坐标的入射方向的负向量）` `w=0`；其他光源：`xyz=光源位置` `w=1` |
 | `unity_WorldToLight` (AutoLight.cginc) | `float4x4` | 世界/光源矩阵。用于对剪影和衰减纹理进行采样 |
 | `unity_4LightPosX0 \unity_4LightPosY0 \unity_4LightPosZ0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的世界空间位置 |
@@ -625,7 +625,7 @@ Shader "Custom/Shader-exmp-03" {
 }
 ```
 
-![shader-exmp-03](/assets/shader-exmp-03.png)
+![shader-exmp-03](../../pic/shader-exmp-03.png)
 
 逐片元 Shader：
 
@@ -690,7 +690,7 @@ Shader "Custom/Shader-exmp-04" {
 }
 ```
 
-![shader-exmp-04](/assets/shader-exmp-04.png)
+![shader-exmp-04](../../pic/shader-exmp-04.png)
 
 #### 半兰伯特光照模型
 
@@ -1005,7 +1005,7 @@ Shader "Custom/Shader-exmp-07" {
 
 ### 单张纹理
 
-通常会使用一张纹理来代替物体的漫反射颜色。
+单张纹理使用一张纹理来代替物体的漫反射颜色。
 
 ```shaderlab
 Shader "Custom/Shader-exmp-08" {
@@ -1094,6 +1094,287 @@ Shader "Custom/Shader-exmp-08" {
     Fallback "Specular"
 }
 ```
+
+![单张纹理](../../pic/singleTexture.png)
+
+### 凹凸映射
+
+凹凸映射 (bump mapping) 使用一张纹理修改模型表面的法线，以便为模型提供更多细节。
+
+凹凸映射不影响顶点本身的信息，因此只能模拟纹理凹凸效果而无法兼顾轮廓细节。
+
+主要有两种方法进行凹凸映射：
+
+- **高度纹理** (height map)  
+  其能够模拟 **表面位移** (displacement)，以得到修改后的法线值。
+- **法线纹理** (normal map)
+  其直接存储法线信息。
+
+#### 高度纹理
+
+高度纹理使用 **高度图** 存储 **强度值** (intensity) ，用于标识模型表面局部的海拔高度。
+
+可以通过高度纹理计算表面法线，但成本较高。
+
+#### 法线纹理
+
+法线纹理直接存储法线信息。
+
+法线纹理中存储的分量范围在 $[-1,1]$，而像素分量的范围在 $[0,1]$，因此需要使用映射函数：
+
+$$
+\begin{align*}
+pixel &= \frac{normal + 1}{2} \\
+normal &= pixel \times 2 -1   \\
+\end{align*}
+$$
+
+法线纹理按照坐标系分为：
+
+- 模型空间法线纹理
+- 切线空间法线纹理
+
+对于模型的每个顶点，其有切线空间定义如下：
+
+- 切线空间原点为顶点本身。
+- 切线空间 $x$ 轴为顶点切线方向 $t$。
+- 切线空间 $y$ 轴为顶点法线及顶点切线叉积，即副切线。
+- 切线空间 $z$ 轴为顶点法线方向 $n$。
+
+![切线空间](../../pic/tangentSpace.jpg)
+
+易得，在切线空间中，原法线向量为 $(0,0,1)$ 。
+
+![法线贴图](../../pic/normalTextureAsset.jpg)
+
+左侧为模型空间下的法线纹理，右侧为切线空间下的法线纹理。
+
+实践中常使用切线空间下的法线纹理。
+
+分别在切线空间与世界空间下计算光照模型：
+
+```shaderlab
+Shader "Custom/Shader-exmp-09" {
+    Properties {
+        _Color ("Color Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _BumpMap ("Normal Map", 2D) = "bump" { }
+        _BumpScale ("Bump Scale", Float) = 1.0
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            sampler2D _BumpMap;
+            float4 _BumpMap_ST;
+            float _BumpScale;
+            fixed4 _Specular;
+            float _Gloss;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float4 uv : TEXCOORD0;
+                float3 lightDir : TEXCOORD1;
+                float3 viewDir : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.uv.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                o.uv.zw = v.texcoord.xy * _BumpMap_ST.xy + _BumpMap_ST.zw;
+
+                // 计算副切线
+                //   副切线方向由 tangent.w 决定
+                //  float3 binormal = cross( normalize(v.normal), normalize(v.tangent.xyz) ) * v.tangent.w;
+                //  // Construct a matrix which transform vectors from object space to tangent space
+                //  float3x3 rotation = float3x3(v.tangent.xyz, binormal, v.normal);
+                // 或使用 UnityCG.cginc 中的宏
+                TANGENT_SPACE_ROTATION;
+
+                // Transform the light direction from object space to tangent space
+                o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex)).xyz;
+                // Transform the view direction from object space to tangent space
+                o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex)).xyz;
+
+                return o;
+            }
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 tangentLightDir = normalize(i.lightDir);
+                fixed3 tangentViewDir = normalize(i.viewDir);
+
+                // Get the texel in the normal map
+                fixed4 packedNormal = tex2D(_BumpMap, i.uv.zw);
+                fixed3 tangentNormal;
+                
+                // 求切线空间法线纹理
+                // If the texture is not marked as "Normal map"
+                //  tangentNormal.xy = (packedNormal.xy * 2 - 1) * _BumpScale;
+                //  tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
+                // Or mark the texture as "Normal map", and use the built-in funciton
+                tangentNormal = UnpackNormal(packedNormal);
+                // 切线空间中原法线向量为 (0,0,1)，因此可使用 xy *= _BumpScale 控制凹凸程度（加重或缓解 xy 值）
+                tangentNormal.xy *= _BumpScale;
+                tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
+                                
+                // 反射率
+                fixed3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb;
+                
+                // 环境光
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+                
+                // 漫反射光
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(tangentNormal, tangentLightDir));
+
+                fixed3 halfDir = normalize(tangentLightDir + tangentViewDir);
+                
+                // 高光
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(tangentNormal, halfDir)), _Gloss);
+
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Specular"
+}
+```
+
+```shaderlab
+Shader "Custom/Shader-exmp-10" {
+    Properties {
+        _Color ("Color Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _BumpMap ("Normal Map", 2D) = "bump" { }
+        _BumpScale ("Bump Scale", Float) = 1.0
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            sampler2D _BumpMap;
+            float4 _BumpMap_ST;
+            float _BumpScale;
+            fixed4 _Specular;
+            float _Gloss;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float4 uv : TEXCOORD0;
+                float4 TtoW0 : TEXCOORD1;
+                float4 TtoW1 : TEXCOORD2;
+                float4 TtoW2 : TEXCOORD3;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.uv.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                o.uv.zw = v.texcoord.xy * _BumpMap_ST.xy + _BumpMap_ST.zw;
+
+                float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                fixed3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
+                fixed3 worldBinormal = cross(worldNormal, worldTangent) * v.tangent.w;
+
+                // 计算切线空间到世界空间的转换矩阵
+                // 为节省空间，将世界坐标放在 o.TtoWx.z 中
+                // Put the world position in w component for optimization
+                o.TtoW0 = float4(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);
+                o.TtoW1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
+                o.TtoW2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z);
+
+                return o;
+            }
+
+            fixed4 frag(v2f i) : SV_Target {
+                float3 worldPos = float3(i.TtoW0.w, i.TtoW1.w, i.TtoW2.w);
+
+                fixed3 lightDir = normalize(UnityWorldSpaceLightDir(worldPos));
+                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(worldPos));
+
+                // Get the normal in tangent space
+                fixed3 bump = UnpackNormal(tex2D(_BumpMap, i.uv.zw));
+                bump.xy *= _BumpScale;
+                bump.z = sqrt(1.0 - saturate(dot(bump.xy, bump.xy)));
+                // Transform the normal from tangent space to world space
+                bump = normalize(fixed3(dot(i.TtoW0.xyz, bump), dot(i.TtoW1.xyz, bump), dot(i.TtoW2.xyz, bump)));
+                // same as:
+                //bump = normalize(mul(fixed3x3(i.TtoW0.xyz, i.TtoW1.xyz, i.TtoW2.xyz), bump));
+
+                // 反射率
+                fixed3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb;
+                
+                // 环境光
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+                
+                // 漫反射光
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(bump, lightDir));
+
+                fixed3 halfDir = normalize(lightDir + viewDir);
+                
+                // 高光
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(bump, halfDir)), _Gloss);
+
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+
+            ENDHLSL
+        }
+    }
+
+    Fallback "Specular"
+}
+```
+
+![法线贴图示例](../../pic/normalTexture.png)
+
+两者效果一致。
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

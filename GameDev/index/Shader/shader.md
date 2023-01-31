@@ -327,7 +327,7 @@ line 12 `Fallback "name"`
 
 **表面着色器 (Surface shader)** 是 Unity 提供的顶点、片元着色器的一层抽象，其提供对光照细节的处理。
 
-表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，允许将 HLSL 转换为 CG。而 CG 本身已经渐渐被淘汰。
+表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，允许将 HLSL 转换为HLSLCG。而 CG 本身已经渐渐被淘汰。
 
 Shader 语句由 `HLSLPROGRAM` 起始，由 `ENDHLSL` 结尾。
 
@@ -1003,6 +1003,8 @@ Shader "Custom/Shader-exmp-07" {
 
 在 Unity 中，统一采用 OpenGL 传统的纹理坐标系。
 
+实际上纹理为网格顶点赋予 **信息** ，这种信息不仅仅局限于颜色。
+
 ### 单张纹理
 
 单张纹理使用一张纹理来代替物体的漫反射颜色。
@@ -1378,13 +1380,185 @@ Shader "Custom/Shader-exmp-10" {
 
 ### 渐变纹理
 
-纹理为网格顶点赋予信息。这种信息不仅仅局限于颜色。
-
 通过渐变纹理可以为漫反射附加更多样的色调变化。
 
-![渐变纹理效果](../../pic/rampTexture.png)
+```shaderlab
+Shader "Custom/Shader-exmp-11" {
+    Properties {
+        _Color ("Color Tint", Color) = (1, 1, 1, 1)
+        _RampTex ("Ramp Tex", 2D) = "white" { }
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _RampTex;
+            float4 _RampTex_ST;
+            fixed4 _Specular;
+            float _Gloss;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _RampTex);
+
+                return o;
+            }
+
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+
+                // Use the texture to sample the diffuse color
+                fixed halfLambert = 0.4 + 0.6 * dot(worldNormal, worldLightDir);
+                fixed3 diffuseColor = tex2D(_RampTex, fixed2(halfLambert, halfLambert)).rgb * _Color.rgb;
+
+                fixed3 diffuse = _LightColor0.rgb * diffuseColor;
+
+                fixed3 viewDir = normalize(UnityWorldSpaceViewDir(i.worldPos));
+                fixed3 halfDir = normalize(worldLightDir + viewDir);
+                fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(worldNormal, halfDir)), _Gloss);
+
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+    Fallback "Specular"
+}
+```
+
+![渐变纹理应用](../../pic/rampTexture.png)
 
 ### 遮罩纹理
+
+遮罩纹理用于削弱某部分的光照效果。
+
+```shaderlab
+Shader "Custom/Shader-exmp-12" {
+    Properties {
+        _Color ("Color Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _BumpMap ("Normal Map", 2D) = "bump" { }
+        _BumpScale ("Bump Scale", Float) = 1.0
+        _SpecularMask ("Specular Mask", 2D) = "white" { }
+        _SpecularScale ("Specular Scale", Float) = 1.0
+        _Specular ("Specular", Color) = (1, 1, 1, 1)
+        _Gloss ("Gloss", Range(8.0, 256)) = 20
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" }
+            
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            sampler2D _BumpMap;
+            float _BumpScale;
+            sampler2D _SpecularMask;
+            float _SpecularScale;
+            fixed4 _Specular;
+            float _Gloss;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
+                float4 texcoord : TEXCOORD0;
+            };
+            
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float2 uv : TEXCOORD0;
+                float3 lightDir : TEXCOORD1;
+                float3 viewDir : TEXCOORD2;
+            };
+            
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                
+                o.uv.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                
+                TANGENT_SPACE_ROTATION;
+                o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex)).xyz;
+                o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex)).xyz;
+                
+                return o;
+            }
+            
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 tangentLightDir = normalize(i.lightDir);
+                fixed3 tangentViewDir = normalize(i.viewDir);
+
+                fixed3 tangentNormal = UnpackNormal(tex2D(_BumpMap, i.uv));
+                tangentNormal.xy *= _BumpScale;
+                tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
+
+                fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
+                
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+                
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(tangentNormal, tangentLightDir));
+                
+                fixed3 halfDir = normalize(tangentLightDir + tangentViewDir);
+                // Get the mask value
+                fixed specularMask = tex2D(_SpecularMask, i.uv).r * _SpecularScale;
+                // Compute specular term with the specular mask
+                //fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(tangentNormal, halfDir)), _Gloss) * specularMask;
+                fixed3 specular = 0;
+                
+                return fixed4(ambient + diffuse + specular, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+    FallBack "Specular"
+}
+```
+
+![渐变纹理应用](../../pic/maskTexture.png)
+
+如上的遮罩纹理仅使用了 r 分量。实践中一般会充分利用纹理的 rgba 四个通道存储不同属性。
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

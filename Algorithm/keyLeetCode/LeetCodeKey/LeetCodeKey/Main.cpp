@@ -11,11 +11,9 @@
 using namespace std;
 
 int main() {
-    Swordii7 s;
+    Sword3 s;
 
-    vector<int> words = {-2, 0, 0, 2, 2};
+    vector<int> words = {2, 3, 1, 0, 2, 5, 3};
 
-    vector<vector<int>> ret = s.threeSum(words);
-
-
+    s.findRepeatNumber2(words);
 }

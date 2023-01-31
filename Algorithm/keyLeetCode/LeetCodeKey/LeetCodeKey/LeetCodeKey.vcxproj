@@ -170,6 +170,7 @@
     <ClInclude Include="Solution17.h" />
     <ClInclude Include="Solution18.h" />
     <ClInclude Include="Solution19.h" />
+    <ClInclude Include="Solution191.h" />
     <ClInclude Include="Solution2.h" />
     <ClInclude Include="Solution20.h" />
     <ClInclude Include="Solution206.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution67.h" />
     <ClInclude Include="Solution7.h" />
+    <ClInclude Include="Solution70.h" />
     <ClInclude Include="Solution79.h" />
     <ClInclude Include="Solution8.h" />
     <ClInclude Include="Solution9.h" />
@@ -323,6 +325,7 @@
     <ClCompile Include="Solution17.cpp" />
     <ClCompile Include="Solution18.cpp" />
     <ClCompile Include="Solution19.cpp" />
+    <ClCompile Include="Solution191.cpp" />
     <ClCompile Include="Solution2.cpp" />
     <ClCompile Include="Solution20.cpp" />
     <ClCompile Include="Solution206.cpp" />
@@ -370,6 +373,7 @@
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution67.cpp" />
     <ClCompile Include="Solution7.cpp" />
+    <ClCompile Include="Solution70.cpp" />
     <ClCompile Include="Solution79.cpp" />
     <ClCompile Include="Solution8.cpp" />
     <ClCompile Include="Solution9.cpp" />

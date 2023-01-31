@@ -1374,7 +1374,17 @@ Shader "Custom/Shader-exmp-10" {
 
 ![法线贴图示例](../../pic/normalTexture.png)
 
-两者效果一致。
+两者效果几乎一致。
+
+### 渐变纹理
+
+纹理为网格顶点赋予信息。这种信息不仅仅局限于颜色。
+
+通过渐变纹理可以为漫反射附加更多样的色调变化。
+
+![渐变纹理效果](../../pic/rampTexture.png)
+
+### 遮罩纹理
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

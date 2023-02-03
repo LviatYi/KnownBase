@@ -11,5 +11,4 @@ int Solution191::hammingWeight(uint32_t n) {
         i >>= 1;
     }
     return count;
-
 }

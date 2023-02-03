@@ -11,9 +11,9 @@
 using namespace std;
 
 int main() {
-    Sword3 s;
+    Swordii12 s;
 
-    vector<int> words = {2, 3, 1, 0, 2, 5, 3};
+    vector<int> words = {1, 7, 3, 6, 5, 6};
 
-    s.findRepeatNumber2(words);
+    cout << s.pivotIndex(words) << endl;
 }

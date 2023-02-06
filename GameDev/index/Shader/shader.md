@@ -205,12 +205,9 @@ Unity 支持重载默认的材质编辑面板。
 
 Unity Shaderlab 还支持了一些特殊的纹理属性。
 
-- 纹理平铺和偏移
-  属性名 `float4 {TextureName}_ST`
-- 纹理大小
-  属性名 `float4 {TextureName}_TexelSize`
-- 纹理 HDR参数
-  属性名 `float4 {TextureName}_HDR`
+- 纹理平铺和偏移属性名 `float4 {TextureName}_ST`
+- 纹理大小属性名 `float4 {TextureName}_TexelSize`
+- 纹理 HDR 参数属性名 `float4 {TextureName}_HDR`
 
 这些特殊纹理属性不需要在 `Properties` 块中声明，但
 
@@ -245,6 +242,8 @@ line 6 `SubShader{}`
   | GrabPass | 创建一个通道，将屏幕内容抓取到纹理中，以便在之后的通道中使用 |
 
   See-also [Shaderlab Commands | Unity][shaderlab-commands]
+
+  部分命令允许添加到 Pass 中，以对指定而非全部 Pass 生效。
 
 - **标签** 是一个 **键值对**，其键与值都是字符串。  
   Unity 具有一系列预定义的标签，也可以自定义标签。
@@ -327,7 +326,7 @@ line 12 `Fallback "name"`
 
 **表面着色器 (Surface shader)** 是 Unity 提供的顶点、片元着色器的一层抽象，其提供对光照细节的处理。
 
-表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，允许将 HLSL 转换为HLSLCG。而 CG 本身已经渐渐被淘汰。
+表面着色器定义于 SubShader 语义块。建议使用 HLSL 作为 Shader 语言，Unity 内部提供了转换，允许将 HLSL 转换为 HLSLCG。而 CG 本身已经渐渐被淘汰。
 
 Shader 语句由 `HLSLPROGRAM` 起始，由 `ENDHLSL` 结尾。
 
@@ -998,8 +997,7 @@ Shader "Custom/Shader-exmp-07" {
 
 纹理坐标范围被归一化到 $[0,1]$ 内，但纹理采样时使用的坐标不一定在 $[0,1]$ 范围内。而在范围外的坐标如何采样则取决于纹理的平铺模式。
 
-在 DirectX 中，纹理坐标原点位于左上角。
-在 OpenGL 中，纹理坐标原点位于左下角。
+在 DirectX 中，纹理坐标原点位于左上角。在 OpenGL 中，纹理坐标原点位于左下角。
 
 在 Unity 中，统一采用 OpenGL 传统的纹理坐标系。
 
@@ -1030,13 +1028,13 @@ Shader "Custom/Shader-exmp-08" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
             fixed4 _Specular;
             float _Gloss;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1054,10 +1052,10 @@ Shader "Custom/Shader-exmp-08" {
                 v2f o;
                 // 投影空间位置
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-                
+
                 // 世界空间位置
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-                
+
                 // 法线世界控件方向
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
 
@@ -1109,8 +1107,7 @@ Shader "Custom/Shader-exmp-08" {
 
 - **高度纹理** (height map)  
   其能够模拟 **表面位移** (displacement)，以得到修改后的法线值。
-- **法线纹理** (normal map)
-  其直接存储法线信息。
+- **法线纹理** (normal map) 其直接存储法线信息。
 
 #### 高度纹理
 
@@ -1177,7 +1174,7 @@ Shader "Custom/Shader-exmp-09" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -1186,7 +1183,7 @@ Shader "Custom/Shader-exmp-09" {
             float _BumpScale;
             fixed4 _Specular;
             float _Gloss;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1230,7 +1227,7 @@ Shader "Custom/Shader-exmp-09" {
                 // Get the texel in the normal map
                 fixed4 packedNormal = tex2D(_BumpMap, i.uv.zw);
                 fixed3 tangentNormal;
-                
+
                 // 求切线空间法线纹理
                 // If the texture is not marked as "Normal map"
                 //  tangentNormal.xy = (packedNormal.xy * 2 - 1) * _BumpScale;
@@ -1240,18 +1237,18 @@ Shader "Custom/Shader-exmp-09" {
                 // 切线空间中原法线向量为 (0,0,1)，因此可使用 xy *= _BumpScale 控制凹凸程度（加重或缓解 xy 值）
                 tangentNormal.xy *= _BumpScale;
                 tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
-                                
+
                 // 反射率
                 fixed3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb;
-                
+
                 // 环境光
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
-                
+
                 // 漫反射光
                 fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(tangentNormal, tangentLightDir));
 
                 fixed3 halfDir = normalize(tangentLightDir + tangentViewDir);
-                
+
                 // 高光
                 fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(tangentNormal, halfDir)), _Gloss);
 
@@ -1287,7 +1284,7 @@ Shader "Custom/Shader-exmp-10" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -1296,7 +1293,7 @@ Shader "Custom/Shader-exmp-10" {
             float _BumpScale;
             fixed4 _Specular;
             float _Gloss;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1351,15 +1348,15 @@ Shader "Custom/Shader-exmp-10" {
 
                 // 反射率
                 fixed3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb;
-                
+
                 // 环境光
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
-                
+
                 // 漫反射光
                 fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(bump, lightDir));
 
                 fixed3 halfDir = normalize(lightDir + viewDir);
-                
+
                 // 高光
                 fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(bump, halfDir)), _Gloss);
 
@@ -1402,13 +1399,13 @@ Shader "Custom/Shader-exmp-11" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _RampTex;
             float4 _RampTex_ST;
             fixed4 _Specular;
             float _Gloss;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1481,14 +1478,14 @@ Shader "Custom/Shader-exmp-12" {
     SubShader {
         Pass {
             Tags { "LightMode" = "ForwardBase" }
-            
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -1498,34 +1495,34 @@ Shader "Custom/Shader-exmp-12" {
             float _SpecularScale;
             fixed4 _Specular;
             float _Gloss;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
                 float4 tangent : TANGENT;
                 float4 texcoord : TEXCOORD0;
             };
-            
+
             struct v2f {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float3 lightDir : TEXCOORD1;
                 float3 viewDir : TEXCOORD2;
             };
-            
+
             v2f vert(a2v v) {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
-                
+
                 o.uv.xy = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-                
+
                 TANGENT_SPACE_ROTATION;
                 o.lightDir = mul(rotation, ObjSpaceLightDir(v.vertex)).xyz;
                 o.viewDir = mul(rotation, ObjSpaceViewDir(v.vertex)).xyz;
-                
+
                 return o;
             }
-            
+
             fixed4 frag(v2f i) : SV_Target {
                 fixed3 tangentLightDir = normalize(i.lightDir);
                 fixed3 tangentViewDir = normalize(i.viewDir);
@@ -1535,18 +1532,18 @@ Shader "Custom/Shader-exmp-12" {
                 tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
 
                 fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
-                
+
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
-                
+
                 fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(tangentNormal, tangentLightDir));
-                
+
                 fixed3 halfDir = normalize(tangentLightDir + tangentViewDir);
                 // Get the mask value
                 fixed specularMask = tex2D(_SpecularMask, i.uv).r * _SpecularScale;
                 // Compute specular term with the specular mask
                 //fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(tangentNormal, halfDir)), _Gloss) * specularMask;
                 fixed3 specular = 0;
-                
+
                 return fixed4(ambient + diffuse + specular, 1.0);
             }
             ENDHLSL
@@ -1564,17 +1561,148 @@ Shader "Custom/Shader-exmp-12" {
 
 在 Unity 中，主要使用两种方法实现透明效果：
 
-- 透明度测试 (Alpha Test)
-  当片元的透明度不满足条件（通常是小于某个阈值），那么片元将被舍弃。  
-  否则按照不透明物体处理。  
+- 透明度测试 (Alpha Test) 当片元的透明度不满足条件（通常是小于某个阈值），那么片元将被舍弃。  
+  否则按照不透明物体处理。
   - 允许深度写入。
   - 仅产生两种结果：完全透明或完全不透明。
-- 透明度混合 (Alpha Blending)
-  计算当前片元颜色，并与存储在颜色缓冲中的颜色进行混合。
+- 透明度混合 (Alpha Blending) 计算当前片元颜色，并与存储在颜色缓冲中的颜色进行混合。
   - 关闭深度写入。
   - 允许深度测试。
   - 能够达成半透明效果。
 
+### 渲染顺序
+
+由于深度写入被关闭，因此存在透明物体与其他透明物体或不透明物体间的渲染顺序问题。
+
+一般地，渲染引擎会对物体先进行排序，后进行渲染：
+
+- 先渲染所有不透明物体。  
+  开启深度测试与深度写入。
+- 将半透明物体按与摄像机的距离排序，然后按照从后往前的顺序渲染这些半透明物体。  
+  开启深度测试，关闭深度写入。
+
+Unity 使用 **渲染队列** (render queue) 来解决渲染顺序问题。
+
+- 使用整数索引表示渲染队列，越小则越早被渲染。
+- 在 `SubShader` 语义块中添加 `Queue Tag` 以定义渲染队列。
+
+  ```shaderlab
+  SubShader {
+    Tags { "Queue" = "[queueTagName]+[offset]" }
+    Pass {
+        …
+    }
+  }
+  ```
+
+  - `queueTagName` 预定义渲染队列名称。
+  - `offset` 自由设定偏移量，整数。
+
+Unity 预定义了数个渲染队列及其值：
+
+| 名称        | 队列索引 | 含义                 |
+| ----------- | -------- | -------------------- |
+| Background  | 1000     | 背景                 |
+| Geometry    | 2000     | 几何（默认使用的）   |
+| AlphaTest   | 2450     | 需要透明度测试的物体 |
+| Transparent | 3000     | 透明物体             |
+| Overlay     | 4000     | 叠加物体             |
+
+使用 `ZWrite Off` 关闭深度写入。
+
+### 透明度测试
+
+**透明度测试** 当一个片元的透明度不满足条件，则其将被舍弃。否则按照普通的不透明片元处理它。
+
+可以使用 `clip()` 函数进行透明度测试。其相当于：
+
+```Shaderlab
+void clip(floatn x){
+    if (any(x < 0))
+        discard;
+}
+```
+
+```shaderlab
+Shader "Custom/Shader-exmp-13" {
+    Properties {
+        _Color ("Color Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _Cutoff ("Alpha Cutoff", Range(0, 1)) = 0.5
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" "Queue" = "AlphaTest" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
+            
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed _Cutoff;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+
+            
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed4 texColor = tex2D(_MainTex, i.uv);
+
+                // Alpha test
+                clip(texColor.a - _Cutoff);
+                // Equal to
+                //  if ((texColor.a - _Cutoff) < 0.0) {
+                //      discard;
+                //  }
+
+                fixed3 albedo = texColor.rgb * _Color.rgb;
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
+
+                return fixed4(ambient + diffuse, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Transparent/Cutout/VertexLit"
+}
+```
+
+![透明度测试](../../pic/alphaTest.png)
 
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

@@ -1560,6 +1560,22 @@ Shader "Custom/Shader-exmp-12" {
 
 如上的遮罩纹理仅使用了 r 分量。实践中一般会充分利用纹理的 rgba 四个通道存储不同属性。
 
+## 透明效果
+
+在 Unity 中，主要使用两种方法实现透明效果：
+
+- 透明度测试 (Alpha Test)
+  当片元的透明度不满足条件（通常是小于某个阈值），那么片元将被舍弃。  
+  否则按照不透明物体处理。  
+  - 允许深度写入。
+  - 仅产生两种结果：完全透明或完全不透明。
+- 透明度混合 (Alpha Blending)
+  计算当前片元颜色，并与存储在颜色缓冲中的颜色进行混合。
+  - 关闭深度写入。
+  - 允许深度测试。
+  - 能够达成半透明效果。
+
+
 [sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html

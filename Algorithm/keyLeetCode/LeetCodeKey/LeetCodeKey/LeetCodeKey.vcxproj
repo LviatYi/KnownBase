@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CHello.h" />
+    <ClInclude Include="LeetcodeUtil.h" />
     <ClInclude Include="ListNode.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Node.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Solution297.h" />
     <ClInclude Include="Solution3.h" />
     <ClInclude Include="Solution30.h" />
+    <ClInclude Include="Solution304.h" />
     <ClInclude Include="Solution31.h" />
     <ClInclude Include="Solution318.h" />
     <ClInclude Include="Solution32.h" />
@@ -212,12 +214,14 @@
     <ClInclude Include="Solution400.h" />
     <ClInclude Include="Solution41.h" />
     <ClInclude Include="Solution426.h" />
+    <ClInclude Include="Solution438.h" />
     <ClInclude Include="Solution5.h" />
     <ClInclude Include="Solution50.h" />
     <ClInclude Include="Solution525.h" />
     <ClInclude Include="Solution53.h" />
     <ClInclude Include="Solution54.h" />
     <ClInclude Include="Solution560.h" />
+    <ClInclude Include="Solution567.h" />
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution67.h" />
     <ClInclude Include="Solution7.h" />
@@ -231,6 +235,10 @@
     <ClInclude Include="Swordii10.h" />
     <ClInclude Include="Swordii11.h" />
     <ClInclude Include="Swordii12.h" />
+    <ClInclude Include="Swordii13.h" />
+    <ClInclude Include="Swordii14.h" />
+    <ClInclude Include="Swordii15.h" />
+    <ClInclude Include="Swordii16.h" />
     <ClInclude Include="Swordii2.h" />
     <ClInclude Include="Sword43.h" />
     <ClInclude Include="Sword10.h" />
@@ -309,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHello.cpp" />
+    <ClCompile Include="LeetcodeUtil.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Solution1.cpp" />
@@ -359,6 +368,7 @@
     <ClCompile Include="Solution297.cpp" />
     <ClCompile Include="Solution3.cpp" />
     <ClCompile Include="Solution30.cpp" />
+    <ClCompile Include="Solution304.cpp" />
     <ClCompile Include="Solution31.cpp" />
     <ClCompile Include="Solution318.cpp" />
     <ClCompile Include="Solution32.cpp" />
@@ -376,12 +386,14 @@
     <ClCompile Include="Solution400.cpp" />
     <ClCompile Include="Solution41.cpp" />
     <ClCompile Include="Solution426.cpp" />
+    <ClCompile Include="Solution438.cpp" />
     <ClCompile Include="Solution5.cpp" />
     <ClCompile Include="Solution50.cpp" />
     <ClCompile Include="Solution525.cpp" />
     <ClCompile Include="Solution53.cpp" />
     <ClCompile Include="Solution54.cpp" />
     <ClCompile Include="Solution560.cpp" />
+    <ClCompile Include="Solution567.cpp" />
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution67.cpp" />
     <ClCompile Include="Solution7.cpp" />
@@ -394,6 +406,10 @@
     <ClCompile Include="Swordii10.cpp" />
     <ClCompile Include="Swordii11.cpp" />
     <ClCompile Include="Swordii12.cpp" />
+    <ClCompile Include="Swordii13.cpp" />
+    <ClCompile Include="Swordii14.cpp" />
+    <ClCompile Include="Swordii15.cpp" />
+    <ClCompile Include="Swordii16.cpp" />
     <ClCompile Include="Swordii2.cpp" />
     <ClCompile Include="Sword43.cpp" />
     <ClCompile Include="Sword10.cpp" />

@@ -504,6 +504,30 @@
     <ClInclude Include="Solution525.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Swordii13.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LeetcodeUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii14.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii15.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii16.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution438.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution567.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution304.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -984,6 +1008,30 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution525.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii13.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LeetcodeUtil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii14.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii15.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution438.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution567.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution304.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

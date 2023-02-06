@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Solutions.h"
+#include "LeetcodeUtil.h"
 #include "ListNode.h"
 #include "TreeNode.h"
 #include <iostream>
@@ -11,9 +12,13 @@
 using namespace std;
 
 int main() {
-    Swordii12 s;
+    string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";
 
-    vector<int> words = {1, 7, 3, 6, 5, 6};
+    auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    cout << s.pivotIndex(words) << endl;
+    Swordii16 solution;
+
+    auto ans = solution.lengthOfLongestSubstring("ohvhjdml");
+
+    cout << ans << endl;
 }

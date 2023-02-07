@@ -12,13 +12,13 @@
 using namespace std;
 
 int main() {
-    string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";
+    //string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";
 
-    auto input = LeetcodeUtil::deserialization_vector_vector(in);
+    //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii16 solution;
+    Swordii20 solution;
 
-    auto ans = solution.lengthOfLongestSubstring("ohvhjdml");
+    auto ans = solution.countSubstrings("aaa");
 
     cout << ans << endl;
 }

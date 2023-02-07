@@ -162,6 +162,7 @@
     <ClInclude Include="Solution13.h" />
     <ClInclude Include="Solution138.h" />
     <ClInclude Include="Solution14.h" />
+    <ClInclude Include="Solution142.h" />
     <ClInclude Include="Solution15.h" />
     <ClInclude Include="Solution151.h" />
     <ClInclude Include="Solution154.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Solution9.h" />
     <ClInclude Include="Solution946.h" />
     <ClInclude Include="Solutions.h" />
+    <ClInclude Include="Swordii23.h" />
     <ClInclude Include="Swordii10.h" />
     <ClInclude Include="Swordii11.h" />
     <ClInclude Include="Swordii12.h" />
@@ -314,6 +316,9 @@
     <ClInclude Include="Sword9.h" />
     <ClInclude Include="Swordii1.h" />
     <ClInclude Include="Swordii20.h" />
+    <ClInclude Include="Swordii21.h" />
+    <ClInclude Include="Swordii22.h" />
+    <ClInclude Include="Swordii24.h" />
     <ClInclude Include="Swordii3.h" />
     <ClInclude Include="Swordii4.h" />
     <ClInclude Include="Swordii5.h" />
@@ -342,6 +347,7 @@
     <ClCompile Include="Solution13.cpp" />
     <ClCompile Include="Solution138.cpp" />
     <ClCompile Include="Solution14.cpp" />
+    <ClCompile Include="Solution142.cpp" />
     <ClCompile Include="Solution15.cpp" />
     <ClCompile Include="Solution151.cpp" />
     <ClCompile Include="Solution154.cpp" />
@@ -415,6 +421,7 @@
     <ClCompile Include="Solution8.cpp" />
     <ClCompile Include="Solution9.cpp" />
     <ClCompile Include="Solution946.cpp" />
+    <ClCompile Include="Swordii23.cpp" />
     <ClCompile Include="Swordii10.cpp" />
     <ClCompile Include="Swordii11.cpp" />
     <ClCompile Include="Swordii12.cpp" />
@@ -493,6 +500,9 @@
     <ClCompile Include="Sword9.cpp" />
     <ClCompile Include="Swordii1.cpp" />
     <ClCompile Include="Swordii20.cpp" />
+    <ClCompile Include="Swordii21.cpp" />
+    <ClCompile Include="Swordii22.cpp" />
+    <ClCompile Include="Swordii24.cpp" />
     <ClCompile Include="Swordii3.cpp" />
     <ClCompile Include="Swordii4.cpp" />
     <ClCompile Include="Swordii5.cpp" />

@@ -195,7 +195,7 @@ Properties {
 }
 ```
 
-See-also [SL-Properties | Unity][sl-properties]
+See-also [SL-Properties | Unity][shaderlab-properties]
 
 ![所有 ShaderLab 支持的属性](../../pic/shaderLabProperties.png)
 
@@ -423,7 +423,7 @@ Shader "Custom/Simple VertexFragment Shader" {
 
 | 名称 | 类型 | 值 |
 | --- | --- | --- |
-| `_LightColor0` (UnityLightingCommon.cginc) | `fix![P[N7$3J9R}SO0HC4MK{6~LT](/assets/P[N7$3J9R}SO0HC4MK{6~LT.png)ed4` | 光源颜色 |
+| `_LightColor0` (UnityLightingCommon.cginc) | `fix4` | 光源颜色 |
 | `_WorldSpaceLightPos0` | `float4` | 平行光：`xyz=光源朝向的反向（顶点坐标的入射方向的负向量）` `w=0`；其他光源：`xyz=光源位置` `w=1` |
 | `unity_WorldToLight` (AutoLight.cginc) | `float4x4` | 世界/光源矩阵。用于对剪影和衰减纹理进行采样 |
 | `unity_4LightPosX0 \unity_4LightPosY0 \unity_4LightPosZ0` | `float4` | [ForwardBase 通道] 前四个非重要点光源的世界空间位置 |
@@ -1633,7 +1633,129 @@ Shader "Custom/Shader-exmp-13" {
     SubShader {
         Pass {
             Tags { "LightMode" = "ForwardBase" "Queue" = "AlphaTest" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed _Cutoff;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+
+
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed4 texColor = tex2D(_MainTex, i.uv);
+
+                // Alpha test
+                clip(texColor.a - _Cutoff);
+                // Equal to
+                //  if ((texColor.a - _Cutoff) < 0.0) {
+                //      discard;
+                //  }
+
+                fixed3 albedo = texColor.rgb * _Color.rgb;
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
+
+                return fixed4(ambient + diffuse, 1.0);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Transparent/Cutout/VertexLit"
+}
+```
+
+![透明度测试](../../pic/alphaTest.png)
+
+### 透明度混合
+
+透明度混合可以实现半透明效果。它会使用当前片元的透明度作为混合因子，与已经存储在颜色缓冲中的颜色值进行混合。
+
+透明度混合需要关闭深度写入，因此需要注意物体渲染顺序。
+
+ShaderLab 提供 Blend 与 BlendOp 命令以设置混合模式。
+
+[SL-Commands-Blend | Unity][shaderlab-commands-blend]  
+[SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]
+
+混合方程为：
+
+$$
+\text{finalValue}=\text{sourceFactor} \times \text{sourceValue} \; \textcolor{grey}{operation} \; \text{destinationFactor} \times \text{destinationValue}
+$$
+
+- **$finalValue$** GPU 写入目标缓存值
+- **$sourceFactor$** 定义于 Blend 命令
+- **$sourceValue$** 片元着色器输出值
+- **$operation$** Blend Operation，默认为 $+$
+- **$destinationFactor$** 定义于 Blend 命令
+- **$destinationValue$** 已有目标缓存值
+
+例如，按照如下语法：
+
+`Blend <source factor> <destination factor>`
+
+写入命令：
+
+`Blend SrcAlpha OneMinusSrcAlpha`
+
+则混合方程为：
+
+$$
+\text{finalValue}= \text{SrcAlpha} \times \text{sourceValue} \; \textcolor{grey}{+} \; (1-\text{SrcAlpha}) \times \text{destinationValue}
+$$
+
+```shaderlab
+Shader "Custom/Shader-exmp-14" {
+    Properties {
+        _Color ("Main Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _AlphaScale ("Alpha Scale", Range(0, 1)) = 1
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
             
+            ZWrite Off
+            Blend SrcAlpha OneMinusSrcAlpha
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -1644,7 +1766,7 @@ Shader "Custom/Shader-exmp-13" {
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            fixed _Cutoff;
+            fixed _AlphaScale;
             
             struct a2v {
                 float4 vertex : POSITION;
@@ -1679,20 +1801,13 @@ Shader "Custom/Shader-exmp-13" {
 
                 fixed4 texColor = tex2D(_MainTex, i.uv);
 
-                // Alpha test
-                clip(texColor.a - _Cutoff);
-                // Equal to
-                //  if ((texColor.a - _Cutoff) < 0.0) {
-                //      discard;
-                //  }
-
                 fixed3 albedo = texColor.rgb * _Color.rgb;
 
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
 
                 fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
 
-                return fixed4(ambient + diffuse, 1.0);
+                return fixed4(ambient + diffuse, texColor.a * _AlphaScale);
             }
             ENDHLSL
         }
@@ -1702,9 +1817,9 @@ Shader "Custom/Shader-exmp-13" {
 }
 ```
 
-![透明度测试](../../pic/alphaTest.png)
+![透明度混合](../../pic/alphaBlend.png)
 
-[sl-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
+[shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
@@ -1712,3 +1827,5 @@ Shader "Custom/Shader-exmp-13" {
 [unityshadervariables]: https://docs.unity3d.com/cn/current/Manual/SL-UnityShaderVariables.html
 [shaderlab-pragma]: https://docs.unity3d.com/cn/current/Manual/SL-PragmaDirectives.html
 [shaderlab-semantic]: https://learn.microsoft.com/zh-cn/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
+[shaderlab-commands-blend]: https://docs.unity3d.com/Manual/SL-Blend.html
+[shaderlab-commands-blendop]: https://docs.unity3d.com/Manual/SL-BlendOp.html

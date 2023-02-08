@@ -16,9 +16,12 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii20 solution;
+    Swordii26 solution;
 
-    auto ans = solution.countSubstrings("aaa");
+    ListNode* head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
 
-    cout << ans << endl;
+    //auto ans = solution.reorderList2(head);
+    solution.reorderList2(head);
+
+    //cout << ans << endl;
 }

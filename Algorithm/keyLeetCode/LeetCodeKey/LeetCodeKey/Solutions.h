@@ -94,3 +94,4 @@
 #include "Swordii17.h"
 #include "Swordii18.h"
 #include "Swordii20.h"
+#include "Swordii26.h"

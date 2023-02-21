@@ -295,6 +295,19 @@ void MyCallback(SomeEvent evt){}
 
 See Also [UITK Event | Unity][uitk-event]
 
+#### 过渡事件
+
+每个 Transition 可能生成四种过渡事件。每个被修改的属性都拥有自己的过渡事件。
+
+可通过 `stylePropertyNames` 获取变化的属性名称。
+
+| 过渡事件                | 触发时机                                         |
+| ----------------------- | ------------------------------------------------ |
+| `TransitionRunEvent`    | 过渡创建，当属性发生更改时，或属性发生回归时触发 |
+| `TransitionStartEvent`  | 过渡开始，当 delay 结束时触发                    |
+| `TransitionCancelEvent` | 过渡取消，当过渡被打断时触发                     |
+| `TransitionEndEvent`    | 过渡结束，当过渡正常结束时触发                   |
+
 ---
 
 ## 计划任务

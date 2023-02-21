@@ -1819,6 +1819,17 @@ Shader "Custom/Shader-exmp-14" {
 
 ![透明度混合](../../pic/alphaBlend.png)
 
+但由于关闭了深度写入，当模型本身具有复杂的遮挡关系或包含了复杂的非凸网格时，可能得到错误的透明效果。
+
+![错误的深度](../../pic/alphaBlendError.png)
+
+### 开启深度写入的透明度混合
+
+一种错误排序的解决方法是使用两个 Pass 来渲染模型。
+
+- 第一个 Pass 开启深度写入，但不输出颜色。
+- 第二个 Pass 进行正常的透明度混合。
+
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html

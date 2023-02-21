@@ -16,12 +16,12 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii26 solution;
+    Swordii28 solution;
 
-    ListNode* head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+    //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 
     //auto ans = solution.reorderList2(head);
-    solution.reorderList2(head);
+    //solution.reorderList2(head);
 
     //cout << ans << endl;
 }

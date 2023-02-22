@@ -212,6 +212,7 @@
     <ClInclude Include="Solution36.h" />
     <ClInclude Include="Solution37.h" />
     <ClInclude Include="Solution38.h" />
+    <ClInclude Include="Solution380.h" />
     <ClInclude Include="Solution39.h" />
     <ClInclude Include="Solution4.h" />
     <ClInclude Include="Solution40.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Solution680.h" />
     <ClInclude Include="Solution7.h" />
     <ClInclude Include="Solution70.h" />
+    <ClInclude Include="Solution708.h" />
     <ClInclude Include="Solution724.h" />
     <ClInclude Include="Solution76.h" />
     <ClInclude Include="Solution79.h" />
@@ -327,7 +329,9 @@
     <ClInclude Include="Swordii26.h" />
     <ClInclude Include="Swordii27.h" />
     <ClInclude Include="Swordii28.h" />
+    <ClInclude Include="Swordii29.h" />
     <ClInclude Include="Swordii3.h" />
+    <ClInclude Include="Swordii30.h" />
     <ClInclude Include="Swordii4.h" />
     <ClInclude Include="Swordii5.h" />
     <ClInclude Include="Swordii6.h" />
@@ -405,6 +409,7 @@
     <ClCompile Include="Solution36.cpp" />
     <ClCompile Include="Solution37.cpp" />
     <ClCompile Include="Solution38.cpp" />
+    <ClCompile Include="Solution380.cpp" />
     <ClCompile Include="Solution39.cpp" />
     <ClCompile Include="Solution4.cpp" />
     <ClCompile Include="Solution40.cpp" />
@@ -427,6 +432,7 @@
     <ClCompile Include="Solution680.cpp" />
     <ClCompile Include="Solution7.cpp" />
     <ClCompile Include="Solution70.cpp" />
+    <ClCompile Include="Solution708.cpp" />
     <ClCompile Include="Solution724.cpp" />
     <ClCompile Include="Solution76.cpp" />
     <ClCompile Include="Solution79.cpp" />
@@ -519,7 +525,9 @@
     <ClCompile Include="Swordii26.cpp" />
     <ClCompile Include="Swordii27.cpp" />
     <ClCompile Include="Swordii28.cpp" />
+    <ClCompile Include="Swordii29.cpp" />
     <ClCompile Include="Swordii3.cpp" />
+    <ClCompile Include="Swordii30.cpp" />
     <ClCompile Include="Swordii4.cpp" />
     <ClCompile Include="Swordii5.cpp" />
     <ClCompile Include="Swordii6.cpp" />

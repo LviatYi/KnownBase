@@ -12,11 +12,20 @@
 using namespace std;
 
 int main() {
-    //string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";
+    //string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";'
 
     //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii28 solution;
+    Swordii30 solution = {};
+
+    solution.insert(1);
+    solution.remove(2);
+    solution.insert(2);
+    solution.getRandom();
+    solution.remove(1);
+    solution.insert(2);
+    solution.getRandom();
+
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

@@ -582,26 +582,44 @@
     <ClInclude Include="Solution445.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Swordii28.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Solution234.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Solution430.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Swordii29.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="Solution708.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Swordii30.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Solution380.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution430.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii28.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii29.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii30.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution234.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution49.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution146.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution242.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii31.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii32.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii33.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1182,6 +1200,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution380.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii31.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution146.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii32.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution242.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii33.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution49.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

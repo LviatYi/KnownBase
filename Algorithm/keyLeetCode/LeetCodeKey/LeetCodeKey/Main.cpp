@@ -16,21 +16,17 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii30 solution = {};
+    Swordii33 solution = {};
 
-    solution.insert(1);
-    solution.remove(2);
-    solution.insert(2);
-    solution.getRandom();
-    solution.remove(1);
-    solution.insert(2);
-    solution.getRandom();
+    vector<string> in = {"eat", "tea", "tan", "ate", "nat", "bat"};
 
+    auto ret = solution.groupAnagrams2(in);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 
     //auto ans = solution.reorderList2(head);
     //solution.reorderList2(head);
 
-    //cout << ans << endl;
+    cout << "done" << endl;
+
 }

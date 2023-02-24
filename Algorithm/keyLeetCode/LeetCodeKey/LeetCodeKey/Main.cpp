@@ -16,13 +16,11 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialization_vector_vector(in);
 
-    Swordii33 solution = {};
+    Swordii38 solution = {};
 
-    vector<string> in = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    vector<int> in = {73, 74, 75, 71, 69, 72, 76, 73};
 
-    auto strs = {in.begin(), in.begin() + 0};
-
-    auto ret = solution.groupAnagrams2(in);
+    auto ret = solution.dailyTemperatures(in);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

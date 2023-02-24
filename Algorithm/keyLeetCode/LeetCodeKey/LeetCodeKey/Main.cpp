@@ -20,6 +20,8 @@ int main() {
 
     vector<string> in = {"eat", "tea", "tan", "ate", "nat", "bat"};
 
+    auto strs = {in.begin(), in.begin() + 0};
+
     auto ret = solution.groupAnagrams2(in);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));

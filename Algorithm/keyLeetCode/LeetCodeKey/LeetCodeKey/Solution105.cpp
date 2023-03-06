@@ -1,10 +1,11 @@
 #include "Solution105.h"
 
-static TreeNode* buildSubTree(
-    vector<int>::iterator preorderBegin, vector<int>::iterator preorderEnd, vector<int>::iterator inorderBegin, vector<int>::iterator inorderEnd) {
-    TreeNode* ans = nullptr;
+static Swordii43TreeNode* buildSubTree(
+    vector<int>::iterator preorderBegin, vector<int>::iterator preorderEnd, vector<int>::iterator inorderBegin,
+    vector<int>::iterator inorderEnd) {
+    Swordii43TreeNode* ans = nullptr;
     if (preorderBegin < preorderEnd) {
-        ans = new TreeNode(*preorderBegin);
+        ans = new Swordii43TreeNode(*preorderBegin);
         vector<int>::iterator rootPosInInorder = find(inorderBegin, inorderEnd, *preorderBegin);
 
         int lCount = rootPosInInorder - inorderBegin;
@@ -16,9 +17,9 @@ static TreeNode* buildSubTree(
     return ans;
 }
 
-TreeNode* Solution105::buildTree(vector<int>& preorder, vector<int>& inorder) {
+Swordii43TreeNode* Solution105::buildTree(vector<int>& preorder, vector<int>& inorder) {
     // 前序遍历的首个为根结点。
-    TreeNode* ans = buildSubTree(
+    Swordii43TreeNode* ans = buildSubTree(
         preorder.begin(),
         preorder.end(),
         inorder.begin(),

@@ -1,13 +1,13 @@
 #pragma once
 
 struct TreeNode {
-	int val;
-	TreeNode* left;
-	TreeNode* right;
+    int val;
+    TreeNode* left;
+    TreeNode* right;
 
-	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {
-	};
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {
+    };
 
-	TreeNode(int x, TreeNode* _left, TreeNode* _right) : val(x), left(_left), right(_right) {
-	}
+    TreeNode(int x, TreeNode* _left, TreeNode* _right) : val(x), left(_left), right(_right) {
+    }
 };

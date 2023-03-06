@@ -1,6 +1,6 @@
 ﻿#include "Solution236.h"
 
-static bool dfs(Swordii43TreeNode* root, int p, int q, Swordii43TreeNode*& ans) {
+static bool dfs(TreeNode* root, int p, int q, TreeNode*& ans) {
     if (!root) {
         return false;
     }
@@ -17,9 +17,9 @@ static bool dfs(Swordii43TreeNode* root, int p, int q, Swordii43TreeNode*& ans) 
     }
 }
 
-Swordii43TreeNode* Solution236::lowestCommonAncestor(Swordii43TreeNode* root, Swordii43TreeNode* p,
-                                                     Swordii43TreeNode* q) {
-    Swordii43TreeNode* ans = nullptr;
+TreeNode* Solution236::lowestCommonAncestor(TreeNode* root, TreeNode* p,
+                                            TreeNode* q) {
+    TreeNode* ans = nullptr;
 
     dfs(root, p->val, q->val, ans);
 

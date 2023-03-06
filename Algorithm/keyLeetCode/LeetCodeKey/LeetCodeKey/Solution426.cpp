@@ -1,6 +1,6 @@
 #include "Solution426.h"
 
-static Swordii43TreeNode* inorderWalk(Swordii43TreeNode* root, Swordii43TreeNode*& lastNode) {
+static TreeNode* inorderWalk(TreeNode* root, TreeNode*& lastNode) {
     if (!root) {
         return nullptr;
     }
@@ -22,11 +22,11 @@ static Swordii43TreeNode* inorderWalk(Swordii43TreeNode* root, Swordii43TreeNode
     }
 }
 
-Swordii43TreeNode* Solution426::treeToDoublyList(Swordii43TreeNode* root) {
-    Swordii43TreeNode* preHead = new Swordii43TreeNode(0);
-    Swordii43TreeNode* lastNode = preHead;
+TreeNode* Solution426::treeToDoublyList(TreeNode* root) {
+    TreeNode* preHead = new TreeNode(0);
+    TreeNode* lastNode = preHead;
 
-    Swordii43TreeNode* last = inorderWalk(root, lastNode);
+    TreeNode* last = inorderWalk(root, lastNode);
     if (preHead->right) {
         last->right = preHead->right;
         preHead->right->left = last;

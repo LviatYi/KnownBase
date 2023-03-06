@@ -7,4 +7,3 @@ class Sword7 {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder);
 };
-

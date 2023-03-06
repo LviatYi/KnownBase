@@ -22,5 +22,5 @@ static bool isSubSymmetric(TreeNode* a, TreeNode* b) {
 
 
 bool Sword28::isSymmetric(TreeNode* root) {
-        return isSubSymmetric(root,root);
+    return isSubSymmetric(root, root);
 }

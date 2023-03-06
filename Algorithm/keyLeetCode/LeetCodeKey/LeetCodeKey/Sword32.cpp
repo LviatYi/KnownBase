@@ -3,7 +3,7 @@
 using std::queue;
 
 vector<int> Sword32::levelOrder(TreeNode* root) {
-    vector<int>ans;
+    vector<int> ans;
     if (!root) {
         return ans;
     }
@@ -29,7 +29,7 @@ vector<int> Sword32::levelOrder(TreeNode* root) {
 }
 
 vector<vector<int>> Sword32::levelOrder2(TreeNode* root) {
-    vector<vector<int>>ans;
+    vector<vector<int>> ans;
     if (!root) {
         return ans;
     }
@@ -67,7 +67,7 @@ vector<vector<int>> Sword32::levelOrder2(TreeNode* root) {
 }
 
 vector<vector<int>> Sword32::levelOrder3(TreeNode* root) {
-    vector<vector<int>>ans;
+    vector<vector<int>> ans;
     if (!root) {
         return ans;
     }

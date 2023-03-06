@@ -3,6 +3,7 @@
 #include"TreeNode.h"
 
 using std::string;
+
 class Sword37 {
 public:
     // Encodes a tree to a single string.

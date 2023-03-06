@@ -1,10 +1,11 @@
 #include "Sword7.h"
 
 static TreeNode* buildSubTree(
-    vector<int>::iterator preorderBegin, vector<int>::iterator preorderEnd, vector<int>::iterator inorderBegin, vector<int>::iterator inorderEnd) {
+    vector<int>::iterator preorderBegin, vector<int>::iterator preorderEnd, vector<int>::iterator inorderBegin,
+    vector<int>::iterator inorderEnd) {
     TreeNode* ans = nullptr;
     if (preorderBegin < preorderEnd) {
-         ans = new TreeNode(*preorderBegin);
+        ans = new TreeNode(*preorderBegin);
         vector<int>::iterator rootPosInInorder = find(inorderBegin, inorderEnd, *preorderBegin);
 
         int lCount = rootPosInInorder - inorderBegin;

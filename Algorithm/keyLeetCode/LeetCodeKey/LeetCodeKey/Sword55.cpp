@@ -43,5 +43,3 @@ bool Sword55::isBalanced(TreeNode* root) {
     return isSubBalance(root) != -1;
 }
 #pragma endregion
-
-

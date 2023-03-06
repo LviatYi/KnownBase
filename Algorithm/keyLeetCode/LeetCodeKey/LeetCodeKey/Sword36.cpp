@@ -1,4 +1,5 @@
 #include "Sword36.h"
+
 static TreeNode* inorderWalk(TreeNode* root, TreeNode*& lastNode) {
     if (!root) {
         return nullptr;

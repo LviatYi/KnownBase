@@ -11,7 +11,7 @@ int invInOrder(TreeNode* root, int& k) {
     if (k == 1) {
         return root->val;
     }
-        k--;
+    k--;
 
     return invInOrder(root->left, k);
 }

@@ -1,13 +1,14 @@
 #include "Solution226.h"
-static void swapNode(TreeNode*& n) {
+
+static void swapNode(Swordii43TreeNode*& n) {
     if (n) {
-        TreeNode* t = n->left;
+        Swordii43TreeNode* t = n->left;
         n->left = n->right;
         n->right = t;
     }
 }
 
-TreeNode* Solution226::invertTree(TreeNode* root) {
+Swordii43TreeNode* Solution226::invertTree(Swordii43TreeNode* root) {
     if (!root) {
         return nullptr;
     }

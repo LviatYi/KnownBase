@@ -1,6 +1,6 @@
 #include "Solution113.h"
 
-static void subPathSum(Swordii43TreeNode* root, int target, vector<int>& currentAns, vector<vector<int>>& ans) {
+static void subPathSum(TreeNode* root, int target, vector<int>& currentAns, vector<vector<int>>& ans) {
 
     if (root->left) {
         currentAns.push_back(root->left->val);
@@ -18,7 +18,7 @@ static void subPathSum(Swordii43TreeNode* root, int target, vector<int>& current
     }
 }
 
-vector<vector<int>> Solution113::pathSum(Swordii43TreeNode* root, int target) {
+vector<vector<int>> Solution113::pathSum(TreeNode* root, int target) {
     vector<vector<int>> ans;
 
     if (!root) {

@@ -1,9 +1,10 @@
 #pragma once
-#include "TreeNode.h"
+#include "Swordii43TreeNode.h"
 #include <vector>
 
 using std::vector;
+
 class Solution113 {
 public:
-    vector<vector<int>> pathSum(TreeNode* root, int target);
+    vector<vector<int>> pathSum(Swordii43TreeNode* root, int target);
 };

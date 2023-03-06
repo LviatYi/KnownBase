@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "Swordii43TreeNode.h"
+#include "TreeNode.h"
 
 class Solution235 {
 public:
-    Swordii43TreeNode* lowestCommonAncestor(Swordii43TreeNode* root, Swordii43TreeNode* p, Swordii43TreeNode* q);
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
 
 };

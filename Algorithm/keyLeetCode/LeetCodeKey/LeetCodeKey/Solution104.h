@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include"Swordii43TreeNode.h"
+#include"TreeNode.h"
 
 class Solution104 {
 public:
-    int maxDepth(Swordii43TreeNode* root);
+    int maxDepth(TreeNode* root);
 };

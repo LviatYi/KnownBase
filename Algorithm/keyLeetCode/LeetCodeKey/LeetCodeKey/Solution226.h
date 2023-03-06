@@ -1,7 +1,7 @@
 #pragma once
-#include"Swordii43TreeNode.h"
+#include"TreeNode.h"
 
 class Solution226 {
 public:
-    Swordii43TreeNode* invertTree(Swordii43TreeNode* root);
+    TreeNode* invertTree(TreeNode* root);
 };

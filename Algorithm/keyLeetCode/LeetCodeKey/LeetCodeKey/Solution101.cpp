@@ -1,6 +1,6 @@
 #include "Solution101.h"
 
-static bool isSame(TreeNode* r1, TreeNode* r2) {
+static bool isSame(Swordii43TreeNode* r1, Swordii43TreeNode* r2) {
     if (!r1 && !r2) {
         return true;
     }
@@ -12,7 +12,7 @@ static bool isSame(TreeNode* r1, TreeNode* r2) {
     }
 }
 
-static bool isSubSymmetric(TreeNode* a, TreeNode* b) {
+static bool isSubSymmetric(Swordii43TreeNode* a, Swordii43TreeNode* b) {
     if (!a && !b) {
         return true;
     }
@@ -21,7 +21,6 @@ static bool isSubSymmetric(TreeNode* a, TreeNode* b) {
 }
 
 
-bool Solution101::isSymmetric(TreeNode* root) {
+bool Solution101::isSymmetric(Swordii43TreeNode* root) {
     return isSubSymmetric(root, root);
 }
-

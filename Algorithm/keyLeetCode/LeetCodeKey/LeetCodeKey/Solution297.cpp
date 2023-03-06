@@ -3,7 +3,7 @@
 using std::vector;
 using std::to_string;
 
-static void subSerialize(TreeNode* root, string& ans) {
+static void subSerialize(Swordii43TreeNode* root, string& ans) {
     if (!root) {
         ans.append("null,");
         return;
@@ -14,20 +14,20 @@ static void subSerialize(TreeNode* root, string& ans) {
     subSerialize(root->right, ans);
 }
 
-string Solution297::serialize(TreeNode* root) {
+string Solution297::serialize(Swordii43TreeNode* root) {
     string ans;
     subSerialize(root, ans);
 
     return ans;
 }
 
-static void subDeserialize(vector<string>& datas, int& i, TreeNode* root) {
+static void subDeserialize(vector<string>& datas, int& i, Swordii43TreeNode* root) {
     if (datas.at(i) == "null") {
         i++;
         root->left = nullptr;
     }
     else {
-        root->left = new TreeNode(std::stoi(datas.at(i)));
+        root->left = new Swordii43TreeNode(std::stoi(datas.at(i)));
         i++;
         subDeserialize(datas, i, root->left);
     }
@@ -36,14 +36,14 @@ static void subDeserialize(vector<string>& datas, int& i, TreeNode* root) {
         root->right = nullptr;
     }
     else {
-        root->right = new TreeNode(std::stoi(datas.at(i)));
+        root->right = new Swordii43TreeNode(std::stoi(datas.at(i)));
         i++;
         subDeserialize(datas, i, root->right);
     }
     return;
 }
 
-TreeNode* Solution297::deserialize(string data) {
+Swordii43TreeNode* Solution297::deserialize(string data) {
     vector<string> datas;
     string word;
     for (char c : data) {
@@ -60,7 +60,7 @@ TreeNode* Solution297::deserialize(string data) {
         return nullptr;
     }
     int i = 0;
-    TreeNode* root = new TreeNode(std::stoi(datas.at(i++)));
+    Swordii43TreeNode* root = new Swordii43TreeNode(std::stoi(datas.at(i++)));
     subDeserialize(datas, i, root);
     return root;
 }

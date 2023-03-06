@@ -1,13 +1,14 @@
 #pragma once
 #include<string>
-#include"TreeNode.h"
+#include"Swordii43TreeNode.h"
 
 using std::string;
+
 class Solution297 {
 public:
     // Encodes a tree to a single string.
-    string serialize(TreeNode* root);
+    string serialize(Swordii43TreeNode* root);
 
     // Decodes your encoded data to tree.
-    TreeNode* deserialize(string data);
+    Swordii43TreeNode* deserialize(string data);
 };

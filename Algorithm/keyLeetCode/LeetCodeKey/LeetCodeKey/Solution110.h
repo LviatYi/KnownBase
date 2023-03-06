@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include"TreeNode.h"
+#include"Swordii43TreeNode.h"
+
 class Solution110 {
 public:
-    bool isBalanced(TreeNode* root);
+    bool isBalanced(Swordii43TreeNode* root);
 };
-

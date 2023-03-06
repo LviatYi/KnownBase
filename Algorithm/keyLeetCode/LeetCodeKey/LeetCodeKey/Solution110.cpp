@@ -4,7 +4,7 @@
 using std::max;
 using std::abs;
 
-static int isSubBalance(TreeNode* root) {
+static int isSubBalance(Swordii43TreeNode* root) {
     if (!root) {
         return 0;
     }
@@ -20,8 +20,6 @@ static int isSubBalance(TreeNode* root) {
     return abs(lHeight - rHeight) < 2 ? max(lHeight, rHeight) + 1 : -1;
 }
 
-bool Solution110::isBalanced(TreeNode* root) {
+bool Solution110::isBalanced(Swordii43TreeNode* root) {
     return isSubBalance(root) != -1;
 }
-
-

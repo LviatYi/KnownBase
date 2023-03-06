@@ -1,6 +1,6 @@
 ﻿#include "Solution104.h"
 
-int Solution104::maxDepth(TreeNode* root) {
+int Solution104::maxDepth(Swordii43TreeNode* root) {
     if (!root) {
         return 0;
     }

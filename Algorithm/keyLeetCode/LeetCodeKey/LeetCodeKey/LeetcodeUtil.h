@@ -39,24 +39,28 @@ public:
     static std::string preorder_serialize_tree_node(TreeNode* root, bool zip = false);
 
     /**
-     * \brief 将字符串反序列化为二叉树，使用层序遍历顺序 \n
-     *  ....1.....                              \n
-     *  ../...\...                              \n
-     *  .2.....3.. <==>  "1,2,3,null,null,4,5"  \n
-     *  ....../.\.                              \n
-     *  .....4...5                              \n
+     * \brief 将字符串反序列化为二叉树，使用层序遍历顺序，父子节点都为 nullptr 将被压缩\n
+     *  ....1......                                             \n
+     *  ../...\....                                             \n
+     *  .2.....3... <==>  "1,2,3,null,null,4,5,null,null,null,6"\n
+     *  ....../.\..                                             \n
+     *  .....4...5.                                             \n
+     *  ..........\                                             \n
+     *  ..........6                                             \n
      * \param data 字符串
      * \return 二叉树根节点
      */
     static TreeNode* level_order_deserialize_tree_node(std::string data);
 
     /**
-     * \brief 将二叉树序列化为字符串，使用层序遍历顺序\n
-     *  ....1.....                              \n
-     *  ../...\...                              \n
-     *  .2.....3.. <==>  "1,2,3,null,null,4,5"  \n
-     *  ....../.\.                              \n
-     *  .....4...5                              \n
+     * \brief 将字符串反序列化为二叉树，使用层序遍历顺序，父子节点都为 nullptr 将被压缩\n
+     *  ....1......                                             \n
+     *  ../...\....                                             \n
+     *  .2.....3... <==>  "1,2,3,null,null,4,5,null,null,null,6"\n
+     *  ....../.\..                                             \n
+     *  .....4...5.                                             \n
+     *  ..........\                                             \n
+     *  ..........6                                             \n
      * \param root 二叉树根节点
      * \param zip 是否去除末尾的 null
      * \return 字符串

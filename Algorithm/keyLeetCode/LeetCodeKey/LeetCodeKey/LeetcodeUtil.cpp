@@ -149,11 +149,7 @@ TreeNode* LeetcodeUtil::level_order_deserialize_tree_node(std::string data) {
             TreeNode* node = queue.front();
             queue.pop();
 
-            if (node == nullptr) {
-                j += 2;
-            }
-
-            else {
+            if (node != nullptr) {
                 if (words[j] != "null") {
                     auto left_child = new TreeNode(std::stoi(words[j]));
                     node->left = left_child;
@@ -192,9 +188,6 @@ std::string LeetcodeUtil::level_order_serialize_tree_node(TreeNode* root, bool z
             queue.pop();
             if (node == nullptr) {
                 words.emplace_back("null");
-                queue.emplace(nullptr);
-                queue.emplace(nullptr);
-
             }
             else {
                 words.emplace_back(std::to_string(node->val));

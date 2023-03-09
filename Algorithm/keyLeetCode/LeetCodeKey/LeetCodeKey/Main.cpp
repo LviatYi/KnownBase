@@ -18,26 +18,15 @@ int main() {
 
     Swordii50 solution = {};
 
-    TreeNode* root = new TreeNode(
-        10,
-        new TreeNode(5,
-                     new TreeNode(3,
-                                  new TreeNode(3),
-                                  new TreeNode(-2)),
-                     new TreeNode(2,
-                                  nullptr,
-                                  new TreeNode(1))),
-        new TreeNode(-3,
-                     nullptr,
-                     new TreeNode(11)));
+    TreeNode* root = LeetcodeUtil::level_order_deserialize_tree_node("5,4,8,11,null,13,4,7,2,null,null,5,1");
 
-    auto ret = solution.pathSum(root, 8);
+    auto ret = solution.pathSum(root, 22);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 
     //auto ans = solution.reorderList2(head);
     //solution.reorderList2(head);
 
-    cout << "done" << endl;
+    cout << "done" << ", return " << ret << endl;
 
 }

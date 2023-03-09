@@ -14,13 +14,24 @@ using namespace std;
 int main() {
     //string in = "[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]";'
 
-    //auto input = LeetcodeUtil::deserialization_vector_vector(in);
+    //auto input = LeetcodeUtil::deserialize_vector_vector(in);
 
-    Swordii38 solution = {};
+    Swordii50 solution = {};
 
-    vector<int> in = {73, 74, 75, 71, 69, 72, 76, 73};
+    TreeNode* root = new TreeNode(
+        10,
+        new TreeNode(5,
+                     new TreeNode(3,
+                                  new TreeNode(3),
+                                  new TreeNode(-2)),
+                     new TreeNode(2,
+                                  nullptr,
+                                  new TreeNode(1))),
+        new TreeNode(-3,
+                     nullptr,
+                     new TreeNode(11)));
 
-    auto ret = solution.dailyTemperatures(in);
+    auto ret = solution.pathSum(root, 8);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

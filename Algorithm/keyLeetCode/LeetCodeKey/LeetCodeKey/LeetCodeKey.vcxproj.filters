@@ -678,6 +678,39 @@
     <ClInclude Include="Solution84.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Swordii45.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii46.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution513.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution515.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution199.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii47.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution814.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii48.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii44.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii49.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii50.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -1332,6 +1365,39 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution919.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii44.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution513.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution515.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution199.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution814.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii45.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii46.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii47.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii48.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii49.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii50.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

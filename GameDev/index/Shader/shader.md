@@ -1830,6 +1830,12 @@ Shader "Custom/Shader-exmp-14" {
 - 第一个 Pass 开启深度写入，但不输出颜色。
 - 第二个 Pass 进行正常的透明度混合。
 
+明显地，这种方式意味着：
+
+物体在屏幕上占据的每个像素颜色仅计算一次。
+
+因此，这种方式无法处理透明物体自身重叠部分的透明效果。
+
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html

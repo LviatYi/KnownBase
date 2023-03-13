@@ -16,11 +16,11 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialize_vector_vector(in);
 
-    Swordii50 solution = {};
+    Swordii54 solution;
 
-    TreeNode* root = LeetcodeUtil::level_order_deserialize_tree_node("5,4,8,11,null,13,4,7,2,null,null,5,1");
+    TreeNode* root = LeetcodeUtil::level_order_deserialize_tree_node("4,1,6,0,2,5,7,null,null,null,3,null,null,null,8");
 
-    auto ret = solution.pathSum(root, 22);
+    auto ret = solution.convertBST(root);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

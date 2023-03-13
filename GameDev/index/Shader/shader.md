@@ -1836,6 +1836,86 @@ Shader "Custom/Shader-exmp-14" {
 
 因此，这种方式无法处理透明物体自身重叠部分的透明效果。
 
+```shaderlab
+Shader "Custom/Shader-exmp-15" {
+    Properties {
+        _Color ("Main Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _AlphaScale ("Alpha Scale", Range(0, 1)) = 1
+    }
+    SubShader {
+        Pass{
+            ZWrite On
+            ColorMask 0
+        }
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
+            
+            ZWrite Off
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            HLSLPROGRAM
+            #pragma enable_d3d11_debug_symbols
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed _AlphaScale;
+            
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+            
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed4 texColor = tex2D(_MainTex, i.uv);
+
+                fixed3 albedo = texColor.rgb * _Color.rgb;
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
+
+                return fixed4(ambient + diffuse, texColor.a * _AlphaScale);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Transparent/Cutout/VertexLit"
+}
+```
+
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
 [shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html

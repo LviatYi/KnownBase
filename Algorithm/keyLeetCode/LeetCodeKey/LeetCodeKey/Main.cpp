@@ -17,15 +17,16 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialize_vector_vector(in);
 
-    vector<int> vector = {3, 0, 1, 0};
+    vector<int> vector = {3, 2, 1, 4, 5};
+    TreeNode* tree = LeetcodeUtil::level_order_deserialize_tree_node("8,6,10,5,7,9,11");
 
-    Swordii60 solution;
-
-    TreeNode* root = LeetcodeUtil::level_order_deserialize_tree_node("8,6,10,5,7,9,11");
+    Swordii62 solution;
+    //Solution2488 solution;
 
     //auto ret = solution.book();
 
-    solution.topKFrequent(vector, 1);
+    solution.insert("apple");
+    auto ret = solution.search("app");
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

@@ -111,3 +111,5 @@
 #include "Swordii58.h"
 #include "Swordii59.h"
 #include "Swordii60.h"
+#include "Swordii62.h"
+#include "Solution2488.h"

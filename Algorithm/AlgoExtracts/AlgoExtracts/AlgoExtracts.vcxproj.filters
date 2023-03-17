@@ -21,12 +21,18 @@
     <ClInclude Include="TreeNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SortUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvlTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SortUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

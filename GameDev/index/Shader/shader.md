@@ -1710,7 +1710,7 @@ Shader "Custom/Shader-exmp-13" {
 
 透明度混合需要关闭深度写入，因此需要注意物体渲染顺序。
 
-ShaderLab 提供 Blend 与 BlendOp 命令以设置混合模式。
+ShaderLab 提供 Blend 与 BlendOp 命令以设置混合模式，除了透明度混合之外，混合还有很多其他用处。
 
 [SL-Commands-Blend | Unity][shaderlab-commands-blend]  
 [SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]
@@ -1726,7 +1726,7 @@ $$
 - **$sourceValue$** 片元着色器输出值
 - **$operation$** Blend Operation，默认为 $+$
 - **$destinationFactor$** 定义于 Blend 命令
-- **$destinationValue$** 已有目标缓存值
+- **$destinationValue$** 已有的目标缓存值
 
 例如，按照如下语法：
 
@@ -1915,6 +1915,10 @@ Shader "Custom/Shader-exmp-15" {
     Fallback "Transparent/Cutout/VertexLit"
 }
 ```
+
+![错误的深度](../../pic/blendWithDepthWrite.png)
+
+###
 
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

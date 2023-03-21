@@ -18,15 +18,15 @@ int main() {
     //auto input = LeetcodeUtil::deserialize_vector_vector(in);
 
     vector<int> vector = {3, 2, 1, 4, 5};
+    std::vector<string> strings = {"cat", "bat", "rat"};
     TreeNode* tree = LeetcodeUtil::level_order_deserialize_tree_node("8,6,10,5,7,9,11");
 
-    Swordii62 solution;
-    //Solution2488 solution;
+    //Solution600 solution;
+    Solution2376 solution;
 
     //auto ret = solution.book();
 
-    solution.insert("apple");
-    auto ret = solution.search("app");
+    auto ret = solution.countSpecialNumbers(101);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

@@ -1713,20 +1713,20 @@ Shader "Custom/Shader-exmp-13" {
 ShaderLab 提供 Blend 与 BlendOp 命令以设置混合模式，除了透明度混合之外，混合还有很多其他用处。
 
 [SL-Commands-Blend | Unity][shaderlab-commands-blend]  
-[SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]
+[SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]  
 
-混合方程为：
+混合方程为：  
 
 $$
 \text{finalValue}=\text{sourceFactor} \times \text{sourceValue} \; \textcolor{grey}{operation} \; \text{destinationFactor} \times \text{destinationValue}
 $$
 
-- **$finalValue$** GPU 写入目标缓存值
-- **$sourceFactor$** 定义于 Blend 命令
-- **$sourceValue$** 片元着色器输出值
-- **$operation$** Blend Operation，默认为 $+$
-- **$destinationFactor$** 定义于 Blend 命令
-- **$destinationValue$** 已有的目标缓存值
+- **$finalValue$** GPU 写入目标缓存值  
+- **$sourceFactor$** 源颜色因子，可定义于 Blend 命令  
+- **$sourceValue$** 源颜色，片元着色器输出值  
+- **$operation$** Blend Operation，默认为 $+$  
+- **$destinationFactor$** 目标颜色因子，可定义于 Blend 命令  
+- **$destinationValue$** 目标颜色，已有的目标缓存值  
 
 例如，按照如下语法：
 
@@ -1918,7 +1918,7 @@ Shader "Custom/Shader-exmp-15" {
 
 ![错误的深度](../../pic/blendWithDepthWrite.png)
 
-###
+### 
 
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

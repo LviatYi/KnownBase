@@ -1,6 +1,6 @@
 ﻿#include "Swordii64.h"
 
-bool Swordii64::sub_search(std::string& searchWord, size_t index, Swordii64::character_dict* current, int tolerance) {
+bool Swordii64::sub_search(std::string& searchWord, size_t index, Swordii64::Character_dict* current, int tolerance) {
     if (tolerance < 0) {
         return false;
     }
@@ -9,7 +9,7 @@ bool Swordii64::sub_search(std::string& searchWord, size_t index, Swordii64::cha
         return tolerance == 0 && current->is_end;
     }
 
-    for (int i = 0; i < character_dict::size - 1; ++i) {
+    for (int i = 0; i < Character_dict::size - 1; ++i) {
         if (current->chars[i] == nullptr) {
             continue;
         }
@@ -26,16 +26,16 @@ bool Swordii64::sub_search(std::string& searchWord, size_t index, Swordii64::cha
 }
 
 Swordii64::Swordii64() {
-    dict = new character_dict();
+    dict_ = new Character_dict();
 }
 
 void Swordii64::buildDict(std::vector<std::string> dictionary) {
     for (auto string : dictionary) {
-        character_dict* current = dict;
+        Character_dict* current = dict_;
 
         for (const char c : string) {
             if (current->chars[c - 'a'] == nullptr) {
-                current->chars[c - 'a'] = new character_dict;
+                current->chars[c - 'a'] = new Character_dict;
             }
             current = current->chars[c - 'a'];
         }
@@ -45,5 +45,5 @@ void Swordii64::buildDict(std::vector<std::string> dictionary) {
 }
 
 bool Swordii64::search(std::string searchWord) {
-    return sub_search(searchWord, 0, dict, 1);
+    return sub_search(searchWord, 0, dict_, 1);
 }

@@ -4,16 +4,16 @@
 
 class Swordii64 {
 private:
-    struct character_dict {
+    struct Character_dict {
         static constexpr int size = 26;
 
-        character_dict* chars[size] = {nullptr};
+        Character_dict* chars[size] = {nullptr};
         bool is_end = false;
     };
 
-    character_dict* dict;
+    Character_dict* dict_;
 
-    bool sub_search(std::string& searchWord, size_t index, character_dict* current, int tolerance);
+    bool sub_search(std::string& searchWord, size_t index, Character_dict* current, int tolerance);
 
 public:
     /** Initialize your data structure here. */

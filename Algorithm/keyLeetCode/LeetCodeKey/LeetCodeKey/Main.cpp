@@ -17,17 +17,16 @@ int main() {
 
     //auto input = LeetcodeUtil::deserialize_vector_vector(in);
 
-    vector<int> vector = {3, 2, 1, 4, 5};
-    std::vector<string> strings = {"cat", "bat", "rat"};
+    vector<int> vector = {10, 25};
+    std::vector<string> strings = {"time", "me", "bell"};
     TreeNode* tree = LeetcodeUtil::level_order_deserialize_tree_node("8,6,10,5,7,9,11");
 
     //Solution600 solution;
-    Solution2376 solution;
+    Swordii67 solution;
 
     //auto ret = solution.book();
 
-    auto ret = solution.countSpecialNumbers(101);
-
+    auto ret = solution.findMaximumXOR(vector);
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 
     //auto ans = solution.reorderList2(head);

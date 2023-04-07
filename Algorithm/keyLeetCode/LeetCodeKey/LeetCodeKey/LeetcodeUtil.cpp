@@ -19,43 +19,116 @@ std::vector<std::vector<int>> LeetcodeUtil::deserialize_vector_vector(std::strin
     int squareBracketCount = 0;
 
     bool element_valid = false;
-    bool vector_valid = false;
     int number = 0;
     auto current_vector = std::vector<int>();
 
     for (const char i : in) {
         if (i == '[') {
-            element_valid = true;
-            vector_valid = true;
-            --squareBracketCount;
+            ++squareBracketCount;
         }
         else if (std::isdigit(i)) {
+            element_valid = true;
             number *= 10;
             number += i - '0';
         }
-
         else if (i == ',' || i == ']') {
             if (element_valid) {
                 current_vector.push_back(number);
                 number = 0;
+                element_valid = false;
             }
-
             if (i == ']') {
                 --squareBracketCount;
-                if (vector_valid) {
-                    ret.push_back(current_vector);
-                    current_vector.clear();
-                }
-                element_valid = false;
-                vector_valid = false;
+                ret.push_back(current_vector);
+                current_vector.clear();
+
             }
         }
     }
 
-    if (~squareBracketCount) {
+    return ret;
+}
+
+ListNode* LeetcodeUtil::deserialize_list_node(std::string in) {
+    if (in.empty()) {
+        return nullptr;
+    }
+
+    in.erase(std::remove_if(in.begin(), in.end(), isspace), in.end());
+
+    ListNode* p_head = new ListNode;
+    ListNode* pre = p_head;
+
+    int squareBracketCount = 0;
+
+    bool element_valid = false;
+    int number = 0;
+
+    for (const char i : in) {
+        if (i == '[') {
+            ++squareBracketCount;
+        }
+        else if (std::isdigit(i)) {
+            number *= 10;
+            number += i - '0';
+            element_valid = true;
+        }
+        else if (i == ',' || i == ']') {
+            if (element_valid) {
+                pre->next = new ListNode(number);
+                pre = pre->next;
+                number = 0;
+                element_valid = false;
+            }
+            if (i == ']') {
+                --squareBracketCount;
+            }
+        }
+    }
+
+    return p_head->next;
+}
+
+std::vector<ListNode*> LeetcodeUtil::deserialize_vector_list_node(std::string in) {
+    std::vector<ListNode*> ret = {};
+
+    if (in.empty()) {
         return ret;
     }
-    return {};
+
+    in.erase(std::remove_if(in.begin(), in.end(), isspace), in.end());
+
+    int squareBracketCount = 0;
+    int length = 0;
+    int start = 0;
+    bool valid = false;
+
+    for (const char i : in) {
+        if (i == '[') {
+            ++squareBracketCount;
+            if (squareBracketCount == 2 && start == 0) {
+                ++start;
+            }
+
+            length += squareBracketCount < 2;
+        }
+        else if (i == ']') {
+            if (valid) {
+                ++length;
+                ret.push_back(deserialize_list_node(in.substr(start, length)));
+                start += length + 1;
+                length = 0;
+                valid = false;
+            }
+
+            --squareBracketCount;
+        }
+        else {
+            valid = true;
+            ++length;
+        }
+    }
+    return ret;
 }
 
 #pragma endregion

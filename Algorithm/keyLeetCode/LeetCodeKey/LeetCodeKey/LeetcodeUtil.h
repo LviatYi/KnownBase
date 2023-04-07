@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "ListNode.h"
 #include "TreeNode.h"
 
 class LeetcodeUtil {
@@ -12,6 +13,10 @@ public:
      * \return 二维 int 数组 vector<vector<int>>
      */
     static std::vector<std::vector<int>> deserialize_vector_vector(std::string in);
+
+    static ListNode* deserialize_list_node(std::string in);
+
+    static std::vector<ListNode*> deserialize_vector_list_node(std::string in);
 
     /**
      * \brief 将字符串反序列化为二叉树，使用先序遍历顺序，且叶子节点的左右子节点为 nullptr\n

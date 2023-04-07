@@ -25,12 +25,12 @@ int main() {
     ListNode* list_node = LeetcodeUtil::deserialize_list_node("[1,4,5]");
     vector<ListNode*> list_node_list = LeetcodeUtil::deserialize_vector_list_node("[[1,4,5], [1,3,4], [2,6]]");
 
-    Swordii76 solution;
+    Swordii78 solution;
     //Swordii73 solution(vector);
 
     //auto ret = solution.book();
 
-    auto ret = solution.findKthLargest2(int_list, 4);
+    auto ret = solution.mergeKLists(list_node_list);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

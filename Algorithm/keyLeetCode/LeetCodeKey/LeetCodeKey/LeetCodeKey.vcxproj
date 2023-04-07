@@ -168,6 +168,7 @@
     <ClInclude Include="Solution142.h" />
     <ClInclude Include="Solution143.h" />
     <ClInclude Include="Solution146.h" />
+    <ClInclude Include="Solution148.h" />
     <ClInclude Include="Solution15.h" />
     <ClInclude Include="Solution150.h" />
     <ClInclude Include="Solution151.h" />
@@ -269,6 +270,8 @@
     <ClInclude Include="Solution67.h" />
     <ClInclude Include="Solution677.h" />
     <ClInclude Include="Solution69.h" />
+    <ClInclude Include="Solution77.h" />
+    <ClInclude Include="Solution78.h" />
     <ClInclude Include="Solution875.h" />
     <ClInclude Include="Swordii68.h" />
     <ClInclude Include="Solution680.h" />
@@ -430,7 +433,12 @@
     <ClInclude Include="Swordii74.h" />
     <ClInclude Include="Swordii75.h" />
     <ClInclude Include="Swordii76.h" />
+    <ClInclude Include="Swordii77.h" />
+    <ClInclude Include="Swordii78.h" />
+    <ClInclude Include="Swordii79.h" />
+    <ClInclude Include="Swordii80.h" />
     <ClInclude Include="Swordii8.h" />
+    <ClInclude Include="Swordii81.h" />
     <ClInclude Include="Swordii9.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
@@ -459,6 +467,7 @@
     <ClCompile Include="Solution142.cpp" />
     <ClCompile Include="Solution143.cpp" />
     <ClCompile Include="Solution146.cpp" />
+    <ClCompile Include="Solution148.cpp" />
     <ClCompile Include="Solution15.cpp" />
     <ClCompile Include="Solution150.cpp" />
     <ClCompile Include="Solution151.cpp" />
@@ -560,6 +569,8 @@
     <ClCompile Include="Solution67.cpp" />
     <ClCompile Include="Solution677.cpp" />
     <ClCompile Include="Solution69.cpp" />
+    <ClCompile Include="Solution77.cpp" />
+    <ClCompile Include="Solution78.cpp" />
     <ClCompile Include="Solution875.cpp" />
     <ClCompile Include="Swordii68.cpp" />
     <ClCompile Include="Solution680.cpp" />
@@ -720,7 +731,12 @@
     <ClCompile Include="Swordii74.cpp" />
     <ClCompile Include="Swordii75.cpp" />
     <ClCompile Include="Swordii76.cpp" />
+    <ClCompile Include="Swordii77.cpp" />
+    <ClCompile Include="Swordii78.cpp" />
+    <ClCompile Include="Swordii79.cpp" />
+    <ClCompile Include="Swordii80.cpp" />
     <ClCompile Include="Swordii8.cpp" />
+    <ClCompile Include="Swordii81.cpp" />
     <ClCompile Include="Swordii9.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

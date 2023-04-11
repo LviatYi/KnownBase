@@ -927,6 +927,12 @@
     <ClInclude Include="Swordii85.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="Swordii86.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution131.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -1830,6 +1836,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Swordii85.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii86.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution131.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

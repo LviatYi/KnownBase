@@ -126,6 +126,7 @@
 //#include "Swordii82.h"
 //#include "Swordii84.h"
 #include "Swordii86.h"
+#include "Swordii87.h"
 #include "Solution600.h"
 #include "Solution2488.h"
 #include "Solution2376.h"

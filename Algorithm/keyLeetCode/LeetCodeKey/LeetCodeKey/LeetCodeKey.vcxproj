@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -276,6 +276,7 @@
     <ClInclude Include="Solution77.h" />
     <ClInclude Include="Solution78.h" />
     <ClInclude Include="Solution875.h" />
+    <ClInclude Include="Solution93.h" />
     <ClInclude Include="Swordii68.h" />
     <ClInclude Include="Solution680.h" />
     <ClInclude Include="Solution7.h" />
@@ -447,6 +448,7 @@
     <ClInclude Include="Swordii84.h" />
     <ClInclude Include="Swordii85.h" />
     <ClInclude Include="Swordii86.h" />
+    <ClInclude Include="Swordii87.h" />
     <ClInclude Include="Swordii9.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
@@ -583,6 +585,7 @@
     <ClCompile Include="Solution77.cpp" />
     <ClCompile Include="Solution78.cpp" />
     <ClCompile Include="Solution875.cpp" />
+    <ClCompile Include="Solution93.cpp" />
     <ClCompile Include="Swordii68.cpp" />
     <ClCompile Include="Solution680.cpp" />
     <ClCompile Include="Solution7.cpp" />
@@ -753,6 +756,7 @@
     <ClCompile Include="Swordii84.cpp" />
     <ClCompile Include="Swordii85.cpp" />
     <ClCompile Include="Swordii86.cpp" />
+    <ClCompile Include="Swordii87.cpp" />
     <ClCompile Include="Swordii9.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

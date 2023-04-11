@@ -934,16 +934,19 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Swordii87.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Solution93.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution746.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii88.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CHello.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -1854,6 +1857,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution93.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii88.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution746.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

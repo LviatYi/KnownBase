@@ -273,6 +273,7 @@
     <ClInclude Include="Solution67.h" />
     <ClInclude Include="Solution677.h" />
     <ClInclude Include="Solution69.h" />
+    <ClInclude Include="Solution746.h" />
     <ClInclude Include="Solution77.h" />
     <ClInclude Include="Solution78.h" />
     <ClInclude Include="Solution875.h" />
@@ -449,6 +450,7 @@
     <ClInclude Include="Swordii85.h" />
     <ClInclude Include="Swordii86.h" />
     <ClInclude Include="Swordii87.h" />
+    <ClInclude Include="Swordii88.h" />
     <ClInclude Include="Swordii9.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
@@ -582,6 +584,7 @@
     <ClCompile Include="Solution67.cpp" />
     <ClCompile Include="Solution677.cpp" />
     <ClCompile Include="Solution69.cpp" />
+    <ClCompile Include="Solution746.cpp" />
     <ClCompile Include="Solution77.cpp" />
     <ClCompile Include="Solution78.cpp" />
     <ClCompile Include="Solution875.cpp" />
@@ -757,6 +760,7 @@
     <ClCompile Include="Swordii85.cpp" />
     <ClCompile Include="Swordii86.cpp" />
     <ClCompile Include="Swordii87.cpp" />
+    <ClCompile Include="Swordii88.cpp" />
     <ClCompile Include="Swordii9.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

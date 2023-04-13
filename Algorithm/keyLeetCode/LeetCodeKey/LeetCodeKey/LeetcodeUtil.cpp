@@ -16,15 +16,13 @@ std::vector<std::vector<int>> LeetcodeUtil::deserialize_vector_vector(std::strin
 
     in.erase(std::remove_if(in.begin(), in.end(), isspace), in.end());
 
-    int squareBracketCount = 0;
-
     bool element_valid = false;
+    bool vector_valid = false;
     int number = 0;
     auto current_vector = std::vector<int>();
 
     for (const char i : in) {
         if (i == '[') {
-            ++squareBracketCount;
         }
         else if (std::isdigit(i)) {
             element_valid = true;
@@ -34,14 +32,16 @@ std::vector<std::vector<int>> LeetcodeUtil::deserialize_vector_vector(std::strin
         else if (i == ',' || i == ']') {
             if (element_valid) {
                 current_vector.push_back(number);
+                vector_valid = true;
                 number = 0;
                 element_valid = false;
             }
             if (i == ']') {
-                --squareBracketCount;
-                ret.push_back(current_vector);
+                if (vector_valid) {
+                    ret.push_back(current_vector);
+                    vector_valid = false;
+                }
                 current_vector.clear();
-
             }
         }
     }
@@ -59,14 +59,11 @@ ListNode* LeetcodeUtil::deserialize_list_node(std::string in) {
     ListNode* p_head = new ListNode;
     ListNode* pre = p_head;
 
-    int squareBracketCount = 0;
-
     bool element_valid = false;
     int number = 0;
 
     for (const char i : in) {
         if (i == '[') {
-            ++squareBracketCount;
         }
         else if (std::isdigit(i)) {
             number *= 10;
@@ -81,7 +78,6 @@ ListNode* LeetcodeUtil::deserialize_list_node(std::string in) {
                 element_valid = false;
             }
             if (i == ']') {
-                --squareBracketCount;
             }
         }
     }

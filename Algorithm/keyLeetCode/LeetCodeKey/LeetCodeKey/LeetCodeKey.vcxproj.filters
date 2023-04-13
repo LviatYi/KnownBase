@@ -945,6 +945,36 @@
     <ClInclude Include="Swordii88.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Swordii89.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii90.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution198.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution213.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii91.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution256.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii92.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution926.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii93.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution873.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHello.cpp">
@@ -1866,6 +1896,36 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution746.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii89.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution198.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii90.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution213.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii91.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution256.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii92.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution926.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii93.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution873.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -133,6 +133,7 @@
 #include "Swordii91.h"
 #include "Swordii92.h"
 #include "Swordii93.h"
+#include "Swordii94.h"
 #include "Solution600.h"
 #include "Solution2488.h"
 #include "Solution2376.h"

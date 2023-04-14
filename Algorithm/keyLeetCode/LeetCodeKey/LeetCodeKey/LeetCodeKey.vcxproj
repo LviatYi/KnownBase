@@ -164,6 +164,7 @@
     <ClInclude Include="Solution125.h" />
     <ClInclude Include="Solution13.h" />
     <ClInclude Include="Solution131.h" />
+    <ClInclude Include="Solution132.h" />
     <ClInclude Include="Solution138.h" />
     <ClInclude Include="Solution14.h" />
     <ClInclude Include="Solution142.h" />
@@ -462,6 +463,7 @@
     <ClInclude Include="Swordii91.h" />
     <ClInclude Include="Swordii92.h" />
     <ClInclude Include="Swordii93.h" />
+    <ClInclude Include="Swordii94.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
   <ItemGroup>
@@ -485,6 +487,7 @@
     <ClCompile Include="Solution125.cpp" />
     <ClCompile Include="Solution13.cpp" />
     <ClCompile Include="Solution131.cpp" />
+    <ClCompile Include="Solution132.cpp" />
     <ClCompile Include="Solution138.cpp" />
     <ClCompile Include="Solution14.cpp" />
     <ClCompile Include="Solution142.cpp" />
@@ -782,6 +785,7 @@
     <ClCompile Include="Swordii91.cpp" />
     <ClCompile Include="Swordii92.cpp" />
     <ClCompile Include="Swordii93.cpp" />
+    <ClCompile Include="Swordii94.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

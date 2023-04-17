@@ -134,6 +134,7 @@
 #include "Swordii92.h"
 #include "Swordii93.h"
 #include "Swordii94.h"
+#include "Swordii95.h"
 #include "Solution600.h"
 #include "Solution2488.h"
 #include "Solution2376.h"

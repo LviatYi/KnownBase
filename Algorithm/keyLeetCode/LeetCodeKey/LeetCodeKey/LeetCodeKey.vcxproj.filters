@@ -976,10 +976,16 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Swordii95.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Solution1143.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Swordii96.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution97.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1938,6 +1944,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Solution1143.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Swordii96.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution97.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

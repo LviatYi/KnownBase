@@ -159,6 +159,7 @@
     <ClInclude Include="Solution1122.h" />
     <ClInclude Include="Solution113.h" />
     <ClInclude Include="Solution1143.h" />
+    <ClInclude Include="Solution115.h" />
     <ClInclude Include="Solution12.h" />
     <ClInclude Include="Solution121.h" />
     <ClInclude Include="Solution125.h" />
@@ -270,6 +271,8 @@
     <ClInclude Include="Solution567.h" />
     <ClInclude Include="Solution6.h" />
     <ClInclude Include="Solution600.h" />
+    <ClInclude Include="Solution62.h" />
+    <ClInclude Include="Solution64.h" />
     <ClInclude Include="Solution647.h" />
     <ClInclude Include="Solution648.h" />
     <ClInclude Include="Solution653.h" />
@@ -466,6 +469,9 @@
     <ClInclude Include="Swordii94.h" />
     <ClInclude Include="Swordii95.h" />
     <ClInclude Include="Swordii96.h" />
+    <ClInclude Include="Swordii97.h" />
+    <ClInclude Include="Swordii98.h" />
+    <ClInclude Include="Swordii99.h" />
     <ClInclude Include="TreeNode.h" />
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +490,7 @@
     <ClCompile Include="Solution1122.cpp" />
     <ClCompile Include="Solution113.cpp" />
     <ClCompile Include="Solution1143.cpp" />
+    <ClCompile Include="Solution115.cpp" />
     <ClCompile Include="Solution12.cpp" />
     <ClCompile Include="Solution121.cpp" />
     <ClCompile Include="Solution125.cpp" />
@@ -595,6 +602,8 @@
     <ClCompile Include="Solution567.cpp" />
     <ClCompile Include="Solution6.cpp" />
     <ClCompile Include="Solution600.cpp" />
+    <ClCompile Include="Solution62.cpp" />
+    <ClCompile Include="Solution64.cpp" />
     <ClCompile Include="Solution647.cpp" />
     <ClCompile Include="Solution648.cpp" />
     <ClCompile Include="Solution653.cpp" />
@@ -790,6 +799,9 @@
     <ClCompile Include="Swordii94.cpp" />
     <ClCompile Include="Swordii95.cpp" />
     <ClCompile Include="Swordii96.cpp" />
+    <ClCompile Include="Swordii97.cpp" />
+    <ClCompile Include="Swordii98.cpp" />
+    <ClCompile Include="Swordii99.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

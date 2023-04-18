@@ -19,8 +19,9 @@ int main() {
     //std::vector<std::vector<int>> int_list_list = LeetcodeUtil::deserialize_vector_vector(
     //    "[[17,2,17],[16,16,5],[14,3,19]]");
 
-    auto in = "";
-    auto in2 = "";
+    auto in =
+        " ";
+    auto in2 = "rwmimatmhydhbujebqehjprrwfkoebcxxqfktayaaeheys";
     auto in3 = "a";
     //std::vector<string> strings = {"time", "me", "bell"};
 
@@ -29,12 +30,12 @@ int main() {
     //ListNode* list_node = LeetcodeUtil::deserialize_list_node("[1,4,5]");
     //vector<ListNode*> list_node_list = LeetcodeUtil::deserialize_vector_list_node("[[1,4,5], [1,3,4], [2,6]]");
 
-    Swordii96 solution;
+    Swordii98 solution;
     //Swordii73 solution(vector);
 
     //auto ret = solution.book();
 
-    auto ret = solution.isInterleave(in, in2, in3);
+    auto ret = solution.uniquePaths(3, 2);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 

@@ -1006,7 +1006,10 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Swordii100.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Solution120.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1992,6 +1995,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Swordii100.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution120.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

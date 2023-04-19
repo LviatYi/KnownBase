@@ -19,7 +19,7 @@ void test() {
 
 int main() {
     int val = 2;
-    auto in = std::vector{14, 9, 8, 4, 3, 2};
+    auto in = std::vector{10};
     //std::vector<std::vector<int>> in = LeetcodeUtil::deserialize_vector_vector("[[2],[3,4],[6,5,7],[4,1,8,3]]");
 
     //auto in =
@@ -33,12 +33,12 @@ int main() {
     //ListNode* list_node = LeetcodeUtil::deserialize_list_node("[1,4,5]");
     //vector<ListNode*> list_node_list = LeetcodeUtil::deserialize_vector_list_node("[[1,4,5], [1,3,4], [2,6]]");
 
-    Swordii101 solution;
+    Swordii102 solution;
     //Swordii73 solution(vector);
 
     //auto ret = solution.book();
 
-    //auto ret = solution.canPartition2(in);
+    auto ret = solution.findTargetSumWays(in, -20);
 
     //Node* head = new Node(1, new Node(2, new Node(3, new Node(4))));
 
@@ -47,5 +47,5 @@ int main() {
 
     //cout << "done" << ", return " << ret << endl;
 
-    test();
+    //test();
 }

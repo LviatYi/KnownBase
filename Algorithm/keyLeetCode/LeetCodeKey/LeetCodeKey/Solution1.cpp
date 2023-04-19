@@ -28,11 +28,11 @@ vector<int> Solution1::twoSum(vector<int>& nums, int target) {
 
 std::vector<int> Solution1::twoSum2(std::vector<int>& nums, int target) {
     // 哈希表解法
-    unordered_map<int, int > hashtable;
+    unordered_map<int, int> hashtable;
     for (int i = 0; i < nums.size(); ++i) {
         auto it = hashtable.find(target - nums[i]);
         if (it != hashtable.end()) {
-            return { it->second, i };
+            return {it->second, i};
         }
         hashtable[nums[i]] = i;
     }

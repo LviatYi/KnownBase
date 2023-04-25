@@ -21,31 +21,30 @@ Unity 中没有最完美的文件结构可供参考，这并不意味着可以�
 推荐的结构：
 
 ```java
-└─ Assets
-    ├─ Resources
-    │  ├─ Prefab
-    │  ├─ Meterial
-    │  ├─ Model
-    │  ├─ Audio
-    │  │  ├─ Sound
-    │  │  └─ Music
-    │  ├─ Texture
-    │  ├─ Animation
-    │  ├─ Font
-    │  ├─ Sprite
-    │  │  └─ Tile
-    │  ├─ Terrain
-    │  ├─ Config
-    │  └─ ScriptableObject
-    ├─ Scripts
-    ├─ Game
-    │  ├─ Camera
-    │  └─ UI
-    ├─ Scenes
-    ├─ UI Toolkit
-    ├─ Editor
-    ├─ Test
-    └─ Third
+├─ Assets/
+ `  ├─ Resources/               // 程序动态加载资源
+ `  ├─ Docs/                    // 项目文档
+ `  ├─ Scenes/                  // 场景
+    ├─ Scripts/                 // 运行时脚本
+    ├─ Shaders/                 // Shader
+    ├─ Models/                  // 模型资源
+    ├─ Textures/                // 纹理资源
+    ├─ Materials/               // 材质资源
+    ├─ Fonts/                   // 字体资源
+    ├─ Audios/                  // 音频资源
+    ├─ Prefabs                  // 预制体
+    ├─ UI/                      // UI 资源
+    │  └─ UI Toolkit/              // UI Toolkit 资源
+    ├─ Animations/              // 动画资源
+    ├─ Terrian/                 // 地形资源
+    ├─ StreamingAssets/         // 流媒体资源
+    ├─ ScriptableObjects/       // ScriptableObject
+    ├─ Editor/                  // 编辑器扩展
+    │  └─ Scripts/                 // 编辑时脚本
+    ├─ Gizmos/                  // Gizmos 图标
+    ├─ Config/                  // 配置
+    ├─ Test/                    // 测试资源
+    └─ Third/                   // 第三方工具和库
 ```
 
 ## 版本控制

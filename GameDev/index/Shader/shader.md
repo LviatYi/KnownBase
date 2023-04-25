@@ -258,7 +258,8 @@ line 6 `SubShader{}`
   | PreviewType | 告知 Unity 编辑器如何在材质 Inspector 中显示使用此子着色器的材质 |
   | CanUseSpriteAtlas | 在使用 Legacy Sprite Packer 的项目中使用此子着色器标签可警告用户着色器依赖于原始纹理坐标，因此不应将其纹理打包到图集中 |
 
-  See-also [Shaderlab Tags | Unity][shaderlab-tags]
+  See-also [Shaderlab Tags SubShader | Unity][shaderlab-tags-subshader]  
+  See-also [Shaderlab Tags Pass | Unity][shaderlab-tags-pass]
 
   标签可以通过 C# 访问。
 
@@ -1713,20 +1714,20 @@ Shader "Custom/Shader-exmp-13" {
 ShaderLab 提供 Blend 与 BlendOp 命令以设置混合模式，除了透明度混合之外，混合还有很多其他用处。
 
 [SL-Commands-Blend | Unity][shaderlab-commands-blend]  
-[SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]  
+[SL-Commands-BlendOp | Unity][shaderlab-commands-blendop]
 
-混合方程为：  
+混合方程为：
 
 $$
 \text{finalValue}=\text{sourceFactor} \times \text{sourceValue} \; \textcolor{grey}{operation} \; \text{destinationFactor} \times \text{destinationValue}
 $$
 
-- **$finalValue$** GPU 写入目标缓存值  
-- **$sourceFactor$** 源颜色因子，可定义于 Blend 命令  
-- **$sourceValue$** 源颜色，片元着色器输出值  
-- **$operation$** Blend Operation，默认为 $+$  
-- **$destinationFactor$** 目标颜色因子，可定义于 Blend 命令  
-- **$destinationValue$** 目标颜色，已有的目标缓存值  
+- **$finalValue$** GPU 写入目标缓存值
+- **$sourceFactor$** 源颜色因子，可定义于 Blend 命令
+- **$sourceValue$** 源颜色，片元着色器输出值
+- **$operation$** Blend Operation，默认为 $+$
+- **$destinationFactor$** 目标颜色因子，可定义于 Blend 命令
+- **$destinationValue$** 目标颜色，已有的目标缓存值
 
 例如，按照如下语法：
 
@@ -1752,7 +1753,7 @@ Shader "Custom/Shader-exmp-14" {
     SubShader {
         Pass {
             Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
-            
+
             ZWrite Off
             Blend SrcAlpha OneMinusSrcAlpha
 
@@ -1762,12 +1763,12 @@ Shader "Custom/Shader-exmp-14" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
             fixed _AlphaScale;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1794,7 +1795,7 @@ Shader "Custom/Shader-exmp-14" {
                 return o;
             }
 
-            
+
             fixed4 frag(v2f i) : SV_Target {
                 fixed3 worldNormal = normalize(i.worldNormal);
                 fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
@@ -1851,7 +1852,7 @@ Shader "Custom/Shader-exmp-15" {
 
         Pass {
             Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
-            
+
             ZWrite Off
             Blend SrcAlpha OneMinusSrcAlpha
 
@@ -1862,12 +1863,12 @@ Shader "Custom/Shader-exmp-15" {
 
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-            
+
             fixed4 _Color;
             sampler2D _MainTex;
             float4 _MainTex_ST;
             fixed _AlphaScale;
-            
+
             struct a2v {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -1893,7 +1894,7 @@ Shader "Custom/Shader-exmp-15" {
 
                 return o;
             }
-            
+
             fixed4 frag(v2f i) : SV_Target {
                 fixed3 worldNormal = normalize(i.worldNormal);
                 fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
@@ -1918,11 +1919,268 @@ Shader "Custom/Shader-exmp-15" {
 
 ![错误的深度](../../pic/blendWithDepthWrite.png)
 
-### 
+### 双面渲染的透明效果
+
+由于默认情况下渲染引擎剔除了物体背面，先前数种透明度渲染都无法透过物体的透明部分看到物体自身，这意味着模型内部的透明混合被忽略了。
+
+Unity 使用 Cull 命令指定物体的渲染图元。
+
+[SL-Commands-Cull | Unity][shaderlab-commnads-cull]
+
+```shaderlab
+Cull Back | Front | Off
+```
+
+- Back 默认的，剔除背对相机的多边形。称为背面剔除。
+- Front 剔除面向相机的多边形。称为正面剔除。
+- Off 不剔除。
+
+可以使用透明度混合的双面渲染以提供物体内部的透明处理。其将渲染工作分为两个 Pass，将背面及正面分开渲染。
+
+![透明度混合的双面渲染](../../pic/doubeRendering.png)
+
+```shaderlab
+Shader "Custom/Shader-exmp-16" {
+    Properties {
+        _Color ("Main Tint", Color) = (1, 1, 1, 1)
+        _MainTex ("Main Tex", 2D) = "white" { }
+        _AlphaScale ("Alpha Scale", Range(0, 1)) = 1
+    }
+    SubShader {
+        Pass {
+            Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
+
+            ZWrite Off
+            Cull Front
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed _AlphaScale;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+
+
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed4 texColor = tex2D(_MainTex, i.uv);
+
+                fixed3 albedo = texColor.rgb * _Color.rgb;
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
+
+                return fixed4(ambient + diffuse, texColor.a * _AlphaScale);
+            }
+            ENDHLSL
+        }
+
+        Pass {
+            Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
+
+            ZWrite Off
+            Cull Back
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed _AlphaScale;
+
+            struct a2v {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 worldNormal : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
+                float2 uv : TEXCOORD2;
+            };
+
+            v2f vert(a2v v) {
+                v2f o;
+                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+
+                return o;
+            }
+
+
+            fixed4 frag(v2f i) : SV_Target {
+                fixed3 worldNormal = normalize(i.worldNormal);
+                fixed3 worldLightDir = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                fixed4 texColor = tex2D(_MainTex, i.uv);
+
+                fixed3 albedo = texColor.rgb * _Color.rgb;
+
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz * albedo;
+
+                fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
+
+                return fixed4(ambient + diffuse, texColor.a * _AlphaScale);
+            }
+            ENDHLSL
+        }
+    }
+
+    Fallback "Transparent/Cutout/VertexLit"
+}
+```
+
+## Unity 光照
+
+### 渲染路径
+
+渲染路径 (Rendering Path) 决定了光照是如何应用到 Unity Shader 中的。Unity 将根据渲染路径为 Pass 填充光照信息。
+
+- 前向渲染路径 (Forward Rendering Path)
+  - 基于一次渲染循环逐个渲染每个物体，逐个处理光照、阴影、透明度等信息。
+- 延迟渲染路径 (Deferred Rendering Path)
+  - 将几何信息和光照信息分开处理，首先将几何信息渲染到一张纹理中，然后在后续的渲染过程中使用这张纹理来计算光照和阴影等信息。
+
+在 Pass 中，可以使用 LightMode 标签定义 Pass 使用的渲染路径。
+
+```shaderlab
+Tags { "LightMode" = "ForwardBase" }
+```
+
+LightMode 支持多种标签设置。
+
+[SL-Tags-LightMode SRP | Unity][shaderlab-tag-lightmode-srp]  
+[SL-Tags-LightMode URP | Unity][shaderlab-tag-lightmode-urp]
+
+#### 前向渲染路径
+
+一次完整的前向渲染对于每个物体都进行了：
+
+- 计算颜色缓冲区和深度缓冲区
+- 比较深度缓冲，若可见则更新颜色
+
+每有一个逐像素光源和一个物体，都需要进行一次完整的渲染流程。
+
+在 Unity 中，前向渲染路径有 3 中光照处理方式：
+
+- 逐顶点光照
+- 逐像素光照
+- 球谐函数 (Spherical Harmonics, SH) 处理
+
+光源采用哪种光照处理方式取决于其类型和渲染模式：
+
+- 类型
+  - 平行光
+  - 其他类型光源
+- 渲染模式
+  - Important
+  - Not Important
+
+Unity 选用光照处理方式的判断如下：
+
+- 场景中最亮的 **平行光**，总是 **逐像素处理**。
+- 渲染模式被设置为 **Not Important** 的光源，按照 **逐顶点或 SH 处理**。
+- 渲染模式被设置为 **Important** 的光源，按照 **逐像素处理**。
+- 根据以上规则得到的逐像素光源数量小于 Quality Setting 中的 **逐像素光源数量** ，将提升一些光源为 **逐像素处理**。
+
+通常以如下形式的 Pass 进行计算：
+
+![前向渲染的 Pass 布局](../../pic/forwardBase.jpg)
+
+其中出现了 **着色器关键字** 的声明与使用。
+
+[SL-Program Variants | Unity][shaderlab-multipleprogramvariants]
+
+对于前向渲染来说，一个 Unity Shader 通常会定义一个 BasePass（BasePass 也可以定义多次，例如需要双面渲染等情况）以及一个 AdditionalPass。
+
+一个 BasePass 仅会执行一次（定义了多个 BasePass 的情况除外），而一个 AdditionalPass 会根据影响该物体的其他逐像素光源的数目被多次调用，即每个逐像素光源会执行一次 AdditionalPass。
+
+#### 延迟渲染路径
+
+当场景中包含大量实时光源时，前向渲染的性能会快速下降。
+
+延迟渲染使用 G 缓冲 (Germetry-buffer, G-buffer) ，其存储了所计算表面（通常是距离相机最近的表面）的信息，如法线、位置、材质属性等。从性能角度，延迟渲染与场景复杂性无关，而只跟屏幕空间的大小有关。
+
+延迟渲染主要包含两个 Pass：
+
+- 第一个 Pass 用于计算哪些片元可见，更新深度缓冲。
+- 第二个 Pass 利用存储于 G-buffer 中的片元信息，进行光照计算。
+
+![G-buffer](../../pic/gBuffer.jpg)  
+![deferredRenderingInUe](../../pic/deferredRenderingInUe.png)  
+
+### Unity 中的光源类型
+
+Unity 中共有 4 中光源：
+
+- 平行光  
+- 点光源  
+- 聚光灯  
+- 面光源  
+  - 仅在烘焙时发生作用。
+
+每种光源都附带不同的光源属性。常用的光源属性有：
+
+- 位置
+- 到达某个点的方向
+- 颜色
+- 强度
+- 衰减
 
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html
-[shaderlab-tags]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
+[shaderlab-tags-subshader]: https://docs.unity3d.com/cn/current/Manual/SL-SubShaderTags.html
+[shaderlab-tags-pass]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
 [shaderlab-passtags]: https://docs.unity3d.com/cn/current/Manual/SL-PassTags.html
 [learningnote-mm]: ../../../ComputerGraphics/index/miscellaneousMath.md
 [unityshadervariables]: https://docs.unity3d.com/cn/current/Manual/SL-UnityShaderVariables.html
@@ -1930,3 +2188,7 @@ Shader "Custom/Shader-exmp-15" {
 [shaderlab-semantic]: https://learn.microsoft.com/zh-cn/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 [shaderlab-commands-blend]: https://docs.unity3d.com/Manual/SL-Blend.html
 [shaderlab-commands-blendop]: https://docs.unity3d.com/Manual/SL-BlendOp.html
+[shaderlab-commnads-cull]: https://docs.unity3d.com/Manual/SL-Cull.html
+[shaderlab-tag-lightmode-srp]: https://docs.unity3d.com/cn/current/Manual/shader-predefined-pass-tags-built-in.html
+[shaderlab-tag-lightmode-urp]: https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@11.0/manual/urp-shaders/urp-shaderlab-pass-tags.html#urp-pass-tags-lightmode
+[shaderlab-multipleprogramvariants]: https://docs.unity3d.com/cn/current/Manual/SL-MultipleProgramVariants.html

@@ -884,7 +884,7 @@ Shader "Custom/Shader-exmp-06" {
 
 ![高光反射](../../pic/phongSpecular.png)
 
-#### Blinn-Phone 光照模型高光部分
+#### Blinn-Phong 光照模型高光部分
 
 $$
 \hat{h} = \frac{\hat{v}+\hat{l}}{\lvert\hat{v}+\hat{l}\rvert}\\
@@ -2161,14 +2161,6 @@ Unity 选用光照处理方式的判断如下：
 
 ### Unity 中的光源类型
 
-Unity 中共有 4 中光源：
-
-- 平行光  
-- 点光源  
-- 聚光灯  
-- 面光源  
-  - 仅在烘焙时发生作用。
-
 每种光源都附带不同的光源属性。常用的光源属性有：
 
 - 位置
@@ -2176,6 +2168,41 @@ Unity 中共有 4 中光源：
 - 颜色
 - 强度
 - 衰减
+
+Unity 中共有 4 中光源：
+
+- 平行光  
+  - 仅具有方向。
+  - 不衰减。
+- 点光源  
+  - 由一个点向所有方向延伸。
+  - 衰减，范围有限。
+- 聚光灯  
+  - 由一个特定位置，向特定方向延伸。
+  - 由一块锥形区域定义。
+  - 衰减，范围有限。
+- 面光源  
+  - 仅在烘焙时发生作用。
+
+### Unity 中的光照衰减
+
+可以使用几种方法获取光照衰减值：
+
+- 使用一张衰减纹理作为查找表。  
+  - Unity 默认处理。  
+  - 需要预处理获得采样纹理。  
+  - 不直观。  
+  - 速度较快。  
+- 通过数学公式计算
+  - Unity 未提供光源的更多信息。
+
+### Unity 中的阴影
+
+Unity 使用 Shadow Map 技术计算阴影。其将摄像机的位置置于与光源重合的位置，计算 **阴影映射纹理** (shadowmap)，这会记录从该光源位置出发、能看到的场景中距离它最近的表面位置。
+
+Unity 使用 LightMode 为 ShadowCaster 的 Pass ，或使用 Fallback 指定的 Unity Shader 中寻找 Pass，从而红区阴影映射纹理。  
+如果无法找到，则物体无法投射阴影。
+  
 
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

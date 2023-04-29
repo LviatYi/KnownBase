@@ -2157,7 +2157,7 @@ Unity 选用光照处理方式的判断如下：
 - 第二个 Pass 利用存储于 G-buffer 中的片元信息，进行光照计算。
 
 ![G-buffer](../../pic/gBuffer.jpg)  
-![deferredRenderingInUe](../../pic/deferredRenderingInUe.png)  
+![deferredRenderingInUe](../../pic/deferredRenderingInUe.png)
 
 ### Unity 中的光源类型
 
@@ -2171,38 +2171,58 @@ Unity 选用光照处理方式的判断如下：
 
 Unity 中共有 4 中光源：
 
-- 平行光  
+- 平行光
   - 仅具有方向。
   - 不衰减。
-- 点光源  
+- 点光源
   - 由一个点向所有方向延伸。
   - 衰减，范围有限。
-- 聚光灯  
+- 聚光灯
   - 由一个特定位置，向特定方向延伸。
   - 由一块锥形区域定义。
   - 衰减，范围有限。
-- 面光源  
+- 面光源
   - 仅在烘焙时发生作用。
 
 ### Unity 中的光照衰减
 
 可以使用几种方法获取光照衰减值：
 
-- 使用一张衰减纹理作为查找表。  
-  - Unity 默认处理。  
-  - 需要预处理获得采样纹理。  
-  - 不直观。  
-  - 速度较快。  
+- 使用一张衰减纹理作为查找表。
+  - Unity 默认处理。
+  - 需要预处理获得采样纹理。
+  - 不直观。
+  - 速度较快。
 - 通过数学公式计算
   - Unity 未提供光源的更多信息。
 
 ### Unity 中的阴影
 
-Unity 使用 Shadow Map 技术计算阴影。其将摄像机的位置置于与光源重合的位置，计算 **阴影映射纹理** (shadowmap)，这会记录从该光源位置出发、能看到的场景中距离它最近的表面位置。
+对于阴影的处理，主要分为两步：
 
-Unity 使用 LightMode 为 ShadowCaster 的 Pass ，或使用 Fallback 指定的 Unity Shader 中寻找 Pass，从而红区阴影映射纹理。  
+- 物体向其他物体投射阴影。
+- 物体从其他物体接收阴影。
+
+#### 物体向其他物体投射阴影
+
+Unity 使用 Shadow Map 技术计算阴影。其将摄像机的位置置于与光源重合的位置，通过更新深度信息，计算 **阴影映射纹理** (shadowmap)。这会记录从该光源位置出发、能看到的场景中距离它最近的表面位置。  
+Unity 使用 LightMode 为 ShadowCaster 的 Pass ，或使用 Fallback 指定的 Unity Shader 中寻找 Pass，从而计算阴影映射纹理。  
 如果无法找到，则物体无法投射阴影。
-  
+
+#### 物体从其他物体接收阴影
+
+主要存在两种阴影映射纹理的实现：
+
+- 传统的
+  - 在正常渲染的 Pass 中把顶点位置变换到光源空间下，以得到它在光源空间中的三维位置信息。
+  - 然后，我们使用 xy 分量对阴影映射纹理进行采样，得到阴影映射纹理中该位置的深度信息。
+  - 如果该深度值小于该顶点的深度值（通常由 z 分量得到），那么说明该点位于阴影中。
+- 屏幕空间的阴影映射技术 （需要显卡支持 MRT）
+  - Unity 首先会通过调用 LightMode 为 ShadowCaster 的 Pass 来得到可投射阴影的光源的阴影映射纹理以及摄像机的深度纹理。
+  - 然后，根据光源的阴影映射纹理和摄像机的深度纹理来得到 **屏幕空间的阴影图** 。
+  - 如果摄像机的深度图中记录的表面深度大于转换到阴影映射纹理中的深度值，就说明该表面虽然是可见的，但是却处于该光源的阴影中。
+
+#### 不透明物体的阴影
 
 [shaderlab-properties]: https://docs.unity3d.com/Manual/SL-Properties.html
 [shaderlab-commands]: https://docs.unity3d.com/Manual/shader-shaderlab-commands.html

@@ -77,7 +77,7 @@ void Awake () {
 
 所有物理计算和 `Update()` 都会在 `FixUpdate()` 后立即进行。在 `FixUpdate()` 中应用移动计算时，不需要将值乘以时间。这是因为 `FixUpdate()` 是在可靠的计时器上调用的，与帧速率无关。
 
-## `Update()`
+## `Update`
 
 - 用户回调
 

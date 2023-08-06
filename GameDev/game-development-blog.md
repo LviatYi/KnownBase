@@ -10,6 +10,8 @@
 1. [Shader](index/Shader/shader.md)
 1. [噪声算法——随机与平滑的奇妙结合](index/noiseAlgo.md)
 1. [行为树 Behavior Tree——树形行为控制器](index/behaviorTree.md)
+1. [随机点生成——上帝说：先有点](index/randomPointGenerate.md)
+1. 
 
 ## Blog 简介
 

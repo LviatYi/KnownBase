@@ -60,7 +60,7 @@
   Unity 默认提供了一系列接口（见 Unity 支持的事件），实现接口则可处理对应的事件。
 - 添加 EventTrigger 组件。  
   EventTrigger 允许在 Inspector 中可视化地设置回调函数。  
-  ![EventTrigger](../../pic/eventTrigger.jpg)
+  ![EventTrigger](../../image/eventTrigger.jpg)
 
 ## Unity 支持的事件
 

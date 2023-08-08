@@ -197,9 +197,9 @@ Properties {
 
 See-also [SL-Properties | Unity][shaderlab-properties]
 
-![所有 ShaderLab 支持的属性](../../pic/shaderLabProperties.png)
+![所有 ShaderLab 支持的属性](../../image/shaderLabProperties.png)
 
-![所有 ShaderLab 支持的属性在检视窗口](../../pic/shaderPropertiesInspector.png)
+![所有 ShaderLab 支持的属性在检视窗口](../../image/shaderPropertiesInspector.png)
 
 Unity 支持重载默认的材质编辑面板。
 
@@ -547,7 +547,7 @@ See Also [Semantic in HLSL | Unity][shaderlab-semantic]
 
 ## Unity 基础光照
 
-![光线名词定义](../../pic/ray.png)
+![光线名词定义](../../image/ray.png)
 
 ### 漫反射光照模型
 
@@ -625,7 +625,7 @@ Shader "Custom/Shader-exmp-03" {
 }
 ```
 
-![shader-exmp-03](../../pic/shader-exmp-03.png)
+![shader-exmp-03](../../image/shader-exmp-03.png)
 
 逐片元 Shader：
 
@@ -690,7 +690,7 @@ Shader "Custom/Shader-exmp-04" {
 }
 ```
 
-![shader-exmp-04](../../pic/shader-exmp-04.png)
+![shader-exmp-04](../../image/shader-exmp-04.png)
 
 #### 半兰伯特光照模型
 
@@ -769,7 +769,7 @@ Shader "Custom/Shader-exmp-05" {
 }
 ```
 
-![半兰伯特光照模型](../../pic/halfLambert.png)
+![半兰伯特光照模型](../../image/halfLambert.png)
 
 ### 高光反射模型
 
@@ -882,7 +882,7 @@ Shader "Custom/Shader-exmp-06" {
 }
 ```
 
-![高光反射](../../pic/phongSpecular.png)
+![高光反射](../../image/phongSpecular.png)
 
 #### Blinn-Phong 光照模型高光部分
 
@@ -988,7 +988,7 @@ Shader "Custom/Shader-exmp-07" {
 }
 ```
 
-![高光反射](../../pic/blinn-phongSpecular.png)
+![高光反射](../../image/blinn-phongSpecular.png)
 
 ## 基础纹理
 
@@ -1096,7 +1096,7 @@ Shader "Custom/Shader-exmp-08" {
 }
 ```
 
-![单张纹理](../../pic/singleTexture.png)
+![单张纹理](../../image/singleTexture.png)
 
 ### 凹凸映射
 
@@ -1141,11 +1141,11 @@ $$
 - 切线空间 $y$ 轴为顶点法线及顶点切线叉积，即副切线。
 - 切线空间 $z$ 轴为顶点法线方向 $n$。
 
-![切线空间](../../pic/tangentSpace.jpg)
+![切线空间](../../image/tangentSpace.jpg)
 
 易得，在切线空间中，原法线向量为 $(0,0,1)$ 。
 
-![法线贴图](../../pic/normalTextureAsset.jpg)
+![法线贴图](../../image/normalTextureAsset.jpg)
 
 左侧为模型空间下的法线纹理，右侧为切线空间下的法线纹理。
 
@@ -1372,7 +1372,7 @@ Shader "Custom/Shader-exmp-10" {
 }
 ```
 
-![法线贴图示例](../../pic/normalTexture.png)
+![法线贴图示例](../../image/normalTexture.png)
 
 两者效果几乎一致。
 
@@ -1458,7 +1458,7 @@ Shader "Custom/Shader-exmp-11" {
 }
 ```
 
-![渐变纹理应用](../../pic/rampTexture.png)
+![渐变纹理应用](../../image/rampTexture.png)
 
 ### 遮罩纹理
 
@@ -1554,7 +1554,7 @@ Shader "Custom/Shader-exmp-12" {
 }
 ```
 
-![渐变纹理应用](../../pic/maskTexture.png)
+![渐变纹理应用](../../image/maskTexture.png)
 
 如上的遮罩纹理仅使用了 r 分量。实践中一般会充分利用纹理的 rgba 四个通道存储不同属性。
 
@@ -1703,7 +1703,7 @@ Shader "Custom/Shader-exmp-13" {
 }
 ```
 
-![透明度测试](../../pic/alphaTest.png)
+![透明度测试](../../image/alphaTest.png)
 
 ### 透明度混合
 
@@ -1818,11 +1818,11 @@ Shader "Custom/Shader-exmp-14" {
 }
 ```
 
-![透明度混合](../../pic/alphaBlend.png)
+![透明度混合](../../image/alphaBlend.png)
 
 但由于关闭了深度写入，当模型本身具有复杂的遮挡关系或包含了复杂的非凸网格时，可能得到错误的透明效果。
 
-![错误的深度](../../pic/alphaBlendError.png)
+![错误的深度](../../image/alphaBlendError.png)
 
 ### 开启深度写入的透明度混合
 
@@ -1917,7 +1917,7 @@ Shader "Custom/Shader-exmp-15" {
 }
 ```
 
-![错误的深度](../../pic/blendWithDepthWrite.png)
+![错误的深度](../../image/blendWithDepthWrite.png)
 
 ### 双面渲染的透明效果
 
@@ -1937,7 +1937,7 @@ Cull Back | Front | Off
 
 可以使用透明度混合的双面渲染以提供物体内部的透明处理。其将渲染工作分为两个 Pass，将背面及正面分开渲染。
 
-![透明度混合的双面渲染](../../pic/doubeRendering.png)
+![透明度混合的双面渲染](../../image/doubeRendering.png)
 
 ```shaderlab
 Shader "Custom/Shader-exmp-16" {
@@ -2135,7 +2135,7 @@ Unity 选用光照处理方式的判断如下：
 
 通常以如下形式的 Pass 进行计算：
 
-![前向渲染的 Pass 布局](../../pic/forwardBase.jpg)
+![前向渲染的 Pass 布局](../../image/forwardBase.jpg)
 
 其中出现了 **着色器关键字** 的声明与使用。
 
@@ -2156,8 +2156,8 @@ Unity 选用光照处理方式的判断如下：
 - 第一个 Pass 用于计算哪些片元可见，更新深度缓冲。
 - 第二个 Pass 利用存储于 G-buffer 中的片元信息，进行光照计算。
 
-![G-buffer](../../pic/gBuffer.jpg)  
-![deferredRenderingInUe](../../pic/deferredRenderingInUe.png)
+![G-buffer](../../image/gBuffer.jpg)  
+![deferredRenderingInUe](../../image/deferredRenderingInUe.png)
 
 ### Unity 中的光源类型
 

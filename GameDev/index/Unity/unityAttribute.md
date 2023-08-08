@@ -16,7 +16,7 @@ ColorUsageAttribute(bool showAlpha, bool hdr, [int order])
 - `showAlpha` 是否使用 alpha 通道
 - `hdr` 是否使用 hdr
 
-![ColorUsage](../../pic/colorUsage.png)
+![ColorUsage](../../image/colorUsage.png)
 
 ---
 
@@ -32,7 +32,7 @@ ContextMenu(string itemName, bool isValidateFunction, [int priority])
 - `isValidateFunction` 是否为验证方法
 - `priority` 定义在菜单中的顺序
 
-![ContextMenu](../../pic/contextMenu.png)
+![ContextMenu](../../image/contextMenu.png)
 
 验证方法被要求是一个返回 bool 类型的方法，以下时机将调用验证方法：
 
@@ -55,7 +55,7 @@ ContextMenuItemAttribute(string name, string function, [int order])
 - `name` 上下文菜单名称
 - `function` 函数名称
 
-![ContextMenuItemAttribute](../../pic/contextMenuItemAttribute.png)
+![ContextMenuItemAttribute](../../image/contextMenuItemAttribute.png)
 
 ---
 
@@ -70,7 +70,7 @@ CreateAssetMenuAttribute(string fileName,string menuName, [int order])
 - `fileName` 创建资产的文件名
 - `menuName` 创建子菜单的条目名
 
-![CreateAssetMenu](../../pic/createAssetMenu.png)
+![CreateAssetMenu](../../image/createAssetMenu.png)
 
 ---
 
@@ -127,7 +127,7 @@ GradientUsageAttribute(bool hdr, ColorSpace colorSpace, [int order])
 - `hdr` 是否使用 hdr
 - `colorSpace` 颜色空间
 
-![GradientUsage](../../pic/gradientUsage.png)
+![GradientUsage](../../image/gradientUsage.png)
 
 ---
 
@@ -141,7 +141,7 @@ HeaderAttribute(string header)
 
 - `header` 标题文本
 
-![Header](../../pic/header.png)
+![Header](../../image/header.png)
 
 ---
 
@@ -153,7 +153,7 @@ HelpURLAttribute(string url)
 
 为类型添加文档 URL。
 
-![HelpURL](../../pic/helpUrl.png)
+![HelpURL](../../image/helpUrl.png)
 
 ---
 
@@ -171,7 +171,7 @@ IconAttribute(string path)
 
 为脚本添加图标。
 
-![Icon](../../pic/icon.png)
+![Icon](../../image/icon.png)
 
 ---
 
@@ -185,7 +185,7 @@ InspectorNameAttribute(string displayName)
 
 - `displayName` 显示名称
 
-![InspectorName](../../pic/inspectorName.png)
+![InspectorName](../../image/inspectorName.png)
 
 ---
 
@@ -209,7 +209,7 @@ MultilineAttribute(int lines = 3)
 
 - `lines` 最大行数
 
-![Multilines](../../pic/multiline.png)
+![Multilines](../../image/multiline.png)
 
 ---
 
@@ -217,7 +217,7 @@ MultilineAttribute(int lines = 3)
 
 禁止在检视器中使用 ListGUI 设置列表或数组。
 
-![NonReorderable](../../pic/nonReorderable.png)
+![NonReorderable](../../image/nonReorderable.png)
 
 ---
 
@@ -248,7 +248,7 @@ RangeAttribute(float min, float max)
 
 设置字段约束范围，允许在检视器中使用滑块设置数据类型。
 
-![Range](../../pic/range.png)
+![Range](../../image/range.png)
 
 ---
 
@@ -320,7 +320,7 @@ SpaceAttribute(float height = 8f)
 
 - `height` 以像素为单位的空白高度
 
-![Space](../../pic/space.png)
+![Space](../../image/space.png)
 
 ---
 
@@ -336,7 +336,7 @@ TextAreaAttribute(int minLines, int maxLines)
 - `minLines` 文本区域的最小行数。文本区域最小不会低于最小行数
 - `maxLines` 文本区域在开始使用滚动条之前可以显示的最大行数。文本区域最大不会超过最大行数
 
-![TextArea](../../pic/textArea.png)
+![TextArea](../../image/textArea.png)
 
 ---
 
@@ -350,7 +350,7 @@ TooltipAttribute(string tooltip)
 
 - `tooltip` Tooltip 文本
 
-![Tooltip](../../pic/tooltip.png)
+![Tooltip](../../image/tooltip.png)
 
 ---
 

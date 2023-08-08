@@ -15,7 +15,7 @@ UITK 相比于 UGUI 的优越性：
 
 菜单中选择 Create > UIDocument 即可创建界面描述文件（ UXML 文件）。
 
-![UIBuilder](../../pic/UIBuilder.png)
+![UIBuilder](../../image/UIBuilder.png)
 
 其主要由一下视图构成：
 

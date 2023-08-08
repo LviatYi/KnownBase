@@ -4,15 +4,15 @@
 
 噪声是游戏开发中的常见技术，其奇妙的特性有着广泛的运用。
 
-![噪声算法做的好事](../pic/noiseDidThis1.jpg) ![噪声算法做的好事](../pic/noiseDidThis2.jpg) ![噪声算法做的好事](../pic/noiseDidThis3.jpg) ![噪声算法做的好事](../pic/noiseDidThis4.jpg) ![噪声算法做的好事](../pic/noiseDidThis5.jpg) ![噪声算法做的好事](../pic/noiseDidThis6.jpg) ![噪声算法做的好事](../pic/noiseDidThis7.jpg)
+![噪声算法的运用](../image/noiseDidThis1.jpg) ![噪声算法的运用](../image/noiseDidThis2.jpg) ![噪声算法的运用](../image/noiseDidThis3.jpg) ![噪声算法的运用](../image/noiseDidThis4.jpg) ![噪声算法的运用](../image/noiseDidThis5.jpg) ![噪声算法的运用](../image/noiseDidThis6.jpg) ![噪声算法的运用](../image/noiseDidThis7.jpg)
 
 不同维度上的噪音有着类似的表现力。
 
 | 噪声维度 | 噪声灰阶 | 应用 |
 | --- | --- | --- |
-| 一维 | ![一维噪声](../pic/one-dimensionalNoise.png) | 手绘质感的笔刷 |
-| 二维 | ![二维噪声](../pic/two-dimensionalNoise.png) | 火焰特效 |
-| 三维 | ![三维噪声](../pic/three-dimensionalNoise.png) | 我的世界的地图生成算法 |
+| 一维 | ![一维噪声](../image/one-dimensionalNoise.png) | 手绘质感的笔刷 |
+| 二维 | ![二维噪声](../image/two-dimensionalNoise.png) | 火焰特效 |
+| 三维 | ![三维噪声](../image/three-dimensionalNoise.png) | 我的世界的地图生成算法 |
 
 如上所示，噪音的表现具有两大特性：
 
@@ -35,7 +35,7 @@
 
 - 生成一串随机数。
 
-![一些随机数](../pic/randomNums.png)
+![一些随机数](../image/randomNums.png)
 
 ```C++
 float i=floor(x);//取整数
@@ -49,7 +49,7 @@ y=rand(i);//取得随机数y
 
 - 根据权重 f 调整 y 的值。
 
-![转化成了折线](../pic/randomNumsHandle1.png)
+![转化成了折线](../image/randomNumsHandle1.png)
 
 ```C++
 float i = floor(x);
@@ -61,7 +61,7 @@ y = mix(rand(i), rand(i + 1.0), f);//mix()混合函数
 
 - 为权重 f 赋予平滑性。
 
-![转化成了平滑曲线](../pic/randomNumsHandle2.png)
+![转化成了平滑曲线](../image/randomNumsHandle2.png)
 
 ```C++
 float i = floor(x);
@@ -175,9 +175,9 @@ float grad(Vector2 vertex, Vector2 p)
 
 最终会呈现如下的形态：
 
-![PerlinNoise 的结果](../pic/perlinNoise.png)
+![PerlinNoise 的结果](../image/perlinNoise.png)
 
 ## 参考资料
 
 [KillerAery's Blog#Noise](https://www.cnblogs.com/KillerAery/p/10765897.html#%E5%99%AA%E5%A3%B0)  
-[TheBookOfShaders#11](https://thebookofshaders.com/11/?lan=en)  
+[TheBookOfShaders#11](https://thebookofshaders.com/11/?lan=en)

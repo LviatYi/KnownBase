@@ -84,7 +84,7 @@ API 是废弃的，不再受支持，并且可能在未来版本中删除。
 - **Discretionary**
 - **修饰符**
 - 同义：
-  - `@experimental`
+  - `@beta`
 
 ### `@inheritDoc`
 

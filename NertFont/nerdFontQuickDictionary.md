@@ -24,6 +24,11 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 | ---- | ----------- | -------- |
 |     | 逆时针 旋转 | f0e2     |
 |     | 顺时针 旋转 | f0e1     |
+| 󰐊    | 播放        | f040a    |
+| 󰏤    | 暂停        | f03e4    |
+| 󰄲    | 完成       | f0132    |
+
+
 
 [nerd-font-download-all]: https://www.nerdfonts.com/font-downloads
 [nerd-font-download-jetbrainsMono]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip

@@ -18,7 +18,7 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 
 ## 常用字符速查
 
-官网查询
+[官网查询 | NerdFont][nerd-font-cheat-sheet]
 
 | 字符 | 关键字      | UTF code |
 | ---- | ----------- | -------- |
@@ -26,11 +26,10 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 |     | 顺时针 旋转 | f0e1     |
 | 󰐊    | 播放        | f040a    |
 | 󰏤    | 暂停        | f03e4    |
-| 󰄲    | 完成       | f0132    |
-
-
+| 󰄲    | 完成        | f0132    |
 
 [nerd-font-download-all]: https://www.nerdfonts.com/font-downloads
 [nerd-font-download-jetbrainsMono]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
 [nerd-font-download-HeavyData]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/HeavyData.zip
 [nerd-font-download-symbols]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/NerdFontsSymbolsOnly.zip
+[nerd-font-cheat-sheet]: https://www.nerdfonts.com/cheat-sheet

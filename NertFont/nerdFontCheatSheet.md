@@ -20,13 +20,23 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 
 [官网查询 | NerdFont][nerd-font-cheat-sheet]
 
-| 字符 | 关键字      | UTF code |
-| ---- | ----------- | -------- |
-|     | 逆时针 旋转 | f0e2     |
-|     | 顺时针 旋转 | f0e1     |
-| 󰐊    | 播放        | f040a    |
-| 󰏤    | 暂停        | f03e4    |
-| 󰄲    | 完成        | f0132    |
+| 字符 | 关键字               | UTF code |
+| ---- | -------------------- | -------- |
+|     | 逆时针旋转 重置 重复 | f0e2     |
+|     | 顺时针旋转           | f0e1     |
+| 󰐊    | 播放                 | f040a    |
+| 󰓕    | 倒放                 | f0132    |
+| 󰏤    | 暂停                 | f03e4    |
+| 󱞳    | 往复 往返 PingPong   | f03e4    |
+|     | 快进至结束           | f050     |
+|     | 快退至开头           | f049     |
+| 󰄲    | 完成                 | f0132    |
+|     | 上一步               | eb8f     |
+|     | 下一步               | ead6     |
+|     | 步入                 | ead4     |
+|     | 跳出                 | ead5     |
+|     | 调试                 | eb91     |
+| 󰩺    | 移除 销毁            | f0a7a    |
 
 [nerd-font-download-all]: https://www.nerdfonts.com/font-downloads
 [nerd-font-download-jetbrainsMono]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip

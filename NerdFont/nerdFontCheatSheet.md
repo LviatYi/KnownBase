@@ -20,6 +20,8 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 
 [官网查询 | NerdFont][nerd-font-cheat-sheet]
 
+### 功能标识
+
 | 字符 | 关键字               | UTF code |
 | ---- | -------------------- | -------- |
 |     | 逆时针旋转 重置 重复 | f0e2     |
@@ -39,6 +41,23 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 |     | 跳出                 | ead5     |
 |     | 调试                 | eb91     |
 | 󰩺    | 移除 销毁            | f0a7a    |
+
+### Logo 标识
+
+| 字符 | 关键字        | UTF code |
+| ---- | ------------- | -------- |
+| 󰊯    | Chrome        | f02af    |
+| 󰇩    | Edge          | f01e9    |
+| 󰌀    | IE            | f0300    |
+| 󰊤    | Github        | f02a4    |
+| 󰖳    | Windows       | f05b3    |
+| 󰀵    | Apple Mac     | f0035    |
+|     | Ubuntu        | f31b     |
+| 󱄚    | Centos        | f111a    |
+|     | Stackoverflow | e710     |
+| 󰡄    | Vue           | f0844    |
+| 󰜈    | React         | f0708    |
+| 󰚲    | Angular       | f06b2    |
 
 [nerd-font-download-all]: https://www.nerdfonts.com/font-downloads
 [nerd-font-download-jetbrainsMono]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip

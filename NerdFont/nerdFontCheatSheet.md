@@ -6,11 +6,9 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 
 [全部字体 | 下载][nerd-font-download-all]
 
-[jetbrainsMono Nerd Font | 下载][nerd-font-download-jetbrainsMono]  
-[HeavyData Nerd Font | 下载][nerd-font-download-HeavyData]  
-[Nerd Symbols Only | 下载][nerd-font-download-symbols]
+[jetbrainsMono Nerd Font | 下载][nerd-font-download-jetbrainsMono] [HeavyData Nerd Font | 下载][nerd-font-download-HeavyData] [Nerd Symbols Only | 下载][nerd-font-download-symbols]
 
-为保证一致性，并为使用增添便捷性，特维护此常用字符速查表。
+为保证一致性，并为使用增添便捷性，特维护此常用字符速查表。
 
 你应该使用以下字体作为 fallback 以获取更直观的体验：
 
@@ -29,6 +27,7 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 | 󰐊    | 播放                 | f040a    |
 | 󰓕    | 倒放                 | f0132    |
 | 󰏤    | 暂停                 | f03e4    |
+| 󰓛    | 停止                 | f04db    |
 | 󱞳    | 往复 往返 PingPong   | f03e4    |
 |     | 快进至结束           | f050     |
 |     | 快退至开头           | f049     |
@@ -44,6 +43,8 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 |     | 静音                 | f075f    |
 | 󰖀    | 弱音                 | f057f    |
 | 󰕾    | 强音 有声            | f057e    |
+| 󰓦    | 同步                 | f04e6    |
+| 󰓨    | 异步 非同步          | f04e8    |
 
 ### Logo 标识
 

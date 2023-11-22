@@ -32,7 +32,7 @@ API 处于 beta 待发布阶段。
 
 可能会在公开发布时删除声明。
 
-### `@decoratora`
+### `@decorator`
 
 - **Extended**
 - **块**

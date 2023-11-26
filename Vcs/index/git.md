@@ -1,4 +1,4 @@
-# Git CheetSheet
+# Git CheatSheet
 
 一些常用 Git 命令的记录。
 
@@ -15,3 +15,8 @@
 - 本地推断未更新的文件.
 
 `git ls-files -v | grep '^h\ '`
+
+- 重写 git 缓存.
+
+`git rm -r --cached .`
+`git add .`

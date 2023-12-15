@@ -2,6 +2,8 @@
 
 一些常用 Git 命令的记录。
 
+## TRACE
+
 - 取消跟踪，但保留本地更改.
 
 `git rm --cached $FILE$`  
@@ -21,6 +23,8 @@
 `git rm -r --cached .`  
 `git add .`
 
+## Remote
+
 - 添加远端
 
 添加远端意味着新增一个新的 fetch pull push 地址，并允许通过指定远端名 $REMOTE_NAME$ 来推送到目标远端。
@@ -37,3 +41,9 @@
 `git remote get-url $REMOTE_NAME$`  
 `git remote set-url --add $REMOTE_NAME$ $REMOTE_URL$`  
 `git remote set-url --delete $REMOTE_NAME$ $REMOTE_URL$`
+
+## Branch
+
+- 删除远端分支
+
+`git push $REMOTE_NAME$ --delete $BRANCH_NAME$`

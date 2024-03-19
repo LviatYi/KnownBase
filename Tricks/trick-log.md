@@ -78,3 +78,61 @@
    ```
 
 1. 在 response 中得到 Params 结点中的首个元素即密码。
+
+## Parsec Config
+
+```json
+[
+  "See https://parsec.app/config for documentation and example. JSON must be valid before saving or file be will be erased.",
+  {
+    "server_resolution_x": {
+      "value": 2560
+    },
+    "server_resolution_y": {
+      "value": 1440
+    },
+    "encoder_min_qp": {
+      "value": 64
+    },
+    "encoder_fps": {
+      "value": 120
+    },
+    "encoder_bitrate": {
+      "value": 50
+    },
+    "app_flags": {
+      "value": 1
+    },
+    "host_gamepad_type": {
+      "value": 3
+    },
+    "app_proxy_scheme": {
+      "value": "http"
+    },
+    "app_channel": {
+      "value": "release5"
+    },
+    "client_windowed": {
+      "value": true
+    },
+    "app_proxy": {
+      "value": true
+    },
+    "echo_app_selection": {
+      "value": "QQ.exe"
+    },
+    "app_proxy_port": {
+      "value": 7890
+    },
+    "app_proxy_address": {
+      "value": "127.0.0.1"
+    },
+    "app_run_level": {
+      "value": 1
+    },
+    "app_changelog_ver": {
+      "value": 8
+    }
+  }
+]
+```

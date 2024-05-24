@@ -72,13 +72,17 @@ Nerd Font 为流行的字体追加了大量标志 icons ，从而更丰富你的
 
 ### 图案
 
-| 字符 | 关键字    | UTF code |
-| ---- | --------- | -------- |
-| 󱘲    | 数据库    | f1632    |
-|     | 开锁 解锁 | f09c     |
-|     | 上锁 锁定 | f023     |
-| 󰈸    | 火        | f0238    |
-| 󰉀    | 旗        | f0240    |
+| 字符 | 关键字        | UTF code |
+| ---- | ------------- | -------- |
+| 󱘲    | 数据库        | f1632    |
+| 󰒋    | 服务器 Server | f048b    |
+| 󰍹    | 客户端 Client | f0379    |
+|     | 开锁 解锁     | f09c     |
+|     | 上锁 锁定     | f023     |
+| 󰌆    | 钥匙 Key      | f0306    |
+| 󰌌    | 键盘 KeyBoard | f030c    |
+| 󰈸    | 火            | f0238    |
+| 󰉀    | 旗            | f0240    |
 
 [nerd-font-download-all]: https://www.nerdfonts.com/font-downloads
 [nerd-font-download-jetbrainsMono]: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip

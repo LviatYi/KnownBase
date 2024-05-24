@@ -23,6 +23,11 @@
 `git rm -r --cached .`  
 `git add .`
 
+- 忽略/跟踪 文件名大小写变化.
+
+`git config core.ignorecase false`  
+`git config core.ignorecase true`
+
 ## Remote
 
 - 添加远端

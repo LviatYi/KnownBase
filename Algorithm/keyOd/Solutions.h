@@ -1,10 +1,18 @@
 ﻿#pragma once
 
+int odRun1();
+int odRun1_2();
+int odRun2();
+int odRun3();
 int od2518();
 int od2520();
 int od2523();
 int od2532();
 int od2533();
+int od3850();
+int od4206();
+int od4500();
+int od4610();
 int od2();
 int od3();
 int od4();

@@ -1,20 +1,11 @@
 #include "Main.h"
 
-#include <algorithm>
 #include <iostream>
-#include <Solution22.h>
-#include <Solution402.h>
+#include <Solution1094.h>
 #include <vector>
 
-#include "Interval0808.h"
 #include "LeetcodeUtil.h"
-#include "Solution135.h"
-#include "Solution1702.h"
-#include "Solution179.h"
-#include "Solution2617.h"
-#include "Solution394.h"
-#include "Solution45.h"
-#include "Solution924.h"
+#include "Solution253.h"
 
 using namespace std;
 
@@ -22,19 +13,21 @@ void test() {
 }
 
 int main() {
-    auto solution = Interval0808();
+    auto solution = Solution253();
 
     // const string input =
     //     "[2,3,1,1,4]";
-    // const string input = "[[3,4,2,1],[4,2,3,1],[2,1,0,0],[2,4,0,0]]";
+    // const string input = "[[5,8],[6,8]]";
+    // const string input = "[[0,1],[0,2],[0,3],[1,2],[1,3],[1,4]]";
+    // const string input = "[[0,30],[5,10],[15,20]]";
+    const string input = "[[13,15],[1,13]]";
     // const string input = "[[2,1,0],[1,0,0]]";
     // const string input = "[[7,0,2,4],[0,2,3,0]]";
     // const auto input = "3[a2[c]]";
 
-    auto input2 = std::vector<int>{3, 30, 34, 5, 9};
+    auto input2 = std::vector<int>{1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0};
 
-    // auto des = LeetcodeUtil::deserialize_vector_vector(input);
-    // auto des = LeetcodeUtil::deserialize_vector_vector(input);
+    auto des = LeetcodeUtil::deserialize_vector_vector(input);
     // auto mapped_des = std::vector<std::vector<char>>(des.size(), std::vector<char>(des[0].size()));
     //
     // for (int i = 0; i < des.size(); ++i) {
@@ -49,5 +42,6 @@ int main() {
     //     std::cout << element << std::endl;
     // }
 
-    solution.permutation("qqe");
+    std::cout << solution.minMeetingRooms(des);
+    // solution.lengthOfLIS(input2);
 }

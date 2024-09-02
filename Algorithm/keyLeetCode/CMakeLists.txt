@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.29)
-project(keyCowCoder)
+project(keyLeetCode)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -9,7 +9,6 @@ add_executable(LeetCode LeetCodeKey/Main.cpp
         LeetCodeKey/Main.h
         LeetCodeKey/LeetcodeUtil.h
         LeetCodeKey/LeetcodeUtil.cpp
-        LeetCodeKey/Solutions.h
         LeetCodeKey/Solution200.h
         LeetCodeKey/Solution200.cpp
         LeetCodeKey/Solution1702.h
@@ -31,4 +30,13 @@ add_executable(LeetCode LeetCodeKey/Main.cpp
         LeetCodeKey/Solution179.h
         LeetCodeKey/Interval0808.h
         LeetCodeKey/Interval0808.cpp
+        LeetCodeKey/Solution84.cpp
+        LeetCodeKey/Solution354.cpp
+        LeetCodeKey/Solution300.cpp
+        LeetCodeKey/Solution554.cpp
+        LeetCodeKey/Solution1004.cpp
+        LeetCodeKey/Solution1094.cpp
+        LeetCodeKey/Solution1450.h
+        LeetCodeKey/Solution1450.cpp
+        LeetCodeKey/Solution253.cpp
 )

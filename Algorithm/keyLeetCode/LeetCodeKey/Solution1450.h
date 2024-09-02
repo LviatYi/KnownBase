@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include <string>
+#include <vector>
 
-class Solution1143 {
+class Solution1450 {
 public:
-    int longestCommonSubsequence(std::string text1, std::string text2);
+    int busyStudent(std::vector<int>& startTime, std::vector<int>& endTime, int queryTime);
 };

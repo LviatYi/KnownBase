@@ -1,59 +1,39 @@
-#include <algorithm>
-#include <array>
 #include <iostream>
 #include <vector>
 
-int od4500() {
-    int count;
-    int input_relation_size;
-    std::cin >> count >> input_relation_size;
-    auto relation_map = std::vector<std::array<int, 3>>(input_relation_size);
+int charToBit(char c) {
+    if (c == 'l') {
+        return 1;
+    } else if (c == 'o') {
+        return 2;
+    } else if (c == 'x') {
+        return 4;
+    }
+    return 0;
+}
 
-    for (int input_index = 0; input_index < input_relation_size; ++input_index) {
-        int f, t, c, connected;
-        std::cin >> f >> t >> c >> connected;
-        if (connected == 1) {
-            c = 0;
-        }
-        relation_map[input_index][0] = f - 1;
-        relation_map[input_index][1] = t - 1;
-        relation_map[input_index][2] = c;
+int od4206() {
+    std::string input;
+    std::cin >> input;
+    input = input + input;
+
+    int max = 0;
+    auto dp = std::vector<std::vector<int>>(input.size(), std::vector<int>(input.size(), 0));
+    for (int start_index = 0; start_index < input.size(); ++start_index) {
+        dp[start_index][start_index] |= charToBit(input[start_index]);
     }
 
-    std::sort(relation_map.begin(), relation_map.end(), [](const auto& lhs, const auto& rhs) {
-        return lhs[2] < rhs[2];
-    });
+    for (int start_at = 0; start_at < input.size() / 2; ++start_at) {
+        for (int end_at = start_at + 1; end_at < start_at + input.size() / 2; ++end_at) {
+            dp[start_at][end_at] = dp[start_at][end_at - 1] ^ charToBit(input[end_at]);
 
-    auto connected = std::vector<bool>(count, false);
-    connected[0] = true;
-
-    int connected_count = 1;
-    int cost = 0;
-    bool progress = true;
-    while (connected_count < count && progress) {
-        progress = false;
-        for (int rela_index = 0; rela_index < relation_map.size(); ++rela_index) {
-            const auto rela = relation_map[rela_index];
-            if (connected[rela[0]] && connected[rela[1]]) {
-                continue;
-            }
-
-            if (connected[rela[0]] || connected[rela[1]]) {
-                connected[rela[0]] = true;
-                connected[rela[1]] = true;
-                ++connected_count;
-                cost += rela[2];
-                progress = true;
-                break;
+            if (dp[start_at][end_at] == 0 && end_at - start_at + 1 > max) {
+                max = end_at - start_at + 1;
             }
         }
     }
 
-    if (connected_count == count) {
-        std::cout << cost << std::endl;
-    } else {
-        std::cout << "-1" << std::endl;
-    }
+    std::cout << max << std::endl;
 
     return 0;
 }

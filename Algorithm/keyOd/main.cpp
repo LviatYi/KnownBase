@@ -3,5 +3,5 @@
 #include "Solutions.h"
 
 int main() {
-    od2533();
+    odRun1_2();
 }

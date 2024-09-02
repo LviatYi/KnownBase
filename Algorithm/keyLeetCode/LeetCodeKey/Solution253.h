@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include <string>
+#include <vector>
 
-class Solution242 {
+class Solution253 {
 public:
-    bool isAnagram(std::string s, std::string t);
+    int minMeetingRooms(std::vector<std::vector<int>>& intervals);
 };

@@ -21,7 +21,7 @@ int od2533() {
     }
 
     int cost=0;
-    int
+    // int
 
     for (int i = 0; i < map.size(); ++i) {
         

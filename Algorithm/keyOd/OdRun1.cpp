@@ -1,68 +1,76 @@
 #include <iostream>
-#include <queue>
-#include <set>
 #include <vector>
+using namespace std;
 
-class PairFistCmp {
-public:
-    bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) {
-        return lhs.second > rhs.second;
-    }
-};
-
-int od4610() {
+int odRun1() {
     int count;
-    int relation_count;
-    std::cin >> count >> relation_count;
-    auto path = std::vector<std::vector<int>>(count, std::vector<int>(count, -1));
-    for (int cin_i = 0; cin_i < relation_count; ++cin_i) {
-        int f, t, c;
-        std::cin >> f >> t >> c;
-        path[f - 1][t - 1] = c;
+    std::cin >> count;
+    auto strength = std::vector<int>(count);
+    auto lack = std::vector<int>(count - 1);
+
+    for (int count_index = 0; count_index < count; ++count_index) {
+        std::cin >> strength[count_index];
     }
-    int start_at;
-    std::cin >> start_at;
-    --start_at;
 
-    auto visited = std::vector<int>(count, -1);
-    auto finished_set = std::set<int>();
-    visited[start_at] = 0;
-    auto q = std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, PairFistCmp>();
-    q.push({start_at, 0});
+    int last_strength = strength[0];
+    for (int index = 1; index < strength.size(); ++index) {
+        lack[index - 1] = std::max(100 - last_strength - strength[index], 0);
+        last_strength = std::max(last_strength - 100, strength[index]);
+    }
 
-    while (!q.empty() && finished_set.size() < count) {
-        const auto focus = q.top();
-        finished_set.insert(focus.first);
-        q.pop();
+    last_strength = strength[strength.size() - 1];
+    int lack_sum = 0;
+    for (int index = strength.size() - 2; index >= 0; --index) {
+        lack[index] = std::min(std::max(100 - last_strength - strength[index], 0), lack[index]);
+        last_strength = std::max(last_strength - 100, strength[index]);
+        lack_sum += lack[index];
+    }
 
-        for (int curr_path_index = 0;
-             curr_path_index < path[focus.first].size();
-             ++curr_path_index) {
-            const auto next_cost = path[focus.first][curr_path_index];
-            const auto curr_cost = focus.second;
-            if (next_cost > -1) {
-                if (visited[curr_path_index] == -1
-                    || curr_cost + next_cost < visited[curr_path_index]) {
-                    visited[curr_path_index] = curr_cost + next_cost;
-                    q.push(std::make_pair(curr_path_index, curr_cost + next_cost));
-                }
-            }
+
+    // std::cout << lack_sum << std::endl;
+
+    return lack_sum;
+}
+
+// 4
+// 250 0 0 0
+// 4
+// 250 0 0 60
+// 8
+// 250 0 0 20 250 0 0 20
+// 8
+// 250 160 0 0 0 0 160 250
+// 2
+// 250 160
+// 3
+// 0 1000 0
+// 3
+// 0 50 0
+
+int odRun1_2() {
+    int count;
+    std::cin >> count;
+    auto result = std::vector<bool>((count - 1) * 100, false);
+
+    int strength;
+    for (int count_index = 0; count_index < count; ++count_index) {
+        std::cin >> strength;
+        int left = std::max(0, count_index * 100 - strength);
+        int right = std::min(static_cast<int>(result.size()), count_index * 100 + strength);
+        for (int i = left; i < right; ++i) {
+            result[i] = true;
         }
     }
 
-    int max = 0;
-    for (auto is_visited : visited) {
-        if (is_visited == -1) {
-            std::cout << -1 << std::endl;
-            return 0;
-        }
-
-        if (is_visited > max) {
-            max = is_visited;
+    int lack_sum = 0;
+    for (auto r : result) {
+        if (!r) {
+            ++lack_sum;
         }
     }
 
-    std::cout << max << std::endl;
 
-    return 0;
+    // std::cout << lack_sum << std::endl;
+
+    return lack_sum;
 }

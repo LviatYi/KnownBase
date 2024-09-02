@@ -1,66 +1,60 @@
 #include <iostream>
-#include <map>
 #include <vector>
 using namespace std;
 
-int odRun2() {
+void dfs(std::vector<std::vector<bool>>& visited,
+         std::vector<std::vector<int>>& map,
+         int i,
+         int j,
+         int from_height,
+         int& current_count) {
+    if (i < 0
+        || j < 0
+        || i >= visited.size()
+        || j >= visited[0].size())
+        return;
+    if (visited[i][j])return;
+
+    if (std::abs(map[i][j] - from_height) <= 1) {
+        ++current_count;
+        visited[i][j] = true;
+        dfs(visited, map, i - 1, j, map[i][j], current_count);
+        dfs(visited, map, i + 1, j, map[i][j], current_count);
+        dfs(visited, map, i, j - 1, map[i][j], current_count);
+        dfs(visited, map, i, j + 1, map[i][j], current_count);
+    }
+}
+
+int odRun3() {
     int row, col;
     std::cin >> row >> col;
-    map<int, std::vector<std::pair<int, int>>> record;
-    std::vector<std::vector<int>> data(row, std::vector<int>(col, 0));
+    auto map = std::vector<std::vector<int>>(row, std::vector<int>(col));
 
-    for (int row_index = 0; row_index < row; ++row_index) {
-        for (int col_index = 0; col_index < col; ++col_index) {
-            int value;
-            std::cin >> value;
-            data[row_index][col_index] = value;
-
-            if (record.find(value) == record.end()) {
-                record[value] = std::vector<std::pair<int, int>>();
-            }
-
-            record[value].emplace_back(row_index, col_index);
+    for (int r = 0; r < row; ++r) {
+        for (int c = 0; c < col; ++c) {
+            std::cin >> map[r][c];
         }
     }
 
-    for (int row_index = 0; row_index < row; ++row_index) {
-        for (int col_index = 0; col_index < col; ++col_index) {
-            int value = data[row_index][col_index];
-            const auto& list = record[value];
-            if (list.size() == 1) {
-                data[row_index][col_index] = -1;
-            } else {
-                int min_distance = INT_MAX;
-                for (auto location : list) {
-                    int dist = abs(location.first - row_index) + abs(location.second - col_index);
-                    if (dist == 0) {
-                        continue;
-                    }
-                    if (dist < min_distance) {
-                        min_distance = dist;
-                    }
-                }
-                data[row_index][col_index] = min_distance;
+    auto visited = std::vector<std::vector<bool>>(row, std::vector<bool>(col));
+
+    int max = 0;
+    for (int i = 0; i < map.size(); ++i) {
+        for (int j = 0; j < map[0].size(); ++j) {
+            int sum = 0;
+            if (visited[i][j]) {
+                continue;
+            }
+
+            dfs(visited, map, i, j, map[i][j], sum);
+            if (sum > max) {
+                max = sum;
             }
         }
     }
 
-    std::cout << "[";
 
-    for (int row_index = 0; row_index < row; ++row_index) {
-        std::cout << "[";
-        for (int col_index = 0; col_index < col; ++col_index) {
-            std::cout << data[row_index][col_index];
-            if (col_index < col - 1) {
-                std::cout << ", ";
-            }
-        }
-        std::cout << "]";
-        if (row_index < row - 1) {
-            std::cout << ", ";
-        }
-    }
-    std::cout << "]";
+    std::cout << max << std::endl;
 
     return 0;
 }

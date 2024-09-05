@@ -39,4 +39,5 @@ add_executable(LeetCode LeetCodeKey/Main.cpp
         LeetCodeKey/Solution1450.h
         LeetCodeKey/Solution1450.cpp
         LeetCodeKey/Solution253.cpp
+        LeetCodeKey/Solution278.cpp
 )

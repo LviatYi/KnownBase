@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "LeetcodeUtil.h"
-#include "Solution253.h"
+#include "Solution278.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ void test() {
 }
 
 int main() {
-    auto solution = Solution253();
+    auto solution = Solution278();
 
     // const string input =
     //     "[2,3,1,1,4]";
@@ -42,6 +42,6 @@ int main() {
     //     std::cout << element << std::endl;
     // }
 
-    std::cout << solution.minMeetingRooms(des);
+    std::cout << solution.firstBadVersion(3);
     // solution.lengthOfLIS(input2);
 }

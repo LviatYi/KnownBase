@@ -12,14 +12,12 @@
 
 ## 前言
 
-本 Markdown 编写风格（文档以下内容中简称「此风格」）基于阮一峰老师的「中文技术文档的写作规范」制定。
+本 Markdown 编写风格（文档以下内容中简称「此风格」）基于阮一峰老师的「中文技术文档的写作规范」制定。  
+但出于审美与实用角度，部分条目略有不同。  
 
-[中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide) —— @ ruanyf Github
+[中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide) —— @ruanyf Github
 
-由于上理由，本 Markdown 编写风格的部分条目并没有在此份文档中体现。  
-如果你阅读时遇到了格式上自相矛盾的地方，且想小试牛刀，请按照条目进行修改。
-
-由我个人编写的所有技术类 Markdown 文档将严格遵守此风格的编写时版本。
+由 LviatYi 个人编写的所有技术类 Markdown 文档将严格遵守此规范的编写时版本。
 
 ## 词汇
 
@@ -50,4 +48,4 @@ VS Code
 
 ## 版本号
 
-`v3.00`
+`v4.00`

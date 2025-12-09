@@ -1,0 +1,13 @@
+:root,
+html,
+body,
+.markdown,
+.markdown-body,
+.md,
+article.markdown,
+.wiki,
+.content,
+.preview,
+.editor-preview {
+  font-family:"Sarasa Fixed SC", "JetBrainsMono Nerd Font", monospace;
+}

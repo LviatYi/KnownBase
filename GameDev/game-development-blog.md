@@ -13,6 +13,7 @@
 1. [随机点生成——上帝说：先有点](index/randomPointGenerate.md)
 1. [德劳内三角剖分——上帝说：后有线](index/trianglation.md)
 1. [游戏中的量子力学——波函数坍缩](index/waveFunctionCollapse.md)
+1. [组合大于继承](index/composition-vs-inheritance.md)
 
 ## Blog 简介
 

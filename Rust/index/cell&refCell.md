@@ -2,7 +2,7 @@
 
 ![StackOverflow][badge-stackoverflow] ![CC BY-SA 4.0][badge-CCBYSA4]
 
-**翻译** 自 [**StackOverflow**](https://stackoverflow.com/a/45674912/26125642) | **CC BY-SA 4.0**
+**翻译** 自 [**StackOverflow**](https://stackoverflow.com/a/45674912/26125642) | [**CC BY-SA 4.0**][CCBYSA4]
 
 ---
 
@@ -97,3 +97,4 @@ Cell 和 RefCell 类似于可变类型，但提供了防止别名问题的额外
 
 [badge-stackoverflow]: https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white
 [badge-CCBYSA4]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+[CCBYSA4]: https://creativecommons.org/licenses/by-sa/4.0/

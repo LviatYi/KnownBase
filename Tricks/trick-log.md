@@ -138,5 +138,3 @@
   }
 ]
 ```
-
-==INDEX(OFFSET('[Language_多语言表.xlsx]Sheet1'!$D$1,0,0,MaxCount),MATCH($B6,'[Language_多语言表.xlsx]Sheet1'!B1:B1000,0),1)

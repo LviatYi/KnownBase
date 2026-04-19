@@ -35,11 +35,18 @@ pub struct DisplayProps {
 
 ### 使用 newtype 包装原始类型
 
-newtype 最基础的作用是对一个简单类型提供了文本语义。
+newtype 最基础的作用是对一个简单类型提供了文本与类型语义。
 
 ```Rust
 struct Millimeter(f64);
 struct UserId(Uuid); struct OrderId(Uuid);
+```
+
+注意，这与常见的 type alias 不同：
+
+```Rust
+// type alias 不会拒绝将 UserId 传递给需要 OrderId 的函数
+type UserId = Uuid; type OrderId = Uuid;
 ```
 
 此外，在 Rust 中，还能轻松地为 newtype 赋予行为或 trait。
